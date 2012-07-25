@@ -34,6 +34,7 @@ For a complete list of steps you have to take a look at the step definitions the
 ### email_steps
 
 Check for the existance of an email with
+
     Then an email should have been sent with:
         """
         From: max.mustermann@example.com
@@ -42,9 +43,11 @@ Check for the existance of an email with
         Body: ...
         Attachments: ...
         """
+
 You can obviously skip lines.
 
 After you have used that step, you can also check for content with
+
     And that mail should have the following lines in the body:
       """
       Jede dieser Text-Zeilen
@@ -77,4 +80,4 @@ Some utility steps and transforms. Supports
 
 Most of cucumber-rails' original websteps plus some of our own.
 
-Note that cucumber-rails deprecated those a while ago (you can see the original deprecation notice at the top of [our web_steps](/makandra/spreewald/tree/master/lib/spreewald/web_steps.rb)). Make up your own mind whether you want to use them or not.
+Note that cucumber-rails deprecated those a while ago (you can see the original deprecation notice at the top of [our web_steps](/makandra/spreewald/blob/master/lib/spreewald/web_steps.rb)). Make up your own mind whether you want to use them or not.
