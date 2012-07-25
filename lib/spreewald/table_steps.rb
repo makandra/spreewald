@@ -33,41 +33,40 @@ module TableStepsHelper
   rspec = defined?(RSpec) ? RSpec : Spec
 
   rspec::Matchers.define :contain_table do |*args|
-    match do |table|
+    match do |tables|
+      @last_unmatched_row = nil
+      @best_rows_matched = -1
       expected_table, unordered = args
-      expected_table.all? do |expected_row|
-        @last_expected_row = expected_row
-        table.extend ArrayMethods
-        first_row = table.find_row(expected_row)
-        if first_row.nil?
-          false
-        else
-          if unordered
-            table.delete_at(first_row)
-          else
-            table = table[(first_row + 1)..-1]
+      tables.any? do |table|
+        rows_matched = 0
+        expected_table.all? do |expected_row|
+          if @best_rows_matched < rows_matched
+            @last_unmatched_row = expected_row
+            @best_rows_matched = rows_matched
           end
-          true
+          table.extend ArrayMethods
+          first_row = table.find_row(expected_row)
+          if first_row.nil?
+            false
+          else
+            rows_matched += 1
+            if unordered
+              table.delete_at(first_row)
+            else
+              table = table[(first_row + 1)..-1]
+            end
+            true
+          end
         end
       end
     end
 
     failure_message_for_should do
-      "Could not find the following row: #{@last_expected_row.inspect}"
-    end
-  end
-
-  rspec::Matchers.define :not_contain_table do |expected_table|
-    match do |table|
-      table.extend ArrayMethods
-      expected_table.none? do |expected_row|
-        @last_expected_row = expected_row
-        first_row = table.find_row(expected_row)
-      end
+      "Could not find the following row: #{@last_unmatched_row.inspect}"
     end
 
-    failure_message_for_should do
-      "Found the following row: #{@last_expected_row.inspect}"
+    failure_message_for_should_not do
+      "Found the complete table: #{args.first.inspect}."
     end
   end
 
@@ -88,16 +87,16 @@ end
 World(TableStepsHelper)
 
 
-Then /^I should( not)? see the following table rows( in any order)?:?$/ do |negate, unordered, expected_table|
+Then /^I should( not)? see a table with the following rows( in any order)?:?$/ do |negate, unordered, expected_table|
   patiently do
     document = Nokogiri::HTML(page.body)
-    table = document.xpath('//table//tr').collect { |row| row.xpath('.//th|td') }
+    tables = document.xpath('//table').collect { |table| table.xpath('.//tr').collect { |row| row.xpath('.//th|td') } }
     parsed_table = parse_table(expected_table)
 
     if negate
-      table.should not_contain_table(parsed_table)
+      tables.should_not contain_table(parsed_table, unordered)
     else
-      table.should contain_table(parsed_table, unordered)
+      tables.should contain_table(parsed_table, unordered)
     end
   end
 end
