@@ -5,9 +5,9 @@ require 'spreewald_support/version'
 Gem::Specification.new do |gem|
   gem.authors       = ["Tobias Kraze"]
   gem.email         = ["tobias@kraze.eu"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = %q{A collection of cucumber steps we use in our projects, including steps to check HTML, tables, emails and some utility methods.}
+  gem.summary       = %q{Collection of useful cucumber steps.}
+  gem.homepage      = "https://github.com/makandra/spreewald"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
