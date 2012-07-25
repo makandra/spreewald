@@ -31,7 +31,7 @@ Alternatively, you can require everything by doing
 
 For a complete list of steps you have to take a look at the step definitions themselves. This is just a rough overview.
 
-### email_steps
+### [email_steps](/makandra/spreewald/blob/master/lib/spreewald/email_steps.rb)
 
 Check for the existance of an email with
 
@@ -54,20 +54,20 @@ After you have used that step, you can also check for content with
       muss irgendwo im Body vorhanden sein
       """
 
-### table_steps
+### [table_steps](/makandra/spreewald/blob/master/lib/spreewald/table_steps.rb)
 
 Check the content of tables in your HTML.
 
 See [this article](https://makandracards.com/makandra/763-cucumber-step-to-match-table-rows-with-capybara) for details.
 
 
-### timecop_steps
+### [timecop_steps](/makandra/spreewald/blob/master/lib/spreewald/timecop_steps.rb)
 
-Steps to travel through time using [TimeCop](https://github.com/jtrupiano/timecop).
+Steps to travel through time using [Timecop](https://github.com/jtrupiano/timecop).
 
 See [this article](https://makandracards.com/makandra/1222-useful-cucumber-steps-to-travel-through-time-with-timecop) for details.
 
-### util_steps
+### [util_steps](/makandra/spreewald/blob/master/lib/spreewald/util_steps.rb)
 
 Some utility steps and transforms. Supports
 
@@ -76,7 +76,7 @@ Some utility steps and transforms. Supports
 * `@slow-motion` (waits 2 seconds after each step)
 * `@single-step` (waits for keyboard input after each step)
 
-### web_steps
+### [web_steps](/makandra/spreewald/blob/master/lib/spreewald/web_steps.rb)
 
 Most of cucumber-rails' original websteps plus some of our own.
 
