@@ -19,10 +19,13 @@ Or install it yourself as:
 ## Usage
 
 Steps are grouped into a number of categories. You can pick and choose single categories by putting something like
+
     require 'spreewald/email_steps'
+
 into your `support/env.rb`
 
 Alternatively, you can require everything by doing
+
     require 'spreewald/all_steps'
 
 ## Steps
