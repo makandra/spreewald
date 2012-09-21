@@ -125,11 +125,12 @@ Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field
   patiently do
     with_scope(parent) do
       field = find_field(field)
-      field_value = (field.tag_name == 'textarea') ? field.text : field.value
+      field_value = ((field.tag_name == 'textarea') && field.text.present?) ? field.text : field.value
       field_value.should =~ /#{value}/
     end
   end
 end
+
 
 Then /^the "([^"]*)" field(?: within (.*))? should not contain "([^"]*)"$/ do |field, parent, value|
   patiently do
@@ -140,7 +141,6 @@ Then /^the "([^"]*)" field(?: within (.*))? should not contain "([^"]*)"$/ do |f
     end
   end
 end
-
 Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_message|
   patiently do
     element = find_field(field)
