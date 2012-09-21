@@ -1,5 +1,3 @@
-# This is still work in progress, but will be released as a gem soon
-
 # Spreewald
 
 Spreewald is a collection of useful steps for cucumber. Feel free to fork.
