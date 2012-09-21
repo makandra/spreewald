@@ -4,6 +4,10 @@ Before do
   ActionMailer::Base.deliveries.clear
 end
 
+When /^I clear my emails$/ do
+  ActionMailer::Base.deliveries.clear
+end
+
 Then /^(an|no) e?mail should have been sent((?: |and|with|from "[^"]+"|to "[^"]+"|the subject "[^"]+"|the body "[^"]+"|the attachments "[^"]+")+)$/ do |mode, query|
   conditions = {}
   conditions[:to] = $1 if query =~ /to "([^"]+)"/

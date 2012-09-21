@@ -161,6 +161,13 @@ Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_me
   end
 end
 
+Then /^the "([^\"]*)" field should( not)? have an error$/ do |field, negate|
+  patiently do
+    expectation = negate ? :should_not : :should
+    page.send(expectation, have_css('.field_with_errors', :text => field))
+  end
+end
+
 Then /^the "([^"]*)" field should have no error$/ do |field|
   patiently do
     element = find_field(field)
@@ -185,6 +192,12 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label
       field_checked = find_field(label)['checked']
       field_checked.should be_false
     end
+  end
+end
+
+Then /^the radio button "([^"]*)" should( not)? be (?:checked\|selected)$/ do |field, negate|
+  patiently do
+    page.send((negate ? :has_no_checked_field? : :has_checked_field?), field)
   end
 end
 
