@@ -25,7 +25,7 @@ end
 When /^I follow the (first|second|third)? ?link in the e?mail$/ do |index_in_words|
   mail = @mail || ActionMailer::Base.deliveries.last
   index = { nil => 0, 'first' => 0, 'second' => 1, 'third' => 2 }[index_in_words]
-  visit mail.body.scan(Patterns::URL)[index][2]
+  visit mail.body.to_s.scan(Patterns::URL)[index][2]
 end
 
 Then /^no e?mail should have been sent$/ do
