@@ -195,7 +195,7 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label
   end
 end
 
-Then /^the radio button "([^"]*)" should( not)? be (?:checked\|selected)$/ do |field, negate|
+Then /^the radio button "([^"]*)" should( not)? be (?:checked|selected)$/ do |field, negate|
   patiently do
     page.send((negate ? :has_no_checked_field? : :has_checked_field?), field)
   end
