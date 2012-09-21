@@ -1,15 +1,3 @@
-Transform /^(.*?) \((\d+) times\)$/ do |string, times|
-  if string.is_a?(String)
-    string * times.to_i
-  else
-    string
-  end
-end
-
-Transform /^file:(.*)$/ do |path|
-  File.open(path)
-end
-
 Then /^it should work$/ do
   pending
 end

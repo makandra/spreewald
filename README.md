@@ -31,6 +31,16 @@ Alternatively, you can require everything by doing
 
 For a complete list of steps you have to take a look at the step definitions themselves. This is just a rough overview.
 
+### [development_steps](/makandra/spreewald/blob/master/lib/spreewald/development_steps.rb)
+
+Some development steps. Supports
+
+* `Then debugger`
+* `Then it should work`       (marks step as pending)
+* `@slow-motion` (waits 2 seconds after each step)
+* `@single-step` (waits for keyboard input after each step)
+
+
 ### [email_steps](/makandra/spreewald/blob/master/lib/spreewald/email_steps.rb)
 
 Check for the existance of an email with
@@ -66,15 +76,6 @@ See [this article](https://makandracards.com/makandra/763-cucumber-step-to-match
 Steps to travel through time using [Timecop](https://github.com/jtrupiano/timecop).
 
 See [this article](https://makandracards.com/makandra/1222-useful-cucumber-steps-to-travel-through-time-with-timecop) for details.
-
-### [util_steps](/makandra/spreewald/blob/master/lib/spreewald/util_steps.rb)
-
-Some utility steps and transforms. Supports
-
-* `Then debugger`
-* `Then it should work`       (marks step as pending)
-* `@slow-motion` (waits 2 seconds after each step)
-* `@single-step` (waits for keyboard input after each step)
 
 ### [web_steps](/makandra/spreewald/blob/master/lib/spreewald/web_steps.rb)
 

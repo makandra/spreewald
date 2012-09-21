@@ -34,11 +34,11 @@ When /^(.*) within (.*[^:]):$/ do |nested_step, parent, table_or_string|
 end
 
 Given /^(?:|I )am on (.+)$/ do |page_name|
-  visit path_to(page_name)
+  visit _path_to(page_name)
 end
 
 When /^(?:|I )go to (.+)$/ do |page_name|
-  visit path_to(page_name)
+  visit _path_to(page_name)
 end
 
 When /^(?:|I )press "([^"]*)"$/ do |button|
@@ -62,25 +62,6 @@ end
 When /^(?:|I )fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
   patiently do
     fill_in(field, :with => value)
-  end
-end
-
-# Use this to fill in an entire form with data from a table. Example:
-#
-#   When I fill in the following:
-#     | Account Number | 5002       |
-#     | Expiry date    | 2009-11-01 |
-#     | Note           | Nice guy   |
-#     | Wants Email?   |            |
-#
-# TODO: Add support for checkbox, select or option
-# based on naming conventions.
-#
-When /^(?:|I )fill in the following:$/ do |fields|
-  patiently do
-    fields.rows_hash.each do |name, value|
-      When %{I fill in "#{name}" with "#{value}"}
-    end
   end
 end
 
@@ -210,7 +191,7 @@ end
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   patiently do
     current_path = URI.parse(current_url).path
-    current_path.should == path_to(page_name)
+    current_path.should == _path_to(page_name)
   end
 end
 
