@@ -332,3 +332,26 @@ end
 Then /^I should get a text response$/ do
   step 'I should get a response with content-type "text/plain"'
 end
+
+When /^I follow "([^"]*)" inside any "([^"]*)"$/ do |label, selector|
+  node = first("#{selector} a", :text => label)
+  node.click
+end
+
+Then /^I should( not)? see "([^"]*)" inside any "([^"]*)"$/ do |negate, text, selector|
+  expectation = negate ? :should_not : :should
+  page.send(expectation, have_css(selector, :text => text))
+end
+
+When /^I fill in "([^"]*)" with "([^"]*)" inside any "([^"]*)"$/ do |field, value, selector|
+  containers = all(:css, selector)
+  input = nil
+  containers.detect do |container|
+    input = container.first(:xpath, XPath::HTML.fillable_field(field))
+  end
+  if input
+    input.set(value)
+  else
+    raise "Could not find an input field \"#{field}\" inside any \"#{selector}\""
+  end
+end
