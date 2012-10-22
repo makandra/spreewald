@@ -20,6 +20,7 @@
 
 require 'spreewald_support/tolerance_for_selenium_sync_issues'
 require 'spreewald_support/path_selector_fallbacks'
+require 'spreewald_support/legacy_support'
 require 'uri'
 require 'cgi'
 
@@ -121,24 +122,20 @@ Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
   end
 end
 
-Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field, parent, value|
+Then /^the "([^"]*)" field should contain "([^"]*)"$/ do |field, value|
   patiently do
-    with_scope(parent) do
-      field = find_field(field)
-      field_value = ((field.tag_name == 'textarea') && field.text.present?) ? field.text : field.value
-      field_value.should =~ /#{value}/
-    end
+    field = find_field(field)
+    field_value = ((field.tag_name == 'textarea') && field.text.present?) ? field.text : field.value
+    field_value.should =~ /#{value}/
   end
 end
 
 
-Then /^the "([^"]*)" field(?: within (.*))? should not contain "([^"]*)"$/ do |field, parent, value|
+Then /^the "([^"]*)" field should not contain "([^"]*)"$/ do |field, value|
   patiently do
-    with_scope(parent) do
-      field = find_field(field)
-      field_value = (field.tag_name == 'textarea') ? field.text : field.value
-      field_value.should_not =~ /#{value}/
-    end
+    field = find_field(field)
+    field_value = (field.tag_name == 'textarea') ? field.text : field.value
+    field_value.should_not =~ /#{value}/
   end
 end
 Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_message|
@@ -177,21 +174,17 @@ Then /^the "([^"]*)" field should have no error$/ do |field|
   end
 end
 
-Then /^the "([^"]*)" checkbox(?: within (.*))? should be checked$/ do |label, parent|
+Then /^the "([^"]*)" checkbox should be checked$/ do |label|
   patiently do
-    with_scope(parent) do
-      field_checked = find_field(label)['checked']
-      field_checked.should be_true
-    end
+    field_checked = find_field(label)['checked']
+    field_checked.should be_true
   end
 end
 
-Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label, parent|
+Then /^the "([^"]*)" checkbox should not be checked$/ do |label|
   patiently do
-    with_scope(parent) do
-      field_checked = find_field(label)['checked']
-      field_checked.should be_false
-    end
+    field_checked = find_field(label)['checked']
+    field_checked.should be_false
   end
 end
 
@@ -255,11 +248,9 @@ Then /^I should get a download with filename "([^\"]*)"$/ do |filename|
 end
 
 
-Then /^"([^"]*)" should be selected for "([^"]*)"(?: within "([^\"]*)")?$/ do |value, field, selector|
+Then /^"([^"]*)" should be selected for "([^"]*)"$/ do |value, field|
   patiently do
-    with_scope(selector) do
-      field_labeled(field).find(:xpath, ".//option[@selected = 'selected'][text() = '#{value}']").should be_present
-    end
+    field_labeled(field).find(:xpath, ".//option[@selected = 'selected'][text() = '#{value}']").should be_present
   end
 end
 
@@ -270,20 +261,16 @@ Then /^nothing should be selected for "([^"]*)"?$/ do |field|
   end
 end
 
-Then /^"([^"]*)" should( not)? be an option for "([^"]*)"(?: within "([^\"]*)")?$/ do |value, negate, field, selector|
+Then /^"([^"]*)" should( not)? be an option for "([^"]*)"$/ do |value, negate, field|
   patiently do
-    with_scope(selector) do
-      expectation = negate ? :should_not : :should
-      field_labeled(field).first(:xpath, ".//option[text() = '#{value}']").send(expectation, be_present)
-    end
+    expectation = negate ? :should_not : :should
+    field_labeled(field).first(:xpath, ".//option[text() = '#{value}']").send(expectation, be_present)
   end
 end
 
-Then /^(?:|I )should see '([^']*)'(?: within '([^']*)')?$/ do |text, selector|
+Then /^(?:|I )should see '([^']*)'$/ do |text|
   patiently do
-    with_scope(selector) do
-      page.should have_content(text)
-    end
+    page.should have_content(text)
   end
 end
 
