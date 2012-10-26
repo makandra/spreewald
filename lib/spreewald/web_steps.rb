@@ -23,6 +23,7 @@
 
 require 'spreewald_support/tolerance_for_selenium_sync_issues'
 require 'spreewald_support/path_selector_fallbacks'
+require 'spreewald_support/step_fallback'
 require 'uri'
 require 'cgi'
 
