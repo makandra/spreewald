@@ -4,7 +4,7 @@ module DocumentationGenerator
     def parse_and_format_comment(comment)
       comment.strip!
       comment_lines = comment.split("\n").take_while { |line| line =~ /^\s*#/ }
-      comment_lines && comment_lines.join("\n").gsub(/^\s*#\s?/, '')
+      comment_lines && comment_lines.join("\n").gsub(/^\s*# ?/, '')
     end
   end
 
@@ -18,7 +18,7 @@ module DocumentationGenerator
     end
 
     def self.try_and_parse(code)
-      definition = code[/^\s*((When|Then|Given).*)do/, 1]
+      definition = code[/^\s*((When|Then|Given|AfterStep).*)do/, 1]
       return unless definition
       comment = parse_and_format_comment(code)
       return if comment =~ /\bnodoc\b/
@@ -27,18 +27,25 @@ module DocumentationGenerator
 
     def format
       <<-TEXT
-#### #{format_definition}
+* **#{format_definition}**
 
-#{@comment}
+#{@comment.gsub(/^/, '  ')}
       TEXT
     end
 
     def format_definition
-      @definition.
-        gsub('/^', '').
-        gsub('$/', '').
-        gsub(' ?', ' ').
-        gsub(/\(\[\^\\?"\](\*|\+)\)/, '...')
+      if @definition =~ /AfterStep/
+        @definition[/@\w*/]
+      else
+        @definition.
+          gsub('/^', '').
+          gsub('$/', '').
+          gsub(' ?', ' ').
+          gsub(/\(\[\^\\?"\](\*|\+)\)/, '...').
+          gsub('(?:|I )', 'I ').
+          gsub('?:', '').
+          gsub(/\(\.(\+|\*)\)/, '...')
+      end
     end
   end
 
@@ -89,7 +96,7 @@ module DocumentationGenerator
   class StepDefinitionsDirectory
     def initialize(directory)
       @step_definition_files = []
-      Dir["#{directory}/*.rb"].each do |filename|
+      Dir["#{directory}/*.rb"].to_a.sort.each do |filename|
         next if filename =~ /all_steps/
         @step_definition_files << StepDefinitionFile.new(filename)
       end

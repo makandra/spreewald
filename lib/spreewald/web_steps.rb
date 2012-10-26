@@ -29,7 +29,8 @@ require 'cgi'
 
 # You can append 'within [selector]' to any other web step
 # Example:
-#     Then I should see "some text" within ".page_body"
+#
+#       Then I should see "some text" within ".page_body"
 When /^(.*) within (.*[^:])$/ do |nested_step, parent|
   with_scope(parent) { step(nested_step) }
 end
@@ -59,42 +60,42 @@ When /^(?:|I )follow "([^"]*)"$/ do |link|
   end
 end
 
-# fill in text field
+# Fill in text field
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
   patiently do
     fill_in(field, :with => value)
   end
 end
 
-# fill in text field
+# Fill in text field
 When /^(?:|I )fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
   patiently do
     fill_in(field, :with => value)
   end
 end
 
-# select from select box
+# Select from select box
 When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
   patiently do
     select(value, :from => field)
   end
 end
 
-# check a checkbox
+# Check a checkbox
 When /^(?:|I )check "([^"]*)"$/ do |field|
   patiently do
     check(field)
   end
 end
 
-# uncheck a checkbox
+# Uncheck a checkbox
 When /^(?:|I )uncheck "([^"]*)"$/ do |field|
   patiently do
     uncheck(field)
   end
 end
 
-# select a radio button
+# Select a radio button
 When /^(?:|I )choose "([^"]*)"$/ do |field|
   patiently do
     choose(field)
@@ -107,16 +108,18 @@ When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
   end
 end
 
-# checks that some text appears on the page
-# note that this does not detect if the text might be hidden via CSS
+# Checks that some text appears on the page
+#
+# Note that this does not detect if the text might be hidden via CSS
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
   patiently do
     page.should have_content(text)
   end
 end
 
-# checks that a regexp appears on the page
-# note that this does not detect if the text might be hidden via CSS
+# Checks that a regexp appears on the page
+#
+# Note that this does not detect if the text might be hidden via CSS
 Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
   patiently do
@@ -138,7 +141,7 @@ Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
 end
 
 
-# checks that a input field contains some value
+# Checks that a input field contains some value
 Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field, parent, value|
   patiently do
     with_scope(parent) do
@@ -232,11 +235,12 @@ Then /^(?:|I )should be on (.+)$/ do |page_name|
 end
 
 # Example:
-#     I should have the following query string:
-#       | locale        | de  |
-#       | currency_code | EUR |
 #
-# succeeds when the URL contains the given "locale" and "currency_code" params
+#       I should have the following query string:
+#         | locale        | de  |
+#         | currency_code | EUR |
+#
+# Succeeds when the URL contains the given "locale" and "currency_code" params
 Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   patiently do
     query = URI.parse(current_url).query
@@ -248,7 +252,7 @@ Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   end
 end
 
-# open the current Capybara page using the "launchy" gem
+# Open the current Capybara page using the "launchy" gem
 Then /^show me the page$/ do
   save_and_open_page
 end
@@ -267,8 +271,10 @@ Then /^I should( not)? see a field "([^"]*)"$/ do |negate, name|
   end
 end
 
-# Better way to test for a number of money amount than a "Then I should see"
-# checks that there is unexpected minus sign, decimal places etc.
+# Better way to test for a number of money amount than a `Then I should see`
+#
+# Checks that there is unexpected minus sign, decimal places etc.
+#
 # See [here](https://makandracards.com/makandra/1225-test-that-a-number-or-money-amount-is-shown-with-cucumber) for details
 Then /^I should( not)? see the (?:number|amount) ([\-\d,\.]+)(?: (.*?))?$/ do |negate, amount, unit|
   no_minus = amount.starts_with?('-') ? '' : '[^\\-]'
@@ -280,17 +286,17 @@ Then /^I should( not)? see the (?:number|amount) ([\-\d,\.]+)(?: (.*?))?$/ do |n
   end
 end
 
-# checks "Content-Type" HTTP header
+# Checks "Content-Type" HTTP header
 Then /^I should get a response with content-type "([^\"]*)"$/ do |expected_content_type|
   page.response_headers['Content-Type'].should =~ /\A#{Regexp.quote(expected_content_type)}($|;)/
 end
 
-# checks "Content-Disposition" HTTP header
+# Checks "Content-Disposition" HTTP header
 Then /^I should get a download with filename "([^\"]*)"$/ do |filename|
   page.response_headers['Content-Disposition'].should =~ /filename="#{filename}"$/
 end
 
-# checks that a certain option is selected for a text field
+# Checks that a certain option is selected for a text field
 Then /^"([^"]*)" should be selected for "([^"]*)"$/ do |value, field, selector|
   patiently do
     field_labeled(field).find(:xpath, ".//option[@selected = 'selected'][text() = '#{value}']").should be_present
@@ -304,7 +310,7 @@ Then /^nothing should be selected for "([^"]*)"?$/ do |field|
   end
 end
 
-# checks for the presence of an option in a select
+# Checks for the presence of an option in a select
 Then /^"([^"]*)" should( not)? be an option for "([^"]*)"(?: within "([^\"]*)")?$/ do |value, negate, field, selector|
   patiently do
     with_scope(selector) do
@@ -314,7 +320,7 @@ Then /^"([^"]*)" should( not)? be an option for "([^"]*)"(?: within "([^\"]*)")?
   end
 end
 
-# Like "Then I should see", but with single instead of double quotes. In case the string contains quotes as well.
+# Like `Then I should see`, but with single instead of double quotes. In case the string contains quotes as well.
 Then /^(?:|I )should see '([^']*)'(?: within '([^']*)')?$/ do |text, selector|
   patiently do
     page.should have_content(text)
@@ -420,7 +426,8 @@ When /^I click on "([^\"]+)"$/ do |text|
 end
 
 # Example:
-#     Then I should see an element ".page .container"
+#
+#       Then I should see an element ".page .container"
 Then /^I should (not )?see an element "([^"]*)"$/ do |negate, selector|
   expectation = negate ? :should_not : :should
   patiently do
@@ -435,8 +442,10 @@ end
 
 # Click a link within an element matching the given selector. Will try to be clever
 # and disregard elements that don't contain a matching link.
+#
 # Example:
-#     When I follow "Read more" inside any ".text_snippet"
+#
+#       When I follow "Read more" inside any ".text_snippet"
 #
 When /^I follow "([^"]*)" inside any "([^"]*)"$/ do |label, selector|
   node = first("#{selector} a", :text => label)

@@ -9,7 +9,8 @@ When /^I clear my emails$/ do
 end
 
 # Example:
-#     Then an email should have been sent with:
+#
+#       Then an email should have been sent with:
 #         """
 #         From: max.mustermann@example.com
 #         To: john.doe@example.com
@@ -74,12 +75,14 @@ end
 
 
 # Only works after you've retrieved the email using "Then an email should have been sent with:"
+#
 # Example:
-#     And that mail should have the following lines in the body:
-#       """
-#       All of these lines
-#       need to be present
-#       """
+#
+#       And that mail should have the following lines in the body:
+#         """
+#         All of these lines
+#         need to be present
+#         """
 Then /^that e?mail should have the following lines in the body:$/ do |body|
   body.each do |line|
     @mail.body.should include(line.strip)
