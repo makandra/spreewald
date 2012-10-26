@@ -312,15 +312,56 @@ When /^I reload the page$/ do
 end
 
 Then /^"([^\"]+)" should( not)? be visible$/ do |text, negate|
-  paths = [
-    "//*[@class='hidden']/*[contains(.,'#{text}')]",
-    "//*[@class='invisible']/*[contains(.,'#{text}')]",
-    "//*[@style='display: none;']/*[contains(.,'#{text}')]"
-  ]
-  xpath = paths.join '|'
-  expectation = negate ? :should : :should_not
-  patiently do
-    page.send(expectation, have_xpath(xpath))
+  case Capybara::current_driver
+  when :selenium, :webkit
+    visibility_detecting_javascript = %[
+      (function() {
+
+        var containsSelector = ':contains(#{text.to_json})';
+        var jqueryLoaded = (typeof jQuery != 'undefined');
+
+        function findCandidates() {
+          if (jqueryLoaded) {
+            return $(containsSelector);
+          } else {
+            return $$(containsSelector);
+          }
+        }
+
+        function isExactCandidate(candidate) {
+          if (jqueryLoaded) {
+            return $(candidate).children().find(containsSelector).length == 0;
+          } else {
+            return candidate.select(containsSelector).length == 0;
+          }
+        }
+
+        function elementVisible(element) {
+          if (jqueryLoaded) {
+            return $(element).is(':visible');
+          } else {
+            return element.offsetWidth > 0 && element.offsetHeight > 0;
+          }
+        }
+
+        var candidates = findCandidates();
+
+        for (var i = 0; i < candidates.length; i++) {
+          var candidate = candidates[i];
+          if (isExactCandidate(candidate) && elementVisible(candidate)) {
+            return true;
+          }
+        }
+        return false;
+
+      })();
+    ].gsub(/\n/, ' ')
+    matcher = negate ? be_false : be_true
+    page.evaluate_script(visibility_detecting_javascript).should matcher
+  else
+    invisibility_detecting_matcher = have_css('.hidden, .invisible, [style~="display: none"]', :text => text)
+    expectation = negate ? :should : :should_not # sic
+    page.send(expectation, invisibility_detecting_matcher)
   end
 end
 
