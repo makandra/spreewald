@@ -4,7 +4,7 @@ Before do
   ActionMailer::Base.deliveries.clear
 end
 
-When /^I clear my emails$/ do
+When /^I clear my e?mails$/ do
   ActionMailer::Base.deliveries.clear
 end
 
