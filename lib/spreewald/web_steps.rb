@@ -307,7 +307,7 @@ end
 Then /^nothing should be selected for "([^"]*)"?$/ do |field|
   patiently do
     select = find_field(field)
-    select.should_not have_css('option[selected]')
+    select.find(:xpath, ".//option[@selected = 'selected']").should be_blank
   end
 end
 
