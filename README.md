@@ -28,6 +28,22 @@ Alternatively, you can require everything by doing
 
     require 'spreewald/all_steps'
 
+## Waiting for page load
+
+Spreewald's web steps are all aware, that you might run them with a Selenium/Capybara webdriver, and wait for the browser to finish loading the page, if necessary.
+
+This is done, by rerunning any assertions until they suceed, or a timeout is reached.
+
+You can achieve this in your own steps by wrapping them inside a `patiently do` block, like
+
+    Then /^I should see "([^\"]*)" in the HTML$/ do |text|
+      patiently do
+        page.body.should include(text)
+      end
+    end
+
+More info [here](https://makandracards.com/makandra/12139-waiting-for-page-load-with-spreewald).
+
 ## Steps
 
 ### development_steps.rb
