@@ -417,7 +417,7 @@ When /^I click on "([^\"]+)"$/ do |text|
   matcher = ['*', { :text => text }]
   patiently do
     element = page.find(:css, *matcher)
-    while better_match = element.first(:css, *matcher)
+    while better_match = element.find(:css, *matcher)
       element = better_match
     end
     element.click
