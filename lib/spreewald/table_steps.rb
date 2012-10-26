@@ -1,3 +1,8 @@
+# Check the content of tables in your HTML.
+# 
+# See [this article](https://makandracards.com/makandra/763-cucumber-step-to-match-table-rows-with-capybara) for details.
+
+ 
 require 'spreewald_support/tolerance_for_selenium_sync_issues'
 
 module TableStepsHelper
