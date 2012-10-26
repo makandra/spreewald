@@ -298,7 +298,7 @@ Then /^I should get a download with filename "([^\"]*)"$/ do |filename|
 end
 
 # Checks that a certain option is selected for a text field
-Then /^"([^"]*)" should be selected for "([^"]*)"$/ do |value, field, selector|
+Then /^"([^"]*)" should be selected for "([^"]*)"$/ do |value, field|
   patiently do
     field_labeled(field).find(:xpath, ".//option[@selected = 'selected'][text() = '#{value}']").should be_present
   end
@@ -312,17 +312,15 @@ Then /^nothing should be selected for "([^"]*)"?$/ do |field|
 end
 
 # Checks for the presence of an option in a select
-Then /^"([^"]*)" should( not)? be an option for "([^"]*)"(?: within "([^\"]*)")?$/ do |value, negate, field, selector|
+Then /^"([^"]*)" should( not)? be an option for "([^"]*)"$/ do |value, negate, field|
   patiently do
-    with_scope(selector) do
-      expectation = negate ? :should_not : :should
-      field_labeled(field).first(:xpath, ".//option[text() = '#{value}']").send(expectation, be_present)
-    end
+    expectation = negate ? :should_not : :should
+    field_labeled(field).find(:xpath, ".//option[text() = '#{value}']").send(expectation, be_present)
   end
 end
 
 # Like `Then I should see`, but with single instead of double quotes. In case the string contains quotes as well.
-Then /^(?:|I )should see '([^']*)'(?: within '([^']*)')?$/ do |text, selector|
+Then /^(?:|I )should see '([^']*)'$/ do |text|
   patiently do
     page.should have_content(text)
   end
