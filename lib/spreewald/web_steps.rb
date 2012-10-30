@@ -377,7 +377,7 @@ Then /^"([^\"]+)" should( not)? be visible$/ do |text, negate|
 
         function isExactCandidate(candidate) {
           if (jqueryLoaded) {
-            return $(candidate).children().find(containsSelector).length == 0;
+            return $(candidate).find(containsSelector).length == 0;
           } else {
             return candidate.select(containsSelector).length == 0;
           }
