@@ -2,7 +2,7 @@
 
 module PathSelectorFallbacks
   def _selector_for(locator)
-    if respond_to?(:select_for)
+    if respond_to?(:selector_for)
       selector_for(locator)
     elsif locator =~ /^"(.+)"$/
       $1
