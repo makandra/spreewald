@@ -1,3 +1,5 @@
+# coding: UTF-8
+
 module PathSelectorFallbacks
   def _selector_for(locator)
     if respond_to?(:select_for)

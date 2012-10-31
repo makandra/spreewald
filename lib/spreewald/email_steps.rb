@@ -1,3 +1,5 @@
+# coding: UTF-8
+
 require 'spreewald_support/mail_finder'
 
 Before do

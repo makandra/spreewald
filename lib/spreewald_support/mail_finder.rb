@@ -1,3 +1,5 @@
+# coding: UTF-8
+
 class MailFinder
   class << self
 

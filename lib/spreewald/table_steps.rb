@@ -1,3 +1,5 @@
+# coding: UTF-8
+
 # Check the content of tables in your HTML.
 # 
 # See [this article](https://makandracards.com/makandra/763-cucumber-step-to-match-table-rows-with-capybara) for details.
@@ -29,7 +31,7 @@ module TableStepsHelper
     end
 
     def normalize_content(content)
-      nbsp = 0xC2.chr + 0xA0.chr
+      nbsp = " "
       content.gsub(/[\r\n\t]+/, ' ').gsub(nbsp, ' ').gsub(/ {2,}/, ' ').strip
     end
 

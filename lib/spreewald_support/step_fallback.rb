@@ -1,3 +1,5 @@
+# coding: UTF-8
+
 module StepFallback
   def step(*args)
     if defined?(super)

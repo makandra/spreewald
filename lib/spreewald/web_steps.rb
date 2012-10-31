@@ -1,3 +1,5 @@
+# coding: UTF-8
+
 # Most of cucumber-rails' original web steps plus a few of our own. 
 #
 # Note that cucumber-rails deprecated all its steps quite a while ago with the following
@@ -279,7 +281,7 @@ end
 # See [here](https://makandracards.com/makandra/1225-test-that-a-number-or-money-amount-is-shown-with-cucumber) for details
 Then /^I should( not)? see the (?:number|amount) ([\-\d,\.]+)(?: (.*?))?$/ do |negate, amount, unit|
   no_minus = amount.starts_with?('-') ? '' : '[^\\-]'
-  nbsp = 0xC2.chr + 0xA0.chr
+  nbsp = " "
   regexp = Regexp.new(no_minus + "\\b" + Regexp.quote(amount) + (unit ? "( |#{nbsp}|&nbsp;)(#{unit}|#{Regexp.quote(HTMLEntities.new.encode(unit, :named))})" :"\\b"))
   expectation = negate ? :should_not : :should
   patiently do

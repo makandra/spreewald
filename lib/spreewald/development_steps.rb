@@ -1,4 +1,4 @@
-#
+# coding: UTF-8
 
 # Marks scenario as pending
 Then /^it should work$/ do

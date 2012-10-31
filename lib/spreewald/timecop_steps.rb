@@ -1,3 +1,6 @@
+# coding: UTF-8
+
+
 # Steps to travel through time using [Timecop](https://github.com/jtrupiano/timecop).
 # 
 # See [this article](https://makandracards.com/makandra/1222-useful-cucumber-steps-to-travel-through-time-with-timecop) for details.

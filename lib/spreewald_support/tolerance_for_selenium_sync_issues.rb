@@ -1,3 +1,5 @@
+# coding: UTF-8
+
 module ToleranceForSeleniumSyncIssues
   # This is similiar but not entirely the same as Capybara::Node::Base#wait_until or Capybara::Session#wait_until
   def patiently(seconds=Capybara.default_wait_time, &block)
