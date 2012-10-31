@@ -64,14 +64,14 @@ When /^(?:|I )follow "([^"]*)"$/ do |link|
 end
 
 # Fill in text field
-When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
+When /^(?:|I )fill in "([^"]*)" (?:with|for) "([^"]*)"$/ do |field, value|
   patiently do
     fill_in(field, :with => value)
   end
 end
 
 # Fill in text field
-When /^(?:|I )fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
+When /^(?:|I )fill in "([^"]*)" (?:with|for) '(.*)'$/ do |field, value|
   patiently do
     fill_in(field, :with => value)
   end

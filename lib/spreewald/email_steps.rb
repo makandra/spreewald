@@ -38,7 +38,7 @@ Then /^(an|no) e?mail should have been sent with:$/ do |mode, raw_data|
 end
 
 # nodoc
-Then /^(an|no) e?mail should have been sent((?: |and|with|from "[^"]+"|to "[^"]+"|the subject "[^"]+"|the body "[^"]+"|the attachments "[^"]+")+)$/ do |mode, query|
+Then /^(an|no) e?mail should have been sent((?: |and|with|from "[^"]+"|bcc "[^"]+"|to "[^"]+"|the subject "[^"]+"|the body "[^"]+"|the attachments "[^"]+")+)$/ do |mode, query|
   conditions = {}
   conditions[:to] = $1 if query =~ /to "([^"]+)"/
   conditions[:cc] = $1 if query =~ / cc "([^"]+)"/
@@ -56,7 +56,7 @@ end
 When /^I follow the (first|second|third)? ?link in the e?mail$/ do |index_in_words|
   mail = @mail || ActionMailer::Base.deliveries.last
   index = { nil => 0, 'first' => 0, 'second' => 1, 'third' => 2 }[index_in_words]
-  visit mail.body.to_s.scan(Patterns::URL)[index][2]
+  visit MailFinder.email_text_body(mail).to_s.scan(Patterns::URL)[index][2]
 end
 
 Then /^no e?mail should have been sent$/ do
@@ -65,7 +65,7 @@ end
 
 # Checks that the last sent email includes some text
 Then /^I should see "([^\"]*)" in the e?mail$/ do |text|
-  ActionMailer::Base.deliveries.last.body.should include(text)
+  MailFinder.email_text_body(ActionMailer::Base.deliveries.last).should include(text)
 end
 
 # Print all sent emails to STDOUT.
