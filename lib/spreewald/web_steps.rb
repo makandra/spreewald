@@ -316,8 +316,15 @@ end
 # Checks for the presence of an option in a select
 Then /^"([^"]*)" should( not)? be an option for "([^"]*)"$/ do |value, negate, field|
   patiently do
-    expectation = negate ? :should_not : :should
-    field_labeled(field).find(:xpath, ".//option[text() = '#{value}']").send(expectation, be_present)
+    xpath = ".//option[text() = '#{value}']"
+    if negate
+      begin
+        field_labeled(field).find(:xpath, xpath).should_not be_present
+      rescue Capybara::ElementNotFound
+      end
+    else
+      field_labeled(field).find(:xpath, xpath).should be_present
+    end
   end
 end
 
