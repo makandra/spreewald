@@ -477,3 +477,17 @@ When /^I fill in "([^"]*)" with "([^"]*)" inside any "([^"]*)"$/ do |field, valu
     raise "Could not find an input field \"#{field}\" inside any \"#{selector}\""
   end
 end
+
+When /^I confirm the browser dialog$/ do
+  page.driver.browser.switch_to.alert.accept
+end
+
+When /^I cancel the browser dialog$/ do
+  page.driver.browser.switch_to.alert.dismiss
+end
+
+When /^I enter "([^"]*)" into the browser dialog$/ do |text|
+  alert = page.driver.browser.switch_to.alert
+  alert.send_keys(text)
+  alert.accept
+end
