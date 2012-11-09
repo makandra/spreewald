@@ -48,7 +48,7 @@ More info [here](https://makandracards.com/makandra/12139-waiting-for-page-load-
 
 ### development_steps.rb
 
-
+Marks scenario as pending
 
 * **Then it should work**
 
@@ -75,7 +75,7 @@ More info [here](https://makandracards.com/makandra/12139-waiting-for-page-load-
 
 
 
-* **When I clear my emails**
+* **When I clear my e?mails**
 
   
 
@@ -231,12 +231,12 @@ deprecation notice. Decide for yourself whether you want to use them:
   
 
 
-* **When I fill in "..." with "..."**
+* **When I fill in "..." (with|for) "..."**
 
   Fill in text field
 
 
-* **When I fill in "..." for "..."**
+* **When I fill in "..." (with|for) '...'**
 
   Fill in text field
 
@@ -375,12 +375,12 @@ deprecation notice. Decide for yourself whether you want to use them:
   
 
 
-* **Then "..." should( not)? be an option for "..."( within "...")?**
+* **Then "..." should( not)? be an option for "..."**
 
   Checks for the presence of an option in a select
 
 
-* **Then I should see '([^']*)'( within '([^']*)')?**
+* **Then I should see '([^']*)'**
 
   Like `Then I should see`, but with single instead of double quotes. In case the string contains quotes as well.
 
@@ -426,6 +426,7 @@ deprecation notice. Decide for yourself whether you want to use them:
         Then I should see an element ".page .container"
 
 
+
 * **Then I should get a text response**
 
   Checks that the result has content type text/plain
@@ -450,4 +451,33 @@ deprecation notice. Decide for yourself whether you want to use them:
 * **When I fill in "..." with "..." inside any "..."**
 
   
+
+
+* **When I confirm the browser dialog**
+
+  
+
+
+* **When I cancel the browser dialog**
+
+  
+
+
+* **When I enter "..." into the browser dialog**
+
+  
+
+
+* **Then I should see in this order:?**
+
+  Checks that these strings are rendered in the given order in a single line or in multiple lines
+  
+  Example:
+  
+        Then I should see in this order:
+          | Alpha Group |
+          | Augsburg    |
+          | Berlin      |
+          | Beta Group  |
+
 
