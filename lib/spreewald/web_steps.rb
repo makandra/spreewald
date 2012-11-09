@@ -436,6 +436,7 @@ end
 # Example:
 #
 #       Then I should see an element ".page .container"
+#
 Then /^I should (not )?see an element "([^"]*)"$/ do |negate, selector|
   expectation = negate ? :should_not : :should
   patiently do
@@ -490,4 +491,26 @@ When /^I enter "([^"]*)" into the browser dialog$/ do |text|
   alert = page.driver.browser.switch_to.alert
   alert.send_keys(text)
   alert.accept
+end
+
+# Checks that these strings are rendered in the given order in a single line or in multiple lines
+#
+# Example:
+#
+#       Then I should see in this order:
+#         | Alpha Group |
+#         | Augsburg    |
+#         | Berlin      |
+#         | Beta Group  |
+#
+Then /^I should see in this order:?$/ do |text|
+  if text.is_a?(String)
+    lines = text.split(/\n/)
+  else
+    lines = text.raw.flatten
+  end
+  lines = lines.collect { |line| line.gsub(/\s+/, ' ')}.collect(&:strip).reject(&:blank?)
+  pattern = lines.collect(&Regexp.method(:quote)).join('.*?')
+  pattern = Regexp.compile(pattern)
+  page.body.gsub(/\s+/, ' ').should =~ pattern
 end
