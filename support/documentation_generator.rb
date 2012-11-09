@@ -2,6 +2,7 @@ module DocumentationGenerator
 
   module CommentExtractor
     def parse_and_format_comment(comment)
+      comment.gsub!(/.*coding:.*UTF-8.*/, '')
       comment.strip!
       comment_lines = comment.split("\n").take_while { |line| line =~ /^\s*#/ }
       comment_lines && comment_lines.join("\n").gsub(/^\s*# ?/, '')
