@@ -309,7 +309,10 @@ end
 Then /^nothing should be selected for "([^"]*)"?$/ do |field|
   patiently do
     select = find_field(field)
-    select.find(:xpath, ".//option[@selected = 'selected']").should be_blank
+    proc {
+      select.find(:xpath, ".//option[@selected = 'selected']")
+    }.should raise_exception Capybara::ElementNotFound
+
   end
 end
 
