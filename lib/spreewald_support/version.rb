@@ -1,5 +1,5 @@
 # coding: UTF-8
 
 module Spreewald
-  VERSION = "0.3.0"
+  VERSION = "0.3.1"
 end
