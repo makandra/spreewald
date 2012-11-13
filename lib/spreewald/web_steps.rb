@@ -373,50 +373,52 @@ end
 Then /^"([^\"]+)" should( not)? be visible$/ do |text, negate|
   case Capybara::current_driver
   when :selenium, :webkit
-    visibility_detecting_javascript = %[
-      (function() {
+    patiently do
+      visibility_detecting_javascript = %[
+        (function() {
 
-        var containsSelector = ':contains(#{text.to_json})';
-        var jqueryLoaded = (typeof jQuery != 'undefined');
+          var containsSelector = ':contains(#{text.to_json})';
+          var jqueryLoaded = (typeof jQuery != 'undefined');
 
-        function findCandidates() {
-          if (jqueryLoaded) {
-            return $(containsSelector);
-          } else {
-            return $$(containsSelector);
+          function findCandidates() {
+            if (jqueryLoaded) {
+              return $(containsSelector);
+            } else {
+              return $$(containsSelector);
+            }
           }
-        }
 
-        function isExactCandidate(candidate) {
-          if (jqueryLoaded) {
-            return $(candidate).find(containsSelector).length == 0;
-          } else {
-            return candidate.select(containsSelector).length == 0;
+          function isExactCandidate(candidate) {
+            if (jqueryLoaded) {
+              return $(candidate).find(containsSelector).length == 0;
+            } else {
+              return candidate.select(containsSelector).length == 0;
+            }
           }
-        }
 
-        function elementVisible(element) {
-          if (jqueryLoaded) {
-            return $(element).is(':visible');
-          } else {
-            return element.offsetWidth > 0 && element.offsetHeight > 0;
+          function elementVisible(element) {
+            if (jqueryLoaded) {
+              return $(element).is(':visible');
+            } else {
+              return element.offsetWidth > 0 && element.offsetHeight > 0;
+            }
           }
-        }
 
-        var candidates = findCandidates();
+          var candidates = findCandidates();
 
-        for (var i = 0; i < candidates.length; i++) {
-          var candidate = candidates[i];
-          if (isExactCandidate(candidate) && elementVisible(candidate)) {
-            return true;
+          for (var i = 0; i < candidates.length; i++) {
+            var candidate = candidates[i];
+            if (isExactCandidate(candidate) && elementVisible(candidate)) {
+              return true;
+            }
           }
-        }
-        return false;
+          return false;
 
-      })();
-    ].gsub(/\n/, ' ')
-    matcher = negate ? be_false : be_true
-    page.evaluate_script(visibility_detecting_javascript).should matcher
+        })();
+      ].gsub(/\n/, ' ')
+      matcher = negate ? be_false : be_true
+      page.evaluate_script(visibility_detecting_javascript).should matcher
+    end
   else
     invisibility_detecting_matcher = have_css('.hidden, .invisible, [style~="display: none"]', :text => text)
     expectation = negate ? :should : :should_not # sic
