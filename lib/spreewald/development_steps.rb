@@ -8,6 +8,7 @@ end
 # Starts debugger
 Then /^debugger$/ do
   debugger
+  true # Ruby will halt in this line
 end
 
 # Waits 2 seconds after each step
