@@ -2,6 +2,7 @@
 require "bundler/gem_tasks"
 
 
+desc 'Update the "Steps" section of the README'
 task "update_readme" do
   require 'support/documentation_generator'
   readme = File.read('README.md')
