@@ -30,9 +30,9 @@ Alternatively, you can require everything by doing
 
 ## Waiting for page load
 
-Spreewald's web steps are all aware, that you might run them with a Selenium/Capybara webdriver, and wait for the browser to finish loading the page, if necessary.
+Spreewald's web steps are all aware that you might run them with a Selenium/Capybara webdriver, and wait for the browser to finish loading the page, if necessary.
 
-This is done, by rerunning any assertions until they suceed, or a timeout is reached.
+This is done by rerunning any assertions until they suceed or a timeout is reached.
 
 You can achieve this in your own steps by wrapping them inside a `patiently do` block, like
 
@@ -48,7 +48,6 @@ More info [here](https://makandracards.com/makandra/12139-waiting-for-page-load-
 
 ### development_steps.rb
 
-Marks scenario as pending
 
 * **Then it should work**
 
@@ -77,13 +76,13 @@ Marks scenario as pending
 
 * **When I clear my e?mails**
 
-  
+
 
 
 * **Then (an|no) e?mail should have been sent with:**
 
   Example:
-  
+
         Then an email should have been sent with:
           """
           From: max.mustermann@example.com
@@ -92,7 +91,7 @@ Marks scenario as pending
           Body: ...
           Attachments: ...
           """
-  
+
   You can skip lines, of course.
 
 
@@ -103,7 +102,7 @@ Marks scenario as pending
 
 * **Then no e?mail should have been sent**
 
-  
+
 
 
 * **Then I should see "..." in the e?mail**
@@ -119,9 +118,9 @@ Marks scenario as pending
 * **Then that e?mail should have the following lines in the body:**
 
   Only works after you've retrieved the email using "Then an email should have been sent with:"
-  
+
   Example:
-  
+
         And that mail should have the following lines in the body:
           """
           All of these lines
@@ -144,7 +143,7 @@ See [this article](https://makandracards.com/makandra/763-cucumber-step-to-match
 
 * **Then I should( not)? see a table with the following rows( in any order)?**
 
-  
+
 
 
 
@@ -157,7 +156,7 @@ See [this article](https://makandracards.com/makandra/1222-useful-cucumber-steps
 * **When the (date|time) is "(\d{4}-\d{2}-\d{2}( \d{1,2}:\d{2})?)"**
 
   Example:
-  
+
         Given the date is "2012-02-10"
         Given the time is "2012-02-10 13:40"
 
@@ -165,14 +164,14 @@ See [this article](https://makandracards.com/makandra/1222-useful-cucumber-steps
 * **When the time is "(\d{1,2}:\d{2})"**
 
   Example:
-  
+
         Given the time is "13:40"
 
 
 * **When it is (\d+|a|some|a few) (seconds?|minutes?|hours?|days?|weeks?|months?|years?) (later|earlier)**
 
   Example:
-  
+
         When it is 10 minutes later
         When it is a few hours earlier
 
@@ -180,7 +179,7 @@ See [this article](https://makandracards.com/makandra/1222-useful-cucumber-steps
 
 ### web_steps.rb
 
-Most of cucumber-rails' original web steps plus a few of our own. 
+Most of cucumber-rails' original web steps plus a few of our own.
 
 Note that cucumber-rails deprecated all its steps quite a while ago with the following
 deprecation notice. Decide for yourself whether you want to use them:
@@ -205,30 +204,31 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 * **When ... within (.*[^:])**
 
-  You can append 'within [selector]' to any other web step
+  You can append 'within [selector]' to any other web step.
+
   Example:
-  
+
         Then I should see "some text" within ".page_body"
 
 
 * **Given I am on ...**
 
-  
+
 
 
 * **When I go to ...**
 
-  
+
 
 
 * **When I press "..."**
 
-  
+
 
 
 * **When I follow "..."**
 
-  
+
 
 
 * **When I fill in "..." (with|for) "..."**
@@ -263,31 +263,31 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 * **When I attach the file "..." to "..."**
 
-  
+
 
 
 * **Then I should see "..."**
 
   Checks that some text appears on the page
-  
+
   Note that this does not detect if the text might be hidden via CSS
 
 
 * **Then I should see \/([^\/]*)\/**
 
   Checks that a regexp appears on the page
-  
+
   Note that this does not detect if the text might be hidden via CSS
 
 
 * **Then I should not see "..."**
 
-  
+
 
 
 * **Then I should not see \/([^\/]*)\/**
 
-  
+
 
 
 * **Then the "..." field( within ...)? should contain "..."**
@@ -297,7 +297,7 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 * **Then the "..." field( within ...)? should not contain "..."**
 
-  
+
 
 
 * **Then the "..." field should have the error "..."**
@@ -307,32 +307,32 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 * **Then the "..." field should( not)? have an error**
 
-  
+
 
 
 * **Then the "..." field should have no error**
 
-  
+
 
 
 * **Then the radio button "..." should( not)? be (checked|selected)**
 
-  
+
 
 
 * **Then I should be on ...**
 
-  
+
 
 
 * **Then I should have the following query string:**
 
   Example:
-  
+
         I should have the following query string:
           | locale        | de  |
           | currency_code | EUR |
-  
+
   Succeeds when the URL contains the given "locale" and "currency_code" params
 
 
@@ -349,9 +349,9 @@ deprecation notice. Decide for yourself whether you want to use them:
 * **Then I should( not)? see the (number|amount) ([\-\d,\.]+)( (.*?))?**
 
   Better way to test for a number of money amount than a `Then I should see`
-  
+
   Checks that there is unexpected minus sign, decimal places etc.
-  
+
   See [here](https://makandracards.com/makandra/1225-test-that-a-number-or-money-amount-is-shown-with-cucumber) for details
 
 
@@ -372,7 +372,7 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 * **Then nothing should be selected for "..."?**
 
-  
+
 
 
 * **Then "..." should( not)? be an option for "..."**
@@ -392,7 +392,7 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 * **Then I should not see "..." in the HTML**
 
-  
+
 
 
 * **Then I should see an error**
@@ -402,7 +402,7 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 * **When I reload the page**
 
-  
+
 
 
 * **Then "..." should( not)? be visible**
@@ -410,7 +410,7 @@ deprecation notice. Decide for yourself whether you want to use them:
   Checks that an element is actually visible, also considering styles
   Within a selenium test, the browser is asked whether the element is really visible
   In a non-selenium test, we only check for ".hidden", ".invisible" or "style: display:none"
-  
+
   More details [here](https://makandracards.com/makandra/1049-capybara-check-that-a-page-element-is-hidden-via-css)
 
 
@@ -422,7 +422,7 @@ deprecation notice. Decide for yourself whether you want to use them:
 * **Then I should (not )?see an element "..."**
 
   Example:
-  
+
         Then I should see an element ".page .container"
 
 
@@ -436,44 +436,44 @@ deprecation notice. Decide for yourself whether you want to use them:
 
   Click a link within an element matching the given selector. Will try to be clever
   and disregard elements that don't contain a matching link.
-  
+
   Example:
-  
+
         When I follow "Read more" inside any ".text_snippet"
 
 
 
 * **Then I should( not)? see "..." inside any "..."**
 
-  
+
 
 
 * **When I fill in "..." with "..." inside any "..."**
 
-  
+
 
 
 * **When I confirm the browser dialog**
 
-  
+
 
 
 * **When I cancel the browser dialog**
 
-  
+
 
 
 * **When I enter "..." into the browser dialog**
 
-  
+
 
 
 * **Then I should see in this order:?**
 
   Checks that these strings are rendered in the given order in a single line or in multiple lines
-  
+
   Example:
-  
+
         Then I should see in this order:
           | Alpha Group |
           | Augsburg    |
