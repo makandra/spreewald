@@ -517,5 +517,5 @@ Then /^I should see in this order:?$/ do |text|
   lines = lines.collect { |line| line.gsub(/\s+/, ' ')}.collect(&:strip).reject(&:blank?)
   pattern = lines.collect(&Regexp.method(:quote)).join('.*?')
   pattern = Regexp.compile(pattern)
-  page.body.gsub(/\s+/, ' ').should =~ pattern
+  page.text.gsub(/\s+/, ' ').should =~ pattern
 end
