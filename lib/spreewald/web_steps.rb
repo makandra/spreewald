@@ -375,29 +375,29 @@ end
 # In a non-selenium test, we only check for ".hidden", ".invisible" or "style: display:none"
 #
 # More details [here](https://makandracards.com/makandra/1049-capybara-check-that-a-page-element-is-hidden-via-css)
-Then /^"([^\"]+)" should( not)? be visible$/ do |text, negate|
+Then /^(the tag )?"([^\"]+)" should( not)? be visible$/ do |tag, selector_or_text, negate|
   case Capybara::current_driver
   when :selenium, :webkit
     patiently do
       visibility_detecting_javascript = %[
         (function() {
 
-          var containsSelector = ':contains(#{text.to_json})';
+          var selector = #{tag ? selector_or_text.to_json : "':contains(#{selector_or_text.to_json})'"};
           var jqueryLoaded = (typeof jQuery != 'undefined');
 
           function findCandidates() {
             if (jqueryLoaded) {
-              return $(containsSelector);
+              return $(selector);
             } else {
-              return $$(containsSelector);
+              return $$(selector);
             }
           }
 
           function isExactCandidate(candidate) {
             if (jqueryLoaded) {
-              return $(candidate).find(containsSelector).length == 0;
+              return $(candidate).find(selector).length == 0;
             } else {
-              return candidate.select(containsSelector).length == 0;
+              return candidate.select(selector).length == 0;
             }
           }
 
@@ -425,7 +425,11 @@ Then /^"([^\"]+)" should( not)? be visible$/ do |text, negate|
       page.evaluate_script(visibility_detecting_javascript).should matcher
     end
   else
-    invisibility_detecting_matcher = have_css('.hidden, .invisible, [style~="display: none"]', :text => text)
+    invisibility_detecting_matcher = if tag
+      have_css(".hidden, .invisible, [style~=\"display: none\"] #{selector_or_text}")
+    else
+      have_css('.hidden, .invisible, [style~="display: none"]', :text => selector_or_text)
+    end
     expectation = negate ? :should : :should_not # sic
     page.send(expectation, invisibility_detecting_matcher)
   end
