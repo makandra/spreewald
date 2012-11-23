@@ -366,7 +366,7 @@ When /^I reload the page$/ do
     when :selenium
       visit page.driver.browser.current_url
     else
-      visit [ current_path, page.driver.last_request.env['QUERY_STRING'] ].reject(&:blank?).join('?')
+      visit current_path
   end
 end
 
