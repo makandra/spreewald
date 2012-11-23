@@ -362,7 +362,12 @@ Then /^the window should be titled "([^"]*)"$/ do |title|
 end
 
 When /^I reload the page$/ do
-  visit current_path
+  case Capybara::current_driver
+    when :selenium
+      visit page.driver.browser.current_url
+    else
+      visit [ current_path, page.driver.last_request.env['QUERY_STRING'] ].reject(&:blank?).join('?')
+  end
 end
 
 # Checks that an element is actually visible, also considering styles
