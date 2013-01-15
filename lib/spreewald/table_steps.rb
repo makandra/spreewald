@@ -16,7 +16,7 @@ module TableStepsHelper
           first_column = row.find_index do |column|
             content = normalize_content(column.content)
             expected_content = normalize_content(expected_column)
-            matching_parts = expected_content.split('*', -1).collect { |part| Regexp.escape(part) }
+            matching_parts = expected_content.split(/\s*\*\s*/, -1).collect { |part| Regexp.escape(part) }
             matching_expression = /\A#{matching_parts.join(".*")}\z/
             content =~ matching_expression
           end
