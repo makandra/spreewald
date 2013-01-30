@@ -528,3 +528,34 @@ Then /^I should see in this order:?$/ do |text|
   pattern = Regexp.compile(pattern)
   page.find('body').text.gsub(/\s+/, ' ').should =~ pattern
 end
+
+# Tests that an input or button with the given label is disabled.
+Then /^the "([^\"]*)" (field|button) should( not)? be disabled$/ do |label, kind, negate|
+  if kind == 'field'
+    element = find_field(label)
+  else
+    element = find_button(label)
+  end
+  ["false", "", nil].send(negate ? :should : :should_not, include(element[:disabled]))
+end
+
+# Tests that a field with the given label is visible.
+Then /^the "([^\"]*)" field should( not)? be visible$/ do |label, negate|
+  field = find_field(label)
+  expectation = negate ? :should_not : :should
+  case Capybara::current_driver
+  when :selenium, :webkit
+    patiently do
+      visibility_detecting_javascript = %[
+          (function(){
+            var field = $('##{field['id']}');
+            return(field.is(':visible'));
+          })();
+      ].gsub(/\n/, ' ')
+      page.evaluate_script(visibility_detecting_javascript).send(expectation, be_true)
+    end
+  else
+    field.send(expectation, be_visible)
+  end
+end
+

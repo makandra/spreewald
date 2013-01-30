@@ -487,3 +487,13 @@ deprecation notice. Decide for yourself whether you want to use them:
           | Beta Group  |
 
 
+
+* **Then the "..." (field|button) should( not)? be disabled**
+
+  Tests that an input or button with the given label is disabled.
+
+
+* **Then the "..." field should( not)? be visible**
+
+  Tests that a field with the given label is visible.
+
