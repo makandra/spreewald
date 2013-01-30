@@ -497,3 +497,10 @@ deprecation notice. Decide for yourself whether you want to use them:
 
   Tests that a field with the given label is visible.
 
+
+* **When I wait for the page to load**
+
+  Waits for the page to finish loading and AJAX requests to finish.
+  
+  More details [here](https://makandracards.com/makandra/12139-waiting-for-page-loads-and-ajax-requests-to-finish-with-capybara).
+

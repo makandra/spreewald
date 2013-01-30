@@ -559,3 +559,12 @@ Then /^the "([^\"]*)" field should( not)? be visible$/ do |label, negate|
   end
 end
 
+# Waits for the page to finish loading and AJAX requests to finish.
+#
+# More details [here](https://makandracards.com/makandra/12139-waiting-for-page-loads-and-ajax-requests-to-finish-with-capybara).
+When /^I wait for the page to load$/ do
+  if [:selenium, :webkit, :poltergeist].include?(Capybara.current_driver)
+    wait_until { page.evaluate_script('$.active') == 0 }
+  end
+  page.has_content? ''
+end
