@@ -233,6 +233,9 @@ end
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   patiently do
     current_path = URI.parse(current_url).path
+    if fragment = URI.parse(current_url).fragment
+      current_path << "##{fragment}"
+    end
     current_path.should == _path_to(page_name)
   end
 end
