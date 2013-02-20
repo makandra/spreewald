@@ -358,13 +358,17 @@ end
 
 #nodoc
 Then /^the window should be titled "([^"]*)"$/ do |title|
-  page.should have_css('title', :text => title)
+  patiently do
+    page.should have_css('title', :text => title)
+  end
 end
 
 When /^I reload the page$/ do
   case Capybara::current_driver
     when :selenium
-      visit page.driver.browser.current_url
+      page.driver.browser.execute_script(<<-JAVASCRIPT)
+        window.location.reload(true);
+      JAVASCRIPT
     else
       visit current_path
   end
@@ -526,7 +530,9 @@ Then /^I should see in this order:?$/ do |text|
   lines = lines.collect { |line| line.gsub(/\s+/, ' ')}.collect(&:strip).reject(&:blank?)
   pattern = lines.collect(&Regexp.method(:quote)).join('.*?')
   pattern = Regexp.compile(pattern)
-  page.find('body').text.gsub(/\s+/, ' ').should =~ pattern
+  patiently do
+    page.find('body').text.gsub(/\s+/, ' ').should =~ pattern
+  end
 end
 
 # Tests that an input or button with the given label is disabled.
