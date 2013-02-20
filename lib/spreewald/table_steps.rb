@@ -42,11 +42,13 @@ module TableStepsHelper
   rspec::Matchers.define :contain_table do |*args|
     match do |tables|
       @last_unmatched_row = nil
+      @extra_rows = nil
       @best_rows_matched = -1
-      expected_table, unordered = args
+      options = args.extract_options!
+      expected_table = args.first
       tables.any? do |table|
         rows_matched = 0
-        expected_table.all? do |expected_row|
+        match = expected_table.all? do |expected_row|
           if @best_rows_matched < rows_matched
             @last_unmatched_row = expected_row
             @best_rows_matched = rows_matched
@@ -57,7 +59,7 @@ module TableStepsHelper
             false
           else
             rows_matched += 1
-            if unordered
+            if options[:unordered]
               table.delete_at(first_row)
             else
               table = table[(first_row + 1)..-1]
@@ -65,11 +67,22 @@ module TableStepsHelper
             true
           end
         end
+        if match and options[:exactly] and not table.empty?
+          @extra_rows = table
+          match = false
+        end
+        match
       end
     end
 
     failure_message_for_should do
-      "Could not find the following row: #{@last_unmatched_row.inspect}"
+      if @extra_rows
+        "Found the following extra row: #{@extra_rows.first.collect(&:content).collect(&:squish).inspect}"
+      elsif @last_unmatched_row
+        "Could not find the following row: #{@last_unmatched_row.inspect}"
+      else
+        "Could not find a table"
+      end
     end
 
     failure_message_for_should_not do
@@ -94,16 +107,18 @@ end
 World(TableStepsHelper)
 
 
-Then /^I should( not)? see a table with the following rows( in any order)?:?$/ do |negate, unordered, expected_table|
+Then /^I should( not)? see a table with (exactly )?the following rows( in any order)?:?$/ do |negate, exactly, unordered, expected_table|
   patiently do
     document = Nokogiri::HTML(page.body)
     tables = document.xpath('//table').collect { |table| table.xpath('.//tr').collect { |row| row.xpath('.//th|td') } }
     parsed_table = parse_table(expected_table)
 
+    options = { :exactly => exactly, :unordered => unordered }
+
     if negate
-      tables.should_not contain_table(parsed_table, unordered)
+      tables.should_not contain_table(parsed_table, options)
     else
-      tables.should contain_table(parsed_table, unordered)
+      tables.should contain_table(parsed_table, options)
     end
   end
 end
