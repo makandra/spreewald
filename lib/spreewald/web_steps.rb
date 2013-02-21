@@ -232,10 +232,9 @@ end
 
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   patiently do
+    fragment = URI.parse(current_url).fragment
     current_path = URI.parse(current_url).path
-    if fragment = URI.parse(current_url).fragment
-      current_path << "##{fragment}"
-    end
+    current_path << "##{fragment}" if fragment.present?
     current_path.should == _path_to(page_name)
   end
 end
@@ -369,7 +368,7 @@ end
 When /^I reload the page$/ do
   case Capybara::current_driver
     when :selenium
-      page.driver.browser.execute_script(<<-JAVASCRIPT)
+      page.execute_script(<<-JAVASCRIPT)
         window.location.reload(true);
       JAVASCRIPT
     else
