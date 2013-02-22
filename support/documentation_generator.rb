@@ -45,7 +45,8 @@ module DocumentationGenerator
           gsub(/\(\[\^\\?"\](\*|\+)\)/, '...').
           gsub('(?:|I )', 'I ').
           gsub('?:', '').
-          gsub(/\(\.(\+|\*)\)/, '...')
+          gsub(/\(\.(\+|\*)\)/, '...').
+          gsub(/\\\//, '/')
       end
     end
   end

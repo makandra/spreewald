@@ -576,3 +576,23 @@ When /^I wait for the page to load$/ do
   end
   page.has_content? ''
 end
+
+# Performs HTTP basic authentication with the given credentials and visits the given path.
+#
+# More details [here](https://makandracards.com/makandra/971-perform-http-basic-authentication-in-cucumber).
+When /^I perform basic authentication as "([^\"]*)\/([^\"]*)" and go to (.*)$/ do |user, password, page_name|
+  path = _path_to(page_name)
+  if Capybara::current_driver == :selenium
+    visit("http://#{user}:#{password}@#{page.driver.rack_server.host}:#{page.driver.rack_server.port}#{path}")
+  else
+    authorizers = [
+      (page.driver.browser if page.driver.respond_to?(:browser)),
+      (self),
+      (page.driver)
+    ].compact
+    authorizer = authorizers.detect { |authorizer| authorizer.respond_to?(:basic_authorize) }
+    authorizer.basic_authorize(user, password)
+    visit path
+  end
+end
+

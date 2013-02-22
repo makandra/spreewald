@@ -148,7 +148,7 @@ Check the content of tables in your HTML.
 
 See [this article](https://makandracards.com/makandra/763-cucumber-step-to-match-table-rows-with-capybara) for details.
 
-* **Then I should( not)? see a table with the following rows( in any order)?**
+* **Then I should( not)? see a table with (exactly )?the following rows( in any order)?**
 
   
 
@@ -160,19 +160,19 @@ Steps to travel through time using [Timecop](https://github.com/jtrupiano/timeco
 
 See [this article](https://makandracards.com/makandra/1222-useful-cucumber-steps-to-travel-through-time-with-timecop) for details.
 
-* **When the (date|time) is "(\d{4}-\d{2}-\d{2}( \d{1,2}:\d{2})?)"**
+* **When the (date|time) is "?(\d{4}-\d{2}-\d{2}( \d{1,2}:\d{2})?)"?**
 
   Example:
   
-        Given the date is "2012-02-10"
-        Given the time is "2012-02-10 13:40"
+        Given the date is 2012-02-10
+        Given the time is 2012-02-10 13:40
 
 
-* **When the time is "(\d{1,2}:\d{2})"**
+* **When the time is "?(\d{1,2}:\d{2})"?**
 
   Example:
   
-        Given the time is "13:40"
+        Given the time is 13:40
 
 
 * **When it is (\d+|a|some|a few) (seconds?|minutes?|hours?|days?|weeks?|months?|years?) (later|earlier)**
@@ -279,7 +279,7 @@ deprecation notice. Decide for yourself whether you want to use them:
   Note that this does not detect if the text might be hidden via CSS
 
 
-* **Then I should see \/([^\/]*)\/**
+* **Then I should see /([^/]*)/**
 
   Checks that a regexp appears on the page
   
@@ -291,7 +291,7 @@ deprecation notice. Decide for yourself whether you want to use them:
   
 
 
-* **Then I should not see \/([^\/]*)\/**
+* **Then I should not see /([^/]*)/**
 
   
 
@@ -503,4 +503,11 @@ deprecation notice. Decide for yourself whether you want to use them:
   Waits for the page to finish loading and AJAX requests to finish.
   
   More details [here](https://makandracards.com/makandra/12139-waiting-for-page-loads-and-ajax-requests-to-finish-with-capybara).
+
+
+* **When I perform basic authentication as ".../..." and go to ...**
+
+  Performs HTTP basic authentication with the given credentials and visits the given path.
+  
+  More details [here](https://makandracards.com/makandra/971-perform-http-basic-authentication-in-cucumber).
 
