@@ -477,7 +477,7 @@ end
 #       When I follow "Read more" inside any ".text_snippet"
 #
 When /^I follow "([^"]*)" inside any "([^"]*)"$/ do |label, selector|
-  node = first("#{selector} a", :text => label)
+  node = find("#{selector} a", :text => label)
   node.click
 end
 
