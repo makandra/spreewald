@@ -86,7 +86,7 @@ end
 #         need to be present
 #         """
 Then /^that e?mail should have the following lines in the body:$/ do |body|
-  body.each do |line|
+  body.to_s.strip.split(/\n/).each do |line|
     @mail.body.should include(line.strip)
   end
 end
