@@ -145,7 +145,7 @@ Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
 end
 
 
-# Checks that a input field contains some value (allowing * as wildcard character)
+# Checks that an input field contains some value (allowing * as wildcard character)
 Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field, parent, expected_string|
   patiently do
     with_scope(parent) do
