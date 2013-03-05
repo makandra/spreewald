@@ -26,6 +26,7 @@
 require 'spreewald_support/tolerance_for_selenium_sync_issues'
 require 'spreewald_support/path_selector_fallbacks'
 require 'spreewald_support/step_fallback'
+require 'spreewald_support/custom_matchers'
 require 'uri'
 require 'cgi'
 
@@ -144,24 +145,26 @@ Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
 end
 
 
-# Checks that a input field contains some value
-Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field, parent, value|
+# Checks that an input field contains some value (allowing * as wildcard character)
+Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field, parent, expected_string|
   patiently do
     with_scope(parent) do
       field = find_field(field)
       field_value = ((field.tag_name == 'textarea') && field.text.present?) ? field.text : field.value
-      field_value.should =~ /#{Regexp.escape(value)}/
+      
+      field_value.should contain_with_wildcards(expected_string)
     end
   end
 end
 
 
-Then /^the "([^"]*)" field(?: within (.*))? should not contain "([^"]*)"$/ do |field, parent, value|
+Then /^the "([^"]*)" field(?: within (.*))? should not contain "([^"]*)"$/ do |field, parent, expected_string|
   patiently do
     with_scope(parent) do
       field = find_field(field)
       field_value = (field.tag_name == 'textarea') ? field.text : field.value
-      field_value.should_not =~ /#{Regexp.escape(value)}/
+
+      field_value.should_not contain_with_wildcards(expected_string)
     end
   end
 end
