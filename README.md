@@ -298,7 +298,7 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 * **Then the "..." field( within ...)? should contain "..."**
 
-  Checks that a input field contains some value
+  Checks that an input field contains some value (allowing * as wildcard character)
 
 
 * **Then the "..." field( within ...)? should not contain "..."**
