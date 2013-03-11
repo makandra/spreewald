@@ -149,7 +149,7 @@ end
 Then /^the "([^"]*)" field should (not )?contain "([^"]*)"$/ do |field, negate, expected_string|
   patiently do
     field = find_field(field)
-    field_value = ((field.tag_name == 'textarea') && field.text.present?) ? field.text : field.value
+    field_value = ((field.tag_name == 'textarea') && field.text.present?) ? field.text.strip : field.value
 
     field_value.send(negate ? :should_not : :should, contain_with_wildcards(expected_string))
   end

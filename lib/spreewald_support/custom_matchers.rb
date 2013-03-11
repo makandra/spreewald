@@ -6,8 +6,8 @@ module CustomMatchers
       @field_value = field_value
       @expected_string = expected_string
       regex_parts = expected_string.split('*', -1).collect { |part| Regexp.escape(part) }
-      
-      @field_value =~ /\A#{regex_parts.join(".*")}\z/
+
+      @field_value =~ /\A#{regex_parts.join(".*")}\z/m
     end
 
     failure_message_for_should do
