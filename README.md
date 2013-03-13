@@ -425,6 +425,16 @@ deprecation notice. Decide for yourself whether you want to use them:
   Click on some text that might not be a link
 
 
+* **Then "..." should link to "..."/**
+
+  Use this step to check external links.
+  
+  Example:
+  
+        Then "Sponsor" should link to "http://makandra.com"
+
+
+
 * **Then I should (not )?see an element "..."**
 
   Example:
