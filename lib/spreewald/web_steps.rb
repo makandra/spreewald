@@ -442,6 +442,19 @@ When /^I click on "([^\"]+)"$/ do |text|
   end
 end
 
+# Use this step to check external links.
+#
+# Example:
+#
+#       Then "Sponsor" should link to "http://makandra.com"
+# 
+Then /^"([^"]*)" should link to "([^"]*)"/ do |link_label, target|
+  patiently do
+    link = find_link(link_label)
+    link[:href].should =~ /#{Regexp.escape target}$/
+  end
+end
+
 # Example:
 #
 #       Then I should see an element ".page .container"
