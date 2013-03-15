@@ -1,6 +1,8 @@
 # coding: UTF-8
 
 module ToleranceForSeleniumSyncIssues
+  RETRY_ERRORS = %w[Capybara::ElementNotFound Spec::Expectations::ExpectationNotMetError RSpec::Expectations::ExpectationNotMetError Capybara::Poltergeist::ClickFailed]
+
   # This is similiar but not entirely the same as Capybara::Node::Base#wait_until or Capybara::Session#wait_until
   def patiently(seconds=Capybara.default_wait_time, &block)
     old_wait_time = Capybara.default_wait_time
@@ -10,7 +12,8 @@ module ToleranceForSeleniumSyncIssues
       start_time = Time.now
       begin
         block.call
-      rescue => e
+      rescue Exception => e
+        raise e unless RETRY_ERRORS.include?(e.class.name)
         raise e if (Time.now - start_time) >= seconds
         sleep(0.05)
         raise Capybara::FrozenInTime, "time appears to be frozen, Capybara does not work with libraries which freeze time, consider using time travelling instead" if Time.now == start_time

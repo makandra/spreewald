@@ -35,6 +35,12 @@ Spreewald's web steps are all aware that you might run them with a Selenium/Capy
 
 This is done by rerunning any assertions until they suceed or a timeout is reached.
 
+We consider a couple of potential exceptions as "retriable", including
+    Capybara::ElementNotFound, (R)Spec::Expectations::ExpectationNotMetError, Capybara::Poltergeist::ClickFailed
+
+You can add your own error class with
+    ToleranceForSeleniumSyncIssues::RETRY_ERRORS << 'MyCustomError'
+
 You can achieve this in your own steps by wrapping them inside a `patiently do` block, like
 
     Then /^I should see "([^\"]*)" in the HTML$/ do |text|
