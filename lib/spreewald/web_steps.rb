@@ -146,9 +146,9 @@ end
 
 
 # Checks that an input field contains some value (allowing * as wildcard character)
-Then /^the "([^"]*)" field should (not )?contain "([^"]*)"$/ do |field, negate, expected_string|
+Then /^the "([^"]*)" field should (not )?contain "([^"]*)"$/ do |label, negate, expected_string|
   patiently do
-    field = find_field(field)
+    field = find_field(label)
     field_value = ((field.tag_name == 'textarea') && field.text.present?) ? field.text.strip : field.value
 
     field_value.send(negate ? :should_not : :should, contain_with_wildcards(expected_string))
