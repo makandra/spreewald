@@ -177,10 +177,11 @@ Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_me
   end
 end
 
-Then /^the "([^\"]*)" field should( not)? have an error$/ do |field, negate|
+Then /^the "([^\"]*)" field should( not)? have an error$/ do |label, negate|
   patiently do
     expectation = negate ? :should_not : :should
-    page.send(expectation, have_css('.field_with_errors', :text => field))
+    field = find_field(label)
+    page.send(expectation, have_css(".field_with_errors ##{field[:id]}"))
   end
 end
 
