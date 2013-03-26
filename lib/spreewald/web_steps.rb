@@ -229,6 +229,7 @@ Then /^(?:|I )should be on (.+)$/ do |page_name|
 
     # Consider two pages equal if they only differ by a trailing slash.
     current_path = expected_path if current_path.chomp("/") == expected_path.chomp("/")
+    current_path = expected_path if current_path.gsub("/#", "#") == expected_path.gsub("/#", "#")
 
     current_path.should == expected_path
   end
