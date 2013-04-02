@@ -1,0 +1,11 @@
+source 'https://rubygems.org'
+
+gem 'rails', '~>3.2'
+gem 'mysql2'
+gem 'ruby-debug', :platforms => :ruby_18
+gem 'database_cleaner'
+gem 'capybara', "~>1" # for ruby 1.8.7 (capybara 2.x requires ruby 1.9)
+# gem 'andand'
+
+gem 'rspec-rails'
+gem 'spreewald', :path => '../..'

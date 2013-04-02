@@ -1,0 +1,8 @@
+#!/usr/bin/env rake
+require 'cucumber/rake/task'
+
+desc 'Default: Run all specs for a specific rails version.'
+task :default => :features
+
+desc 'Run all specs for rails 3.2'
+Cucumber::Rake::Task.new(:features)
