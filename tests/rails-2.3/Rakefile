@@ -4,9 +4,8 @@ require 'cucumber/rake/task'
 desc 'Default: Run all specs for a specific rails version.'
 task :default => :features
 
-desc 'Run all specs for rails 3.2'
+desc 'Run all specs for rails 2.3'
 Cucumber::Rake::Task.new(:features) do |t|
   # tell cucumber where it finds it files (subdirectories and symlinks are confusing it)
   t.cucumber_opts = "--require features --require features/shared features/shared/"
 end
-

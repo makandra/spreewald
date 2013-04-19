@@ -5,10 +5,14 @@
 # files.
 
 ENV["RAILS_ENV"] ||= "cucumber"
+
 require 'cucumber/rails'
+# require 'capybara/rails'
 # require 'spec/support/blueprints'
 # require 'cucumber/rspec/doubles'
 # require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "selectors"))
+
+# load Spreewald steps
 require File.expand_path('../../lib/spreewald/all_steps')
          
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In

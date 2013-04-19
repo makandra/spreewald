@@ -2,7 +2,8 @@ Feature: Test Spreewald's email steps
   
   Scenario: /^no e?mail should have been sent$/
     When I go to "/emails/do_nothing"
-    Then no email should have been sent
+    Then the following step should succeed:
+      | no email should have been sent |
   
     When I go to "/emails/send_email"
     Then the following step should fail:
