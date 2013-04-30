@@ -19,3 +19,17 @@ When /^I run the following steps?:$/ do |steps_table|
     step(step)
   end
 end
+
+Then /^the following multiline step should (fail|succeed)$/ do |expectation, multiline_step|
+  
+  steps.each do |step|
+    if expectation == 'fail'
+      expect { step(multiline_step) }.to raise_error(RSPEC_EXPECTATION_NOT_MET_ERROR)
+    
+    else # succeed
+      step(multiline_step)
+    end
+
+  end
+end
+

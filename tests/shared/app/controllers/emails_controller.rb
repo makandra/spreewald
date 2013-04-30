@@ -7,7 +7,12 @@ class EmailsController < ApplicationController
   def send_email
     text = params[:id].to_s
     
-    Mailer.deliver_email(text)
+    if Rails.version >= "3"
+      Mailer.email(text).deliver
+    else
+      Mailer.deliver_email(text)
+    end
+
     render :nothing => true
   end
 
