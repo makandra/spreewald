@@ -46,6 +46,7 @@ module TableStepsHelper
       @best_rows_matched = -1
       options = args.extract_options!
       expected_table = args.first
+      skipped_rows = []
       tables.any? do |table|
         rows_matched = 0
         match = expected_table.all? do |expected_row|
@@ -62,13 +63,15 @@ module TableStepsHelper
             if options[:unordered]
               table.delete_at(first_row)
             else
+              skipped_rows += table[0...first_row]
               table = table[(first_row + 1)..-1]
             end
             true
           end
         end
-        if match and options[:exactly] and not table.empty?
-          @extra_rows = table
+        remaining_rows = skipped_rows + table
+        if match and options[:exactly] and not remaining_rows.empty?
+          @extra_rows = remaining_rows
           match = false
         end
         match
