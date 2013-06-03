@@ -58,7 +58,7 @@ When /^I follow the (first|second|third)? ?link in the e?mail$/ do |index_in_wor
   index = { nil => 0, 'first' => 0, 'second' => 1, 'third' => 2 }[index_in_words]
   url_pattern = %r{(?:http|https)://[^/]+(.*)}
   mail_body = MailFinder.email_text_body(mail).to_s
-  only_path = mail_body.sczan(url_pattern)[index][0]
+  only_path = mail_body.scan(url_pattern)[index][0]
   visit only_path
 end
 
