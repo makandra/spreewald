@@ -30,7 +30,7 @@ namespace :tests do
   desc "Bundle all test apps"
   task :bundle do
     for_each_directory_of('tests/**/Gemfile') do |directory|
-      system("cd #{directory} && rm -f Gemfile.lock && bundle install")
+      system("cd #{directory} && bundle install")
     end
   end
 

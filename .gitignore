@@ -7,7 +7,6 @@
 .yardoc
 coverage
 doc/
-Gemfile.lock
 InstalledFiles
 tests/shared/config/database.yml
 tmp
