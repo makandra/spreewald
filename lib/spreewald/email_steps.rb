@@ -56,7 +56,10 @@ end
 When /^I follow the (first|second|third)? ?link in the e?mail$/ do |index_in_words|
   mail = @mail || ActionMailer::Base.deliveries.last
   index = { nil => 0, 'first' => 0, 'second' => 1, 'third' => 2 }[index_in_words]
-  visit MailFinder.email_text_body(mail).to_s.scan(Patterns::URL)[index][2]
+  url_pattern = %r{(?:http|https)://[^/]+(.*)}
+  mail_body = MailFinder.email_text_body(mail).to_s
+  only_path = mail_body.sczan(url_pattern)[index][0]
+  visit only_path
 end
 
 Then /^no e?mail should have been sent$/ do
