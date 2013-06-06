@@ -20,36 +20,40 @@ end
 #         Body: ...
 #         Attachments: ...
 #         """
-# 
+#
 # You can skip lines, of course.
 Then /^(an|no) e?mail should have been sent with:$/ do |mode, raw_data|
-  raw_data.strip!
-  conditions = {}.tap do |hash|
-    raw_data.split("\n").each do |row|
-      if row.match(/^[a-z]+: /i)
-        key, value = row.split(": ", 2)
-        hash[key.downcase.to_sym] = value
+  patiently do
+    raw_data.strip!
+    conditions = {}.tap do |hash|
+      raw_data.split("\n").each do |row|
+        if row.match(/^[a-z]+: /i)
+          key, value = row.split(": ", 2)
+          hash[key.downcase.to_sym] = value
+        end
       end
     end
+    @mail = MailFinder.find(conditions)
+    expectation = mode == 'no' ? 'should_not' : 'should'
+    @mail.send(expectation, be_present)
   end
-  @mail = MailFinder.find(conditions)
-  expectation = mode == 'no' ? 'should_not' : 'should'
-  @mail.send(expectation, be_present)
 end
 
 # nodoc
 Then /^(an|no) e?mail should have been sent((?: |and|with|from "[^"]+"|bcc "[^"]+"|to "[^"]+"|the subject "[^"]+"|the body "[^"]+"|the attachments "[^"]+")+)$/ do |mode, query|
-  conditions = {}
-  conditions[:to] = $1 if query =~ /to "([^"]+)"/
-  conditions[:cc] = $1 if query =~ / cc "([^"]+)"/
-  conditions[:bcc] = $1 if query =~ /bcc "([^"]+)"/
-  conditions[:from] = $1 if query =~ /from "([^"]+)"/
-  conditions[:subject] = $1 if query =~ /the subject "([^"]+)"/
-  conditions[:body] = $1 if query =~ /the body "([^"]+)"/
-  conditions[:attachments] = $1 if query =~ /the attachments "([^"]+)"/
-  @mail = MailFinder.find(conditions)
-  expectation = mode == 'no' ? 'should_not' : 'should'
-  @mail.send(expectation, be_present)
+  patiently do
+    conditions = {}
+    conditions[:to] = $1 if query =~ /to "([^"]+)"/
+    conditions[:cc] = $1 if query =~ / cc "([^"]+)"/
+    conditions[:bcc] = $1 if query =~ /bcc "([^"]+)"/
+    conditions[:from] = $1 if query =~ /from "([^"]+)"/
+    conditions[:subject] = $1 if query =~ /the subject "([^"]+)"/
+    conditions[:body] = $1 if query =~ /the body "([^"]+)"/
+    conditions[:attachments] = $1 if query =~ /the attachments "([^"]+)"/
+    @mail = MailFinder.find(conditions)
+    expectation = mode == 'no' ? 'should_not' : 'should'
+    @mail.send(expectation, be_present)
+  end
 end
 
 # Only works after you have retrieved the mail using "Then an email should have been sent with:"
@@ -88,9 +92,11 @@ end
 #         All of these lines
 #         need to be present
 #         """
-Then /^that e?mail should have the following lines in the body:$/ do |body|
+Then /^that e?mail should( not)? have the following lines in the body:$/ do |expectation, body|
+  expectation = negate ? 'should_not' : 'should'
+
   body.to_s.strip.split(/\n/).each do |line|
-    @mail.body.should include(line.strip)
+    @mail.body.send(expectation, include(line.strip))
   end
 end
 
