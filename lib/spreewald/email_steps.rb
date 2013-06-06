@@ -92,7 +92,7 @@ end
 #         All of these lines
 #         need to be present
 #         """
-Then /^that e?mail should( not)? have the following lines in the body:$/ do |expectation, body|
+Then /^that e?mail should( not)? have the following lines in the body:$/ do |negate, body|
   expectation = negate ? 'should_not' : 'should'
 
   body.to_s.strip.split(/\n/).each do |line|
