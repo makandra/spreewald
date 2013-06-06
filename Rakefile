@@ -21,8 +21,10 @@ namespace :tests do
   task :run do # to run the tests type "rake tests:run" into your console
     success = true
     for_each_directory_of('tests/**/Rakefile') do |directory|
-      env = "SPEC=../../#{ENV['SPEC']} " if ENV['SPEC']
-      success &= system("cd #{directory} && #{env} bundle exec rake features")
+      Bundler.with_clean_env do
+        env = "SPEC=../../#{ENV['SPEC']} " if ENV['SPEC']
+        success &= system("cd #{directory} && #{env} bundle exec rake features")
+      end
     end
     fail "Tests failed" unless success
   end
@@ -30,7 +32,9 @@ namespace :tests do
   desc "Bundle all test apps"
   task :bundle do
     for_each_directory_of('tests/**/Gemfile') do |directory|
-      system("cd #{directory} && bundle install")
+      Bundler.with_clean_env do
+        system("cd #{directory} && bundle install")
+      end
     end
   end
 
