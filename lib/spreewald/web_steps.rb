@@ -523,6 +523,11 @@ When /^I enter "([^"]*)" into the browser dialog$/ do |text|
   alert.accept
 end
 
+When /^I switch to the new tab$/ do
+  Capybara::current_driver == :selenium or raise("This step works only with selenium")
+  page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
+end
+
 # Checks that these strings are rendered in the given order in a single line or in multiple lines
 #
 # Example:
