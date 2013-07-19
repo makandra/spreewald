@@ -1,5 +1,7 @@
 # coding: UTF-8
 
+require "uri"
+
 require 'spreewald_support/mail_finder'
 
 Before do
@@ -56,14 +58,13 @@ Then /^(an|no) e?mail should have been sent((?: |and|with|from "[^"]+"|bcc "[^"]
   end
 end
 
+
 # Only works after you have retrieved the mail using "Then an email should have been sent with:"
 When /^I follow the (first|second|third)? ?link in the e?mail$/ do |index_in_words|
   mail = @mail || ActionMailer::Base.deliveries.last
   index = { nil => 0, 'first' => 0, 'second' => 1, 'third' => 2 }[index_in_words]
-  url_pattern = %r{(?:http|https)://[^/]+(.*)}
   mail_body = MailFinder.email_text_body(mail).to_s
-  only_path = mail_body.scan(url_pattern)[index][0]
-  visit only_path
+  visit URI.extract(mail_body)[index]
 end
 
 Then /^no e?mail should have been sent$/ do
