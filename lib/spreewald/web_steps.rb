@@ -380,7 +380,7 @@ end
 # More details [here](https://makandracards.com/makandra/1049-capybara-check-that-a-page-element-is-hidden-via-css)
 Then /^(the tag )?"([^\"]+)" should( not)? be visible$/ do |tag, selector_or_text, negate|
   case Capybara::current_driver
-  when :selenium, :webkit
+  when :selenium, :webkit, :poltergeist
     patiently do
       visibility_detecting_javascript = %[
         (function() {
