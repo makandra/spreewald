@@ -330,9 +330,7 @@ end
 
 # Checks that a certain option is selected for a text field
 Then /^"([^"]*)" should be selected for "([^"]*)"$/ do |value, field|
-  patiently do
-    field_labeled(field).find(:xpath, ".//option[@selected = 'selected'][text() = '#{value}']").should be_present
-  end
+  step %(the "#{field}" field should contain "#{value}")
 end
 
 Then /^nothing should be selected for "([^"]*)"?$/ do |field|

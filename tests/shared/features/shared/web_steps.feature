@@ -13,5 +13,10 @@ Feature: Web steps
     Then I should see a form with the following values:
       | Text control                     | Text control value     |
       | Select control                   | Label 2                |
-      | Select control without selection | Label 1                 |
+      | Select control without selection | Label 1                |
       | Textarea control                 | Textarea control value |
+
+  Scenario: /^"([^"]*)" should be selected for "([^"]*)"$/
+    Then "Label 2" should be selected for "Select control"
+    Then "Label 1" should be selected for "Select control without selection"
+
