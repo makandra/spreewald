@@ -4,7 +4,7 @@ module HtmlSelectorsHelpers
   #
   #   When /^(.+) within (.+)$/ do |step, scope|
   #
-  # step definitions in web_steps.rb
+  # step definitions in web_steps.feature
   #
   def selector_for(locator)
     case locator

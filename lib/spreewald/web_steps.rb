@@ -149,11 +149,41 @@ end
 Then /^the "([^"]*)" field should (not )?contain "([^"]*)"$/ do |label, negate, expected_string|
   patiently do
     field = find_field(label)
-    field_value = ((field.tag_name == 'textarea') && field.text.present?) ? field.text.strip : field.value
-
+    field_value = case field.tag_name
+    when 'textarea'
+      field.text.present? ? field.text.strip : ''
+    when 'select'
+      options = field.all('option')
+      selected_option = options.detect(&:selected?) || options.first
+      if selected_option && selected_option.text.present?
+        selected_option.text.strip
+      else
+        ''
+      end
+    else
+      field.value
+    end
     field_value.send(negate ? :should_not : :should, contain_with_wildcards(expected_string))
   end
 end
+
+
+# Checks that a list of label/value pairs are visible as control inputs.
+#
+# Example:
+#
+#       Then I should see a form with the following values:
+#         | E-mail | foo@bar.com   |
+#         | Role   | Administrator |
+#
+Then /^I should see a form with the following values:$/ do |table|
+  expectations = table.raw
+  expectations.each do |label, expected_value|
+    step %(the "#{label}" field should contain "#{expected_value}")
+  end
+end
+
+
 
 
 # checks that an input field was wrapped with a validation error

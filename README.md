@@ -128,7 +128,7 @@ Marks scenario as pending
   Print all sent emails to STDOUT.
 
 
-* **Then that e?mail should have the following lines in the body:**
+* **Then that e?mail should( not)? have the following lines in the body:**
 
   Only works after you've retrieved the email using "Then an email should have been sent with:"
   
@@ -302,14 +302,21 @@ deprecation notice. Decide for yourself whether you want to use them:
   
 
 
-* **Then the "..." field( within ...)? should contain "..."**
+* **Then the "..." field should (not )?contain "..."**
 
   Checks that an input field contains some value (allowing * as wildcard character)
 
 
-* **Then the "..." field( within ...)? should not contain "..."**
+* **Then I should see a form with the following values:**
 
+  Checks that a list of label/value pairs are visible as control inputs.
   
+  Example:
+  
+        Then I should see a form with the following values:
+          | E-mail | foo@bar.com   |
+          | Role   | Administrator |
+
 
 
 * **Then the "..." field should have the error "..."**
@@ -431,7 +438,7 @@ deprecation notice. Decide for yourself whether you want to use them:
   Click on some text that might not be a link
 
 
-* **Then "..." should link to "..."/**
+* **Then "..." should link to "..."**
 
   Use this step to check external links.
   
@@ -486,6 +493,11 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 
 * **When I enter "..." into the browser dialog**
+
+  
+
+
+* **When I switch to the new tab**
 
   
 

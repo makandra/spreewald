@@ -1,0 +1,15 @@
+= form_tag do
+
+  = label_tag 'text_control', 'Text control'
+  = text_field_tag 'text_control', 'Text control value'
+
+  = label_tag 'select_control', 'Select control'
+  = select_tag 'select_control', options_for_select([['Label 1', 'value1'], ['Label 2', 'value2'], ['Label 3', 'value3']], 'value2')
+
+  = label_tag 'select_control_without_selection', 'Select control without selection'
+  = select_tag 'select_control_without_selection', options_for_select([['Label 1', 'value1'], ['Label 2', 'value2'], ['Label 3', 'value3']])
+
+  = label_tag 'textarea_control', 'Textarea control'
+  = text_area_tag 'textarea_control', 'Textarea control value'
+
+
