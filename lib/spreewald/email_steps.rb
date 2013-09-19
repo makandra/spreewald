@@ -94,14 +94,15 @@ end
 #         """
 Then /^that e?mail should( not)? have the following lines in the body:$/ do |negate, body|
   expectation = negate ? 'should_not' : 'should'
+  email_text_body = MailFinder.email_text_body(@mail)
 
   body.to_s.strip.split(/\n/).each do |line|
-    @mail.body.send(expectation, include(line.strip))
+    email_text_body.send(expectation, include(line.strip))
   end
 end
 
 # Only works after you've retrieved the email using "Then an email should have been sent with:"
 # Checks that the text should be included in the retrieved email
 Then /^that e?mail should have the following body:$/ do |body|
-  @mail.body.should include(body.strip)
+  MailFinder.email_text_body(@mail).should include(body.strip)
 end
