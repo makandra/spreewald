@@ -576,7 +576,7 @@ Then /^I should see in this order:?$/ do |text|
   pattern = lines.collect(&Regexp.method(:quote)).join('.*?')
   pattern = Regexp.compile(pattern)
   patiently do
-    page.find('body').text.gsub(/\s+/, ' ').should =~ pattern
+    page.text.gsub(/\s+/, ' ').should =~ pattern
   end
 end
 
