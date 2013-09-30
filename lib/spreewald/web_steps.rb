@@ -583,7 +583,7 @@ end
 # Tests that an input or button with the given label is disabled.
 Then /^the "([^\"]*)" (field|button) should( not)? be disabled$/ do |label, kind, negate|
   options = {}
-  options[:disabled] = true if negate
+  options[:disabled] = true unless negate
   page.should have_selector kind.to_sym, label, options
 end
 
