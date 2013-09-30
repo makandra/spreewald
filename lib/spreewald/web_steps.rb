@@ -582,12 +582,9 @@ end
 
 # Tests that an input or button with the given label is disabled.
 Then /^the "([^\"]*)" (field|button) should( not)? be disabled$/ do |label, kind, negate|
-  if kind == 'field'
-    element = find_field(label)
-  else
-    element = find_button(label)
-  end
-  ["false", "", nil].send(negate ? :should : :should_not, include(element[:disabled]))
+  options = {}
+  options[:disabled] = true if negate
+  page.should have_selector kind.to_sym, label, options
 end
 
 # Tests that a field with the given label is visible.
