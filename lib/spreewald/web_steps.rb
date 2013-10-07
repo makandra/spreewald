@@ -468,12 +468,8 @@ end
 
 # Click on some text that might not be a link
 When /^I click on "([^\"]+)"$/ do |text|
-  matcher = ['*', { :text => text }]
   patiently do
-    element = page.find(:css, *matcher)
-    while better_match = element.first(:css, *matcher)
-      element = better_match
-    end
+    element = page.find(:xpath, "//*[contains(text(), \"#{text}\")]")
     element.click
   end
 end
