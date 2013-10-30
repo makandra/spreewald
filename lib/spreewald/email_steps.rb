@@ -26,14 +26,15 @@ end
 Then /^(an|no) e?mail should have been sent with:$/ do |mode, raw_data|
   patiently do
     raw_data.strip!
-    conditions = {}.tap do |hash|
-      raw_data.split("\n").each do |row|
-        if row.match(/^[a-z\-]+: /i)
-          key, value = row.split(": ", 2)
-          hash[key.underscore.to_sym] = value
-        end
+    header, body = raw_data.split(/\n\n/)
+    conditions = {}
+    header.split("\n").each do |row|
+      if row.match(/^[a-z\-]+: /i)
+        key, value = row.split(": ", 2)
+        conditions[key.underscore.to_sym] = value
       end
     end
+    conditions[:body] = body if body
     @mail = MailFinder.find(conditions)
     expectation = mode == 'no' ? 'should_not' : 'should'
     @mail.send(expectation, be_present)
