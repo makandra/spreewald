@@ -15,3 +15,56 @@ Feature: Test Spreewald's email steps
       | I should see "BODY" in the email |
     But the following step should fail:
       | I should see "XYZ" in the email |
+
+  Scenario: /^(an|no) e?mail should have been sent with:$/
+    When I go to "/emails/send_email"
+    Then the following multiline step should succeed:
+      """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: reply-to@example.com
+        To: to@example.com
+        Subject: SUBJECT
+        '''
+      """
+    Then the following multiline step should fail:
+      """
+      Then an email should have been sent with:
+        '''
+        From: other-from@example.com
+        Reply-To: reply-to@example.com
+        To: to@example.com
+        Subject: SUBJECT
+        '''
+      """
+    Then the following multiline step should fail:
+      """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: other-reply-to@example.com
+        To: to@example.com
+        Subject: SUBJECT
+        '''
+      """
+    Then the following multiline step should fail:
+    """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: reply-to@example.com
+        To: other-to@example.com
+        Subject: SUBJECT
+        '''
+      """
+    Then the following multiline step should fail:
+    """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: reply-to@example.com
+        To: to@example.com
+        Subject: OTHER-SUBJECT
+        '''
+      """

@@ -13,6 +13,7 @@ class MailFinder
           conditions[:cc].nil? || mail.cc.andand.include?(resolve_email conditions[:cc]),
           conditions[:bcc].nil? || mail.bcc.andand.include?(resolve_email conditions[:bcc]),
           conditions[:from].nil? || mail.from.include?(resolve_email conditions[:from]),
+          conditions[:reply_to].nil? || mail.reply_to.include?(resolve_email conditions[:reply_to]),
           conditions[:subject].nil? || mail.subject.include?(conditions[:subject]),
           conditions[:body].nil? || mail_body.include?(conditions[:body]),
           conditions[:attachments].nil? || conditions[:attachments].split(/\s*,\s*/).sort == Array(mail.attachments).collect(&:"#{filename_method}").sort

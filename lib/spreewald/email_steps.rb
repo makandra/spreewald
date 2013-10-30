@@ -15,6 +15,7 @@ end
 #       Then an email should have been sent with:
 #         """
 #         From: max.mustermann@example.com
+#         Reply-To: mmuster@gmail.com
 #         To: john.doe@example.com
 #         Subject: Unter anderem der Betreff kann auch "Anführungszeichen" enthalten
 #         Body: ...
@@ -27,9 +28,9 @@ Then /^(an|no) e?mail should have been sent with:$/ do |mode, raw_data|
     raw_data.strip!
     conditions = {}.tap do |hash|
       raw_data.split("\n").each do |row|
-        if row.match(/^[a-z]+: /i)
+        if row.match(/^[a-z\-]+: /i)
           key, value = row.split(": ", 2)
-          hash[key.downcase.to_sym] = value
+          hash[key.underscore.to_sym] = value
         end
       end
     end
