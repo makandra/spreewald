@@ -18,8 +18,9 @@ end
 #         Reply-To: mmuster@gmail.com
 #         To: john.doe@example.com
 #         Subject: Unter anderem der Betreff kann auch "Anführungszeichen" enthalten
-#         Body: ...
 #         Attachments: ...
+#
+#         Message body goes here.
 #         """
 #
 # You can skip lines, of course.
