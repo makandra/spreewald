@@ -1,23 +1,32 @@
 class Mailer < ActionMailer::Base
 
+  REPLY_TO = "reply-to@example.com"
+  TO = "to@example.com"
+  FROM = "from@example.com"
+  SUBJECT = "SUBJECT"
+  BODY = "BODY"
+
   if Rails.version >= "3"
 
-    default :from => "from@example.com",
-            :to => "to@example.com"
-
-    def email(body = "body")
-      mail(:subject => "email") do |format|
-        format.text { render :text => body }
+    def email
+      mail(
+        :from => FROM,
+        :reply_to => REPLY_TO,
+        :to => TO,
+        :subject => SUBJECT
+      ) do |format|
+        format.text { render :text => BODY }
       end
     end
 
   else
 
-    def email(body_text = "body")
-      recipients EMAIL_RECIPIENT
-      from EMAIL_SENDER
-      subject "email"
-      body body_text
+    def email
+      recipients TO
+      reply_to REPLY_TO
+      from FROM
+      subject SUBJECT
+      body BODY
     end
 
   end

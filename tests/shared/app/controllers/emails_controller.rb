@@ -5,12 +5,10 @@ class EmailsController < ApplicationController
   end
   
   def send_email
-    text = params[:id].to_s
-    
     if Rails.version >= "3"
-      Mailer.email(text).deliver
+      Mailer.email.deliver
     else
-      Mailer.deliver_email(text)
+      Mailer.deliver_email
     end
 
     render :nothing => true
