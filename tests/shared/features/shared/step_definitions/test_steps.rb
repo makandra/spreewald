@@ -21,7 +21,7 @@ When /^I run the following steps?:$/ do |steps_table|
 end
 
 Then /^the following multiline step should (fail|succeed):$/ do |expectation, multiline_step|
-
+  multiline_step = multiline_step.gsub(%{'''}, %{"""})
   if expectation == 'fail'
     expect { steps(multiline_step) }.to raise_error(RSPEC_EXPECTATION_NOT_MET_ERROR)
   else # succeed
