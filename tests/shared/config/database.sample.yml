@@ -1,6 +1,0 @@
-test:
-  database: spreewald_test
-  adapter: mysql2
-  host: localhost
-  username: root
-  password:
