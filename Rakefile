@@ -15,6 +15,16 @@ task :update_readme do
   File.open('README.md', 'w') { |f| f.write(readme) }
 end
 
+namespace :travis do
+  
+  desc 'Run tests in Travis CI'
+  task :run do
+    Rake::Task['tests:create_database'].invoke
+    Rake::Task['tests:bundle'].invoke
+    Rake::Task['tests:run'].invoke
+  end
+end
+
 namespace :tests do
 
   desc "Run tests on all test apps"

@@ -1,4 +1,4 @@
-# Spreewald
+# Spreewald [![Build Status](https://secure.travis-ci.org/makandra/spreewald.png?branch=master)](https://travis-ci.org/makandra/spreewald)
 
 Spreewald is a collection of useful steps for cucumber. Feel free to fork.
 
