@@ -18,7 +18,7 @@ end
 namespace :travis do
   
   desc 'Run tests in Travis CI'
-  task :run => [:slimgems, :create_database] do
+  task :run => [:slimgems, :create_database, :create_database_yml] do
     Rake::Task['tests:bundle'].invoke
     Rake::Task['tests:run'].invoke
   end
@@ -31,6 +31,12 @@ namespace :travis do
   desc 'Creates a test database'
   task :create_database do
     system("mysql -e 'create database spreewald_test;'")
+  end
+
+  desc 'Creates a database.yml'
+  task :create_database_yml do
+    config_dir = "tests/shared/config"
+    system("cp #{config_dir}/database.sample.yml #{config_dir}/database.yml")
   end
   
 end
