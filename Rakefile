@@ -18,11 +18,21 @@ end
 namespace :travis do
   
   desc 'Run tests in Travis CI'
-  task :run do
-    Rake::Task['tests:create_database'].invoke
+  task :run => [:slimgems, :create_database] do
     Rake::Task['tests:bundle'].invoke
     Rake::Task['tests:run'].invoke
   end
+  
+  desc 'Install slimgems'
+  task :slimgems do
+    system('gem install slimgems')
+  end
+
+  desc 'Creates a test database'
+  task :create_database do
+    system("mysql -e 'create database spreewald_test;'")
+  end
+  
 end
 
 namespace :tests do
