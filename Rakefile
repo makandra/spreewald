@@ -76,7 +76,7 @@ def for_each_directory_of(path, &block)
     directory = File.dirname(rakefile)
     puts '', "\033[44m#{directory}\033[0m", ''
 
-    unless RUBY_VERSION.start_with?("1.8") and directory.include?("rails-2.3")
+    unless RUBY_VERSION.start_with?("1.9") and directory.include?("rails-2.3")
       block.call(directory)
     end
   end
