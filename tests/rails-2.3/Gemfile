@@ -2,11 +2,11 @@ source 'https://rubygems.org'
 
 gem 'rails', '~>2.3'
 
-gem 'mysql2', '~>0.2.1'
-gem 'activerecord-mysql2-adapter'
+gem "sqlite3", :platform=>:ruby
 gem 'ruby-debug', :platforms => :ruby_18
 gem 'database_cleaner'
-
+gem "jruby-openssl", :platform=>:jruby
+gem "activerecord-jdbcsqlite3-adapter", :platform=>:jruby
 gem "capybara", "1.1.1"
 gem "cucumber", "1.1.0"
 gem "cucumber-rails", '=0.3.2'

@@ -1,7 +1,7 @@
 PATH
   remote: ../..
   specs:
-    spreewald (0.6.7)
+    spreewald (0.7.0)
       capybara
       cucumber
       cucumber-rails
@@ -16,8 +16,6 @@ GEM
       rack (~> 1.1.0)
     activerecord (2.3.18)
       activesupport (= 2.3.18)
-    activerecord-mysql2-adapter (0.0.3)
-      mysql2
     activeresource (2.3.18)
       activesupport (= 2.3.18)
     activesupport (2.3.18)
@@ -51,7 +49,6 @@ GEM
       rbx-require-relative (> 0.0.4)
     mime-types (1.23)
     multi_json (1.7.5)
-    mysql2 (0.2.18)
     nokogiri (1.5.9)
     rack (1.1.6)
     rack-test (0.6.2)
@@ -80,6 +77,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip
       websocket (~> 1.0.4)
+    sqlite3 (1.3.8)
     term-ansicolor (1.2.2)
       tins (~> 0.8)
     tins (0.8.0)
@@ -91,14 +89,15 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-mysql2-adapter
+  activerecord-jdbcsqlite3-adapter
   capybara (= 1.1.1)
   cucumber (= 1.1.0)
   cucumber-rails (= 0.3.2)
   database_cleaner
   haml (< 3)
-  mysql2 (~> 0.2.1)
+  jruby-openssl
   rails (~> 2.3)
   rspec-rails (~> 1.3)
   ruby-debug
   spreewald!
+  sqlite3

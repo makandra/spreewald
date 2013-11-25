@@ -1,0 +1,3 @@
+cucumber:
+  database: ":memory:"
+  adapter: sqlite3
