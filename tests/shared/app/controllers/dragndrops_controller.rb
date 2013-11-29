@@ -1,0 +1,3 @@
+class DragndropsController < ApplicationController
+
+end

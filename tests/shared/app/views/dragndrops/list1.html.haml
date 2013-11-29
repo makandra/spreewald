@@ -1,0 +1,89 @@
+%ul
+  %li{:draggable => "true"} List Element 1
+  %li{:draggable => "true"} List Element 2
+  %li{:draggable => "true"} List Element 3
+  %li{:draggable => "true"} List Element 4
+  %li{:draggable => "true"} List Element 5
+
+%style{ :type => 'text/css' }
+  /
+    :sass
+      li
+        cursor: move
+        &.is_dragged
+          border: 1px dashed #977900
+        &.is_dragged_over
+          background-color: red
+
+
+:javascript
+
+  var DragAndDrop = (function() {
+
+    function init() {
+      $(document).on("dragstart", "[draggable='true']", function(event) {
+        draggingStarted(event);
+      });
+      $(document).on("dragend", "[draggable='true']", function(event) {
+        draggingStopped(event);
+      });
+      $(document).on("dragenter", "[draggable='true']", function(event) {
+        draggedOver(event);
+      });
+      $(document).on("dragleave", "[draggable='true']", function(event) {
+        dragLeft(event);
+      });
+    }
+
+
+    function draggingStarted(event) {
+      var $drag = $(event.target).closest("li");
+      $drag.addClass("is_dragged");
+    }
+
+    function draggingStopped(event) {
+      var $drag = $(event.target).closest("li");
+      $drag.removeClass("is_dragged");
+    }
+
+    function draggedOver(event) {
+      var $belowDrag = $(event.target).closest("li");
+      $belowDrag.addClass("is_dragged_over");
+    }
+
+    function dragLeft(event) {
+      var $belowDrag = $(event.target).closest("li");
+      $belowDrag.removeClass("is_dragged_over");
+    }
+
+    return {
+      init: init
+    };
+
+  })();
+
+
+  // Anonymous "self-invoking" function
+  (function() {
+    // Load the script
+    var script = document.createElement("SCRIPT");
+    script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
+    script.type = 'text/javascript';
+    document.getElementsByTagName("head")[0].appendChild(script);
+
+    // Poll for jQuery to come into existance
+    var checkReady = function(callback) {
+      if (window.jQuery) {
+        callback(jQuery);
+      }
+      else {
+        window.setTimeout(function() { checkReady(callback); }, 100);
+      }
+    };
+
+    // Start polling...
+    checkReady(function($) {
+      // Use $ here...
+      DragAndDrop.init();
+    });
+  })();
