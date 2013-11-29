@@ -1,6 +1,15 @@
-test:
-  database: spreewald_test
+development:
   adapter: mysql2
+  database: spreewald_development
+  encoding: utf8
   host: localhost
   username: root
-  password:
+  password: secret
+
+test:
+  adapter: mysql2
+  database: spreewald_test
+  encoding: utf8
+  host: localhost
+  username: root
+  password: secret
