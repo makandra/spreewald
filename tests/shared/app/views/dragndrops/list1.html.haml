@@ -20,40 +20,96 @@
 
   var DragAndDrop = (function() {
 
+    // http://www.html5rocks.com/en/tutorials/dnd/basics/
+
+    //var $droppables;
+    //var $nearestDroppable;
+    var dragSource;
+
     function init() {
-      $(document).on("dragstart", "[draggable='true']", function(event) {
-        draggingStarted(event);
+
+      //var liElements = document.querySelectorAll("li");
+      //[].forEach.call(liElements, function(li) {
+      //  li.addEventListener('dragstart', handleDragStart, false);
+      //  li.addEventListener('dragenter', handleDragEnter, false);
+      //  li.addEventListener('dragover', handleDragOver, false);
+      //  li.addEventListener('dragleave', handleDragLeave, false);
+      //});
+
+      $(document).on("dragstart", "[draggable='true']", function($event) {
+        handleDragStart($event);
       });
-      $(document).on("dragend", "[draggable='true']", function(event) {
-        draggingStopped(event);
+      $(document).on("dragend", "[draggable='true']", function($event) {
+        handleDragEnd($event);
       });
-      $(document).on("dragenter", "[draggable='true']", function(event) {
-        draggedOver(event);
+
+      $(document).on("dragenter", function($event) {
+        handleDragEnter($event);
       });
-      $(document).on("dragleave", "[draggable='true']", function(event) {
-        dragLeft(event);
+      $(document).on("dragleave", function($event) {
+        handleDragLeave($event);
+      });
+
+      $(document).on("dragover", function($event) {
+        handleDragOver($event);
+      });
+      $(document).on("drop", "[draggable='true']", function($event) {
+        handleDrop($event);
       });
     }
 
 
-    function draggingStarted(event) {
-      var $drag = $(event.target).closest("li");
+    function handleDragStart($event) {
+      console.debug("dragstart");
+      var $drag = $($event.target).closest("li");
       $drag.addClass("is_dragged");
+
+      dragSource = $drag[0];
+      event = $event.originalEvent;
+      event.dataTransfer.effectAllowed = 'move'; // necessary
+      event.dataTransfer.setData('text/html', event.target.innerHTML);
     }
 
-    function draggingStopped(event) {
-      var $drag = $(event.target).closest("li");
+    function handleDragEnd($event) {
+      console.debug("dragend");
+      var $drag = $($event.target).closest("li");
       $drag.removeClass("is_dragged");
     }
 
-    function draggedOver(event) {
-      var $belowDrag = $(event.target).closest("li");
+    function handleDragEnter($event) {
+      console.debug("dragenter");
+      var $belowDrag = $($event.target).closest("li");
       $belowDrag.addClass("is_dragged_over");
     }
 
-    function dragLeft(event) {
-      var $belowDrag = $(event.target).closest("li");
+    function handleDragLeave($event) {
+      console.debug("dragleave");
+      var $belowDrag = $($event.target).closest("li");
       $belowDrag.removeClass("is_dragged_over");
+    }
+
+    function handleDragOver($event) {
+      console.debug("dragover");
+      if ($event.preventDefault) {
+        $event.preventDefault(); // Necessary. Allows us to drop.
+      }
+      $event.originalEvent.dataTransfer.dropEffect = 'move'; // Must have been allowed on 'dragstart'
+      return false;
+    }
+
+    function handleDrop($event) {
+      console.debug("drop");
+      if ($event.stopPropagation) {
+        $event.stopPropagation(); // Stops some browsers from redirecting.
+      }
+      target = $event.originalEvent.target;
+      $(target).removeClass("is_dragged_over");
+
+      if (dragSource != target) { // Don't do anything if dropping the same element we're dragging.
+        dragSource.innerHTML = target.innerHTML; // swap html
+        target.innerHTML = $event.originalEvent.dataTransfer.getData('text/html');
+      }
+      return false;
     }
 
     return {
