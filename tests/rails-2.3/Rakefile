@@ -1,4 +1,10 @@
 #!/usr/bin/env rake
+require(File.join(File.dirname(__FILE__), 'config', 'boot'))
+require 'rake'
+require 'rake/testtask'
+require 'tasks/rails'
+
+
 require 'cucumber/rake/task'
 
 desc 'Default: Run all specs for a specific rails version.'
