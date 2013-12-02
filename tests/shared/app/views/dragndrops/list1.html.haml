@@ -5,6 +5,7 @@
   %li{:draggable => "true"} List Element 4
   %li{:draggable => "true"} List Element 5
 
+-# incomment only while developing
 %style{ :type => 'text/css' }
   /
     :sass
@@ -25,6 +26,9 @@
     var dragSource;
 
     function init() {
+
+      $(document).on("click", "li", function(event) { $(this).addClass("is_dragged_over"); } );
+
       var liElements = document.querySelectorAll("li");
       [].forEach.call(liElements, function(li) {
         li.addEventListener('dragstart', handleDragStart, false);
