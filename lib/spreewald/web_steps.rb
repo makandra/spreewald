@@ -324,6 +324,7 @@ Then /^I should get a response with content-type "([^\"]*)"$/ do |expected_conte
 end
 
 # Checks "Content-Disposition" HTTP header
+# Attention: Doesn't work with Selenium, see https://github.com/jnicklas/capybara#gotchas
 Then /^I should get a download with filename "([^\"]*)"$/ do |filename|
   page.response_headers['Content-Disposition'].should =~ /filename="#{filename}"$/
 end
