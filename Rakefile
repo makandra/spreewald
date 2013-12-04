@@ -18,27 +18,12 @@ end
 namespace :travis do
   
   desc 'Run tests in Travis CI'
-  task :run => [:slimgems, :create_database, :create_database_yml] do
-    Rake::Task['tests:bundle'].invoke
-    Rake::Task['tests:run'].invoke
-  end
+  task :run => [:slimgems, 'tests:bundle', 'tests:run']
   
   desc 'Install slimgems'
   task :slimgems do
     system('gem install slimgems')
   end
-
-  desc 'Creates a test database'
-  task :create_database do
-    system("mysql -e 'create database spreewald_test;'")
-  end
-
-  desc 'Creates a database.yml'
-  task :create_database_yml do
-    config_dir = "tests/shared/config"
-    system("cp #{config_dir}/database.sample.yml #{config_dir}/database.yml")
-  end
-  
 end
 
 namespace :tests do
@@ -63,12 +48,6 @@ namespace :tests do
       end
     end
   end
-
-  desc 'Shortcut for creating a database'
-  task :create_database do
-    system("mysql -uroot -p -e 'create database spreewald_test;'")
-  end
-
 end
 
 def for_each_directory_of(path, &block)

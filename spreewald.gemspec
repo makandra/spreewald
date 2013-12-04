@@ -11,8 +11,7 @@ Gem::Specification.new do |gem|
   gem.license       = 'MIT'
 
   gem.files         = `git ls-files`.split($\)
-  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
+  gem.test_files    = gem.files.grep(%r{^(tests)/})
   gem.name          = "spreewald"
   gem.require_paths = ["lib"]
   gem.version       = Spreewald::VERSION
@@ -20,4 +19,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency('cucumber-rails')
   gem.add_runtime_dependency('cucumber')
   gem.add_runtime_dependency('capybara')
+
+  gem.add_development_dependency('rake')
+  gem.add_development_dependency('sqlite3')
 end
