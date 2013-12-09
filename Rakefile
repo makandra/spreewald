@@ -2,7 +2,7 @@
 require "bundler/gem_tasks"
 
 desc 'Default: Run all tests.'
-task :default => 'tests:run' # now you can run the tests by just typing "rake" into your console
+task :default => 'all:features'
 
 
 desc 'Update the "Steps" section of the README'
@@ -41,10 +41,10 @@ namespace :travis do
   
 end
 
-namespace :tests do
+namespace :all do
 
   desc "Run tests on all test apps"
-  task :run do # to run the tests type "rake tests:run" into your console
+  task :features do
     success = true
     for_each_directory_of('tests/**/Rakefile') do |directory|
       Bundler.with_clean_env do
@@ -76,7 +76,9 @@ def for_each_directory_of(path, &block)
     directory = File.dirname(rakefile)
     puts '', "\033[44m#{directory}\033[0m", ''
 
-    unless RUBY_VERSION.start_with?("1.9") and directory.include?("rails-2.3")
+    if RUBY_VERSION.start_with?("1.9") and directory.include?("rails-2.3")
+      puts 'Skipping Rails 2.3 with Ruby 1.9.'
+    else
       block.call(directory)
     end
   end
