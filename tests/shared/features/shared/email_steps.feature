@@ -113,3 +113,19 @@ Feature: Test Spreewald's email steps
         OTHER-BODY
         '''
       """
+
+    # Test body with multiple paragraphs
+    Then the following multiline step should fail:
+      """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: reply-to@example.com
+        To: to@example.com
+        Subject: SUBJECT
+
+        BODY
+        
+        MORE-BODY
+        '''
+      """

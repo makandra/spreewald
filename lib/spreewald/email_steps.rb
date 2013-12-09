@@ -17,17 +17,18 @@ end
 #         From: max.mustermann@example.com
 #         Reply-To: mmuster@gmail.com
 #         To: john.doe@example.com
-#         Subject: Unter anderem der Betreff kann auch "Anführungszeichen" enthalten
+#         Subject: The subject may contain "quotes"
 #         Attachments: ...
 #
 #         Message body goes here.
 #         """
 #
-# You can skip lines, of course.
+# You can skip lines, of course. Note that the mail body is only checked for
+# _inclusion_.
 Then /^(an|no) e?mail should have been sent with:$/ do |mode, raw_data|
   patiently do
     raw_data.strip!
-    header, body = raw_data.split(/\n\n/)
+    header, body = raw_data.split(/\n\n/, 2) # 2: maximum number of fields
     conditions = {}
     header.split("\n").each do |row|
       if row.match(/^[a-z\-]+: /i)

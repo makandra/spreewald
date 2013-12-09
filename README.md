@@ -99,13 +99,16 @@ Marks scenario as pending
         Then an email should have been sent with:
           """
           From: max.mustermann@example.com
+          Reply-To: mmuster@gmail.com
           To: john.doe@example.com
-          Subject: Unter anderem der Betreff kann auch "Anführungszeichen" enthalten
-          Body: ...
+          Subject: The subject may contain "quotes"
           Attachments: ...
+  
+          Message body goes here.
           """
   
-  You can skip lines, of course.
+  You can skip lines, of course. Note that the mail body is only checked for
+  _inclusion_.
 
 
 * **When I follow the (first|second|third)? link in the e?mail**
@@ -145,6 +148,74 @@ Marks scenario as pending
 
   Only works after you've retrieved the email using "Then an email should have been sent with:"
   Checks that the text should be included in the retrieved email
+
+
+
+### file_attachment_steps.rb
+
+Attach a file
+
+Example:
+
+  Company.new.logo = File.new…
+
+  Given the file "…" was attached as logo to the company above
+
+
+Example:
+
+  class Gallery
+    has_many :images, :as => :owner
+  end
+
+  class Image
+    belongs_to :owner, polymorphic: true
+  end
+
+  # so container = Image.new; container.file = File.new… , container.owner = object
+
+  Given the file "…" was attached as Image/file to the company above
+
+
+Example:
+
+  Set updated_at with
+
+    Given … above at "2011-11-11 11:11"
+
+
+* **Given the file "..." was attached( as (.../)?...)? to the ... above( at "...")?**
+
+  Attach a file
+  
+  Example:
+  
+    Company.new.logo = File.new…
+  
+    Given the file "…" was attached as logo to the company above
+  
+  
+  Example:
+  
+    class Gallery
+      has_many :images, :as => :owner
+    end
+  
+    class Image
+      belongs_to :owner, polymorphic: true
+    end
+  
+    # so container = Image.new; container.file = File.new… , container.owner = object
+  
+    Given the file "…" was attached as Image/file to the company above
+  
+  
+  Example:
+  
+    Set updated_at with
+  
+      Given … above at "2011-11-11 11:11"
+
 
 
 
@@ -382,6 +453,7 @@ deprecation notice. Decide for yourself whether you want to use them:
 * **Then I should get a download with filename "..."**
 
   Checks "Content-Disposition" HTTP header
+  Attention: Doesn't work with Selenium, see https://github.com/jnicklas/capybara#gotchas
 
 
 * **Then "..." should be selected for "..."**
