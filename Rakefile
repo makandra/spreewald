@@ -4,10 +4,14 @@ require "bundler/gem_tasks"
 desc 'Default: Run all tests.'
 task :default => 'all:features'
 
-
 desc 'Update the "Steps" section of the README'
 task :update_readme do
-  require 'support/documentation_generator'
+  if Kernel.respond_to? :require_relative
+    require_relative './support/documentation_generator'
+  else
+    require 'support/documentation_generator'
+  end
+
   readme = File.read('README.md')
   start_of_steps_section = readme =~ /^## Steps/
   length_of_steps_section = (readme[(start_of_steps_section+1)..-1] =~ /^##[^#]/) || readme.size - start_of_steps_section
