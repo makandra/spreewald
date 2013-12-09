@@ -8,7 +8,6 @@
 coverage
 doc/
 InstalledFiles
-tests/shared/config/database.yml
 tmp
 _yardoc
 *.log
