@@ -19,8 +19,8 @@ namespace :travis do
   
   desc 'Run tests in Travis CI'
   task :run => [:slimgems, :create_database, :create_database_yml] do
-    Rake::Task['tests:bundle'].invoke
-    Rake::Task['tests:run'].invoke
+    Rake::Task['all:bundle'].invoke
+    Rake::Task['all:features'].invoke
   end
   
   desc 'Install slimgems'
