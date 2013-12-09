@@ -22,6 +22,12 @@
 #   Given the file "…" was attached as Image/file to the company above
 #
 #
+# Example:
+#
+#   Set updated_at with
+#
+#     Given … above at "2011-11-11 11:11"
+#
 Given /^the file "([^"]*)" was attached(?: as (?:([^"]*)\/)?([^"]*))? to the ([^"]*) above(?: at "([^"]*)")?$/ do
   |path_to_file, container_name, relation_name, model_name, time_string|
 
