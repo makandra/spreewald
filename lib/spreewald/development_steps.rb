@@ -5,9 +5,14 @@ Then /^it should work$/ do
   pending
 end
 
-# Starts debugger
+# Starts debugger, or Pry if installed
 Then /^debugger$/ do
-  debugger
+  if binding.respond_to? :pry
+    binding.pry
+  else
+    debugger
+  end
+
   true # Ruby will halt in this line
 end
 
