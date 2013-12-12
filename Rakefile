@@ -20,13 +20,13 @@ task :update_readme do
 end
 
 namespace :travis do
-  
+
   desc 'Run tests in Travis CI'
   task :run => [:slimgems, 'all:bundle', 'all:features']
-  
+
   desc 'Install slimgems'
   task :slimgems do
-    system('gem install slimgems')
+    sh 'gem install slimgems' unless modern_ruby?
   end
 end
 
@@ -54,13 +54,17 @@ namespace :all do
   end
 end
 
+def modern_ruby?
+  Gem::Version.new(RUBY_VERSION) > Gem::Version.new('1.8.7')
+end
+
 def for_each_directory_of(path, &block)
   Dir[path].sort.each do |rakefile|
     directory = File.dirname(rakefile)
     puts '', "\033[44m#{directory}\033[0m", ''
 
-    if RUBY_VERSION.start_with?("1.9") and directory.include?("rails-2.3")
-      puts 'Skipping Rails 2.3 with Ruby 1.9.'
+    if modern_ruby? and directory.include?("rails-2.3")
+      puts "Rails 2.3 Tests are skipped for Rubies younger than versions 1.8.7"
     else
       block.call(directory)
     end
