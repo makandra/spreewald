@@ -8,6 +8,7 @@ Feature: Web steps
     Then the "Select control" field should contain "Label 2"
     Then the "Select control without selection" field should contain "Label 1"
     Then the "Textarea control" field should contain "Textarea control value"
+    Then the "Empty control" field should contain ""
 
   Scenario: /^I should see a form with the following values:$/
     Then I should see a form with the following values:
@@ -15,6 +16,7 @@ Feature: Web steps
       | Select control                   | Label 2                |
       | Select control without selection | Label 1                |
       | Textarea control                 | Textarea control value |
+      | Empty control                    |                        |
 
   Scenario: /^"([^"]*)" should be selected for "([^"]*)"$/
     Then "Label 2" should be selected for "Select control"
