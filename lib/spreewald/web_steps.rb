@@ -612,7 +612,7 @@ end
 # More details [here](https://makandracards.com/makandra/12139-waiting-for-page-loads-and-ajax-requests-to-finish-with-capybara).
 When /^I wait for the page to load$/ do
   if [:selenium, :webkit, :poltergeist].include?(Capybara.current_driver)
-    wait_until { page.evaluate_script('$.active') == 0 }
+    wait_until { page.evaluate_script("typeof jQuery === 'undefined' || $.active == 0") } # immediately return when no jQuery is loaded
   end
   page.has_content? ''
 end
