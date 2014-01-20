@@ -150,8 +150,6 @@ Then /^the "([^"]*)" field should (not )?contain "([^"]*)"$/ do |label, negate, 
   patiently do
     field = find_field(label)
     field_value = case field.tag_name
-    when 'textarea'
-      field.text.present? ? field.text.strip : ''
     when 'select'
       options = field.all('option')
       selected_option = options.detect(&:selected?) || options.first
