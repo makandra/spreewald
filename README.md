@@ -69,7 +69,7 @@ Marks scenario as pending
 
 * **Then debugger**
 
-  Starts debugger
+  Starts debugger, or Pry if installed
 
 
 * **@slow**
@@ -376,6 +376,11 @@ deprecation notice. Decide for yourself whether you want to use them:
 * **Then the "..." field should (not )?contain "..."**
 
   Checks that an input field contains some value (allowing * as wildcard character)
+
+
+* **Then(the "(.*?)" field should (not )?contain:)**
+
+  Checks that a multiline textarea contains some value (allowing * as wildcard character)
 
 
 * **Then I should see a form with the following values:**

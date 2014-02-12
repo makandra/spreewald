@@ -165,6 +165,15 @@ Then /^the "([^"]*)" field should (not )?contain "([^"]*)"$/ do |label, negate, 
   end
 end
 
+# Checks that a multiline textarea contains some value (allowing * as wildcard character)
+Then(/^the "(.*?)" field should (not )?contain:$/) do |label, negate, expected_string|
+  patiently do
+    field = find_field(label)
+    field.value.chomp.send(negate ? :should_not : :should, contain_with_wildcards(expected_string))
+  end
+end
+
+
 
 # Checks that a list of label/value pairs are visible as control inputs.
 #
