@@ -1,7 +1,14 @@
 # coding: UTF-8
 
 module ToleranceForSeleniumSyncIssues
-  RETRY_ERRORS = %w[Capybara::ElementNotFound Spec::Expectations::ExpectationNotMetError RSpec::Expectations::ExpectationNotMetError Capybara::Poltergeist::ClickFailed Selenium::WebDriver::Error::StaleElementReferenceError Selenium::WebDriver::Error::NoAlertPresentError]
+  RETRY_ERRORS = %w[
+    Capybara::ElementNotFound
+    Spec::Expectations::ExpectationNotMetError
+    RSpec::Expectations::ExpectationNotMetError
+    Capybara::Poltergeist::ClickFailed
+    Selenium::WebDriver::Error::StaleElementReferenceError
+    Selenium::WebDriver::Error::NoAlertPresentError
+  ]
 
   # This is similiar but not entirely the same as Capybara::Node::Base#wait_until or Capybara::Session#wait_until
   def patiently(seconds=Capybara.default_wait_time, &block)
