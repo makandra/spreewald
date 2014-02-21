@@ -32,8 +32,25 @@ Feature: Web steps
       | Textarea control                 | Textarea control value |
       | Empty control                    |                        |
 
+
   Scenario: /^"([^"]*)" should be selected for "([^"]*)"$/
     When I go to "/forms/form1"
     Then "Label 2" should be selected for "Select control"
     Then "Label 1" should be selected for "Select control without selection"
 
+  
+  Scenario: /^I go back$/
+    Given I go to "/static_pages/link_to_home"
+      And I follow "Home"
+    
+    When I go back
+    Then I should be on "/static_pages/link_to_home"
+
+
+  @javascript
+  Scenario: /^I go back$/
+    Given I go to "/static_pages/link_to_home"
+      And I follow "Home"
+    
+    When I go back
+    Then I should be on "/static_pages/link_to_home"

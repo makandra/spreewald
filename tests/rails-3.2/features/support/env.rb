@@ -53,13 +53,13 @@ DatabaseCleaner.strategy = :transaction
 #   end
 #
 #   Before('~@no-txn', '~@selenium', '~@culerity', '~@celerity', '~@javascript') do
-#     DatabaseCleaner.strategy = :transaction
+#     DatabaseCleaner.strategy = :truncation
 #   end
 #
 
 # Possible values are :truncation and :transaction
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
-Cucumber::Rails::Database.javascript_strategy = :deletion
+# Cucumber::Rails::Database.javascript_strategy = :deletion
 
 Capybara.default_wait_time = 5

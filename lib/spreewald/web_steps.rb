@@ -644,3 +644,16 @@ When /^I perform basic authentication as "([^\"]*)\/([^\"]*)" and go to (.*)$/ d
   end
 end
 
+# Go to the previously viewed page.
+When /^I go back$/ do
+  case Capybara::current_driver
+  when :selenium, :webkit
+    page.evaluate_script('window.history.back()')
+  else
+    if page.driver.respond_to?(:browser)
+      visit page.driver.browser.last_request.env['HTTP_REFERER']
+    else
+      visit page.driver.last_request.env['HTTP_REFERER']
+    end
+  end
+end

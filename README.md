@@ -589,3 +589,8 @@ deprecation notice. Decide for yourself whether you want to use them:
   
   More details [here](https://makandracards.com/makandra/971-perform-http-basic-authentication-in-cucumber).
 
+
+* **When I go back**
+
+  Go to the previously viewed page.
+
