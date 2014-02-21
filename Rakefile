@@ -64,7 +64,7 @@ def for_each_directory_of(path, &block)
     puts '', "\033[44m#{directory}\033[0m", ''
 
     if modern_ruby? and directory.include?("rails-2.3")
-      puts "Rails 2.3 Tests are skipped for Rubies younger than versions 1.8.7"
+      puts "Rails 2.3 tests are only run for Ruby 1.8.7"
     else
       block.call(directory)
     end

@@ -32,7 +32,8 @@ require 'uri'
 require 'cgi'
 
 
-# You can append 'within [selector]' to any other web step
+# You can append `within [selector]` to any other web step
+#
 # Example:
 #
 #       Then I should see "some text" within ".page_body"
@@ -51,6 +52,22 @@ end
 
 When /^(?:|I )go to (.+)$/ do |page_name|
   visit _path_to(page_name)
+end
+
+Then /^(?:|I )should be on (.+)$/ do |page_name|
+  patiently do
+    fragment = URI.parse(current_url).fragment
+    fragment.sub!(/[#?].*/, '') if fragment # most js frameworks will usually use ? and # for params, we dont care about those
+    current_path = URI.parse(current_url).path
+    current_path << "##{fragment}" if fragment.present?
+    expected_path = _path_to(page_name)
+
+    # Consider two pages equal if they only differ by a trailing slash.
+    current_path = expected_path if current_path.chomp("/") == expected_path.chomp("/")
+    current_path = expected_path if current_path.gsub("/#", "#") == expected_path.gsub("/#", "#")
+
+    current_path.should == expected_path
+  end
 end
 
 When /^(?:|I )press "([^"]*)"$/ do |button|
@@ -107,6 +124,7 @@ When /^(?:|I )choose "([^"]*)"$/ do |field|
   end
 end
 
+# Attach a file to a file upload form field
 When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
   patiently do
     attach_file(field, File.expand_path(path))
@@ -174,8 +192,6 @@ Then(/^the "(.*?)" field should (not )?contain:$/) do |label, negate, expected_s
   end
 end
 
-
-
 # Checks that a list of label/value pairs are visible as control inputs.
 #
 # Example:
@@ -191,10 +207,7 @@ Then /^I should see a form with the following values:$/ do |table|
   end
 end
 
-
-
-
-# checks that an input field was wrapped with a validation error
+# Checks that an input field was wrapped with a validation error
 Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_message|
   patiently do
     element = find_field(field)
@@ -258,29 +271,13 @@ Then /^the radio button "([^"]*)" should( not)? be (?:checked|selected)$/ do |fi
   end
 end
 
-Then /^(?:|I )should be on (.+)$/ do |page_name|
-  patiently do
-    fragment = URI.parse(current_url).fragment
-    fragment.sub!(/[#?].*/, '') if fragment # most js frameworks will usually use ? and # for params, we dont care about those
-    current_path = URI.parse(current_url).path
-    current_path << "##{fragment}" if fragment.present?
-    expected_path = _path_to(page_name)
-
-    # Consider two pages equal if they only differ by a trailing slash.
-    current_path = expected_path if current_path.chomp("/") == expected_path.chomp("/")
-    current_path = expected_path if current_path.gsub("/#", "#") == expected_path.gsub("/#", "#")
-
-    current_path.should == expected_path
-  end
-end
-
 # Example:
 #
 #       I should have the following query string:
 #         | locale        | de  |
 #         | currency_code | EUR |
 #
-# Succeeds when the URL contains the given "locale" and "currency_code" params
+# Succeeds when the URL contains the given `locale` and `currency_code` params
 Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   patiently do
     query = URI.parse(current_url).query
@@ -292,13 +289,13 @@ Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   end
 end
 
-# Open the current Capybara page using the "launchy" gem
+# Open the current Capybara page using the `launchy` gem
 Then /^show me the page$/ do
   save_and_open_page
 end
 
 
-# checks for the existance of a input field (given its id or label)
+# Checks for the existance of an input field (given its id or label)
 Then /^I should( not)? see a field "([^"]*)"$/ do |negate, name|
   expectation = negate ? :should_not : :should
   patiently do
@@ -311,9 +308,9 @@ Then /^I should( not)? see a field "([^"]*)"$/ do |negate, name|
   end
 end
 
-# Better way to test for a number of money amount than a `Then I should see`
+# Use this step to test for a number or money amount instead of a simple `Then I should see`
 #
-# Checks that there is unexpected minus sign, decimal places etc.
+# Checks for an unexpected minus sign, correct decimal places etc.
 #
 # See [here](https://makandracards.com/makandra/1225-test-that-a-number-or-money-amount-is-shown-with-cucumber) for details
 Then /^I should( not)? see the (?:number|amount) ([\-\d,\.]+)(?: (.*?))?$/ do |negate, amount, unit|
@@ -326,12 +323,13 @@ Then /^I should( not)? see the (?:number|amount) ([\-\d,\.]+)(?: (.*?))?$/ do |n
   end
 end
 
-# Checks "Content-Type" HTTP header
+# Checks `Content-Type` HTTP header
 Then /^I should get a response with content-type "([^\"]*)"$/ do |expected_content_type|
   page.response_headers['Content-Type'].should =~ /\A#{Regexp.quote(expected_content_type)}($|;)/
 end
 
-# Checks "Content-Disposition" HTTP header
+# Checks `Content-Disposition` HTTP header
+#
 # Attention: Doesn't work with Selenium, see https://github.com/jnicklas/capybara#gotchas
 Then /^I should get a download with filename "([^\"]*)"$/ do |filename|
   page.response_headers['Content-Disposition'].should =~ /filename="#{filename}"$/
@@ -367,7 +365,8 @@ Then /^"([^"]*)" should( not)? be an option for "([^"]*)"$/ do |value, negate, f
   end
 end
 
-# Like `Then I should see`, but with single instead of double quotes. In case the string contains quotes as well.
+# Like `Then I should see`, but with single instead of double quotes. In case
+# the expected string contains quotes as well.
 Then /^(?:|I )should see '([^']*)'$/ do |text|
   patiently do
     page.should have_content(text)
@@ -412,7 +411,7 @@ end
 
 # Checks that an element is actually visible, also considering styles
 # Within a selenium test, the browser is asked whether the element is really visible
-# In a non-selenium test, we only check for ".hidden", ".invisible" or "style: display:none"
+# In a non-selenium test, we only check for `.hidden`, `.invisible` or `style: display:none`
 #
 # More details [here](https://makandracards.com/makandra/1049-capybara-check-that-a-page-element-is-hidden-via-css)
 Then /^(the tag )?"([^\"]+)" should( not)? be visible$/ do |tag, selector_or_text, negate|
@@ -507,7 +506,7 @@ Then /^I should (not )?see an element "([^"]*)"$/ do |negate, selector|
   end
 end
 
-# Checks that the result has content type text/plain
+# Checks that the result has content type `text/plain`
 Then /^I should get a text response$/ do
   step 'I should get a response with content-type "text/plain"'
 end
