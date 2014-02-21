@@ -52,6 +52,8 @@ module DocumentationGenerator
   end
 
   class StepDefinitionFile
+    
+    FILE_COMMENT_END = 'FILE_COMMENT_END'
 
     include CommentExtractor
 
@@ -64,7 +66,10 @@ module DocumentationGenerator
     end
 
     def extract_comment
-      @comment = parse_and_format_comment(@code)
+      if @code.include?(FILE_COMMENT_END)
+        file_comment = @code.split(FILE_COMMENT_END).first
+        @comment = parse_and_format_comment(file_comment)
+      end
     end
 
     def add_steps
