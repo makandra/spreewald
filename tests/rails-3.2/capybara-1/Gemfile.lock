@@ -1,5 +1,5 @@
 PATH
-  remote: ../..
+  remote: ../../..
   specs:
     spreewald (0.9.0)
       capybara

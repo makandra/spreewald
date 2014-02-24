@@ -13,7 +13,7 @@ require 'cucumber/rails'
 # require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "selectors"))
 
 # load Spreewald steps
-require File.expand_path('../../lib/spreewald/all_steps')
+require File.expand_path('../../../lib/spreewald/all_steps')
          
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
