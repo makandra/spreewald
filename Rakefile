@@ -32,8 +32,25 @@ namespace :all do
     end
     fail "Tests failed" unless success
   end
+  
+  desc 'Run tests on several Ruby versions'
+  task :rubies do
+    rubies = %w[1.8.7 1.9.3 2.0.0]
+    success = true
 
-  desc "Bundle all test apps"
+    if system('rvm -v 2>&1 > /dev/null') # rvm installed
+      rubies.each do |ruby|
+        announce 'Running features for Ruby ' + ruby, 2
+        success &= system "rvm #{ruby} do rake all:bundle all:features"
+      end
+    else
+      fail 'Currently only rvm is supported. Open Rakefile and add your Ruby version manager!'
+    end
+    
+    fail "Tests failed" unless success
+  end
+
+  desc 'Bundle all test apps'
   task :bundle do
     for_each_directory_of('tests/**/Gemfile') do |directory|
       Bundler.with_clean_env do
@@ -50,7 +67,7 @@ end
 def for_each_directory_of(path, &block)
   Dir[path].sort.each do |rakefile|
     directory = File.dirname(rakefile)
-    puts '', "\033[44m#{directory}\033[0m", ''
+    announce directory
 
     if modern_ruby? and directory.include?("rails-2.3")
       puts "Rails 2.3 tests are only run for Ruby 1.8.7"
@@ -58,4 +75,10 @@ def for_each_directory_of(path, &block)
       block.call(directory)
     end
   end
+end
+
+def announce(text, level = 1)
+  space = "\n" * level
+  message = "# #{text}"
+  puts "\e[4;34m#{space + message}\e[0m" # blue underline
 end
