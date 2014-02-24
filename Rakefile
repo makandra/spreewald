@@ -19,20 +19,9 @@ task :update_readme do
   File.open('README.md', 'w') { |f| f.write(readme) }
 end
 
-namespace :travis do
-
-  desc 'Run tests in Travis CI'
-  task :run => [:slimgems, 'all:bundle', 'all:features']
-
-  desc 'Install slimgems'
-  task :slimgems do
-    sh 'gem install slimgems' unless modern_ruby?
-  end
-end
-
 namespace :all do
 
-  desc "Run tests on all test apps"
+  desc 'Run tests on all test apps'
   task :features do
     success = true
     for_each_directory_of('tests/**/Rakefile') do |directory|
