@@ -10,6 +10,7 @@ module ToleranceForSeleniumSyncIssues
     Selenium::WebDriver::Error::StaleElementReferenceError
     Selenium::WebDriver::Error::NoAlertPresentError
     Selenium::WebDriver::Error::ElementNotVisibleError
+    Selenium::WebDriver::Error::NoSuchFrameError
   ]
 
   # This is similiar but not entirely the same as Capybara::Node::Base#wait_until or Capybara::Session#wait_until
