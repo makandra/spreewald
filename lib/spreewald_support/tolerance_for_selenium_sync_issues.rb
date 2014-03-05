@@ -8,6 +8,7 @@ module ToleranceForSeleniumSyncIssues
     Capybara::Poltergeist::ClickFailed
     Selenium::WebDriver::Error::StaleElementReferenceError
     Selenium::WebDriver::Error::NoAlertPresentError
+    Selenium::WebDriver::Error::ElementNotVisibleError
   ]
 
   # This is similiar but not entirely the same as Capybara::Node::Base#wait_until or Capybara::Session#wait_until
