@@ -45,12 +45,3 @@ Feature: Web steps
     
     When I go back
     Then I should be on "/static_pages/link_to_home"
-
-
-  @javascript
-  Scenario: /^I go back$/
-    Given I go to "/static_pages/link_to_home"
-      And I follow "Home"
-    
-    When I go back
-    Then I should be on "/static_pages/link_to_home"
