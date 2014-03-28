@@ -2,7 +2,7 @@
 require "bundler/gem_tasks"
 
 desc 'Default: Run all tests.'
-task :default => 'all:features'
+task :default => 'all:rubies'
 
 desc 'Update the "Steps" section of the README'
 task :update_readme do
