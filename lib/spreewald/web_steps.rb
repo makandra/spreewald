@@ -89,6 +89,23 @@ When /^(?:|I )fill in "([^"]*)" (?:with|for) "([^"]*)"$/ do |field, value|
   end
 end
 
+# Fill in text field with multi-line block
+# You can use a doc string to supply multi-line text
+#
+# Example:
+#
+#       When I fill in "some field" with:
+#       """
+#       Apple
+#       Banana
+#       Pear
+#       """
+When /^(?:|I )fill in "([^"]*)" (?:with|for):$/ do |field, value|
+  patiently do
+    fill_in(field, :with => value)
+  end
+end
+
 # Fill in text field
 When /^(?:|I )fill in "([^"]*)" (?:with|for) '(.*)'$/ do |field, value|
   patiently do
