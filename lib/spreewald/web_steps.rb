@@ -438,7 +438,7 @@ Then /^(the tag )?"([^\"]+)" should( not)? be visible$/ do |tag, selector_or_tex
       visibility_detecting_javascript = %[
         (function() {
 
-          var selector = #{tag ? selector_or_text.to_json : "':contains(#{selector_or_text.to_json})'"};
+          var selector = #{tag ? selector_or_text.to_json : ":contains(#{selector_or_text.to_json})".to_json};
           var jqueryLoaded = (typeof jQuery != 'undefined');
 
           function findCandidates() {
