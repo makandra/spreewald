@@ -253,7 +253,7 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 
 
-* **When ... within (.*[^:])**
+* **When ... within ...**
 
   You can append `within [selector]` to any other web step
   
@@ -366,7 +366,7 @@ deprecation notice. Decide for yourself whether you want to use them:
   Checks that an input field contains some value (allowing * as wildcard character)
 
 
-* **Then(the "(.*?)" field should (not )?contain:)**
+* **Then(the "..." field should (not )?contain:)**
 
   Checks that a multiline textarea contains some value (allowing * as wildcard character)
 
@@ -424,7 +424,7 @@ deprecation notice. Decide for yourself whether you want to use them:
   Checks for the existance of an input field (given its id or label)
 
 
-* **Then I should( not)? see the (number|amount) ([\-\d,\.]+)( (.*?))?**
+* **Then I should( not)? see the (number|amount) ([\-\d,\.]+)( ...)?**
 
   Use this step to test for a number or money amount instead of a simple `Then I should see`
   
@@ -460,7 +460,7 @@ deprecation notice. Decide for yourself whether you want to use them:
   Checks for the presence of an option in a select
 
 
-* **Then I should see '([^']*)'**
+* **Then I should see '...'**
 
   Like `Then I should see`, but with single instead of double quotes. In case
   the expected string contains quotes as well.

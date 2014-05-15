@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+require 'thor'
+require File.expand_path('../../support/documentation_generator', __FILE__)
+
+module Spreewald
+  class CLI < Thor
+
+    ORDERED_KINDS = %w[Given When Then]
+
+    desc 'list', 'List all Spreewald steps'
+    def list
+      steps_glob = File.expand_path('../../lib/spreewald/*_steps.rb', __FILE__)
+      step_names = `cat #{steps_glob}`.split($/).select { |line| line =~ /^(Given|When|Then)/ }
+
+      step_names.map! do |step|
+        DocumentationGenerator::StepDefinition.try_and_parse(step).format_definition
+      end
+
+      step_names.sort_by! do |step|
+        step =~ /^(\w+)(.*)/
+        [ORDERED_KINDS.index($1), $2]
+      end
+
+      puts step_names
+    end
+
+  end
+end
+
+Spreewald::CLI.start

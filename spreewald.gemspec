@@ -20,4 +20,5 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency('cucumber-rails')
   gem.add_runtime_dependency('cucumber')
   gem.add_runtime_dependency('capybara')
+  gem.add_runtime_dependency('thor')
 end

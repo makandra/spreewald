@@ -38,14 +38,16 @@ module DocumentationGenerator
       if @definition =~ /AfterStep/
         @definition[/@\w*/]
       else
+        capture_groups = %w[([^\"]*) ([^"]*) (.*) (.*?) [^"]+ ([^\"]+) ([^']*) ([^/]*) (.+) (.*[^:])]
+        capture_groups.map! &Regexp.method(:escape)
+
         @definition.
           gsub('/^', '').
           gsub('$/', '').
           gsub(' ?', ' ').
-          gsub(/\(\[\^\\?"\](\*|\+)\)/, '...').
           gsub('(?:|I )', 'I ').
           gsub('?:', '').
-          gsub(/\(\.(\+|\*)\)/, '...').
+          gsub(Regexp.new(capture_groups.join '|'), '...').
           gsub(/\\\//, '/')
       end
     end
