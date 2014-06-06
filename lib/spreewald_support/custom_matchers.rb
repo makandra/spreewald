@@ -5,7 +5,7 @@ module CustomMatchers
     match do |field_value|
       @field_value = field_value.to_s
       @expected_string = expected_string
-      regex_parts = expected_string.split('*', -1).collect { |part| Regexp.escape(part) }
+      regex_parts = expected_string.to_s.split('*', -1).collect { |part| Regexp.escape(part) }
 
       @field_value =~ /\A#{regex_parts.join(".*")}\z/m
     end
@@ -18,5 +18,5 @@ module CustomMatchers
       "The field's content #{@field_value.inspect} matches #{@expected_string.inspect}"
     end
   end
-  
+
 end
