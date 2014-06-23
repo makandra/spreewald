@@ -5,6 +5,7 @@ module ToleranceForSeleniumSyncIssues
     Capybara::ElementNotFound
     Spec::Expectations::ExpectationNotMetError
     RSpec::Expectations::ExpectationNotMetError
+    Minitest::Assertion
     Capybara::Poltergeist::ClickFailed
     Capybara::ExpectationNotMet
     Selenium::WebDriver::Error::StaleElementReferenceError
