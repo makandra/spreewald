@@ -29,6 +29,16 @@ Alternatively, you can require everything by doing
     require 'spreewald/all_steps'
 
 
+## Spreewald binary
+
+Spreewald comes with a binary that prints a list of all Spreewald steps. It will filter the list by any string you pass it. Example usage:
+
+```bash
+spreewald # lists all steps
+spreewald mail # lists all steps that contain "mail"
+```
+
+
 ## Waiting for page load
 
 Spreewald's web steps are all aware that you might run them with a Selenium/Capybara webdriver, and wait for the browser to finish loading the page, if necessary.
