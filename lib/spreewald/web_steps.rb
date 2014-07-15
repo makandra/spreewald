@@ -1,6 +1,6 @@
 # coding: UTF-8
 
-# Most of cucumber-rails' original web steps plus a few of our own. 
+# Most of cucumber-rails' original web steps plus a few of our own.
 #
 # Note that cucumber-rails deprecated all its steps quite a while ago with the following
 # deprecation notice. Decide for yourself whether you want to use them:
@@ -268,7 +268,7 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should be checked$/ do |label, pa
   patiently do
     with_scope(parent) do
       field_checked = find_field(label)['checked']
-      field_checked.should be_true
+      field_checked.should eq(true)
     end
   end
 end
@@ -278,7 +278,7 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label
   patiently do
     with_scope(parent) do
       field_checked = find_field(label)['checked']
-      field_checked.should be_false
+      field_checked.should eq(true)
     end
   end
 end
@@ -478,8 +478,8 @@ Then /^(the tag )?"([^\"]+)" should( not)? be visible$/ do |tag, selector_or_tex
 
         })();
       ].gsub(/\n/, ' ')
-      matcher = negate ? be_false : be_true
-      page.evaluate_script(visibility_detecting_javascript).should matcher
+      matcher = negate ? false : true
+      page.evaluate_script(visibility_detecting_javascript).should eq(validity)
     end
   else
     invisibility_detecting_matcher = if tag
@@ -505,7 +505,7 @@ end
 # Example:
 #
 #       Then "Sponsor" should link to "http://makandra.com"
-# 
+#
 Then /^"([^"]*)" should link to "([^"]*)"$/ do |link_label, target|
   patiently do
     link = find_link(link_label)
@@ -625,7 +625,7 @@ Then /^the "([^\"]*)" field should( not)? be visible$/ do |label, negate|
             return(field.is(':visible'));
           })();
       ].gsub(/\n/, ' ')
-      page.evaluate_script(visibility_detecting_javascript).send(expectation, be_true)
+      page.evaluate_script(visibility_detecting_javascript).send(expectation, eq(true))
     end
   else
     field.send(expectation, be_visible)
@@ -639,7 +639,7 @@ When /^I wait for the page to load$/ do
   if [:selenium, :webkit, :poltergeist].include?(Capybara.current_driver)
     patiently do
       # when no jQuery is loaded, we assume there are no pending AJAX requests
-      page.evaluate_script("typeof jQuery === 'undefined' || $.active == 0").should be_true
+      page.evaluate_script("typeof jQuery === 'undefined' || $.active == 0").should eq(true)
     end
   end
   page.has_content? ''
