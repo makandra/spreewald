@@ -2,6 +2,8 @@
 
 Spreewald is a collection of useful steps for cucumber. Feel free to fork.
 
+You can find a list of all contained steps at the end of this README.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -62,6 +64,20 @@ You can achieve this in your own steps by wrapping them inside a `patiently do` 
     end
 
 More info [here](https://makandracards.com/makandra/12139-waiting-for-page-load-with-spreewald).
+
+## Contributing
+
+Test applications for various Rails versions live in `tests/`. There is a Rake task that will run all specs in those test Rails applications for all relevant Ruby versions. Invoke it with:
+
+    bundle exec rake all:rubies
+
+If you would like to contribute:
+
+- Fork the repository
+- Push your changes with specs
+- Make sure all specs pass
+- Make a pull request
+
 
 ## This README
 
