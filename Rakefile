@@ -94,7 +94,7 @@ def for_each_directory_of(path, &block)
     if directory.include?('rails-2.3') and RUBY_VERSION != '1.8.7'
       puts 'Rails 2.3 tests are only run for Ruby 1.8.7'
     elsif directory.include?('capybara-2') and RUBY_VERSION == '1.8.7'
-      puts 'Capybara requires Ruby 1.9 or greater'
+      puts 'Capybara 2 requires Ruby 1.9 or greater'
     else
       block.call(directory)
     end

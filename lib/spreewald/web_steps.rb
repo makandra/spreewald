@@ -268,7 +268,7 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should be checked$/ do |label, pa
   patiently do
     with_scope(parent) do
       field_checked = find_field(label)['checked']
-      field_checked.should be_true
+      field_checked.should == true
     end
   end
 end
@@ -278,7 +278,7 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label
   patiently do
     with_scope(parent) do
       field_checked = find_field(label)['checked']
-      field_checked.should be_false
+      field_checked.should == false
     end
   end
 end
@@ -432,7 +432,7 @@ end
 # In a non-selenium test, we only check for `.hidden`, `.invisible` or `style: display:none`
 #
 # More details [here](https://makandracards.com/makandra/1049-capybara-check-that-a-page-element-is-hidden-via-css)
-Then /^(the tag )?"([^\"]+)" should( not)? be visible$/ do |tag, selector_or_text, negate|
+Then /^(the tag )?"([^\"]+)" should( not)? be visible$/ do |tag, selector_or_text, hidden|
   case Capybara::current_driver
   when :selenium, :webkit, :poltergeist
     patiently do
@@ -478,8 +478,7 @@ Then /^(the tag )?"([^\"]+)" should( not)? be visible$/ do |tag, selector_or_tex
 
         })();
       ].gsub(/\n/, ' ')
-      matcher = negate ? be_false : be_true
-      page.evaluate_script(visibility_detecting_javascript).should matcher
+      page.evaluate_script(visibility_detecting_javascript).should == !hidden
     end
   else
     invisibility_detecting_matcher = if tag
@@ -487,7 +486,7 @@ Then /^(the tag )?"([^\"]+)" should( not)? be visible$/ do |tag, selector_or_tex
     else
       have_css('.hidden, .invisible, [style~="display: none"]', :text => selector_or_text)
     end
-    expectation = negate ? :should : :should_not # sic
+    expectation = hidden ? :should : :should_not # sic
     page.send(expectation, invisibility_detecting_matcher)
   end
 end
@@ -613,9 +612,9 @@ Then /^the "([^\"]*)" (field|button) should( not)? be disabled$/ do |label, kind
 end
 
 # Tests that a field with the given label is visible.
-Then /^the "([^\"]*)" field should( not)? be visible$/ do |label, negate|
+Then /^the "([^\"]*)" field should( not)? be visible$/ do |label, hidden|
   field = find_field(label)
-  expectation = negate ? :should_not : :should
+
   case Capybara::current_driver
   when :selenium, :webkit
     patiently do
@@ -625,9 +624,10 @@ Then /^the "([^\"]*)" field should( not)? be visible$/ do |label, negate|
             return(field.is(':visible'));
           })();
       ].gsub(/\n/, ' ')
-      page.evaluate_script(visibility_detecting_javascript).send(expectation, be_true)
+      page.evaluate_script(visibility_detecting_javascript).should == !hidden
     end
   else
+    expectation = hidden ? :should_not : :should
     field.send(expectation, be_visible)
   end
 end
@@ -639,7 +639,7 @@ When /^I wait for the page to load$/ do
   if [:selenium, :webkit, :poltergeist].include?(Capybara.current_driver)
     patiently do
       # when no jQuery is loaded, we assume there are no pending AJAX requests
-      page.evaluate_script("typeof jQuery === 'undefined' || $.active == 0").should be_true
+      page.evaluate_script("typeof jQuery === 'undefined' || $.active == 0").should == true
     end
   end
   page.has_content? ''
