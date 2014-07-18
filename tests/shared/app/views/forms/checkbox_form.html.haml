@@ -1,0 +1,9 @@
+= form_tag do
+
+  - checked = true
+  = label_tag 'checked_name', 'Checked'
+  = check_box_tag 'checked_name', 'value', checked
+
+  - checked = false
+  = label_tag 'unchecked_name', 'Unchecked'
+  = check_box_tag 'unchecked_name', 'value', checked
