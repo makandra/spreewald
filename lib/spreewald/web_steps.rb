@@ -1,6 +1,6 @@
 # coding: UTF-8
 
-# Most of cucumber-rails' original web steps plus a few of our own. 
+# Most of cucumber-rails' original web steps plus a few of our own.
 #
 # Note that cucumber-rails deprecated all its steps quite a while ago with the following
 # deprecation notice. Decide for yourself whether you want to use them:
@@ -267,8 +267,8 @@ end
 Then /^the "([^"]*)" checkbox(?: within (.*))? should be checked$/ do |label, parent|
   patiently do
     with_scope(parent) do
-      field_checked = find_field(label)['checked']
-      field_checked.should == true
+      field = find_field(label)
+      field.should be_checked
     end
   end
 end
@@ -277,8 +277,8 @@ end
 Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label, parent|
   patiently do
     with_scope(parent) do
-      field_checked = find_field(label)['checked']
-      field_checked.should == false
+      field = find_field(label)
+      field.should_not be_checked
     end
   end
 end
@@ -504,7 +504,7 @@ end
 # Example:
 #
 #       Then "Sponsor" should link to "http://makandra.com"
-# 
+#
 Then /^"([^"]*)" should link to "([^"]*)"$/ do |link_label, target|
   patiently do
     link = find_link(link_label)
