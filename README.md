@@ -76,6 +76,7 @@ If you would like to contribute:
 - Fork the repository
 - Push your changes with specs
 - Make sure all specs pass
+- Regenerate the "Steps" section of this Readme with `rake update_readme`, if needed
 - Make a pull request
 
 
