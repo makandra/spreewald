@@ -494,7 +494,9 @@ end
 # Click on some text that might not be a link
 When /^I click on "([^\"]+)"$/ do |text|
   patiently do
-    element = page.find(:xpath, ".//*[contains(text(), \"#{text}\")]")
+    contains_text = %{contains(., \"#{text}\")}
+    # find the innermost selector that matches
+    element = page.find(:xpath, ".//*[#{contains_text} and not (./*[#{contains_text}])]")
     element.click
   end
 end

@@ -51,3 +51,10 @@ Feature: Web steps
     When I go to "/forms/checkbox_form"
     Then the "Checked" checkbox should be checked
       And the "Unchecked" checkbox should not be checked
+
+
+  # We only check for it to not die, reacting to click on arbitrary elements will not work without javascript
+  Scenario: /^I click on "([^\"]+)"$/
+    When I go to "/static_pages/click_on"
+      And I click on "Nested"
+      And I click on "Button"
