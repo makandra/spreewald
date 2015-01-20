@@ -67,15 +67,19 @@ More info [here](https://makandracards.com/makandra/12139-waiting-for-page-load-
 
 ## Contributing
 
-Test applications for various Rails versions live in `tests/`. There is a Rake task that will run all specs in those test Rails applications for all relevant Ruby versions. Invoke it with:
+Test applications for various Rails versions live in `tests/`.
 
-    bundle exec rake all:rubies
+- Bundle all test apps with `bundle exec rake all:bundle`.
+- Run features in all test apps with `bundle exec rake all:features`.
+- Run features in all test apps in all rubies with `bundle exec rake all:rubies`.
+- Run a single feature by setting the `SINGLE_FEATURE` environment variable.
+  Example: `SINGLE_FEATURE=web_steps.feature:63 bundle exec rake all:features`
 
 If you would like to contribute:
 
 - Fork the repository
 - Push your changes with specs
-- Make sure all specs pass
+- Make sure `rake` passes
 - Regenerate the "Steps" section of this Readme with `rake update_readme`, if needed
 - Make a pull request
 
