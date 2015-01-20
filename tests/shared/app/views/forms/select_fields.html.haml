@@ -1,0 +1,7 @@
+= form_tag do
+
+  = label_tag 'sorted', 'Sorted select'
+  = select_tag 'sorted', options_for_select([['prompt', nil], ['Anton', 'value'], ['Berta', 'value'], ['Clara', 'value'], ['Dario', 'value']])
+
+  = label_tag 'unsorted', 'Unsorted select'
+  = select_tag 'unsorted', options_for_select([['prompt', nil], ['Xaver', 'value'], ['Berta', 'value'], ['Konstantin', 'value'], ['Maria', 'value']])

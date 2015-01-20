@@ -260,7 +260,7 @@ See [this article](https://makandracards.com/makandra/1222-useful-cucumber-steps
 
 ### web_steps.rb
 
-Most of cucumber-rails' original web steps plus a few of our own. 
+Most of cucumber-rails' original web steps plus a few of our own.
 
 Note that cucumber-rails deprecated all its steps quite a while ago with the following
 deprecation notice. Decide for yourself whether you want to use them:
@@ -635,5 +635,11 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 * **When I go back**
 
-  Go to the previously viewed page.
+  Goes to the previously viewed page.
+
+
+* **Then the "..." select should( not)? be sorted**
+
+  Tests whether a select field is sorted. Uses Array#natural_sort, if defined;
+  Array#sort else.
 

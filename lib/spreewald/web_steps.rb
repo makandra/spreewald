@@ -666,7 +666,7 @@ When /^I perform basic authentication as "([^\"]*)\/([^\"]*)" and go to (.*)$/ d
   end
 end
 
-# Go to the previously viewed page.
+# Goes to the previously viewed page.
 When /^I go back$/ do
   case Capybara::current_driver
   when :selenium, :webkit
@@ -678,4 +678,14 @@ When /^I go back$/ do
       visit page.driver.last_request.env['HTTP_REFERER']
     end
   end
+end
+
+# Tests whether a select field is sorted. Uses Array#natural_sort, if defined;
+# Array#sort else.
+Then /^the "(.*?)" select should( not)? be sorted$/ do |label, negate|
+  select = find_field(label)
+  options = select.all('option').reject { |o| o.value.blank? }
+  option_texts = options.collect(&:text)
+
+  option_texts.send((negate ? :should_not : :should), be_sorted)
 end

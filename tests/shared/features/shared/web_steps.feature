@@ -58,3 +58,9 @@ Feature: Web steps
     When I go to "/static_pages/click_on"
       And I click on "Nested"
       And I click on "Button"
+
+
+  Scenario: /^the "(.*?)" select should( not)? be sorted$/
+    When I go to "/forms/select_fields"
+    Then the "sorted" select should be sorted
+      But the "unsorted" select should not be sorted
