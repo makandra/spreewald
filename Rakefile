@@ -25,10 +25,7 @@ namespace :all do
   task :features do
     success = true
     for_each_directory_of('tests/**/Rakefile') do |directory|
-      Bundler.with_clean_env do
-        env = "FEATURE=../../#{ENV['FEATURE']}" if ENV['FEATURE']
-        success &= system("cd #{directory} && bundle exec rake features #{env}")
-      end
+      success &= Bundler.clean_system("cd #{directory} && bundle exec rake features")
     end
     fail "Tests failed" unless success
   end
