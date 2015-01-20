@@ -61,7 +61,7 @@ def run_for_all_rubies(version_manager)
   %w[
     1.8.7
     1.9.3
-    2.0.0
+    2.1.2
   ].all? do |ruby_version|
     announce "Running features for Ruby #{ruby_version}", 2
 
