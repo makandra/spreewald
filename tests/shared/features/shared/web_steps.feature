@@ -47,7 +47,7 @@ Feature: Web steps
     Then I should be on "/static_pages/link_to_home"
 
 
-  Scenario: /^the "([^"]*)" checkbox(?: within (.*))? should be checked$/
+  Scenario: /^the "([^"]*)" checkbox should( not)? be checked$/
     When I go to "/forms/checkbox_form"
     Then the "Checked" checkbox should be checked
       And the "Unchecked" checkbox should not be checked

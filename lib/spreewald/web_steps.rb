@@ -264,22 +264,12 @@ Then /^the "([^"]*)" field should have no error$/ do |field|
 end
 
 # nodoc
-Then /^the "([^"]*)" checkbox(?: within (.*))? should be checked$/ do |label, parent|
-  patiently do
-    with_scope(parent) do
-      field = find_field(label)
-      field.should be_checked
-    end
-  end
-end
+Then /^the "([^"]*)" checkbox should( not)? be checked$/ do |label, negate|
+  expectation = negate ? :should_not : :should
 
-# nodoc
-Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label, parent|
   patiently do
-    with_scope(parent) do
-      field = find_field(label)
-      field.should_not be_checked
-    end
+    field = find_field(label)
+    field.send expectation, be_checked
   end
 end
 
