@@ -500,7 +500,7 @@ end
 Then /^"([^"]*)" should link to "([^"]*)"$/ do |link_label, target|
   patiently do
     link = find_link(link_label)
-    link[:href].should =~ /#{Regexp.escape target}$/
+    link[:href].should =~ /#{Regexp.escape target}(\?[^\/]*)?$/ # ignore trailing timestamps
   end
 end
 
