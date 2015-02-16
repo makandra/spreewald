@@ -64,3 +64,11 @@ Feature: Web steps
     When I go to "/forms/select_fields"
     Then the "sorted" select should be sorted
       But the "unsorted" select should not be sorted
+
+
+  Scenario: /^Then (the tag )?"..." should( not)? be visible$/
+    When I go to "/static_pages/visibility"
+    Then "hidden ümläüt" should not be visible
+      And "visible ümläüt" should be visible
+      And a hidden string with quotes should not be visible
+      And a visible string with quotes should be visible

@@ -30,3 +30,12 @@ Then /^the following multiline step should (fail|succeed):$/ do |expectation, mu
 
 end
 
+Then(/^a hidden string with quotes should not be visible$/) do
+  hidden_string = %Q{hidden '" quotes}
+  assert_hidden(:text => hidden_string)
+end
+
+Then(/^a visible string with quotes should be visible$/) do
+  visible_string = %Q{visible '" quotes}
+  assert_visible(:text => visible_string)
+end

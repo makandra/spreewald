@@ -28,6 +28,7 @@ require 'spreewald_support/tolerance_for_selenium_sync_issues'
 require 'spreewald_support/path_selector_fallbacks'
 require 'spreewald_support/step_fallback'
 require 'spreewald_support/custom_matchers'
+require 'spreewald_support/web_steps_helpers'
 require 'uri'
 require 'cgi'
 
@@ -423,63 +424,16 @@ end
 #
 # More details [here](https://makandracards.com/makandra/1049-capybara-check-that-a-page-element-is-hidden-via-css)
 Then /^(the tag )?"([^\"]+)" should( not)? be visible$/ do |tag, selector_or_text, hidden|
-  case Capybara::current_driver
-  when :selenium, :webkit, :poltergeist
-    patiently do
-      visibility_detecting_javascript = %[
-        (function() {
-
-          var selector = #{tag ? selector_or_text.to_json : ":contains(#{selector_or_text.to_json})".to_json};
-          var jqueryLoaded = (typeof jQuery != 'undefined');
-
-          function findCandidates() {
-            if (jqueryLoaded) {
-              return $(selector);
-            } else {
-              return $$(selector);
-            }
-          }
-
-          function isExactCandidate(candidate) {
-            if (jqueryLoaded) {
-              return $(candidate).find(selector).length == 0;
-            } else {
-              return candidate.select(selector).length == 0;
-            }
-          }
-
-          function elementVisible(element) {
-            if (jqueryLoaded) {
-              return $(element).is(':visible');
-            } else {
-              return element.offsetWidth > 0 && element.offsetHeight > 0;
-            }
-          }
-
-          var candidates = findCandidates();
-
-          for (var i = 0; i < candidates.length; i++) {
-            var candidate = candidates[i];
-            if (isExactCandidate(candidate) && elementVisible(candidate)) {
-              return true;
-            }
-          }
-          return false;
-
-        })();
-      ].gsub(/\n/, ' ')
-      page.evaluate_script(visibility_detecting_javascript).should == !hidden
-    end
-  else
-    invisibility_detecting_matcher = if tag
-      have_css(".hidden, .invisible, [style~=\"display: none\"] #{selector_or_text}")
-    else
-      have_css('.hidden, .invisible, [style~="display: none"]', :text => selector_or_text)
-    end
-    expectation = hidden ? :should : :should_not # sic
-    page.send(expectation, invisibility_detecting_matcher)
+  if hidden
+    warn "The step 'Then ... should not be visible' is ambiguous. Please use 'Then ... should be hidden' or 'Then I should not see ...' instead."
   end
+
+  options = {}
+  tag ? options.store(:selector, selector_or_text) : options.store(:text, selector_or_text)
+
+  hidden ? assert_hidden(options) : assert_visible(options)
 end
+
 
 # Click on some text that might not be a link
 When /^I click on "([^\"]+)"$/ do |text|
