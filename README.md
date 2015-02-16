@@ -519,11 +519,20 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 * **Then (the tag )?"..." should( not)? be visible**
 
-  Checks that an element is actually visible, also considering styles
+  Checks that an element is actually present and visible, also considering styles.
   Within a selenium test, the browser is asked whether the element is really visible
   In a non-selenium test, we only check for `.hidden`, `.invisible` or `style: display:none`
   
+  The step 'Then (the tag )?"..." should **not** be visible' is ambiguous. Please use 'Then (the tag )?"..." should be hidden' or 'Then I should not see "..."' instead.
+  
   More details [here](https://makandracards.com/makandra/1049-capybara-check-that-a-page-element-is-hidden-via-css)
+
+
+* **Then (the tag )?"..." should be hidden/**
+
+  Checks that an element is actually present and hidden, also considering styles.
+  Within a selenium test, the browser is asked whether the element is really hidden.
+  In a non-selenium test, we only check for `.hidden`, `.invisible` or `style: display:none`
 
 
 * **When I click on "..."**

@@ -72,3 +72,4 @@ Feature: Web steps
       And "visible ümläüt" should be visible
       And a hidden string with quotes should not be visible
       And a visible string with quotes should be visible
+      And "hidden ümläüt" should be hidden
