@@ -1,7 +1,7 @@
 PATH
   remote: ../..
   specs:
-    spreewald (1.2.2)
+    spreewald (1.2.3)
       capybara
       cucumber
       cucumber-rails
