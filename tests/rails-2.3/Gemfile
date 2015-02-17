@@ -5,7 +5,7 @@ gem 'rails', '~>2.3'
 gem "sqlite3", :platform=>:ruby
 gem 'ruby-debug', :platforms => :ruby_18
 gem 'database_cleaner'
-
+gem 'selenium-webdriver', '>=2.35.0'
 gem "capybara", "1.1.1"
 gem "cucumber", "1.1.0"
 gem "cucumber-rails", '=0.3.2'

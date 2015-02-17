@@ -1,0 +1,2 @@
+default: --require features --require features/shared features/shared
+

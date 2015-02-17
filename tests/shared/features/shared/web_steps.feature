@@ -73,3 +73,13 @@ Feature: Web steps
       And a hidden string with quotes should not be visible
       And a visible string with quotes should be visible
       And "hidden ümläüt" should be hidden
+
+
+  @javascript
+  Scenario: /^Then (the tag )?"..." should( not)? be visible$/ with javascript
+    When I go to "/static_pages/visibility"
+    Then "hidden ümläüt" should not be visible
+    And "visible ümläüt" should be visible
+    And a hidden string with quotes should not be visible
+    And a visible string with quotes should be visible
+    And "hidden ümläüt" should be hidden

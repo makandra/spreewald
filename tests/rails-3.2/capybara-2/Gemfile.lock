@@ -36,6 +36,7 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
+    addressable (2.2.8)
     arel (3.0.2)
     builder (3.0.4)
     capybara (2.2.1)
@@ -75,6 +76,8 @@ GEM
     i18n (0.6.1)
     journey (1.0.4)
     json (1.8.0)
+    launchy (2.0.5)
+      addressable (~> 2.2.6)
     linecache (0.46)
       rbx-require-relative (> 0.0.4)
     mail (2.5.4)
@@ -159,6 +162,7 @@ DEPENDENCIES
   cucumber
   database_cleaner
   haml-rails
+  launchy
   rails (~> 3.2)
   rspec-rails
   ruby-debug

@@ -4,6 +4,7 @@ gem 'rails', '~>3.2'
 gem 'sqlite3', :platform => :ruby
 gem 'ruby-debug', :platforms => :ruby_18
 gem 'database_cleaner'
+gem 'launchy'
 gem 'capybara'#, "~>2"
 gem 'cucumber'#, '1.3.2' # 1.3.3 uses an API that slimgems does not provide
 gem 'selenium-webdriver'
@@ -12,3 +13,4 @@ gem 'rspec-rails'
 gem 'spreewald', :path => '../../..'
 
 gem 'haml-rails'
+

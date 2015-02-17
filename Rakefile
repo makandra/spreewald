@@ -25,12 +25,12 @@ namespace :all do
   task :features do
     success = true
     for_each_directory_of('tests/**/Rakefile') do |directory|
-      success &= Bundler.clean_system("cd #{directory} && bundle exec rake features")
+      success &= Bundler.clean_system("cd #{directory} && cuc")
     end
     fail "Tests failed" unless success
   end
   
-  desc 'Run tests on several Ruby versions'
+  desc 'Install gems and run tests on several Ruby versions'
   task :rubies do
     success = case
     when system('which rvm')
@@ -50,7 +50,7 @@ namespace :all do
   task :bundle do
     for_each_directory_of('tests/**/Gemfile') do |directory|
       Bundler.with_clean_env do
-        system("cd #{directory} && bundle install")
+        system("cd #{directory} && bundle install && gem install geordi")
       end
     end
   end
