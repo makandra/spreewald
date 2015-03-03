@@ -76,9 +76,9 @@ module WebStepsHelpers
 
       visibility_detecting_javascript.gsub!(/\n/, ' ')
       if options[:expectation] == :visible
-        page.evaluate_script(visibility_detecting_javascript).should be_true
+        page.evaluate_script(visibility_detecting_javascript).should == true
       else
-        page.evaluate_script(visibility_detecting_javascript).should be_false
+        page.evaluate_script(visibility_detecting_javascript).should == false
       end
     end
   end
