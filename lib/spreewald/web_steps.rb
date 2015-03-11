@@ -439,7 +439,7 @@ end
 # Checks that an element is actually present and hidden, also considering styles.
 # Within a selenium test, the browser is asked whether the element is really hidden.
 # In a non-selenium test, we only check for `.hidden`, `.invisible` or `style: display:none`
-Then /^(the tag )?"([^\"]+)" should be hidden/ do |tag, selector_or_text|
+Then /^(the tag )?"([^\"]+)" should be hidden$/ do |tag, selector_or_text|
   options = {}
   tag ? options.store(:selector, selector_or_text) : options.store(:text, selector_or_text)
 
