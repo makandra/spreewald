@@ -41,8 +41,8 @@ module TableStepsHelper
       @best_rows_matched = -1
       options = args.extract_options!
       expected_table = args.first
-      skipped_rows = []
       tables.any? do |table|
+        skipped_rows = []
         rows_matched = 0
         match = expected_table.all? do |expected_row|
           if @best_rows_matched < rows_matched
