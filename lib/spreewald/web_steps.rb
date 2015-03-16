@@ -276,7 +276,7 @@ end
 
 Then /^the radio button "([^"]*)" should( not)? be (?:checked|selected)$/ do |field, negate|
   patiently do
-    page.send((negate ? :has_no_checked_field? : :has_checked_field?), field)
+    page.send((negate ? :has_no_checked_field? : :has_checked_field?), field).should == true
   end
 end
 
