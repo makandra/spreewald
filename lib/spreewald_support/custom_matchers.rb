@@ -20,11 +20,10 @@ module CustomMatchers
   end
 
   rspec::Matchers.define :be_sorted do
-  match do |array|
-    sort_method = defined?(array.natural_sort) ? :natural_sort : :sort
-
-    array == array.send(sort_method)
+    match do |array|
+      sort_method = defined?(array.natural_sort) ? :natural_sort : :sort
+      array == array.send(sort_method)
+    end
   end
-end
 
 end

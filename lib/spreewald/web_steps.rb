@@ -581,7 +581,7 @@ Then /^the "([^\"]*)" field should( not)? be visible$/ do |label, hidden|
             return(field.is(':visible'));
           })();
       ].gsub(/\n/, ' ')
-      page.evaluate_script(visibility_detecting_javascript).should == !hidden
+      page.execute_script(visibility_detecting_javascript).should == !hidden
     end
   else
     expectation = hidden ? :should_not : :should
@@ -596,7 +596,7 @@ When /^I wait for the page to load$/ do
   if [:selenium, :webkit, :poltergeist].include?(Capybara.current_driver)
     patiently do
       # when no jQuery is loaded, we assume there are no pending AJAX requests
-      page.evaluate_script("typeof jQuery === 'undefined' || $.active == 0").should == true
+      page.execute_script("return typeof jQuery === 'undefined' || $.active == 0;").should == true
     end
   end
   page.has_content? ''
@@ -625,7 +625,7 @@ end
 When /^I go back$/ do
   case Capybara::current_driver
   when :selenium, :webkit
-    page.evaluate_script('window.history.back()')
+    page.execute_script('window.history.back()')
   else
     if page.driver.respond_to?(:browser)
       visit page.driver.browser.last_request.env['HTTP_REFERER']

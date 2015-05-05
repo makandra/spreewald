@@ -29,7 +29,7 @@ module WebStepsHelpers
       end
 
       visibility_detecting_javascript = %[
-        (function() {
+        return (function() {
           var selector = #{selector_javascript};
           var jqueryLoaded = (typeof jQuery != 'undefined');
 
@@ -76,9 +76,9 @@ module WebStepsHelpers
 
       visibility_detecting_javascript.gsub!(/\n/, ' ')
       if options[:expectation] == :visible
-        page.evaluate_script(visibility_detecting_javascript).should == true
+        page.execute_script(visibility_detecting_javascript).should == true
       else
-        page.evaluate_script(visibility_detecting_javascript).should == false
+        page.execute_script(visibility_detecting_javascript).should == false
       end
     end
   end
