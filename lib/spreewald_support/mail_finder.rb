@@ -45,7 +45,7 @@ class MailFinder
 
     def email_text_body(mail)
       if mail.parts.any?
-        mail_body = mail.parts.map { |part|
+        mail_bodies = mail.parts.map { |part|
           if part.header.to_s.include?('Quoted-printable')
             if Rails.version.starts_with?('2.3')
               part.body.to_s
@@ -56,7 +56,7 @@ class MailFinder
             part.decoded
           end
         }
-        mail_body.join('\n')
+        mail_bodies.join('\n')
 
       elsif mail.body.respond_to? :raw_source
         mail.body.raw_source
