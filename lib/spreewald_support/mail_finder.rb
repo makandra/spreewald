@@ -45,7 +45,19 @@ class MailFinder
 
     def email_text_body(mail)
       if mail.parts.any?
-        mail.parts.select { |part| part.content_type.include?('text/') }.collect(&:decoded).join("\n")
+        mail_body = mail.parts.map { |part|
+          if part.header.to_s.include?('Quoted-printable')
+            if Rails.version.starts_with?('2.3')
+              part.body.to_s
+            else
+              part.decoded
+            end
+          else
+            part.decoded
+          end
+        }
+        mail_body
+
       elsif mail.body.respond_to? :raw_source
         mail.body.raw_source
       else
