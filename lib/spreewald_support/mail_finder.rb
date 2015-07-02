@@ -56,7 +56,7 @@ class MailFinder
             part.decoded
           end
         }
-        mail_body
+        mail_body.join('\n')
 
       elsif mail.body.respond_to? :raw_source
         mail.body.raw_source
