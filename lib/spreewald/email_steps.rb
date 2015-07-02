@@ -81,11 +81,17 @@ end
 
 # Print all sent emails to STDOUT.
 Then /^show me the e?mails$/ do
-  ActionMailer::Base.deliveries.each do |mail|
-    p [mail.from, mail.to, mail.subject]
+  ActionMailer::Base.deliveries.each_with_index do |mail, i|
+    puts "E-Mail ##{i}"
+    print "-" * 80
+    puts [ "From:    #{mail.from}",
+           "To:      #{mail.to}",
+           "Subject: #{mail.subject}",
+           "\n" + MailFinder.email_text_body(mail)
+         ].join("\n")
+    print "-" * 80
   end
 end
-
 
 # Only works after you've retrieved the email using "Then an email should have been sent with:"
 #
