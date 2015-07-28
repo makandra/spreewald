@@ -516,17 +516,23 @@ When /^I fill in "([^"]*)" with "([^"]*)" inside any "([^"]*)"$/ do |field, valu
 end
 
 When /^I confirm the browser dialog$/ do
-  page.driver.browser.switch_to.alert.accept
+  patiently do
+    page.driver.browser.switch_to.alert.accept
+  end
 end
 
 When /^I cancel the browser dialog$/ do
-  page.driver.browser.switch_to.alert.dismiss
+  patiently do
+    page.driver.browser.switch_to.alert.dismiss
+  end
 end
 
 When /^I enter "([^"]*)" into the browser dialog$/ do |text|
-  alert = page.driver.browser.switch_to.alert
-  alert.send_keys(text)
-  alert.accept
+  patiently do
+    alert = page.driver.browser.switch_to.alert
+    alert.send_keys(text)
+    alert.accept
+  end
 end
 
 When /^I switch to the new tab$/ do
