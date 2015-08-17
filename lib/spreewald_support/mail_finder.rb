@@ -56,8 +56,12 @@ class MailFinder
             part.decoded
           end
         }
-        mail_bodies.join('\n')
-
+        utf8_parts = mail_bodies.select{ |part|
+          encoding = part.try(:encoding)
+          encoding.nil? or # Ruby < 1.9.1
+            encoding.name == 'UTF-8' # Ruby > 1.9.1
+        }
+        utf8_parts.join('\n')
       elsif mail.body.respond_to? :raw_source
         mail.body.raw_source
       else
