@@ -567,9 +567,9 @@ end
 # Tests that an input or button with the given label is disabled.
 Then /^the "([^\"]*)" (field|button) should( not)? be disabled$/ do |label, kind, negate|
   if kind == 'field'
-    element = find_field(label)
+    element = find_field(label, disabled: !negate)
   else
-    element = find_button(label)
+    element = find_button(label, disabled: !negate)
   end
   ["false", "", nil].send(negate ? :should : :should_not, include(element[:disabled]))
 end
