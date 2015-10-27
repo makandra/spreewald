@@ -14,6 +14,7 @@ module ToleranceForSeleniumSyncIssues
     Selenium::WebDriver::Error::NoSuchFrameError
     Selenium::WebDriver::Error::NoAlertPresentError
     Selenium::WebDriver::Error::JavascriptError
+    Selenium::WebDriver::Error::UnknownError
   ]
 
   class CapybaraWrapper
