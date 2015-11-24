@@ -1,3 +1,3 @@
 module Spreewald
-  VERSION = '1.2.14'
+  VERSION = '1.3.0'
 end
