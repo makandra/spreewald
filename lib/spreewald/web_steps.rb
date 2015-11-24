@@ -492,7 +492,7 @@ end
 #     Then I should not see a sidebar element
 #     Then I should see the Twitter timeline element
 #
-Then /^I should (not )?see (?:(?:a |an |the )?("[^"]+")|(.*?)) element$/ do |negate, locator_with_quotes, locator_without_quotes|
+Then /^I should (not )?see (?:(?:a |an |the )?("[^"]+")|([^"].*?)) element$/ do |negate, locator_with_quotes, locator_without_quotes|
   expectation = negate ? :should_not : :should
   selector = _selector_for(locator_with_quotes || locator_without_quotes)
   patiently do
