@@ -469,16 +469,37 @@ Then /^"([^"]*)" should link to "([^"]*)"$/ do |link_label, target|
   end
 end
 
-# Example:
-#
-#       Then I should see an element ".page .container"
-#
 Then /^I should (not )?see an element "([^"]*)"$/ do |negate, selector|
+  warn %(The step 'I should see an element "..."' is deprecated. Please use 'I should see a "..." element instead')
   expectation = negate ? :should_not : :should
   patiently do
     page.send(expectation, have_css(selector))
   end
 end
+
+# Check that an element with the given selector is present on the page.
+#
+# Example:
+#
+#     Then I should see a ".panel" element
+#     Then I should not see ".sidebar" element
+#     Then I should see the ".twitter-timeline" element
+#
+# We recommend to [define a `selector_for` method](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb) in `features/support/selectors.rb`
+# so you can refer to the selector in plain English:
+#
+#     Then I should see a panel element
+#     Then I should not see a sidebar element
+#     Then I should see the Twitter timeline element
+#
+Then /^I should (not )?see (?:(?:a |an |the )?("[^"]+")|(.*?)) element$/ do |negate, locator_with_quotes, locator_without_quotes|
+  expectation = negate ? :should_not : :should
+  selector = selector_for(locator_with_quotes || locator_without_quotes)
+  patiently do
+    page.send(expectation, have_css(selector))
+  end
+end
+
 
 # Checks that the result has content type `text/plain`
 Then /^I should get a text response$/ do

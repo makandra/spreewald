@@ -528,7 +528,7 @@ deprecation notice. Decide for yourself whether you want to use them:
   More details [here](https://makandracards.com/makandra/1049-capybara-check-that-a-page-element-is-hidden-via-css)
 
 
-* **Then (the tag )?"..." should be hidden/**
+* **Then (the tag )?"..." should be hidden**
 
   Checks that an element is actually present and hidden, also considering styles.
   Within a selenium test, the browser is asked whether the element is really hidden.
@@ -552,9 +552,25 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 * **Then I should (not )?see an element "..."**
 
+  
+
+
+* **Then I should (not )?see ((a |an |the )?("...")|...) element**
+
+  Check that an element with the given selector is present on the page.
+  
   Example:
   
-        Then I should see an element ".page .container"
+      Then I should see a ".panel" element
+      Then I should not see ".sidebar" element
+      Then I should see the ".twitter-timeline" element
+  
+  We recommend to [define a `selector_for` method](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb) in `features/support/selectors.rb`
+  so you can refer to the selector in plain English:
+  
+      Then I should see a panel element
+      Then I should not see a sidebar element
+      Then I should see the Twitter timeline element
 
 
 

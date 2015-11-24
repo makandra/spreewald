@@ -1,7 +1,7 @@
 PATH
   remote: ../..
   specs:
-    spreewald (1.2.13)
+    spreewald (1.2.14)
       capybara
       cucumber
       cucumber-rails
@@ -100,3 +100,6 @@ DEPENDENCIES
   selenium-webdriver (>= 2.35.0)
   spreewald!
   sqlite3
+
+BUNDLED WITH
+   1.10.6

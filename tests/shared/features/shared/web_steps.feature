@@ -83,3 +83,12 @@ Feature: Web steps
     And a hidden string with quotes should not be visible
     And a visible string with quotes should be visible
     And "hidden ümläüt" should be hidden
+
+  Scenario: /^I should (not )?see (?:|a|an |the )(.*?) element$/
+    When I go to "/static_pages/see_element"
+    Then I should see a ".panel" element
+      And I should see the ".panel" element
+      And I should see a panel element
+      But I should not see a ".timeline" element
+      And I should not see the ".timeline" element
+      And I should not see the timeline element
