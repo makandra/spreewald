@@ -494,7 +494,7 @@ end
 #
 Then /^I should (not )?see (?:(?:a |an |the )?("[^"]+")|(.*?)) element$/ do |negate, locator_with_quotes, locator_without_quotes|
   expectation = negate ? :should_not : :should
-  selector = selector_for(locator_with_quotes || locator_without_quotes)
+  selector = _selector_for(locator_with_quotes || locator_without_quotes)
   patiently do
     page.send(expectation, have_css(selector))
   end
