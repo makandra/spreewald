@@ -39,12 +39,16 @@ require 'cgi'
 #
 #       Then I should see "some text" within ".page_body"
 When /^(.*) within (.*[^:])$/ do |nested_step, parent|
-  with_scope(parent) { step(nested_step) }
+  patiently do
+    with_scope(parent) { step(nested_step) }
+  end
 end
 
 # nodoc
 When /^(.*) within (.*[^:]):$/ do |nested_step, parent, table_or_string|
-  with_scope(parent) { step("#{nested_step}:", table_or_string) }
+  patiently do
+    with_scope(parent) { step("#{nested_step}:", table_or_string) }
+  end
 end
 
 Given /^(?:|I )am on (.+)$/ do |page_name|

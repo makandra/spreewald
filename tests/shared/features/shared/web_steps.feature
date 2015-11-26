@@ -92,3 +92,9 @@ Feature: Web steps
       But I should not see a ".timeline" element
       And I should not see the ".timeline" element
       And I should not see the timeline element
+
+  Scenario: /^(.*) within (.*[^:])$/
+    When I go to "/static_pages/within"
+    Then I should see an element ".child1" within ".container1"
+      But I should not see an element ".child1" within ".container2"
+
