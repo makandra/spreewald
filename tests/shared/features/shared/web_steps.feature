@@ -107,9 +107,13 @@ Feature: Web steps
   Scenario: /^I should (not )?see (?:|a|an |the )(.*?) element$/
     When I go to "/static_pages/see_element"
     Then I should see an element ".panel"
+      And I should see the element ".panel"
       And I should see an element for a panel
+      And I should see the element for a panel
       But I should not see an element ".timeline"
+      But I should not see the element ".timeline"
       And I should not see an element for the timeline
+      And I should not see the element for the timeline
 
   Scenario: /^(.*) within (.*[^:])$/
     When I go to "/static_pages/within"

@@ -507,10 +507,11 @@ end.overridable
 # Example:
 #
 #     Then I should see an element ".panel"
+#     Then I should see the element ".panel"
 #     Then I should not see an element ".sidebar"
-#     Then I should see the an element ".twitter-timeline"
+#     Then I should not see the element ".sidebar"
 #
-Then /^I should (not )?see an element "([^"]+)"$/ do |negate, selector|
+Then /^I should (not )?see (?:an|the) element "([^"]+)"$/ do |negate, selector|
   expectation = negate ? :should_not : :should
   patiently do
     page.send(expectation, have_css(selector))
@@ -522,10 +523,11 @@ end.overridable
 # Example:
 #
 #     Then I should see an element for the panel
+#     Then I should see the element for the panel
 #     Then I should not an element for the sidebar
-#     Then I should see an element for the Twitter timeline
+#     Then I should not the element for the sidebar
 #
-Then /^I should (not )?see an element for (.*?)$/ do |negate, locator|
+Then /^I should (not )?see (?:an|the) element for (.*?)$/ do |negate, locator|
   expectation = negate ? :should_not : :should
   selector = _selector_for(locator)
   patiently do
