@@ -53,11 +53,14 @@ Feature: Web steps
       And the "Unchecked" checkbox should not be checked
 
 
-  # We only check for it to not die, reacting to click on arbitrary elements will not work without javascript
+  @javascript
   Scenario: /^I click on "([^\"]+)"$/
     When I go to "/static_pages/click_on"
       And I click on "Nested"
+    # See that it clicks the innermost element with that text
+    Then I should see "You clicked on .inner"
       And I click on "Button"
+    Then I should see "You clicked on .button"
 
 
   Scenario: /^the "(.*?)" select should( not)? be sorted$/

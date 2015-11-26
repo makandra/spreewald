@@ -1,7 +1,22 @@
-.outer
-  .inner
-    Nested
+.clickables
 
-.button
-  %span.icon +
-  Button
+  .outer
+    .inner
+      Nested
+
+  .button
+    %span.icon +
+    Button
+
+#message
+
+:javascript
+  $(function() {
+    $('.clickables *').click(function(event) {
+      $('#message').text('You clicked on .' + this.className);
+      // Don't propagate since the whole point of the test
+      // is that the correct tree node is clicked
+      return false;
+    });
+  });
+

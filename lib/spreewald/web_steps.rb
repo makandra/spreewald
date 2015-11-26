@@ -450,7 +450,12 @@ Then /^(the tag )?"([^\"]+)" should be hidden$/ do |tag, selector_or_text|
   assert_hidden(options)
 end
 
-# Click on some text that might not be a link
+# Click on some text that might not be a link.
+#
+# Example:
+#
+#     When I click on "Collapse"
+#
 When /^I click on "([^\"]+)"$/ do |text|
   patiently do
     contains_text = %{contains(., \"#{text}\")}
@@ -459,6 +464,8 @@ When /^I click on "([^\"]+)"$/ do |text|
     element.click
   end
 end
+
+
 
 # Use this step to check external links.
 #
