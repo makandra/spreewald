@@ -38,4 +38,4 @@ Given /^the file "([^"]*)" was attached(?: as (?:([^"]*)\/)?([^"]*))? to the ([^
   container.send("#{relation_name}=", File.new(path_to_file))
   container.updated_at = time if time
   container.save!
-end
+end.overridable

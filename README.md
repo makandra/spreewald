@@ -65,6 +65,12 @@ You can achieve this in your own steps by wrapping them inside a `patiently do` 
 
 More info [here](https://makandracards.com/makandra/12139-waiting-for-page-load-with-spreewald).
 
+
+## Overriding steps
+
+Thanks to [cucumber_priority](https://github.com/makandra/cucumber_priority) you can override any step definition from Spreewald with your own patten. Cucumber will not raise `Cucumber::Ambiguous` if your custom steps collide with a Spreewald step.
+
+
 ## Contributing
 
 Test applications for various Rails versions live in `tests/`.

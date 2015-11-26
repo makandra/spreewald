@@ -8,7 +8,7 @@ end
 
 When /^I clear my e?mails$/ do
   ActionMailer::Base.deliveries.clear
-end
+end.overridable
 
 # Example:
 #
@@ -41,7 +41,7 @@ Then /^(an|no) e?mail should have been sent with:$/ do |mode, raw_data|
     expectation = mode == 'no' ? 'should_not' : 'should'
     @mail.send(expectation, be_present)
   end
-end
+end.overridable
 
 # nodoc
 Then /^(an|no) e?mail should have been sent((?: |and|with|from "[^"]+"|bcc "[^"]+"|to "[^"]+"|the subject "[^"]+"|the body "[^"]+"|the attachments "[^"]+")+)$/ do |mode, query|
@@ -58,7 +58,7 @@ Then /^(an|no) e?mail should have been sent((?: |and|with|from "[^"]+"|bcc "[^"]
     expectation = mode == 'no' ? 'should_not' : 'should'
     @mail.send(expectation, be_present)
   end
-end
+end.overridable
 
 # Only works after you have retrieved the mail using "Then an email should have been sent with:"
 When /^I follow the (first|second|third)? ?link in the e?mail$/ do |index_in_words|
@@ -68,16 +68,16 @@ When /^I follow the (first|second|third)? ?link in the e?mail$/ do |index_in_wor
   mail_body = MailFinder.email_text_body(mail).to_s
   only_path = mail_body.scan(url_pattern)[index][0]
   visit only_path
-end
+end.overridable
 
 Then /^no e?mail should have been sent$/ do
   ActionMailer::Base.deliveries.should be_empty
-end
+end.overridable
 
 # Checks that the last sent email includes some text
 Then /^I should see "([^\"]*)" in the e?mail$/ do |text|
   MailFinder.email_text_body(ActionMailer::Base.deliveries.last).should include(text)
-end
+end.overridable
 
 # Print all sent emails to STDOUT.
 Then /^show me the e?mails$/ do
@@ -91,7 +91,7 @@ Then /^show me the e?mails$/ do
          ].join("\n")
     print "-" * 80
   end
-end
+end.overridable
 
 # Only works after you've retrieved the email using "Then an email should have been sent with:"
 #
@@ -109,10 +109,10 @@ Then /^that e?mail should( not)? have the following lines in the body:$/ do |neg
   body.to_s.strip.split(/\n/).each do |line|
     email_text_body.send(expectation, include(line.strip))
   end
-end
+end.overridable
 
 # Only works after you've retrieved the email using "Then an email should have been sent with:"
 # Checks that the text should be included in the retrieved email
 Then /^that e?mail should have the following body:$/ do |body|
   MailFinder.email_text_body(@mail).should include(body.strip)
-end
+end.overridable

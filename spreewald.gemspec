@@ -17,7 +17,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Spreewald::VERSION
 
-  gem.add_runtime_dependency('cucumber-rails')
-  gem.add_runtime_dependency('cucumber')
-  gem.add_runtime_dependency('capybara')
+  gem.add_dependency('cucumber')
+  gem.add_dependency('cucumber_priority')
 end

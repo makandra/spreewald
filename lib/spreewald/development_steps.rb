@@ -3,7 +3,7 @@
 # Marks scenario as pending
 Then /^it should work$/ do
   pending
-end
+end.overridable
 
 # Starts debugger, or Pry if installed
 Then /^debugger$/ do
@@ -14,7 +14,7 @@ Then /^debugger$/ do
   end
 
   true # Ruby will halt in this line
-end
+end.overridable
 
 # Waits 2 seconds after each step
 AfterStep('@slow-motion') do

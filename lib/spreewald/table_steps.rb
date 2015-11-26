@@ -122,4 +122,4 @@ Then /^I should( not)? see a table with (exactly )?the following rows( in any or
       tables.should contain_table(parsed_table, options)
     end
   end
-end
+end.overridable
