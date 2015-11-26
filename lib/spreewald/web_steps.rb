@@ -473,32 +473,31 @@ Then /^"([^"]*)" should link to "([^"]*)"$/ do |link_label, target|
   end
 end
 
-Then /^I should (not )?see an element "([^"]*)"$/ do |negate, selector|
-  warn %(The step 'I should see an element "..."' is deprecated. Please use 'I should see a "..." element instead')
+# Check that an element with the given selector is present on the page.
+#
+# Example:
+#
+#     Then I should see an element ".panel"
+#     Then I should not see an element ".sidebar"
+#     Then I should see the an element ".twitter-timeline"
+#
+# We recommend to [define a `selector_for` method](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb) in `features/support/selectors.rb`
+# so you can refer to the selector in plain English:
+#
+#     Then I should see an element for the panel
+#     Then I should not an element for the sidebar
+#     Then I should see an element for the Twitter timeline
+#
+Then /^I should (not )?see an element "([^"]+)"$/ do |negate, selector|
   expectation = negate ? :should_not : :should
   patiently do
     page.send(expectation, have_css(selector))
   end
 end
 
-# Check that an element with the given selector is present on the page.
-#
-# Example:
-#
-#     Then I should see a ".panel" element
-#     Then I should not see ".sidebar" element
-#     Then I should see the ".twitter-timeline" element
-#
-# We recommend to [define a `selector_for` method](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb) in `features/support/selectors.rb`
-# so you can refer to the selector in plain English:
-#
-#     Then I should see a panel element
-#     Then I should not see a sidebar element
-#     Then I should see the Twitter timeline element
-#
-Then /^I should (not )?see (?:(?:a |an |the )?("[^"]+")|([^"].*?)) element$/ do |negate, locator_with_quotes, locator_without_quotes|
+Then /^I should (not )?see an element for (.*?)$/ do |negate, locator|
   expectation = negate ? :should_not : :should
-  selector = _selector_for(locator_with_quotes || locator_without_quotes)
+  selector = _selector_for(locator)
   patiently do
     page.send(expectation, have_css(selector))
   end

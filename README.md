@@ -550,28 +550,28 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 
 
-* **Then I should (not )?see an element "..."**
-
-  
-
-
-* **Then I should (not )?see ((a |an |the )?("...")|...) element**
+* **Then I should (not )?see an element "(...)"**
 
   Check that an element with the given selector is present on the page.
   
   Example:
   
-      Then I should see a ".panel" element
-      Then I should not see ".sidebar" element
-      Then I should see the ".twitter-timeline" element
+      Then I should see an element ".panel"
+      Then I should not see an element ".sidebar"
+      Then I should see the an element ".twitter-timeline"
   
   We recommend to [define a `selector_for` method](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb) in `features/support/selectors.rb`
   so you can refer to the selector in plain English:
   
-      Then I should see a panel element
-      Then I should not see a sidebar element
-      Then I should see the Twitter timeline element
+      Then I should see an element for the panel
+      Then I should not an element for the sidebar
+      Then I should see an element for the Twitter timeline
 
+
+
+* **Then I should (not )?see an element for ...**
+
+  
 
 
 * **Then I should get a text response**
