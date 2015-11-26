@@ -465,13 +465,35 @@ When /^I click on "([^\"]+)"$/ do |text|
   end
 end
 
+# Click on an element with the given selector.
+#
+# Example:
+#
+#     When I click on the element ".sidebar"
+#
+When /^I click on the element "([^"]+)"$/ do |selector|
+  patiently do
+    page.find(selector).click
+  end
+end
 
+# Click on the element with the given [selector alias](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb).
+#
+# Example:
+#
+#     When I click on the element for the sidebar
+When /^I click on the element for (.+?)$/ do |locator|
+  patiently do
+    selector = _selector_for(locator)
+    page.find(selector).click
+  end
+end
 
 # Use this step to check external links.
 #
 # Example:
 #
-#       Then "Sponsor" should link to "http://makandra.com"
+#     Then "Sponsor" should link to "http://makandra.com"
 #
 Then /^"([^"]*)" should link to "([^"]*)"$/ do |link_label, target|
   patiently do
@@ -488,13 +510,6 @@ end
 #     Then I should not see an element ".sidebar"
 #     Then I should see the an element ".twitter-timeline"
 #
-# We recommend to [define a `selector_for` method](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb) in `features/support/selectors.rb`
-# so you can refer to the selector in plain English:
-#
-#     Then I should see an element for the panel
-#     Then I should not an element for the sidebar
-#     Then I should see an element for the Twitter timeline
-#
 Then /^I should (not )?see an element "([^"]+)"$/ do |negate, selector|
   expectation = negate ? :should_not : :should
   patiently do
@@ -502,6 +517,14 @@ Then /^I should (not )?see an element "([^"]+)"$/ do |negate, selector|
   end
 end
 
+# Check that an element with the given [selector alias](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb) is present on the page.
+#
+# Example:
+#
+#     Then I should see an element for the panel
+#     Then I should not an element for the sidebar
+#     Then I should see an element for the Twitter timeline
+#
 Then /^I should (not )?see an element for (.*?)$/ do |negate, locator|
   expectation = negate ? :should_not : :should
   selector = _selector_for(locator)

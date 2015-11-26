@@ -59,9 +59,26 @@ Feature: Web steps
       And I click on "Nested"
     # See that it clicks the innermost element with that text
     Then I should see "You clicked on .inner"
-      And I click on "Button"
+    When I click on "Button"
     Then I should see "You clicked on .button"
 
+  @javascript
+  Scenario: /^I click on the element "([^\"]+)"$/
+    When I go to "/static_pages/click_on"
+    And I click on the element ".inner"
+    Then I should see "You clicked on .inner"
+    When I click on the element ".outer"
+    Then I should see "You clicked on .outer"
+    When I click on the element ".button"
+    Then I should see "You clicked on .button"
+
+  @javascript
+  Scenario: /^I click on the element for .*?$/
+    When I go to "/static_pages/click_on"
+    And I click on the element for a panel
+    Then I should see "You clicked on .panel"
+    When I click on the element for the timeline
+    Then I should see "You clicked on .timeline"
 
   Scenario: /^the "(.*?)" select should( not)? be sorted$/
     When I go to "/forms/select_fields"

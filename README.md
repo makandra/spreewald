@@ -537,7 +537,31 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 * **When I click on "..."**
 
-  Click on some text that might not be a link
+  Click on some text that might not be a link.
+  
+  Example:
+  
+      When I click on "Collapse"
+
+
+
+* **When I click on the element "(...)"**
+
+  Click on an element with the given selector.
+  
+  Example:
+  
+      When I click on the element ".sidebar"
+
+
+
+* **When I click on the element for (.+?)**
+
+  Click on the element with the given [selector alias](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb).
+  
+  Example:
+  
+      When I click on the element for the sidebar
 
 
 * **Then "..." should link to "..."**
@@ -546,7 +570,7 @@ deprecation notice. Decide for yourself whether you want to use them:
   
   Example:
   
-        Then "Sponsor" should link to "http://makandra.com"
+      Then "Sponsor" should link to "http://makandra.com"
 
 
 
@@ -559,19 +583,19 @@ deprecation notice. Decide for yourself whether you want to use them:
       Then I should see an element ".panel"
       Then I should not see an element ".sidebar"
       Then I should see the an element ".twitter-timeline"
-  
-  We recommend to [define a `selector_for` method](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb) in `features/support/selectors.rb`
-  so you can refer to the selector in plain English:
-  
-      Then I should see an element for the panel
-      Then I should not an element for the sidebar
-      Then I should see an element for the Twitter timeline
 
 
 
 * **Then I should (not )?see an element for ...**
 
+  Check that an element with the given [selector alias](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb) is present on the page.
   
+  Example:
+  
+      Then I should see an element for the panel
+      Then I should not an element for the sidebar
+      Then I should see an element for the Twitter timeline
+
 
 
 * **Then I should get a text response**
