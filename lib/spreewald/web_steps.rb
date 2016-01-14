@@ -524,8 +524,8 @@ end.overridable
 #
 #     Then I should see an element for the panel
 #     Then I should see the element for the panel
-#     Then I should not an element for the sidebar
-#     Then I should not the element for the sidebar
+#     Then I should not see an element for the sidebar
+#     Then I should not see the element for the sidebar
 #
 Then /^I should (not )?see (?:an|the) element for (.*?)$/ do |negate, locator|
   expectation = negate ? :should_not : :should
