@@ -94,7 +94,6 @@ Feature: Web steps
       And a visible string with quotes should be visible
       And "hidden ümläüt" should be hidden
 
-
   @javascript
   Scenario: /^Then (the tag )?"..." should( not)? be visible$/ with javascript
     When I go to "/static_pages/visibility"
@@ -103,6 +102,17 @@ Feature: Web steps
     And a hidden string with quotes should not be visible
     And a visible string with quotes should be visible
     And "hidden ümläüt" should be hidden
+
+  Scenario: /^the "([^\"]*)" field should( not)? be visible$/
+    When I go to "/static_pages/visibility"
+    Then the "Visible field" field should be visible
+      But the "Hidden field" field should not be visible
+
+  @javascript
+  Scenario: /^the "([^\"]*)" field should( not)? be visible$/ with Javascript
+    When I go to "/static_pages/visibility"
+    Then the "Visible field" field should be visible
+      But the "Hidden field" field should not be visible
 
   Scenario: /^I should (not )?see (?:|a|an |the )(.*?) element$/
     When I go to "/static_pages/see_element"

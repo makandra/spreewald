@@ -632,18 +632,19 @@ end.overridable
 
 # Tests that a field with the given label is visible.
 Then /^the "([^\"]*)" field should( not)? be visible$/ do |label, hidden|
-  field = find_field(label)
+  if Capybara::VERSION < "2.1"
+    field = find_field(label)
+  else
+    # Capybara 2.1+ won't usually interact with hidden elements,
+    # but we can override this behavior by passing { visible: false }
+    field = find_field(label, :visible => false)
+  end
 
   case Capybara::current_driver
   when :selenium, :webkit
     patiently do
-      visibility_detecting_javascript = %[
-          (function(){
-            var field = $('##{field['id']}');
-            return(field.is(':visible'));
-          })();
-      ].gsub(/\n/, ' ')
-      page.execute_script(visibility_detecting_javascript).should == !hidden
+      visibility_detecting_javascript = "$('##{field['id']}').is(':visible')"
+      page.evaluate_script(visibility_detecting_javascript).should == !hidden
     end
   else
     expectation = hidden ? :should_not : :should

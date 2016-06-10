@@ -9,3 +9,11 @@
 
 %div{:style => 'display: block'}
   visible '" quotes
+
+%div{:style => 'display: none'}
+  %label(for='hidden-field') Hidden field
+  %input(type='text' id='hidden-field')
+
+%div{:style => 'display: block'}
+  %label(for='visible-field') Visible field
+  %input(type='text' id='visible-field')
