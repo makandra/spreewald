@@ -1,10 +1,8 @@
 Feature: Table steps
 
-  Background:
-    When I go to "/tables/table1"
-
 
   Scenario: should see a table with the following rows
+    When I go to "/tables/table1"
     Then the following multiline step should succeed:
       """
       Then I should see a table with the following rows:
@@ -85,7 +83,16 @@ Feature: Table steps
       """
 
 
+  Scenario: Cell content normalization
+    When I go to "/tables/table_with_weird_spaces"
+    Then I should see a table with the following rows:
+      | one two  | three four   |
+      | five six | seven eight  |
+      | nineten  | eleventwelve |
+
+
   Scenario: should not see a table with the following rows
+    When I go to "/tables/table1"
     Then the following multiline step should fail:
       """
       Then I should not see a table with the following rows:
@@ -103,6 +110,7 @@ Feature: Table steps
 
 
   Scenario: should see a table with exactly the following rows
+    When I go to "/tables/table1"
     Then the following multiline step should succeed:
       """
       Then I should see a table with exactly the following rows:
@@ -132,6 +140,7 @@ Feature: Table steps
       """
 
   Scenario: should not see a table with exactly the following rows
+    When I go to "/tables/table1"
     Then the following multiline step should fail:
       """
       Then I should not see a table with exactly the following rows:
@@ -162,6 +171,7 @@ Feature: Table steps
 
 
   Scenario: should see a table with the following rows in any order
+    When I go to "/tables/table1"
     Then the following multiline step should succeed:
       """
       Then I should see a table with the following rows in any order:
@@ -198,6 +208,7 @@ Feature: Table steps
 
 
   Scenario: should not see a table with the following rows in any order
+    When I go to "/tables/table1"
     Then the following multiline step should fail:
       """
       Then I should not see a table with the following rows in any order:
@@ -234,6 +245,7 @@ Feature: Table steps
 
 
   Scenario: should see a table with exactly the following rows in any order
+    When I go to "/tables/table1"
     Then the following multiline step should succeed:
       """
       Then I should see a table with exactly the following rows in any order:
@@ -257,6 +269,7 @@ Feature: Table steps
 
 
   Scenario: should not see a table with exactly the following rows in any order
+    When I go to "/tables/table1"
     Then the following multiline step should fail:
       """
       Then I should not see a table with exactly the following rows in any order:

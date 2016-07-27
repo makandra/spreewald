@@ -25,9 +25,20 @@ module TableStepsHelper
       end
     end
 
+    # Only cross-Ruby way to get a character for its UTF-16 (hex) representation
+    def character(code)
+      [code.to_i(16)].pack('U*')
+    end
+
     def normalize_content(content)
-      nbsp = " "
-      content.gsub(/[\r\n\t]+/, ' ').gsub(nbsp, ' ').gsub(/ {2,}/, ' ').strip
+      shy = character("00ad") # soft hyphen
+      nbsp = character("00a0") # non-breaking space
+      zwsp = character("200b") # zero-width space
+      content = content.gsub(/[#{shy}#{zwsp}]/, '')
+      content = content.gsub(/[\r\n\t#{nbsp}]+/, ' ')
+      content = content.gsub(/ {2,}/, ' ')
+      content = content.strip
+      content
     end
 
   end
