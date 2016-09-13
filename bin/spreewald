@@ -7,7 +7,7 @@ search_string = ARGV.shift
 
 # collect
 steps_glob = File.expand_path('../../lib/spreewald/*_steps.rb', __FILE__)
-step_names = `cat #{steps_glob}`.split($/).select { |line| line =~ /^(Given|When|Then)/ }
+step_names = `cat #{steps_glob}`.split($/).select { |line| line =~ /^\s*(Given|When|Then)/ }
 
 # format
 step_names.map! do |step|
