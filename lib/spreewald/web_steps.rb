@@ -493,7 +493,11 @@ end.overridable
 #
 # Example:
 #
-#     Then "Sponsor" should link to "http://makandra.com"
+#     Then "Sponsor" should link to "http://makandra.com/"
+#
+# Don't forget the trailing slash. Otherwise you'll get the error 
+#   expected: /http:\/\/makandra.com(\?[^\/]*)?$/
+#        got: "http://makandra.com/" (using =~)
 #
 Then /^"([^"]*)" should link to "([^"]*)"$/ do |link_label, target|
   patiently do
