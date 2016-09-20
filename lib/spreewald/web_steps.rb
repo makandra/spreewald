@@ -675,7 +675,8 @@ end.overridable
 When /^I perform basic authentication as "([^\"]*)\/([^\"]*)" and go to (.*)$/ do |user, password, page_name|
   path = _path_to(page_name)
   if Capybara::current_driver == :selenium
-    visit("http://#{user}:#{password}@#{page.driver.rack_server.host}:#{page.driver.rack_server.port}#{path}")
+    server = Capybara.current_session.server rescue Capybara.current_session.driver.rack_server
+    visit("http://#{user}:#{password}@#{server.host}:#{server.port}#{path}")
   else
     authorizers = [
       (page.driver.browser if page.driver.respond_to?(:browser)),

@@ -130,3 +130,14 @@ Feature: Web steps
     Then I should see an element ".child1" within ".container1"
       But I should not see an element ".child1" within ".container2"
 
+  Scenario: /^I perform basic authentication as "([^\"]*)\/([^\"]*)" and go to (.*)$/
+    When I go to "/authenticated/page"
+    Then I should see "Access denied"
+    When I perform basic authentication as "user/password" and go to "/authenticated/page"
+    Then I should see "Action reached"
+
+  @javascript
+  Scenario: /^I perform basic authentication as "([^\"]*)\/([^\"]*)" and go to (.*)$/ with Javascript
+    When I perform basic authentication as "user/password" and go to "/authenticated/page"
+    Then I should see "Action reached"
+
