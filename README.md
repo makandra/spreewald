@@ -24,7 +24,7 @@ Steps are grouped into a number of categories. You can pick and choose single ca
 
     require 'spreewald/email_steps'
 
-into either your `support/env.rb` or a `step_defitions/spreewald_steps.rb`.
+into either your `support/env.rb` or `step_definitions/spreewald_steps.rb`.
 
 Alternatively, you can require everything by doing
 
@@ -45,7 +45,7 @@ spreewald mail # lists all steps that contain "mail"
 
 Spreewald's web steps are all aware that you might run them with a Selenium/Capybara webdriver, and wait for the browser to finish loading the page, if necessary.
 
-This is done by rerunning any assertions until they suceed or a timeout is reached.
+This is done by rerunning any assertions until they succeed or a timeout is reached.
 
 We consider a couple of potential exceptions as "retriable", including
 
@@ -68,7 +68,7 @@ More info [here](https://makandracards.com/makandra/12139-waiting-for-page-load-
 
 ## Overriding steps
 
-Thanks to [cucumber_priority](https://github.com/makandra/cucumber_priority) you can override any step definition from Spreewald with your own patten. Cucumber will not raise `Cucumber::Ambiguous` if your custom steps collide with a Spreewald step.
+Thanks to [cucumber_priority](https://github.com/makandra/cucumber_priority) you can override any step definition from Spreewald with your own pattern. Cucumber will not raise `Cucumber::Ambiguous` if your custom steps collide with a Spreewald step.
 
 
 ## Contributing
@@ -576,11 +576,15 @@ deprecation notice. Decide for yourself whether you want to use them:
   
   Example:
   
-      Then "Sponsor" should link to "http://makandra.com"
+      Then "Sponsor" should link to "http://makandra.com/"
+
+  Don't forget the trailing slash. Otherwise you'll get the error
+    expected: /http:\/\/makandra.com(\?[^\/]*)?$/
+         got: "http://makandra.com/" (using =~)
 
 
 
-* **Then I should (not )?see an element "(...)"**
+* **Then I should (not )?see (an|the) element "(...)"**
 
   Check that an element with the given selector is present on the page.
   
