@@ -268,7 +268,6 @@ Then /^the "([^"]*)" field should have no error$/ do |field|
   end
 end.overridable
 
-# nodoc
 Then /^the "([^"]*)" checkbox should( not)? be checked$/ do |label, negate|
   expectation = negate ? :should_not : :should
 
@@ -404,7 +403,6 @@ Then /^I should see an error$/ do
   (400 .. 599).should include(page.status_code)
 end.overridable
 
-#nodoc
 Then /^the window should be titled "([^"]*)"$/ do |title|
   patiently do
     page.should have_css('title', :text => title)
