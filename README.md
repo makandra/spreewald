@@ -435,6 +435,11 @@ deprecation notice. Decide for yourself whether you want to use them:
   
 
 
+* **Then the "..." checkbox should( not)? be checked**
+
+  
+
+
 * **Then the radio button "..." should( not)? be (checked|selected)**
 
   
@@ -518,6 +523,11 @@ deprecation notice. Decide for yourself whether you want to use them:
   Checks that status code is 400..599
 
 
+* **Then the window should be titled "..."**
+
+  
+
+
 * **When I reload the page**
 
   
@@ -577,8 +587,8 @@ deprecation notice. Decide for yourself whether you want to use them:
   Example:
   
       Then "Sponsor" should link to "http://makandra.com/"
-
-  Don't forget the trailing slash. Otherwise you'll get the error
+  
+  Don't forget the trailing slash. Otherwise you'll get the error 
     expected: /http:\/\/makandra.com(\?[^\/]*)?$/
          got: "http://makandra.com/" (using =~)
 
@@ -591,20 +601,22 @@ deprecation notice. Decide for yourself whether you want to use them:
   Example:
   
       Then I should see an element ".panel"
+      Then I should see the element ".panel"
       Then I should not see an element ".sidebar"
-      Then I should see the an element ".twitter-timeline"
+      Then I should not see the element ".sidebar"
 
 
 
-* **Then I should (not )?see an element for ...**
+* **Then I should (not )?see (an|the) element for ...**
 
   Check that an element with the given [selector alias](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb) is present on the page.
   
   Example:
   
       Then I should see an element for the panel
-      Then I should not an element for the sidebar
-      Then I should see an element for the Twitter timeline
+      Then I should see the element for the panel
+      Then I should not see an element for the sidebar
+      Then I should not see the element for the sidebar
 
 
 
