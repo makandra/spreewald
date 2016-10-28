@@ -6,6 +6,7 @@ ruby '< 2'
 # Runtime dependencies
 gem 'activerecord', '=2.3.18'
 gem 'mysql2', '= 0.2.20'
+gem 'i18n', '=0.6.11' # 0.7 no longer builds for Ruby 1.8.7
 
 # Development dependencies
 gem 'rake', '=10.0.4'

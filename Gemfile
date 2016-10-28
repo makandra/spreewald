@@ -1,1 +1,1 @@
-gemfiles/Gemfile.4.2.mysql2
+gemfiles/Gemfile.2.3.mysql2
