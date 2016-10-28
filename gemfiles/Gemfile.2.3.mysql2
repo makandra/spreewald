@@ -1,0 +1,17 @@
+source 'https://rubygems.org'
+
+# Ruby
+ruby '< 2'
+
+# Runtime dependencies
+gem 'activerecord', '=2.3.18'
+gem 'mysql2', '= 0.2.20'
+
+# Development dependencies
+gem 'rake', '=10.0.4'
+gem 'database_cleaner'
+gem 'rspec', '~> 1.3.0'
+gem 'gemika'
+
+# Gem under test
+gem 'spreewald', :path => '..'

@@ -11,3 +11,4 @@ InstalledFiles
 tmp
 _yardoc
 *.log
+spec/support/database.yml
