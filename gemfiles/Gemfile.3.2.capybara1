@@ -1,25 +1,7 @@
-#  source 'https://rubygems.org'
-#
-#  Ruby (first bundle with 1.8.6)
-#  ruby '>=1.8.6', '<=2.1.8'
-
-#  # Runtime dependencies
-#  gem 'activerecord', '=3.2.22'
-#  gem 'mysql2', '= 0.3.17'
-#  gem 'i18n', '=0.6.11'
-#  
-#  # Development dependencies
-#  gem 'rake', '=10.0.4'
-#  gem 'database_cleaner', '~>1.0.0'
-#  gem 'rspec', '~> 2'
-#  gem 'gemika'
-#  
-#  # Gem under test
-#  gem 'spreewald', :path => '..'
 source 'https://rubygems.org'
 
-# Ruby (first bundle with 1.8.6)
-ruby '>=1.8.6', '<=2.1.8'
+# Ruby
+# ruby '=1.8.6'
 
 gem 'rails', '~>3.2'
 gem 'sqlite3', :platform => :ruby
