@@ -15,3 +15,22 @@ Feature: The `spreewald` binary
     """
     But the output should not contain "mail"
       And the output should not contain "field"
+
+
+  Scenario: It includes project steps, if present
+    Given a file named "features/step_definitions/test_steps.rb" with:
+    """
+    Then /^there is a test step$/ do
+      # Just testing
+    end
+    """
+      And a file named "features/step_definitions/nested/nested_steps.rb" with:
+      """
+      Then /^there is a nested test step$/ do
+        # Nested step testing
+      end
+      """
+
+    When I run `spreewald`
+    Then the output should contain "Then there is a test step"
+      And the output should contain "Then there is a nested test step"

@@ -2,7 +2,9 @@
 require File.expand_path('../../support/step_manager', __FILE__)
 
 spreewald_steps = File.expand_path('../../lib/spreewald', __FILE__)
-manager = StepManager.new(spreewald_steps)
+project_steps = 'features/step_definitions'
+manager = StepManager.new(spreewald_steps, project_steps)
+search_string = ARGV.shift
 
 heading = 'All Spreewald steps'
 heading << " containing '#{search_string}'" if search_string
