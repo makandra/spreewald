@@ -179,6 +179,19 @@ Feature: The `spreewald` binary
       And the output should contain "single quoted selector"
 
 
+  Scenario: Print help
+    When I run `spreewald --help`
+    Then the output should contain:
+    """
+    USAGE:
+      spreewald [SEARCH]
+    """
+      And the output should contain "spreewald --paths"
+      And the output should contain "spreewald --selectors"
+      And the output should contain "spreewald --version"
+      And the output should contain "spreewald --help"
+
+
   Scenario: Print version
     When I run `spreewald --version`
     Then the output should contain "Spreewald 1.5.5"

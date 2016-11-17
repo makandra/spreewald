@@ -27,6 +27,32 @@ when '--paths', '-p'
   announce heading
   puts manager.paths(search)
 
+when '--help', '-h'
+
+  puts <<-HELP
+USAGE:
+  spreewald [SEARCH]
+    List all Spreewald steps + all steps from the current project (run from
+    project root). Optionally filtered by SEARCH.
+
+  spreewald --paths [SEARCH]
+    List all paths from features/support/paths.rb, optionally filtered by SEARCH
+    Alias -p
+
+  spreewald --selectors [SEARCH]
+    List all paths from features/support/paths.rb, optionally filtered by SEARCH
+    Alias -s
+
+  spreewald --version
+    Print Spreewald's version and exit
+    Alias -v
+
+  spreewald --help
+    Print this help and exit
+    Alias -h
+
+  HELP
+
 when '--version', '-v'
   require File.expand_path('../../lib/spreewald_support/version', __FILE__)
   puts "Spreewald #{ Spreewald::VERSION }"
