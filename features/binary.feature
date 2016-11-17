@@ -177,3 +177,11 @@ Feature: The `spreewald` binary
     When I run `spreewald -s`
     Then the output should contain "All selectors from features/support/selectors.rb"
       And the output should contain "single quoted selector"
+
+
+  Scenario: Print version
+    When I run `spreewald --version`
+    Then the output should contain "Spreewald 1.5.5"
+
+    When I run `spreewald -v`
+    Then the output should contain "Spreewald 1.5.5"

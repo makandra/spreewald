@@ -27,6 +27,10 @@ when '--paths', '-p'
   announce heading
   puts manager.paths(search)
 
+when '--version', '-v'
+  require File.expand_path('../../lib/spreewald_support/version', __FILE__)
+  puts "Spreewald #{ Spreewald::VERSION }"
+
 else
   spreewald_steps = File.expand_path('../../lib/spreewald', __FILE__)
   project_steps = 'features/step_definitions'
