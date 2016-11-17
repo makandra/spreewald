@@ -5,13 +5,6 @@ class StepManager
 
   attr_accessor :directories, :step_files
 
-  def self.parse_and_format_comment(comment)
-    comment.gsub! /.*coding:.*UTF-8.*/, ''
-    comment.strip!
-    comment_lines = comment.split("\n").take_while { |line| line =~ /^\s*#/ }
-    comment_lines && comment_lines.join("\n").gsub(/^\s*# ?/, '')
-  end
-
   def initialize(*directories)
     self.directories = directories
     self.step_files = directories.map(&method(:collect_files)).flatten.compact

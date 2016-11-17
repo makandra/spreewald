@@ -1,3 +1,5 @@
+require File.expand_path('../parser', __FILE__)
+
 class StepDefinition
 
   attr_accessor :kind, :step, :comment
@@ -7,7 +9,7 @@ class StepDefinition
     kind, step = $1, $2
     return unless step
 
-    comment = StepManager.parse_and_format_comment(raw_step)
+    comment = Parser.format_comment(raw_step)
     return if comment =~ /\bnodoc\b/
 
     new(kind, step, comment)
@@ -37,17 +39,7 @@ class StepDefinition
     if kind == 'AfterStep'
       step[/@\w+/]
     else
-      capture_groups = %w[([^\"]*) ([^"]*) (.*) (.*?) [^"]+ ([^\"]+) ([^']*) ([^/]*) (.+) (.*[^:])]
-      capture_groups.map! &Regexp.method(:escape)
-
-      step.
-        gsub('/^', '').
-        gsub('$/', '').
-        gsub(' ?', ' ').
-        gsub('(?:|I )', 'I ').
-        gsub('?:', '').
-        gsub(Regexp.new(capture_groups.join '|'), '...').
-        gsub(/\\\//, '/')
+      Parser.human_regex(step)
     end
   end
 

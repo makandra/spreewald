@@ -1,4 +1,5 @@
 require File.expand_path('../step_definition', __FILE__)
+require File.expand_path('../parser', __FILE__)
 
 class StepDefinitionFile
 
@@ -35,7 +36,7 @@ private
   def extract_comment
     if @code.include?(FILE_COMMENT_END)
       file_comment = @code.split(FILE_COMMENT_END).first
-      @comment = StepManager.parse_and_format_comment(file_comment)
+      @comment = Parser.format_comment(file_comment)
     end
   end
 

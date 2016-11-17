@@ -1,12 +1,31 @@
 #!/usr/bin/env ruby
 require File.expand_path('../../support/step_manager', __FILE__)
+require File.expand_path('../../support/paths_manager', __FILE__)
 
-spreewald_steps = File.expand_path('../../lib/spreewald', __FILE__)
-project_steps = 'features/step_definitions'
-manager = StepManager.new(spreewald_steps, project_steps)
-search_string = ARGV.shift
+def announce(text)
+  puts "\e[4;34m\n# #{text}\e[0m" # blue underline
+end
 
-heading = 'All Spreewald steps'
-heading << " containing '#{search_string}'" if search_string
-puts "\e[4;34m\n# #{heading}\e[0m" # blue underline
-puts manager.steps(search_string).map(&:to_s)
+case (option = ARGV.shift)
+when '--paths', '-p'
+  search = ARGV.shift
+  manager = PathsManager.new
+
+  heading = 'All paths from features/support/paths.rb'
+  heading << " containing '#{search}'" if search
+
+  announce heading
+  puts manager.paths(search)
+
+else
+  spreewald_steps = File.expand_path('../../lib/spreewald', __FILE__)
+  project_steps = 'features/step_definitions'
+  manager = StepManager.new(spreewald_steps, project_steps)
+
+  heading = 'All Spreewald steps'
+  heading << " containing '#{option}'" if option
+
+  announce heading
+  puts manager.steps(option).map(&:to_s)
+end
+
