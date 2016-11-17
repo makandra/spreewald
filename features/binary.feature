@@ -13,13 +13,13 @@ Feature: The `spreewald` binary
     # All Spreewald steps containing 'should not see'
     Then I should not see "..."
     Then I should not see "..." in the HTML
-    Then I should not see /([^/]*)/
+    Then I should not see /.../
     """
     But the output should not contain "Then I should see"
       And the output should not contain "mail"
 
 
-  Scenario: It includes project steps, if present
+  Scenario: Steps from the local project directory are included
     Given a file named "features/step_definitions/test_steps.rb" with:
     """
     Then /^there is a test step$/ do
@@ -36,6 +36,23 @@ Feature: The `spreewald` binary
     When I run `spreewald`
     Then the output should contain "Then there is a test step"
       And the output should contain "Then there is a nested test step"
+
+
+  Scenario: It humanizes the step expressions
+    Given a file named "features/step_definitions/test_steps.rb" with:
+    """
+    Then(/it strips parentheses/) do
+    Then /^(?:|I )should see \/([^\/]*)\/$/ do
+    Then(/^the "(.*?)" field should (not )?contain:$/) do
+    """
+
+    When I run `spreewald`
+    Then the output should contain "Then it strips parentheses"
+      And the output should contain "Then I should see /.../"
+      And the output should contain:
+      """
+      Then the "..." field should (not )?contain:
+      """
 
 
   Scenario: Listing paths from paths.rb (full example)

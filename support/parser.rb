@@ -1,12 +1,12 @@
 class Parser
 
   ANYTHINGS = %w[([^\"]*) ([^"]*) (.*) (.*?) [^"]+ ([^\"]+) ([^']*)
-    ([^/]*) (.+) (.*[^:]) .+? .+].map &Regexp.method(:escape)
+    ([^\/]*) (.+) (.*[^:]) .+? .+].map &Regexp.method(:escape)
 
   def self.human_regex(regex)
     regex.
-      gsub('/^', '').
-      gsub('$/', '').
+      sub(/^\(?\/\^?/, ''). # Strip Regex beginning
+      sub(/\$?\/\)?$/, ''). # Strip Regex end
       gsub(' ?', ' ').
       gsub('(?:|I )', 'I ').
       gsub('(?:', '(').

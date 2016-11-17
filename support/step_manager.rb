@@ -16,7 +16,7 @@ class StepManager
 
   def steps(search = nil)
     step_files.collect(&:real_steps).flatten.
-      sort_by { |step| [STEP_KINDS.index(step.kind), step.to_s] }.
+      sort_by { |step| [STEP_KINDS.index(step.kind), step.to_s.downcase] }.
       reject do |definition|
         if search
           definition.step !~ Regexp.new(search)
