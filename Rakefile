@@ -7,15 +7,15 @@ task :default => 'all:rubies'
 desc 'Update the "Steps" section of the README'
 task :update_readme do
   if Kernel.respond_to? :require_relative
-    require_relative './support/documentation_generator'
+    require_relative './support/step_manager'
   else
-    require 'support/documentation_generator'
+    require 'support/step_manager'
   end
 
   readme = File.read('README.md')
   start_of_steps_section = readme =~ /^## Steps/
   length_of_steps_section = (readme[(start_of_steps_section+1)..-1] =~ /^##[^#]/) || readme.size - start_of_steps_section
-  readme[start_of_steps_section, length_of_steps_section] = "## Steps\n\n" + DocumentationGenerator::StepDefinitionsDirectory.new('lib/spreewald').format
+  readme[start_of_steps_section, length_of_steps_section] = "## Steps\n\n" + StepManager.new('lib/spreewald').to_markdown
   File.open('README.md', 'w') { |f| f.write(readme) }
 end
 

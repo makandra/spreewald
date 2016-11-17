@@ -1,31 +1,10 @@
 #!/usr/bin/env ruby
-require File.expand_path('../../support/documentation_generator', __FILE__)
+require File.expand_path('../../support/step_manager', __FILE__)
 
-ORDERED_KINDS = %w[Given When Then]
+spreewald_steps = File.expand_path('../../lib/spreewald', __FILE__)
+manager = StepManager.new(spreewald_steps)
+
 heading = 'All Spreewald steps'
-search_string = ARGV.shift
-
-# collect
-steps_glob = File.expand_path('../../lib/spreewald/*_steps.rb', __FILE__)
-step_names = `cat #{steps_glob}`.split($/).select { |line| line =~ /^\s*(Given|When|Then)/ }
-
-# format
-step_names.map! do |step|
-  DocumentationGenerator::StepDefinition.try_and_parse(step).format_definition
-end
-
-# sort
-step_names = step_names.sort_by do |step|
-  step =~ /^(\w+)(.*)/
-  [ORDERED_KINDS.index($1), $2]
-end
-
-# filter
-if search_string
-  heading << " containing '#{search_string}'"
-  step_names = step_names.grep Regexp.new(search_string)
-end
-
-# Output
+heading << " containing '#{search_string}'" if search_string
 puts "\e[4;34m\n# #{heading}\e[0m" # blue underline
-puts step_names
+puts manager.steps(search_string).map(&:to_s)
