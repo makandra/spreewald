@@ -2,9 +2,8 @@ require File.expand_path('../parser', __FILE__)
 
 class PathsManager
 
-  PATHS_LOCATION = 'features/support/paths.rb'
-
-  def initialize
+  def initialize(file_path)
+    @file_path = file_path
     read_paths
   end
 
@@ -29,7 +28,7 @@ class PathsManager
 private
 
   def read_paths
-    lines = File.readlines PATHS_LOCATION
+    lines = File.readlines @file_path
     @raw_paths = lines.grep /^\s*when /
   end
 

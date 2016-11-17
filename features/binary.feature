@@ -114,3 +114,66 @@ Feature: The `spreewald` binary
     When I run `spreewald -p`
     Then the output should contain "All paths from features/support/paths.rb"
       And the output should contain "single quoted path"
+
+
+  Scenario: List selectors from selectors.rb
+    Given a file named "features/support/selectors.rb" with:
+    """
+    module HtmlSelectorsHelpers
+      def selector_for(locator)
+        case locator
+
+        when /^simple regex$/
+          '.simple-regex'
+
+        when 'single quoted selector'
+          '.single-quoted-selector'
+
+        when "double quoted selector"
+          '.double-quoted-selector'
+
+        when /^the(?: (\d+)(?:st|nd|rd|th))? (.+) page item$/
+          # e.g. the frontend page items
+
+        when /^the (\d+)(st|nd|rd|th) gallery row$/
+          ".gallery .row:nth-of-type(#{$1})"
+
+        # Auto-mapper for BEM classes
+        # E.g. the slider's item that is current
+        when /^the (.+?)(?:'s? (.+?))?(?: that (.+))?$/
+          # Something
+
+        when /^"(.+)"$/
+          $1
+
+        else
+          raise "Can't find mapping from \"#{locator}\" to a selector.\n" +
+            "Now, go and add a mapping in #{__FILE__}"
+        end
+      end
+    end
+    """
+
+    When I run `spreewald --selectors`
+    Then the output should contain "All selectors from features/support/selectors.rb"
+      And the output should contain:
+      """
+      simple regex
+      single quoted selector
+      double quoted selector
+      the( <nth>)? ... page item
+      the <nth> gallery row
+      the (...)('s? (...))?( that ...)?
+      "..."
+      """
+
+
+  Scenario: List selectors with short option "-s"
+    Given a file named "features/support/selectors.rb" with:
+    """
+        when 'single quoted selector'
+    """
+
+    When I run `spreewald -s`
+    Then the output should contain "All selectors from features/support/selectors.rb"
+      And the output should contain "single quoted selector"

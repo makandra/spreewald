@@ -1,7 +1,7 @@
 class Parser
 
   CAPTURE_GROUPS = %w[([^\"]*) ([^"]*) (.*) (.*?) [^"]+ ([^\"]+) ([^']*)
-    ([^/]*) (.+) (.*[^:]) .+].map &Regexp.method(:escape)
+    ([^/]*) (.+) (.*[^:]) .+? .+].map &Regexp.method(:escape)
 
   def self.human_regex(regex)
     regex.
@@ -9,7 +9,8 @@ class Parser
       gsub('$/', '').
       gsub(' ?', ' ').
       gsub('(?:|I )', 'I ').
-      gsub('?:', '').
+      gsub('(?:', '(').
+      gsub(Regexp.new(Regexp.escape '(\d+)(st|nd|rd|th)'), '<nth>').
       gsub(Regexp.new(CAPTURE_GROUPS.join '|'), '...').
       gsub(/\\\//, '/')
   end

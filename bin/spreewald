@@ -7,9 +7,19 @@ def announce(text)
 end
 
 case (option = ARGV.shift)
+when '--selectors', '-s'
+  search = ARGV.shift
+  manager = PathsManager.new('features/support/selectors.rb')
+
+  heading = 'All selectors from features/support/selectors.rb'
+  heading << " containing '#{search}'" if search
+
+  announce heading
+  puts manager.paths(search)
+
 when '--paths', '-p'
   search = ARGV.shift
-  manager = PathsManager.new
+  manager = PathsManager.new('features/support/paths.rb')
 
   heading = 'All paths from features/support/paths.rb'
   heading << " containing '#{search}'" if search
