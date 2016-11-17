@@ -352,7 +352,7 @@ Then /^"([^"]*)" should be selected for "([^"]*)"$/ do |value, field|
   step %(the "#{field}" field should contain "#{value}")
 end.overridable
 
-Then /^nothing should be selected for "([^"]*)"?$/ do |field|
+Then /^nothing should be selected for "([^"]*)"$/ do |field|
   patiently do
     select = find_field(field)
     begin
