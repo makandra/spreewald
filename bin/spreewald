@@ -8,7 +8,7 @@ end
 
 case (option = ARGV.shift)
 when '--selectors', '-s'
-  search = ARGV.shift
+  search = ARGV.join(' ')
   manager = PathsManager.new('features/support/selectors.rb')
 
   heading = 'All selectors from features/support/selectors.rb'
@@ -18,7 +18,7 @@ when '--selectors', '-s'
   puts manager.paths(search)
 
 when '--paths', '-p'
-  search = ARGV.shift
+  search = ARGV.join(' ')
   manager = PathsManager.new('features/support/paths.rb')
 
   heading = 'All paths from features/support/paths.rb'
@@ -58,14 +58,15 @@ when '--version', '-v'
   puts "Spreewald #{ Spreewald::VERSION }"
 
 else
+  search = [option].concat(ARGV).join(' ')
   spreewald_steps = File.expand_path('../../lib/spreewald', __FILE__)
   project_steps = 'features/step_definitions'
   manager = StepManager.new(spreewald_steps, project_steps)
 
   heading = 'All Spreewald steps'
-  heading << " containing '#{option}'" if option
+  heading << " containing '#{search}'" if search
 
   announce heading
-  puts manager.steps(option).map(&:to_s)
+  puts manager.steps(search).map(&:to_s)
 end
 

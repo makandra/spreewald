@@ -6,15 +6,17 @@ Feature: The `spreewald` binary
       And the output should contain "Then it should work"
 
 
-  Scenario: With an argument, it filters the steps by that string
-    When I run `spreewald table`
+  Scenario: Filters the steps (by a multi-word string)
+    When I run `spreewald should not see`
     Then the output should contain:
     """
-    # All Spreewald steps containing 'table'
-    Then I should( not)? see a table with (exactly )?the following rows( in any order)?
+    # All Spreewald steps containing 'should not see'
+    Then I should not see "..."
+    Then I should not see "..." in the HTML
+    Then I should not see /([^/]*)/
     """
-    But the output should not contain "mail"
-      And the output should not contain "field"
+    But the output should not contain "Then I should see"
+      And the output should not contain "mail"
 
 
   Scenario: It includes project steps, if present
@@ -91,18 +93,23 @@ Feature: The `spreewald` binary
   Scenario: Filtering paths
     Given a file named "features/support/paths.rb" with:
     """
-        when /^simple regex$/
+        when 'only quoted'
         when 'single quoted path'
+        when "double quoted path"
     """
 
-    When I run `spreewald --paths regex`
-    Then the output should contain "All paths from features/support/paths.rb containing 'regex'"
-      And the output should contain "simple regex"
+    When I run `spreewald --paths only`
+    Then the output should contain "All paths from features/support/paths.rb containing 'only'"
+      And the output should contain "only quoted"
     But the output should not contain "single quoted path"
+      And the output should not contain "double quoted path"
 
-    When I run `spreewald --paths quoted`
-    Then the output should contain "All paths from features/support/paths.rb containing 'quoted'"
+    # Support for multi-word filtering
+    When I run `spreewald --paths quoted path`
+    Then the output should contain "All paths from features/support/paths.rb containing 'quoted path'"
       And the output should contain "single quoted path"
+      And the output should contain "double quoted path"
+    But the output from "spreewald --paths quoted path" should not contain "only quoted"
 
 
   Scenario: List paths with short option "-p"
@@ -166,6 +173,28 @@ Feature: The `spreewald` binary
       the (...)('s? (...))?( that ...)?
       "..."
       """
+
+
+  Scenario: Filtering selectors
+    Given a file named "features/support/paths.rb" with:
+    """
+        when 'only quoted'
+        when 'single quoted selector'
+        when "double quoted selector"
+    """
+
+    When I run `spreewald --paths only`
+    Then the output should contain "All paths from features/support/paths.rb containing 'only'"
+      And the output should contain "only quoted"
+    But the output should not contain "single quoted selector"
+      And the output should not contain "double quoted selector"
+
+    # Support for multi-word filtering
+    When I run `spreewald --paths quoted selector`
+    Then the output should contain "All paths from features/support/paths.rb containing 'quoted selector'"
+      And the output should contain "single quoted selector"
+      And the output should contain "double quoted selector"
+    But the output from "spreewald --paths quoted selector" should not contain "only quoted"
 
 
   Scenario: List selectors with short option "-s"
