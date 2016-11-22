@@ -52,6 +52,8 @@ class MailFinder
             else
               part.decoded
             end
+          elsif part.content_type.include?('multipart/alternative')
+            part.parts.map(&:decoded)
           else
             part.decoded
           end
