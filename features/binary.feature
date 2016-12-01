@@ -187,7 +187,7 @@ Feature: The `spreewald` binary
       double quoted selector
       the( <nth>)? ... page item
       the <nth> gallery row
-      the (...)('s? (...))?( that ...)?
+      the ...('s? ...)?( that ...)?
       "..."
       """
 
@@ -240,7 +240,7 @@ Feature: The `spreewald` binary
 
   Scenario: Print version
     When I run `spreewald --version`
-    Then the output should contain "Spreewald 1.5.5"
+    Then the output should contain "Spreewald 1."
 
     When I run `spreewald -v`
-    Then the output should contain "Spreewald 1.5.5"
+    Then the output should contain "Spreewald 1."

@@ -23,9 +23,9 @@ class StepDefinition
 
   def to_markdown
     <<-TEXT
-* **#{ step }**
+* **#{kind} #{pretty_step}**
 
-#{ comment.gsub /^/, '  ' }
+  #{ comment.gsub /^/, '  ' }
     TEXT
   end
 

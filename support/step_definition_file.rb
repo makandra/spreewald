@@ -19,9 +19,9 @@ class StepDefinitionFile
     <<-TEXT
 ### #{ @filename.split('/').last }
 
-    #{@comment}
+#{@comment}
 
-    #{ steps.collect(&:to_markdown).join("\n\n") }
+#{ steps.collect(&:to_markdown).join("\n\n") }
     TEXT
   end
 

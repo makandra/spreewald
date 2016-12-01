@@ -1,7 +1,7 @@
 class Parser
 
-  ANYTHINGS = %w[([^\"]*) ([^"]*) (.*) (.*?) [^"]+ ([^\"]+) ([^']*)
-    ([^\/]*) (.+) (.*[^:]) .+? .+].map &Regexp.method(:escape)
+  ANYTHINGS = %w[([^\"]*) ([^"]+) ([^"]*) (.*) (.*?) [^"]+ ([^\"]+) ([^']*)
+    ([^\/]*) (.+) (.*[^:]) (.+?) .+].map &Regexp.method(:escape)
 
   def self.human_regex(regex)
     regex.
