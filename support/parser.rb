@@ -19,7 +19,9 @@ class Parser
     comment.gsub! /.*coding:.*UTF-8.*/, ''
     comment.strip!
     comment_lines = comment.split("\n").take_while { |line| line =~ /^\s*#/ }
-    comment_lines && comment_lines.join("\n").gsub(/^\s*# ?/, '')
+    formatted = comment_lines && comment_lines.join("\n").gsub(/^\s*# ?/, '')
+
+    formatted if formatted and not formatted.empty?
   end
 
 end

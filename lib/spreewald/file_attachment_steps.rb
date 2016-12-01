@@ -19,7 +19,6 @@
 # To simultaneously set the `updated_at` timestamp:
 #
 #     Given the file "some_file" was attached to the profile above at "2011-11-11 11:11"
-#
 Given /^the file "([^"]*)" was attached(?: as (?:([^"]*)\/)?([^"]*))? to the ([^"]*) above(?: at "([^"]*)")?$/ do
   |path_to_file, container_name, relation_name, model_name, time_string|
 

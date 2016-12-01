@@ -12,16 +12,16 @@ end.overridable
 
 # Example:
 #
-#       Then an email should have been sent with:
-#         """
-#         From: max.mustermann@example.com
-#         Reply-To: mmuster@gmail.com
-#         To: john.doe@example.com
-#         Subject: The subject may contain "quotes"
-#         Attachments: ...
+#     Then an email should have been sent with:
+#       """
+#       From: max.mustermann@example.com
+#       Reply-To: mmuster@gmail.com
+#       To: john.doe@example.com
+#       Subject: The subject may contain "quotes"
+#       Attachments: ...
 #
-#         Message body goes here.
-#         """
+#       Message body goes here.
+#       """
 #
 # You can skip lines, of course. Note that the mail body is only checked for
 # _inclusion_.
@@ -97,11 +97,11 @@ end.overridable
 #
 # Example:
 #
-#       And that mail should have the following lines in the body:
-#         """
-#         All of these lines
-#         need to be present
-#         """
+#     And that mail should have the following lines in the body:
+#       """
+#       All of these lines
+#       need to be present
+#       """
 Then /^that e?mail should( not)? have the following lines in the body:$/ do |negate, body|
   expectation = negate ? 'should_not' : 'should'
   email_text_body = MailFinder.email_text_body(@mail)

@@ -33,11 +33,11 @@ require 'uri'
 require 'cgi'
 
 
-# You can append `within [selector]` to any other web step
+# You can append `within [selector]` to any other web step.
 #
 # Example:
 #
-#       Then I should see "some text" within ".page_body"
+#     Then I should see "some text" within ".page_body"
 When /^(.*) within (.*[^:])$/ do |nested_step, parent|
   patiently do
     with_scope(parent) { step(nested_step) }
@@ -99,12 +99,12 @@ end.overridable
 #
 # Example:
 #
-#       When I fill in "some field" with:
-#       """
-#       Apple
-#       Banana
-#       Pear
-#       """
+#     When I fill in "some field" with:
+#     """
+#     Apple
+#     Banana
+#     Pear
+#     """
 When /^(?:|I )fill in "([^"]*)" (?:with|for):$/ do |field, value|
   patiently do
     fill_in(field, :with => value)
@@ -218,10 +218,9 @@ end.overridable
 #
 # Example:
 #
-#       Then I should see a form with the following values:
-#         | E-mail | foo@bar.com   |
-#         | Role   | Administrator |
-#
+#     Then I should see a form with the following values:
+#       | E-mail | foo@bar.com   |
+#       | Role   | Administrator |
 Then /^I should see a form with the following values:$/ do |table|
   expectations = table.raw
   expectations.each do |label, expected_value|
@@ -285,9 +284,9 @@ end.overridable
 
 # Example:
 #
-#       I should have the following query string:
-#         | locale        | de  |
-#         | currency_code | EUR |
+#     I should have the following query string:
+#       | locale        | de  |
+#       | currency_code | EUR |
 #
 # Succeeds when the URL contains the given `locale` and `currency_code` params
 Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
@@ -496,7 +495,6 @@ end.overridable
 # Don't forget the trailing slash. Otherwise you'll get the error 
 #   expected: /http:\/\/makandra.com(\?[^\/]*)?$/
 #        got: "http://makandra.com/" (using =~)
-#
 Then /^"([^"]*)" should link to "([^"]*)"$/ do |link_label, target|
   patiently do
     link = find_link(link_label)
@@ -512,7 +510,6 @@ end.overridable
 #     Then I should see the element ".panel"
 #     Then I should not see an element ".sidebar"
 #     Then I should not see the element ".sidebar"
-#
 Then /^I should (not )?see (?:an|the) element "([^"]+)"$/ do |negate, selector|
   expectation = negate ? :should_not : :should
   patiently do
@@ -528,7 +525,6 @@ end.overridable
 #     Then I should see the element for the panel
 #     Then I should not see an element for the sidebar
 #     Then I should not see the element for the sidebar
-#
 Then /^I should (not )?see (?:an|the) element for (.*?)$/ do |negate, locator|
   expectation = negate ? :should_not : :should
   selector = _selector_for(locator)
@@ -548,8 +544,7 @@ end.overridable
 #
 # Example:
 #
-#       When I follow "Read more" inside any ".text_snippet"
-#
+#     When I follow "Read more" inside any ".text_snippet"
 When /^I follow "([^"]*)" inside any "([^"]*)"$/ do |label, selector|
   node = find("#{selector} a", :text => label)
   node.click
@@ -602,12 +597,11 @@ end.overridable
 #
 # Example:
 #
-#       Then I should see in this order:
-#         | Alpha Group |
-#         | Augsburg    |
-#         | Berlin      |
-#         | Beta Group  |
-#
+#     Then I should see in this order:
+#       | Alpha Group |
+#       | Augsburg    |
+#       | Berlin      |
+#       | Beta Group  |
 Then /^I should see in this order:?$/ do |text|
   if text.is_a?(String)
     lines = text.split(/\n/)

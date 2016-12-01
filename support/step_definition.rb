@@ -22,11 +22,11 @@ class StepDefinition
   end
 
   def to_markdown
-    <<-TEXT
-* **#{kind} #{pretty_step}**
+    spaced_comment = if comment
+      "\n\n" + comment.gsub(/^/, '  ')
+    end
 
-  #{ comment.gsub /^/, '  ' }
-    TEXT
+    %(* **#{kind} #{pretty_step}**#{spaced_comment})
   end
 
   def to_s

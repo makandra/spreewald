@@ -16,12 +16,12 @@ class StepDefinitionFile
   end
 
   def to_markdown
+    spaced_comment = "\n\n" + @comment if @comment
+
     <<-TEXT
-### #{ @filename.split('/').last }
+### #{ @filename.split('/').last } #{spaced_comment}
 
-#{@comment}
-
-#{ steps.collect(&:to_markdown).join("\n\n") }
+#{ steps.collect(&:to_markdown).join("\n\n\n") }
     TEXT
   end
 
