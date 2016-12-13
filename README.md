@@ -118,6 +118,12 @@ the step definitions.
   Starts debugger, or Pry if installed
 
 
+* **Then pause**
+
+  Pauses Cucumber, but not the application (unlike "Then debugger"). From the
+  test browser, you can interact with your application as you like.
+
+
 * **AfterStep @slow**
 
   Waits 2 seconds after each step

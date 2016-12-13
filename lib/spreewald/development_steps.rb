@@ -16,6 +16,13 @@ Then /^debugger$/ do
   true # Ruby will halt in this line
 end.overridable
 
+# Pauses Cucumber, but not the application (unlike "Then debugger"). From the
+# test browser, you can interact with your application as you like.
+Then /^pause$/ do
+  print 'Paused. Continue?'
+  STDIN.getc
+end.overridable
+
 # Waits 2 seconds after each step
 AfterStep('@slow-motion') do
   sleep 2
