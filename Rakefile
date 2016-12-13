@@ -6,6 +6,7 @@ task :default => 'all:rubies'
 
 desc 'Update the "Steps" section of the README'
 task :update_readme do
+  readme_path = 'README.md'
   if Kernel.respond_to? :require_relative
     require_relative './support/step_manager'
   else
@@ -16,7 +17,10 @@ task :update_readme do
   start_of_steps_section = readme =~ /^## Steps/
   length_of_steps_section = (readme[(start_of_steps_section+1)..-1] =~ /^##[^#]/) || readme.size - start_of_steps_section
   readme[start_of_steps_section, length_of_steps_section] = "## Steps\n\n" + StepManager.new('lib/spreewald').to_markdown
-  File.open('README.md', 'w') { |f| f.write(readme) }
+  File.open(readme_path, 'w') { |f| f.write(readme) }
+
+  system "git diff #{readme_path}"
+  puts '', '> Done (see diff above).'
 end
 
 namespace :all do
