@@ -65,7 +65,12 @@ Then /^(?:|I )should be on (.+)$/ do |page_name|
     fragment.sub!(/[#?].*/, '') if fragment # most js frameworks will usually use ? and # for params, we dont care about those
     current_path = URI.parse(current_url).path
     current_path << "##{fragment}" if fragment.present?
-    expected_path = _path_to(page_name)
+    expected_path = URI.parse(_path_to(page_name))
+    if expected_path.absolute?
+      expected_path = expected_path.request_uri
+    else
+      expected_path = expected_path.to_s
+    end
 
     # Consider two pages equal if they only differ by a trailing slash.
     current_path = expected_path if current_path.chomp("/") == expected_path.chomp("/")
