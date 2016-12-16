@@ -10,8 +10,8 @@ class MailFinder
       ActionMailer::Base.deliveries.detect do |mail|
         mail_body = email_text_body(mail)
         [ conditions[:to].nil? || mail.to.include?(resolve_email conditions[:to]),
-          conditions[:cc].nil? || mail.cc.andand.include?(resolve_email conditions[:cc]),
-          conditions[:bcc].nil? || mail.bcc.andand.include?(resolve_email conditions[:bcc]),
+          conditions[:cc].nil? || mail.cc && mail.cc.include?(resolve_email conditions[:cc]),
+          conditions[:bcc].nil? || mail.bcc && mail.bcc.include?(resolve_email conditions[:bcc]),
           conditions[:from].nil? || mail.from.include?(resolve_email conditions[:from]),
           conditions[:reply_to].nil? || mail.reply_to.include?(resolve_email conditions[:reply_to]),
           conditions[:subject].nil? || mail.subject.include?(conditions[:subject]),
