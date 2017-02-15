@@ -7,6 +7,7 @@ end.overridable
 
 # See "Then console"
 Then 'debugger' do
+  warn $/, '[DEPRECATED] Prefer using "Then console"'
   step 'console'
 end.overridable
 
