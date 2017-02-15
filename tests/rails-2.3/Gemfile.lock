@@ -1,7 +1,7 @@
 PATH
   remote: ../..
   specs:
-    spreewald (1.5.4)
+    spreewald (1.8.0)
       cucumber
       cucumber_priority
 
@@ -37,8 +37,7 @@ GEM
       term-ansicolor (>= 1.0.6)
     cucumber-rails (0.3.2)
       cucumber (>= 0.8.0)
-    cucumber_priority (0.1.2)
-      activesupport
+    cucumber_priority (0.2.0)
       cucumber
     database_cleaner (1.0.1)
     diff-lcs (1.2.4)
@@ -104,4 +103,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   1.12.5
+   1.13.7

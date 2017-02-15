@@ -38,6 +38,8 @@ class StepDefinition
   def pretty_step
     if kind == 'AfterStep'
       step[/@\w+/]
+    elsif step =~ /^'(.*)'$/ # Surrounded by single quotes
+      $1
     else
       Parser.human_regex(step)
     end

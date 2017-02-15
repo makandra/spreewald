@@ -5,22 +5,19 @@ Then /^it should work$/ do
   pending
 end.overridable
 
-# Starts debugger, or Pry if installed
-Then /^debugger$/ do
-  if binding.respond_to? :pry
-    binding.pry
-  else
-    debugger
-  end
-
-  true # Ruby will halt in this line
+# See "Then console"
+Then 'debugger' do
+  step 'console'
 end.overridable
 
-# Pauses Cucumber, but not the application (unlike "Then debugger"). From the
-# test browser, you can interact with your application as you like.
-Then /^pause$/ do
-  print 'Paused. Continue?'
-  STDIN.getc
+# Pauses test execution and opens an IRB shell. Does not halt the application-
+# under-test. (Replaces the "Then debugger" step that has never been adequate
+# for its job.)
+Then 'console' do
+  require 'irb'
+  ARGV.clear # IRB takes ARGV as its own arguments
+
+  IRB.start
 end.overridable
 
 # Waits 2 seconds after each step

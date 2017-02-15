@@ -20,7 +20,7 @@ task :update_readme do
   File.open(readme_path, 'w') { |f| f.write(readme) }
 
   system "git diff #{readme_path}"
-  puts '', '> Done (see diff above).'
+  puts '', '> Done (diff applied).'
 end
 
 namespace :all do

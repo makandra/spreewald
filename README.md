@@ -115,13 +115,14 @@ the step definitions.
 
 * **Then debugger**
 
-  Starts debugger, or Pry if installed
+  See "Then console"
 
 
-* **Then pause**
+* **Then console**
 
-  Pauses Cucumber, but not the application (unlike "Then debugger"). From the
-  test browser, you can interact with your application as you like.
+  Pauses test execution and opens an IRB shell. Does not halt the application-
+  under-test. (Replaces the "Then debugger" step that has never been adequate
+  for its job.)
 
 
 * **AfterStep @slow**
