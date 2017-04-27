@@ -1,7 +1,7 @@
 PATH
   remote: ../../..
   specs:
-    spreewald (1.8.0)
+    spreewald (1.9.0)
       cucumber
       cucumber_priority
 
@@ -38,7 +38,6 @@ GEM
     addressable (2.2.8)
     arel (3.0.2)
     builder (3.0.4)
-    byebug (8.2.0)
     capybara (2.2.1)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -59,7 +58,8 @@ GEM
       cucumber (>= 1.2.0)
       nokogiri (>= 1.5.0)
       rails (>= 3.0.0)
-    cucumber_priority (0.2.0)
+    cucumber_priority (0.1.2)
+      activesupport
       cucumber
     database_cleaner (1.0.1)
     diff-lcs (1.2.4)
@@ -160,7 +160,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  byebug
   capybara
   cucumber
   cucumber-rails

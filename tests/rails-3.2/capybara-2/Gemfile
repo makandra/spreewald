@@ -14,5 +14,3 @@ gem 'rspec-rails'
 gem 'spreewald', :path => '../../..'
 
 gem 'haml-rails'
-gem 'byebug'
-

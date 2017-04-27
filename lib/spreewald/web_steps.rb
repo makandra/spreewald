@@ -40,8 +40,9 @@ require 'cgi'
 #     Then I should see "some text" within ".page_body"
 When /^(.*) within (.*[^:])$/ do |nested_step, parent|
   patiently do
-    with_scope(parent) { step(nested_step) }
+    page.should have_css(_selector_for(parent))
   end
+  with_scope(parent) { step(nested_step) }
 end.overridable(:priority => 10)
 
 # nodoc
