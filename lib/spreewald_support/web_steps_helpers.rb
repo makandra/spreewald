@@ -35,7 +35,7 @@ module WebStepsHelpers
 
           function findCandidates() {
             if (jqueryLoaded) {
-              return $(selector);
+              return jQuery(selector);
             } else {
               return $$(selector);
             }
@@ -43,7 +43,7 @@ module WebStepsHelpers
 
           function isExactCandidate(candidate) {
             if (jqueryLoaded) {
-              return $(candidate).find(selector).length == 0;
+              return jQuery(candidate).find(selector).length == 0;
             } else {
               return candidate.select(selector).length == 0;
             }
@@ -51,7 +51,7 @@ module WebStepsHelpers
 
           function elementVisible(element) {
             if (jqueryLoaded) {
-              return $(element).is(':visible');
+              return jQuery(element).is(':visible');
             } else {
               return element.offsetWidth > 0 && element.offsetHeight > 0;
             }
