@@ -52,11 +52,13 @@ class MailFinder
             else
               part.decoded
             end
+          elsif part.content_type.include?('multipart/alternative')
+            part.parts.map(&:decoded)
           else
             part.decoded
           end
         }
-        utf8_parts = mail_bodies.select{ |part|
+        utf8_parts = mail_bodies.flatten.select{ |part|
           encoding = part.try(:encoding)
           encoding.nil? or # Ruby < 1.9.1
             encoding.name == 'UTF-8' # Ruby > 1.9.1
