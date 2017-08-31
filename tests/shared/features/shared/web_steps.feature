@@ -130,6 +130,10 @@ Feature: Web steps
     Then I should see an element ".child1" within ".container1"
       But I should not see an element ".child1" within ".container2"
 
+  Scenario: /^(.*) within (.*[^:])$/ with a Capybara::Node::Element
+    When I go to "/static_pages/within"
+    Then I should see "All" within the table row containing "Admin"
+
   Scenario: /^I perform basic authentication as "([^\"]*)\/([^\"]*)" and go to (.*)$/
     When I go to "/authenticated/page"
     Then I should see "Access denied"

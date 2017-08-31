@@ -14,6 +14,9 @@ module HtmlSelectorsHelpers
     when /^the timeline?$/
       '.timeline'
 
+    when /^the table row containing "(.+?)"$/
+      all('tr').detect { |tr| tr.text.include? $1 } || raise("Could not find tr containing #{$1.inspect}")
+
       # Add more mappings here.
       # Here is an example that pulls values out of the Regexp:
       #
