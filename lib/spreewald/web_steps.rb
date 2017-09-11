@@ -351,8 +351,8 @@ Then /^I should get a download with filename "([^\"]*)"$/ do |filename|
 end.overridable
 
 # Checks that a certain option is selected for a text field
-Then /^"([^"]*)" should be selected for "([^"]*)"$/ do |value, field|
-  step %(the "#{field}" field should contain "#{value}")
+Then /^"([^"]*)" should( not)? be selected for "([^"]*)"$/ do |value, invert, field|
+  step %(the "#{field}" field should#{invert} contain "#{value}")
 end.overridable
 
 Then /^nothing should be selected for "([^"]*)"$/ do |field|

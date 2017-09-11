@@ -33,10 +33,11 @@ Feature: Web steps
       | Empty control                    |                        |
 
 
-  Scenario: /^"([^"]*)" should be selected for "([^"]*)"$/
+  Scenario: /^"([^"]*)" should( not)? be selected for "([^"]*)"$/
     When I go to "/forms/form1"
     Then "Label 2" should be selected for "Select control"
-    Then "Label 1" should be selected for "Select control without selection"
+      But "Label 1" should not be selected for "Select control"
+      And "Label 1" should be selected for "Select control without selection"
 
 
   Scenario: /^nothing should be selected for "([^"]*)"$/
