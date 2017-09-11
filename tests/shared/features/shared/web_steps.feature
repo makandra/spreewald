@@ -38,6 +38,12 @@ Feature: Web steps
     Then "Label 2" should be selected for "Select control"
     Then "Label 1" should be selected for "Select control without selection"
 
+
+  Scenario: /^nothing should be selected for "([^"]*)"$/
+    When I go to "/forms/form1"
+    Then nothing should be selected for "Select control with blank option"
+    Then nothing should be selected for "Select control with blank selection"
+
   
   Scenario: /^I go back$/
     Given I go to "/static_pages/link_to_home"

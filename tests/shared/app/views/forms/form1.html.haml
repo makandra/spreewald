@@ -9,6 +9,14 @@
   = label_tag 'select_control_without_selection', 'Select control without selection'
   = select_tag 'select_control_without_selection', options_for_select([['Label 1', 'value1'], ['Label 2', 'value2'], ['Label 3', 'value3']])
 
+  =# This select has a blank first option, but it is not selected
+  = label_tag 'select_control_with_blank_option', 'Select control with blank option'
+  = select_tag 'select_control_with_blank_option', options_for_select([['', ''], ['Label 1', 'label1'], ['Label 2', 'label2'], ['Label 3', 'value3']])
+
+  =# This select has a blank first option that is also selected
+  = label_tag 'select_control_with_blank_selection', 'Select control with blank selection'
+  = select_tag 'select_control_with_blank_selection', options_for_select([['', ''], ['Label 1', 'label1'], ['Label 2', 'label2'], ['Label 3', 'value3']], '')
+
   = label_tag 'textarea_control', 'Textarea control'
   = text_area_tag 'textarea_control', 'Textarea control value'
 
