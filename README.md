@@ -291,6 +291,9 @@ deprecation notice. Decide for yourself whether you want to use them:
 * **When ... within ...**
 
   You can append `within [selector]` to any other web step.
+  Be aware that within will only look at the first element that matches.
+  If this is a problem for you following links, you might want to have a look
+  at the 'When I follow "..." inside any "..."'-step.
   
   Example:
   
@@ -462,7 +465,7 @@ deprecation notice. Decide for yourself whether you want to use them:
   Attention: Doesn't work with Selenium, see https://github.com/jnicklas/capybara#gotchas
 
 
-* **Then "..." should be selected for "..."**
+* **Then "..." should( not)? be selected for "..."**
 
   Checks that a certain option is selected for a text field
 
