@@ -29,7 +29,7 @@ namespace :all do
   task :features do
     success = true
     for_each_directory_of('tests/**/Rakefile') do |directory|
-      success &= Bundler.clean_system("cd #{directory} && cuc")
+      success &= system("ruby -v && cd #{directory} && cuc")
     end
     fail "Tests failed" unless success
   end
@@ -53,9 +53,7 @@ namespace :all do
   desc 'Bundle all test apps'
   task :bundle do
     for_each_directory_of('tests/**/Gemfile') do |directory|
-      Bundler.with_clean_env do
-        system("cd #{directory} && bundle install && gem install geordi")
-      end
+      system("cd #{directory} && bundle install && gem install geordi")
     end
   end
 

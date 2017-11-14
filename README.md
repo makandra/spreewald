@@ -83,11 +83,12 @@ Thanks to [cucumber_priority](https://github.com/makandra/cucumber_priority) you
 
 Test applications for various Rails versions live in `tests/`.
 
-- Bundle all test apps with `bundle exec rake all:bundle`.
-- Run features in all test apps with `bundle exec rake all:features`.
-- Run features in all test apps in all rubies with `bundle exec rake all:rubies`.
-- Run a single feature by setting the `SINGLE_FEATURE` environment variable.
-  Example: `SINGLE_FEATURE=web_steps.feature:63 bundle exec rake all:features`
+- Run features in all test apps in all rubies with `rake`, or `rake all:rubies`.
+- If you want, you can do this for your currently active Ruby:
+  - Bundle all test apps with `rake all:bundle`.
+  - Run features in all test apps with `rake all:features`.
+  - Run a single feature by setting the `SINGLE_FEATURE` environment variable.
+    Example: `SINGLE_FEATURE=web_steps.feature:63 bundle exec rake all:features`
 
 If you would like to contribute:
 
