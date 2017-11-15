@@ -29,7 +29,7 @@ namespace :all do
   task :features do
     success = true
     for_each_directory_of('tests/**/Rakefile') do |directory|
-      success &= system("ruby -v && cd #{directory} && cuc")
+      success &= system("cd #{directory} && geordi cucumber")
     end
     fail "Tests failed" unless success
   end
