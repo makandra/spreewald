@@ -314,7 +314,6 @@ Then /^I should( not)? see a field "([^"]*)"$/ do |negate, name|
   expectation = negate ? :should_not : :should
   patiently do
     begin
-      puts "Spreewald calling find field: #{method(:find_field).source_location.inspect}"
       # In old Capybaras find_field returns nil, so we assign it to `field`
       field = find_field(name)
     rescue Capybara::ElementNotFound
