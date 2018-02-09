@@ -1,5 +1,3 @@
-# coding: UTF-8
-
 module ToleranceForSeleniumSyncIssues
   RETRY_ERRORS = %w[
     Capybara::ElementNotFound
@@ -35,27 +33,82 @@ module ToleranceForSeleniumSyncIssues
     end
   end
 
-  # This is similiar but not entirely the same as Capybara::Node::Base#wait_until or Capybara::Session#wait_until
-  def patiently(seconds = CapybaraWrapper.default_max_wait_time, &block)
-    old_wait_time = CapybaraWrapper.default_max_wait_time
-    # dont make nested wait_untils use up all the alloted time
-    CapybaraWrapper.default_max_wait_time = 0 # for we are a jealous gem
-    if page.driver.wait?
-      start_time = Time.now
+  class PatientStack
+
+    def initialize
+      @stack ||= []
+    end
+
+    def add_segment(max_seconds)
+      index = @stack.length
+      segment = PatientStackSegment.new(@stack, index, max_seconds)
+      @stack[index] = segment
+      segment
+    end
+
+    def patiently(seconds, &block)
+      segment = add_segment(seconds)
+
       begin
         block.call
       rescue Exception => e
         raise e unless RETRY_ERRORS.include?(e.class.name)
-        raise e if (Time.now - start_time) >= seconds
+        raise e unless segment.seconds_left?
         sleep(0.05)
-        raise Capybara::FrozenInTime, "time appears to be frozen, Capybara does not work with libraries which freeze time, consider using time travelling instead" if Time.now == start_time
+        raise Capybara::FrozenInTime, "time appears to be frozen, Capybara does not work with libraries which freeze time, consider using time travelling instead" if segment.frozen_time?
         retry
+      ensure
+        segment.done!
       end
-    else
-      block.call
+
     end
-  ensure
-    CapybaraWrapper.default_max_wait_time = old_wait_time
+
+  end
+
+  class PatientStackSegment
+
+    def initialize(stack, index, max_seconds)
+      @stack = stack
+      @index = index
+      @started_at = Time.now
+      @max_seconds = max_seconds
+    end
+
+    attr_reader :max_seconds
+
+    def seconds_elapsed
+      Time.now - @started_at
+    end
+
+    def seconds_left
+      max_seconds - seconds_elapsed
+    end
+
+    def seconds_left?
+      seconds_left > 0
+    end
+
+    def frozen_time?
+      Time.now == @started_at
+    end
+
+    def extend_seconds(additional_seconds)
+      @max_seconds += additional_seconds
+    end
+
+    def done!
+      if @index > 0
+        @stack[@index - 1].extend_seconds(seconds_elapsed)
+        @stack.pop
+      end
+    end
+
+  end
+
+  def patiently(seconds = CapybaraWrapper.default_max_wait_time, &block)
+    return block.call unless page.driver.wait?
+    @wait_stack ||= PatientStack.new
+    @wait_stack.patiently(seconds, &block)
   end
 end
 

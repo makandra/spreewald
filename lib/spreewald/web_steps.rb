@@ -42,13 +42,9 @@ require 'cgi'
 #
 #     Then I should see "some text" within ".page_body"
 When /^(.*) within (.*[^:])$/ do |nested_step, parent|
-  selector = _selector_for(parent)
-  if selector.is_a?(String) # could also be a Capybara::Node::Element
-    patiently do
-      page.should have_css(selector)
-    end
+  patiently do
+    with_scope(parent) { step(nested_step) }
   end
-  with_scope(parent) { step(nested_step) }
 end.overridable(:priority => 10)
 
 # nodoc
@@ -318,13 +314,18 @@ Then /^I should( not)? see a field "([^"]*)"$/ do |negate, name|
   expectation = negate ? :should_not : :should
   patiently do
     begin
+      puts "Spreewald calling find field: #{method(:find_field).source_location.inspect}"
+      # In old Capybaras find_field returns nil, so we assign it to `field`
       field = find_field(name)
     rescue Capybara::ElementNotFound
       # In Capybara 0.4+ #find_field raises an error instead of returning nil
+      # We must explicitely reset the field variable from a previous patiently iteration
+      field = nil
     end
     field.send(expectation, be_present)
   end
 end.overridable
+
 
 # Use this step to test for a number or money amount instead of a simple `Then I should see`
 #
