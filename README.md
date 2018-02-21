@@ -114,16 +114,11 @@ the step definitions.
   Marks scenario as pending
 
 
-* **Then debugger**
-
-  See "Then console"
-
-
 * **Then console**
 
-  Pauses test execution and opens an IRB shell. Does not halt the application-
+  Pauses test execution and opens an IRB shell with current context. Does not halt the application-
   under-test. (Replaces the "Then debugger" step that has never been adequate
-  for its job.)
+  for its job)
 
 
 * **AfterStep @slow**
