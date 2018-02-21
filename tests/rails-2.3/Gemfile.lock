@@ -1,7 +1,7 @@
 PATH
   remote: ../..
   specs:
-    spreewald (1.10.1)
+    spreewald (1.11.0)
       cucumber
       cucumber_priority
 
@@ -93,4 +93,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   1.16.0
+   1.16.1
