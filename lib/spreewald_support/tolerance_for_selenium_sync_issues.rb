@@ -38,6 +38,7 @@ module ToleranceForSeleniumSyncIssues
 
     def initialize
       @stack ||= []
+      @default_max_wait_time = CapybaraWrapper.default_max_wait_time
     end
 
     def add_segment(max_seconds)
@@ -48,10 +49,13 @@ module ToleranceForSeleniumSyncIssues
     end
 
     def patiently(seconds, &block)
-      segment = add_segment(seconds)
+      segment = add_segment(seconds || @default_max_wait_time)
 
       begin
-        block.call
+        disable_capybara_waiting do
+          # we do not want Capybara's own methods to wait themselves
+          block.call
+        end
       rescue Exception => e
         raise e unless RETRY_ERRORS.include?(e.class.name)
         raise e unless segment.seconds_left?
@@ -61,7 +65,16 @@ module ToleranceForSeleniumSyncIssues
       ensure
         segment.done!
       end
+    end
 
+    private
+
+    def disable_capybara_waiting
+      old_wait_time = CapybaraWrapper.default_max_wait_time
+      CapybaraWrapper.default_max_wait_time = 0 # we do not want internal capybara methods to be patient
+      yield
+    ensure
+      CapybaraWrapper.default_max_wait_time = old_wait_time
     end
 
   end
@@ -106,7 +119,7 @@ module ToleranceForSeleniumSyncIssues
 
   end
 
-  def patiently(seconds = CapybaraWrapper.default_max_wait_time, &block)
+  def patiently(seconds = nil, &block)
     return block.call unless page.driver.wait?
     @wait_stack ||= PatientStack.new
     @wait_stack.patiently(seconds, &block)
