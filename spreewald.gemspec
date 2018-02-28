@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.version       = Spreewald::VERSION
 
   gem.add_dependency('cucumber')
-  gem.add_dependency('cucumber_priority')
+  gem.add_dependency('cucumber_priority', '>=0.3.0')
 
   # Development
   gem.add_development_dependency 'bundler', '~> 1.11'
