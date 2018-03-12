@@ -42,13 +42,10 @@ module ToleranceForSeleniumSyncIssues
       tries = 0
       begin
         tries += 1
-        disable_capybara_waiting do
-          # we do not want Capybara's own methods to wait themselves
-          block.call
-        end
+        block.call
       rescue Exception => e
         raise e unless retryable_error?(e)
-        raise e if (Time.now - started > CapybaraWrapper.default_max_wait_time && tries >= 2)
+        raise e if (Time.now - started > seconds && tries >= 2)
         sleep(WAIT_PERIOD)
         raise Capybara::FrozenInTime, "time appears to be frozen, Capybara does not work with libraries which freeze time, consider using time travelling instead" if Time.now == started
         retry
@@ -60,18 +57,10 @@ module ToleranceForSeleniumSyncIssues
     def retryable_error?(e)
       RETRY_ERRORS.include?(e.class.name)
     end
-
-    def disable_capybara_waiting
-      old_wait_time = CapybaraWrapper.default_max_wait_time
-      CapybaraWrapper.default_max_wait_time = 0
-      yield
-    ensure
-      CapybaraWrapper.default_max_wait_time = old_wait_time
-    end
   end
 
 
-  def patiently(seconds = nil, &block)
+  def patiently(seconds = CapybaraWrapper.default_max_wait_time, &block)
     if page.driver.wait?
       Patiently.new.patiently(seconds, &block)
     else

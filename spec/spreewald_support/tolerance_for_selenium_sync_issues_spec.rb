@@ -105,23 +105,18 @@ describe ToleranceForSeleniumSyncIssues do
       expect(count).to be > 1
     end
 
-    it 'sets the capybara max wait time to 0 inside the block' do
-      subject.patiently do
-        expect(Capybara.default_max_wait_time).to eq 0
-      end
-    end
-
-    it 'does not retry nested patiently blocks forever' do
-      count = 0
+    it 'will retry an outer patiently block if an inner patiently block took up all the time' do
+      try = 0
       expect {
         subject.patiently do
+          try += 1
+          correct_element_found = try > 1
           subject.patiently do
-            count += 1
-            raise Capybara::ElementNotFound
+            raise Capybara::ElementNotFound unless correct_element_found
           end
         end
-      }.to raise_error(Capybara::ElementNotFound)
-      expect(count).to be < (2 * wait_time / 0.05)
+      }.not_to raise_error
     end
+
   end
 end
