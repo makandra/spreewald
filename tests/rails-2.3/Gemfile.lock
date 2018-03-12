@@ -1,9 +1,9 @@
 PATH
   remote: ../..
   specs:
-    spreewald (1.11.0)
+    spreewald (1.11.1)
       cucumber
-      cucumber_priority
+      cucumber_priority (>= 0.3.0)
 
 GEM
   remote: https://rubygems.org/
@@ -36,7 +36,7 @@ GEM
       term-ansicolor (>= 1.0.6)
     cucumber-rails (0.3.2)
       cucumber (>= 0.8.0)
-    cucumber_priority (0.2.0)
+    cucumber_priority (0.3.1)
       cucumber
     database_cleaner (1.0.1)
     diff-lcs (1.2.4)
