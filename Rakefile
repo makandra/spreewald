@@ -4,6 +4,12 @@ require "bundler/gem_tasks"
 desc 'Default: Run all tests.'
 task :default => 'all:rubies'
 
+begin
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new(:spec)
+rescue LoadError
+end
+
 desc 'Update the "Steps" section of the README'
 task :update_readme do
   readme_path = 'README.md'
@@ -78,7 +84,8 @@ def run_for_all_rubies(version_manager)
     current_version = `#{execute} ruby -v`.match(/^ruby (\d\.\d\.\d)/)[1]
     if current_version == ruby_version
       puts "Currently active Ruby is #{current_version}"
-      system "#{execute} rake all:bundle all:features"
+      system "#{execute} bundle"
+      system "#{execute} rake all:bundle spec all:features"
     else
       fail "Failed to set Ruby #{ruby_version} (#{current_version} active!)"
     end

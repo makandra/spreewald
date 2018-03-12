@@ -27,6 +27,5 @@ Gem::Specification.new do |gem|
 
   # Testing
   gem.add_development_dependency 'aruba', '~> 0.10.2'
-  gem.add_development_dependency 'guard-cucumber'
   gem.add_development_dependency 'rspec', '~> 3.4.0'
 end
