@@ -42,6 +42,12 @@ require 'cgi'
 #
 #     Then I should see "some text" within ".page_body"
 When /^(.*) within (.*[^:])$/ do |nested_step, parent|
+  selector = _selector_for(parent)
+  if selector.is_a?(String) # could also be a Capybara::Node::Element
+    patiently do
+      page.should have_css(selector)
+    end
+  end
   patiently do
     with_scope(parent) { step(nested_step) }
   end
