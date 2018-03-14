@@ -87,14 +87,19 @@ module WebStepsHelpers
     begin
       old_ignore_hidden_elements = Capybara.ignore_hidden_elements
       Capybara.ignore_hidden_elements = false
+
       if options.has_key?(:selector)
-        page.should have_css(options[:selector])
-        have_hidden_tag = have_css(".hidden #{options[:selector]}, .invisible #{selector_or_text}, [style~=\"display: none\"] #{options[:selector]}")
+        selector = options[:selector].strip
+        page.should have_css options[:selector]
+
+        have_hidden_tag = have_css %(.hidden #{selector}, .invisible #{selector}, [style~="display: none"] #{selector})
+
         if options[:expectation] == :hidden
           page.should have_hidden_tag
         else
           page.should_not have_hidden_tag
         end
+
       else
         page.should have_css('*', :text => options[:text])
         have_hidden_text = have_css('.hidden, .invisible, [style~="display: none"]', :text => options[:text])
