@@ -7,8 +7,7 @@ end.overridable
 
 # nodoc
 Then 'debugger' do
-  warn $/, '[DEPRECATED] Prefer using "Then console"'
-  step 'console'
+  step 'console' # Alias
 end.overridable
 
 # Pauses test execution and opens an IRB shell with current context. Does not halt the application-
