@@ -43,9 +43,9 @@ require 'cgi'
 #     Then I should see "some text" within ".page_body"
 When /^(.*) within (.*[^:])$/ do |nested_step, parent|
   selector = _selector_for(parent)
-  if selector.is_a?(String) # could also be a Capybara::Node::Element
+  if selector.is_a?(String) || selector.is_a?(Array) # could also be a Capybara::Node::Element
     patiently do
-      page.should have_css(selector)
+      page.should have_selector(*selector)
     end
   end
   patiently do
@@ -497,7 +497,7 @@ end.overridable
 When /^I click on the element for (.+?)$/ do |locator|
   patiently do
     selector = _selector_for(locator)
-    page.find(selector).click
+    page.find(*selector).click
   end
 end.overridable
 
@@ -544,7 +544,7 @@ Then /^I should (not )?see (?:an|the) element for (.*?)$/ do |negate, locator|
   expectation = negate ? :should_not : :should
   selector = _selector_for(locator)
   patiently do
-    page.send(expectation, have_css(selector))
+    page.send(expectation, have_selector(*selector))
   end
 end.overridable
 
