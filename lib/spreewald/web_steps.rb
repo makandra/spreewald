@@ -382,15 +382,19 @@ end.overridable
 
 # Checks for the presence of an option in a select
 Then /^"([^"]*)" should( not)? be an option for "([^"]*)"$/ do |value, negate, field|
+  finder_arguments = if Capybara::VERSION < "2.12"
+    ['option', { :text => value }]
+  else
+    ['option', { :exact_text => value }]
+  end
   patiently do
-    xpath = ".//option[text() = '#{value}']"
     if negate
       begin
-        field_labeled(field).find(:xpath, xpath).should_not be_present
+        field_labeled(field).should have_no_css(*finder_arguments)
       rescue Capybara::ElementNotFound
       end
     else
-      field_labeled(field).find(:xpath, xpath).should be_present
+      field_labeled(field).should have_css(*finder_arguments)
     end
   end
 end.overridable
