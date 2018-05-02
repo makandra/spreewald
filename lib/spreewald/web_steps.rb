@@ -276,11 +276,15 @@ Then /^the "([^"]*)" field should have no error$/ do |field|
   end
 end.overridable
 
-Then /^the "([^"]*)" checkbox should( not)? be checked$/ do |label, negate|
+Then /^the "([^"]*)" checkbox should( not)? be checked( and disabled)?$/ do |label, negate, disabled|
   expectation = negate ? :should_not : :should
 
   patiently do
-    field = find_field(label)
+    field = if Capybara::VERSION < "2.1"
+      find_field(label)
+    else
+      find_field(label, :disabled => !!disabled)
+    end
     field.send expectation, be_checked
   end
 end.overridable
@@ -632,9 +636,13 @@ Then /^I should see in this order:?$/ do |text|
 end.overridable
 
 # Tests that an input or button with the given label is disabled.
-Then /^the "([^\"]*)" (field|button) should( not)? be disabled$/ do |label, kind, negate|
-  if kind == 'field'
-    element = find_field(label)
+Then /^the "([^\"]*)" (field|button|checkbox) should( not)? be disabled$/ do |label, kind, negate|
+  if kind == 'field' || kind == 'checkbox'
+    if Capybara::VERSION < "2.1"
+      element = find_field(label, :disabled => !negate)
+    else
+      element = find_field(label, :disabled => !negate)
+    end
   else
     element = find_button(label)
   end
