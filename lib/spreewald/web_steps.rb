@@ -390,11 +390,11 @@ Then /^"([^"]*)" should( not)? be an option for "([^"]*)"$/ do |value, negate, f
   patiently do
     if negate
       begin
-        field_labeled(field).should have_no_css(*finder_arguments)
+        find_field(field).should have_no_css(*finder_arguments)
       rescue Capybara::ElementNotFound
       end
     else
-      field_labeled(field).should have_css(*finder_arguments)
+      find_field(field).should have_css(*finder_arguments)
     end
   end
 end.overridable
