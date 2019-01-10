@@ -22,63 +22,55 @@ module WebStepsHelpers
   def detect_visibility_with_js(options)
     patiently do
 
-      selector_javascript = if options.has_key?(:selector)
-        options[:selector].to_json
+      if selector = options[:selector]
+        visible = page.execute_script(<<-JAVASCRIPT)
+          function isVisible(element) {
+             return !!(element.offsetWidth || element.offsetHeight || element.getClientRects().length);
+          }
+          
+          var element = document.querySelector(#{selector.to_json});
+
+          if (!element) {
+            throw new Error("No element found for selector: "+ #{selector.to_json});
+          }
+
+          return isVisible(element);
+        JAVASCRIPT
+      elsif text = options[:text]
+        visible = page.execute_script(<<-JAVASCRIPT)
+          // This entire code block can be replaced with this single line
+          // when we drop support for ancient Firefoxes (< 45):
+          //
+          //     return document.body.innerText.indexOf(#{text.to_json}) >= 0
+
+          function isVisible(element) {
+             return !!(element.offsetWidth || element.offsetHeight || element.getClientRects().length);
+          }
+
+          var candidates = document.querySelectorAll('*');
+          candidates = Array.prototype.slice.call(candidates);
+
+          candidates = candidates.filter(function(candidate) {
+            var text = candidate.textContent;
+            return text && text.indexOf(#{text.to_json}) >= 0;
+          });
+
+          candidates = candidates.filter(function(candidate) {
+            return !candidates.some(function(other) {
+              return candidate !== other && candidate.contains(other);
+            });
+          });
+          
+          return candidates.some(isVisible);
+        JAVASCRIPT
       else
-        "':contains(' + " + options[:text].to_json + " + ')'"
+        raise "Must pass either :selector or :text option"
       end
 
-      visibility_detecting_javascript = %[
-        return (function() {
-          var selector = #{selector_javascript};
-          var jqueryLoaded = (typeof jQuery != 'undefined');
-
-          function findCandidates() {
-            if (jqueryLoaded) {
-              return jQuery(selector);
-            } else {
-              return $$(selector);
-            }
-          }
-
-          function isExactCandidate(candidate) {
-            if (jqueryLoaded) {
-              return jQuery(candidate).find(selector).length == 0;
-            } else {
-              return candidate.select(selector).length == 0;
-            }
-          }
-
-          function elementVisible(element) {
-            if (jqueryLoaded) {
-              return jQuery(element).is(':visible');
-            } else {
-              return element.offsetWidth > 0 && element.offsetHeight > 0;
-            }
-          }
-
-          var candidates = findCandidates();
-
-          if (candidates.length == 0) {
-             throw("Selector not found in page: " + selector);
-           }
-
-          for (var i = 0; i < candidates.length; i++) {
-            var candidate = candidates[i];
-            if (isExactCandidate(candidate) && elementVisible(candidate)) {
-              return true;
-            }
-          }
-          return false;
-
-        })();
-      ]
-
-      visibility_detecting_javascript.gsub!(/\n/, ' ')
       if options[:expectation] == :visible
-        page.execute_script(visibility_detecting_javascript).should == true
+        visible.should eq(true)
       else
-        page.execute_script(visibility_detecting_javascript).should == false
+        visible.should eq(false)
       end
     end
   end

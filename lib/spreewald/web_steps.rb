@@ -663,15 +663,12 @@ Then /^the "([^\"]*)" field should( not)? be visible$/ do |label, hidden|
     field = find_field(label, :visible => false)
   end
 
-  case Capybara::current_driver
-  when :selenium, :webkit
-    patiently do
-      visibility_detecting_javascript = "$('##{field['id']}').is(':visible')"
-      page.evaluate_script(visibility_detecting_javascript).should == !hidden
-    end
+  selector = "##{field['id']}"
+
+  if hidden
+    assert_hidden(selector: selector)
   else
-    expectation = hidden ? :should_not : :should
-    field.send(expectation, be_visible)
+    assert_visible(selector: selector)
   end
 end.overridable
 

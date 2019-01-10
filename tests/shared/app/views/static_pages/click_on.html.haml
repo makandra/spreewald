@@ -17,12 +17,13 @@
 #message
 
 :javascript
-  $(function() {
-    $('.clickables *').click(function(event) {
-      $('#message').text('You clicked on .' + this.className);
-      // Don't propagate since the whole point of the test
-      // is that the correct tree node is clicked
-      return false;
+  var clickables = document.querySelectorAll('.clickables *');
+  var message = document.querySelector('#message');
+
+  for (var i = 0; i < clickables.length; i++) {
+    var clickable = clickables[i];
+    clickable.addEventListener('click', function(event) {
+      message.textContent = 'You clicked on .' + event.target.className;
     });
-  });
+  }
 
