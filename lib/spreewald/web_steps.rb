@@ -451,7 +451,7 @@ end.overridable
 # More details [here](https://makandracards.com/makandra/1049-capybara-check-that-a-page-element-is-hidden-via-css)
 Then /^(the tag )?"([^\"]+)" should( not)? be visible$/ do |tag, selector_or_text, hidden|
   if hidden
-    warn "The step 'Then ... should not be visible' is prone to misunderstandgs. Please use 'Then ... should be hidden' or 'Then I should not see ...' instead."
+    warn "The step 'Then ... should not be visible' is prone to misunderstandings. Please use 'Then ... should be hidden' or 'Then I should not see ...' instead."
   end
 
   options = {}
