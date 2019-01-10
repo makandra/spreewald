@@ -48,13 +48,18 @@ module WebStepsHelpers
           }
 
           var candidates = document.querySelectorAll('*');
+
+          // Convert NodeList to Array so we can use #filter() and #some()
           candidates = Array.prototype.slice.call(candidates);
 
+          // Keep only candidates that contain the given text
           candidates = candidates.filter(function(candidate) {
             var text = candidate.textContent;
             return text && text.indexOf(#{text.to_json}) >= 0;
           });
 
+          // Keep only candidates without another candidate in its descendants.
+          // If that descendant exists, it's a better match.
           candidates = candidates.filter(function(candidate) {
             return !candidates.some(function(other) {
               return candidate !== other && candidate.contains(other);
