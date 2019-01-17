@@ -1,3 +1,5 @@
+RSPEC_EXPECTATION_NOT_MET_ERROR = RSpec::Expectations::ExpectationNotMetError
+
 Then /^the following steps? should (fail|succeed):$/ do |expectation, steps_table|
   steps = steps_table.raw.flatten
   

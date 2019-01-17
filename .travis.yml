@@ -5,7 +5,18 @@ language: ruby
 
 rvm:
   - 2.1.8
+  - 2.3.7
 
 gemfile:
   - tests/rails-3_capybara-1/Gemfile
   - tests/rails-3_capybara-2/Gemfile
+  - tests/rails-4_capybara-3/Gemfile
+
+matrix:
+  exclude:
+    - gemfile: tests/rails-3_capybara-1/Gemfile
+      rvm: 2.3.7
+    - gemfile: tests/rails-3_capybara-2/Gemfile
+      rvm: 2.3.7
+    - gemfile: tests/rails-4_capybara-3/Gemfile
+      rvm: 2.1.8

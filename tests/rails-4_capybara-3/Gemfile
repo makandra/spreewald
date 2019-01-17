@@ -1,0 +1,22 @@
+source 'https://rubygems.org'
+
+
+gem 'rails', '<5'
+gem 'sqlite3'
+gem 'haml-rails'
+gem 'gemika'
+
+
+group :development, :test do
+  gem 'byebug'
+end
+
+group :test do
+  gem 'database_cleaner'
+  gem 'capybara', "~>3" # todo
+  gem 'cucumber-rails', require: false
+  gem 'cucumber'
+  gem 'selenium-webdriver'
+  gem 'rspec-rails'
+  gem 'spreewald', :path => '../..'
+end
