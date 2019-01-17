@@ -81,16 +81,21 @@ Thanks to [cucumber_priority](https://github.com/makandra/cucumber_priority) you
 
 ## Contributing
 
-Test applications for various Rails versions live in `tests/`.
+### Testing
 
-- Run features in all test apps in all rubies with `rake`, or `rake all:rubies`.
-- If you want, you can do this for your currently active Ruby:
-  - Bundle all test apps with `rake all:bundle`.
-  - Run features in all test apps with `rake all:features`.
-  - Run a single feature by setting the `SINGLE_FEATURE` environment variable.
-    Example: `SINGLE_FEATURE=web_steps.feature:63 bundle exec rake all:features`
+[Gemika](https://github.com/makandra/gemika) is used to manage Gemfiles for different ruby versions.
 
-If you would like to contribute:
+Spreewald has different kind of tests:
+- Unit tests live in `spec/`
+- Test applications for integration tests with various Capybara versions live in `tests/`. 
+- Tests for the Spreewald binary live in `features/`
+
+Run all tests for your current ruby version with `rake` or `rake matrix:tests`
+
+Please note that you need [geordi](https://github.com/makandra/geordi) to run the integration tests.
+
+
+### If you would like to contribute:
 
 - Fork the repository
 - Push your changes with specs

@@ -1,3 +1,1 @@
-source 'https://rubygems.org'
-
-gem 'rspec'
+Gemfile.ruby218
