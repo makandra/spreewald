@@ -74,8 +74,6 @@ Feature: Web steps
     When I go to "/static_pages/click_on"
     And I click on the element ".inner"
     Then I should see "You clicked on .inner"
-    When I click on the element ".outer"
-    Then I should see "You clicked on .outer"
     When I click on the element ".button"
     Then I should see "You clicked on .button"
 
