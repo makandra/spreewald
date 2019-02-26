@@ -84,7 +84,7 @@ module TableStepsHelper
       end
     end
 
-    failure_message_for_should do
+    Spreewald::Compatibility.spreewald_failure_message(self) do
       if @extra_rows
         "Found the following extra row: #{@extra_rows.first.collect(&:content).collect(&:squish).inspect}"
       elsif @last_unmatched_row
@@ -94,7 +94,7 @@ module TableStepsHelper
       end
     end
 
-    failure_message_for_should_not do
+    Spreewald::Compatibility.spreewald_failure_message_negated(self) do
       "Found the complete table: #{args.first.inspect}."
     end
   end

@@ -3,3 +3,4 @@
 require 'cucumber_priority'
 require "spreewald_support/version"
 require "spreewald_support/github"
+require "spreewald_support/compatibility"

@@ -10,11 +10,11 @@ module CustomMatchers
       @field_value =~ /\A#{regex_parts.join(".*")}\z/m
     end
 
-    failure_message_for_should do
+    Spreewald::Compatibility.spreewald_failure_message(self) do
       "The field's content #{@field_value.inspect} did not match #{@expected_string.inspect}"
     end
 
-    failure_message_for_should_not do
+    Spreewald::Compatibility.spreewald_failure_message_negated(self) do
       "The field's content #{@field_value.inspect} matches #{@expected_string.inspect}"
     end
   end
