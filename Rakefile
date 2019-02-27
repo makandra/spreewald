@@ -7,7 +7,7 @@ rescue LoadError
   puts 'Run `gem install gemika` for additional tasks'
 end
 
-task :default => 'matrix:all_tests'
+task :default => 'matrix:tests'
 
 namespace :matrix do
 
