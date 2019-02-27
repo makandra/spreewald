@@ -1,3 +1,6 @@
+# This file is used for Gemika (https://github.com/makandra/gemika) only.
+# It will not work with travis-ci.
+
 language: ruby
 
 rvm:
@@ -6,23 +9,3 @@ rvm:
 gemfile:
   - tests/rails-3_capybara-1/Gemfile
   - tests/rails-3_capybara-2/Gemfile
-
-before_script:
-  - psql -c 'create database spreewald_test;' -U postgres
-  - mysql -e 'create database IF NOT EXISTS spreewald_test;'
-
-script: bundle exec cucumber --tags=~@javascript
-
-sudo: false
-
-cache: bundler
-
-notifications:
-  email:
-    - fail@makandra.de
-
-install:
-  # Replace default Travis CI bundler script with a version that doesn't
-  # explode when lockfile doesn't match recently bumped version
-  - bundle install --no-deployment --jobs=3 --retry=3 --path=${BUNDLE_PATH:-vendor/bundle}
-
