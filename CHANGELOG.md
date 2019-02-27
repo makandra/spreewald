@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## Unreleased
 
+## 1.12.1
+- Remove deprecation warnings because of `failure_message_for_should` and `failure_message_for_should_not`
+
 ## 1.12.0
 
 ### Compatible changes
