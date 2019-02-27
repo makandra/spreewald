@@ -5,24 +5,26 @@ language: ruby
 
 rvm:
   - 2.1.8
-  - 2.3.7
+  - 2.4.5
 
 gemfile:
+  # Test projects
   - tests/rails-3_capybara-1/Gemfile
   - tests/rails-3_capybara-2/Gemfile
   - tests/rails-4_capybara-3/Gemfile
-  - Gemfile.ruby237
+  # Used to run rspec and tests for spreewald binary:
   - Gemfile.ruby218
+  - Gemfile.ruby245
 
 matrix:
   exclude:
     - gemfile: tests/rails-3_capybara-1/Gemfile
-      rvm: 2.3.7
+      rvm: 2.4.5
     - gemfile: tests/rails-3_capybara-2/Gemfile
-      rvm: 2.3.7
+      rvm: 2.4.5
     - gemfile: tests/rails-4_capybara-3/Gemfile
       rvm: 2.1.8
-    - gemfile: Gemfile.ruby237
-      rvm: 2.1.8
     - gemfile: Gemfile.ruby218
-      rvm: 2.3.7
+      rvm: 2.4.5
+    - gemfile: Gemfile.ruby245
+      rvm: 2.1.8

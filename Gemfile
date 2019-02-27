@@ -1,1 +1,4 @@
-Gemfile.ruby218
+source 'https://rubygems.org'
+
+gem 'rake'
+gem 'gemika'
