@@ -1,3 +1,5 @@
+require 'spreewald_support/compatibility'
+
 module CustomMatchers
   rspec = defined?(RSpec) ? RSpec : Spec
 

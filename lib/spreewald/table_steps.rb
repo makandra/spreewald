@@ -1,6 +1,7 @@
 # coding: UTF-8
  
 require 'spreewald_support/tolerance_for_selenium_sync_issues'
+require 'spreewald_support/compatibility'
 
 module TableStepsHelper
   module ArrayMethods

@@ -10,6 +10,3 @@ PLATFORMS
 DEPENDENCIES
   gemika
   rake
-
-BUNDLED WITH
-   2.0.1

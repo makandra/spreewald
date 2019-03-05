@@ -19,3 +19,4 @@ module Spreewald
 
   end
 end
+World(Spreewald::Compatibility)
