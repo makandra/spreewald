@@ -11,8 +11,7 @@ module WebStepsHelpers
   private
 
   def visibility_test(options)
-    case Capybara::current_driver
-    when :selenium, :webkit, :poltergeist
+    if javascript_capable?
       detect_visibility_with_js(options)
     else
       detect_visibility_with_capybara(options)

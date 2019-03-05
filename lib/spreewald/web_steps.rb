@@ -29,6 +29,7 @@ require 'spreewald_support/path_selector_fallbacks'
 require 'spreewald_support/step_fallback'
 require 'spreewald_support/custom_matchers'
 require 'spreewald_support/web_steps_helpers'
+require 'spreewald_support/driver_info'
 require 'uri'
 require 'cgi'
 
@@ -432,13 +433,12 @@ Then /^the window should be titled "([^"]*)"$/ do |title|
 end.overridable
 
 When /^I reload the page$/ do
-  case Capybara::current_driver
-    when :selenium
-      page.execute_script(<<-JAVASCRIPT)
+  if javascript_capable?
+    page.execute_script(<<-JAVASCRIPT)
         window.location.reload(true);
-      JAVASCRIPT
-    else
-      visit current_path
+    JAVASCRIPT
+  else
+    visit current_path
   end
 end.overridable
 
@@ -612,8 +612,11 @@ When /^I enter "([^"]*)" into the browser dialog$/ do |text|
 end.overridable
 
 When /^I switch to the new tab$/ do
-  Capybara::current_driver == :selenium or raise("This step works only with selenium")
-  page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
+  if javascript_capable?
+    page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
+  else
+    raise("This step works only with selenium")
+  end
 end.overridable
 
 # Checks that these strings are rendered in the given order in a single line or in multiple lines
@@ -676,7 +679,7 @@ end.overridable
 #
 # More details [here](https://makandracards.com/makandra/12139-waiting-for-page-loads-and-ajax-requests-to-finish-with-capybara).
 When /^I wait for the page to load$/ do
-  if [:selenium, :webkit, :poltergeist].include?(Capybara.current_driver)
+  if javascript_capable?
     patiently do
       # when no jQuery is loaded, we assume there are no pending AJAX requests
       page.execute_script("return typeof jQuery === 'undefined' || $.active == 0;").should == true
@@ -690,7 +693,7 @@ end.overridable
 # More details [here](https://makandracards.com/makandra/971-perform-http-basic-authentication-in-cucumber).
 When /^I perform basic authentication as "([^\"]*)\/([^\"]*)" and go to (.*)$/ do |user, password, page_name|
   path = _path_to(page_name)
-  if Capybara::current_driver == :selenium
+  if javascript_capable?
     server = Capybara.current_session.server rescue Capybara.current_session.driver.rack_server
     visit("http://#{user}:#{password}@#{server.host}:#{server.port}#{path}")
   else
@@ -707,8 +710,7 @@ end.overridable
 
 # Goes to the previously viewed page.
 When /^I go back$/ do
-  case Capybara::current_driver
-  when :selenium, :webkit
+  if javascript_capable?
     page.execute_script('window.history.back()')
   else
     if page.driver.respond_to?(:browser)
