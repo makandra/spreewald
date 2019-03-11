@@ -114,9 +114,9 @@ the step definitions.
 
 ### development_steps.rb 
 
-* **Then it should work**
+* **Then it should work...?**
 
-  Marks scenario as pending
+  Marks scenario as pending, optionally explained with a reason.
 
 
 * **Then console**
@@ -418,7 +418,7 @@ deprecation notice. Decide for yourself whether you want to use them:
 * **Then the "..." field should have no error**
 
 
-* **Then the "..." checkbox should( not)? be checked**
+* **Then the "..." checkbox should( not)? be checked( and disabled)?**
 
 
 * **Then the radio button "..." should( not)? be (checked|selected)**
@@ -634,7 +634,7 @@ deprecation notice. Decide for yourself whether you want to use them:
         | Beta Group  |
 
 
-* **Then the "..." (field|button) should( not)? be disabled**
+* **Then the "..." (field|button|checkbox) should( not)? be disabled**
 
   Tests that an input or button with the given label is disabled.
 

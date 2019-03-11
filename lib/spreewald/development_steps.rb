@@ -1,8 +1,8 @@
 # coding: UTF-8
 
-# Marks scenario as pending
-Then /^it should work$/ do
-  pending
+# Marks scenario as pending, optionally explained with a reason.
+Then /^it should work(.+?)?$/ do |message|
+  pending(message)
 end.overridable
 
 # nodoc
