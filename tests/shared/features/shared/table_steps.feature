@@ -139,6 +139,7 @@ Feature: Table steps
         | 3-1 | 3-2 | 3-3 |
       """
 
+
   Scenario: should not see a table with exactly the following rows
     When I go to "/tables/table1"
     Then the following multiline step should fail:

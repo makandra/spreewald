@@ -8,6 +8,7 @@ Feature: Web steps
     Then the "Textarea control" field should contain "Textarea control value"
     Then the "Empty control" field should contain ""
 
+
   Scenario: /^the "([^"]*)" field should (not )?contain:/
     When I go to "/forms/form2"
     Then the "Text control" field should contain:
@@ -22,6 +23,7 @@ Feature: Web steps
     Then the "Empty textarea control" field should contain:
       """
       """
+
 
   Scenario: /^I should see a form with the following values:$/
     When I go to "/forms/form1"
@@ -69,6 +71,7 @@ Feature: Web steps
     When I click on "Button"
     Then I should see "You clicked on .button"
 
+
   @javascript
   Scenario: /^I click on the element "([^\"]+)"$/
     When I go to "/static_pages/click_on"
@@ -77,6 +80,7 @@ Feature: Web steps
     When I click on the element ".button"
     Then I should see "You clicked on .button"
 
+
   @javascript
   Scenario: /^I click on the element for .*?$/
     When I go to "/static_pages/click_on"
@@ -84,6 +88,7 @@ Feature: Web steps
     Then I should see "You clicked on .panel"
     When I click on the element for the timeline
     Then I should see "You clicked on .timeline"
+
 
   Scenario: /^the "(.*?)" select should( not)? be sorted$/
     When I go to "/forms/select_fields"
@@ -99,6 +104,7 @@ Feature: Web steps
       And a visible string with quotes should be visible
       And "hidden ümläüt" should be hidden
 
+
   @javascript
   Scenario: /^Then (the tag )?"..." should( not)? be visible$/ with javascript
     When I go to "/static_pages/visibility"
@@ -108,16 +114,19 @@ Feature: Web steps
     And a visible string with quotes should be visible
     And "hidden ümläüt" should be hidden
 
+
   Scenario: /^the "([^\"]*)" field should( not)? be visible$/
     When I go to "/static_pages/visibility"
     Then the "Visible field" field should be visible
       But the "Hidden field" field should not be visible
+
 
   @javascript
   Scenario: /^the "([^\"]*)" field should( not)? be visible$/ with Javascript
     When I go to "/static_pages/visibility"
     Then the "Visible field" field should be visible
       But the "Hidden field" field should not be visible
+
 
   Scenario: /^I should (not )?see (?:|a|an |the )(.*?) element$/
     When I go to "/static_pages/see_element"
@@ -130,14 +139,17 @@ Feature: Web steps
       And I should not see an element for the timeline
       And I should not see the element for the timeline
 
+
   Scenario: /^(.*) within (.*[^:])$/
     When I go to "/static_pages/within"
     Then I should see an element ".child1" within ".container1"
       But I should not see an element ".child1" within ".container2"
 
+
   Scenario: /^(.*) within (.*[^:])$/ with a Capybara::Node::Element
     When I go to "/static_pages/within"
     Then I should see "All" within the table row containing "Admin"
+
 
   Scenario: /^I perform basic authentication as "([^\"]*)\/([^\"]*)" and go to (.*)$/
     When I go to "/authenticated/page"
@@ -145,8 +157,8 @@ Feature: Web steps
     When I perform basic authentication as "user/password" and go to "/authenticated/page"
     Then I should see "Action reached"
 
+
   @javascript
   Scenario: /^I perform basic authentication as "([^\"]*)\/([^\"]*)" and go to (.*)$/ with Javascript
     When I perform basic authentication as "user/password" and go to "/authenticated/page"
     Then I should see "Action reached"
-
