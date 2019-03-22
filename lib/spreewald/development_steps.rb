@@ -26,7 +26,11 @@ Then 'console' do
   # https://github.com/ruby/ruby/blob/c08f7b80889b531865e74bc5f573df8fa27f2088/lib/irb.rb#L418
   # with injected workspace. See https://github.com/makandra/spreewald/issues/77 for reasons.
 
-  IRB.setup(nil)
+  # Don't setup IRB twice to avoid wall of
+  # "already initialized constant" warnings
+  unless IRB.conf[:LOAD_MODULES]
+    IRB.setup(nil)
+  end
 
   workspace = IRB::WorkSpace.new(binding)
   irb = IRB::Irb.new(workspace)
