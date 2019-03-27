@@ -151,6 +151,11 @@ Feature: Web steps
     Then I should see "All" within the table row containing "Admin"
 
 
+  Scenario: the /^(.*) within (.*[^:])$/ step should not be invoked when the word "within" is used in an argument for another step
+    When I go to "/static_pages/within"
+    Then I should see "He lives within a few miles of Augsburg"
+
+
   Scenario: /^I perform basic authentication as "([^\"]*)\/([^\"]*)" and go to (.*)$/
     When I go to "/authenticated/page"
     Then I should see "Access denied"

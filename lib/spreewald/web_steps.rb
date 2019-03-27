@@ -52,14 +52,14 @@ When /^(.*) within (.*[^:])$/ do |nested_step, parent|
   patiently do
     with_scope(parent) { step(nested_step) }
   end
-end.overridable(:priority => 10)
+end.overridable(:priority => -1)
 
 # nodoc
 When /^(.*) within (.*[^:]):$/ do |nested_step, parent, table_or_string|
   patiently do
     with_scope(parent) { step("#{nested_step}:", table_or_string) }
   end
-end.overridable(:priority => 10)
+end.overridable(:priority => -1)
 
 Given /^(?:|I )am on (.+)$/ do |page_name|
   visit _path_to(page_name)
