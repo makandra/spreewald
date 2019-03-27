@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 1.12.4
+The word "within" can now be used in arguments for other steps without causing errors (Issue #53)
 
 ## 1.12.3
 Prevent wall of warnings when `Then console` is used multiple times in on test run ([issue](https://github.com/makandra/spreewald/issues/80)) 
