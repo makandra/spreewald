@@ -90,7 +90,7 @@ Spreewald has different kind of tests:
 - Test applications for integration tests with various Capybara versions live in `tests/`. 
 - Tests for the Spreewald binary live in `features/`
 
-Run all tests for your current ruby version with `rake` or `rake matrix:tests`
+Run all tests for your current ruby version with `rake` or `rake matrix:tests`. To bundle use `rake matrix:install` first.
 
 Please note that you need [geordi](https://github.com/makandra/geordi) to run the integration tests.
 
