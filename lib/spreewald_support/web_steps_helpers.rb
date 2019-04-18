@@ -72,9 +72,9 @@ module WebStepsHelpers
       end
 
       if options[:expectation] == :visible
-        visible.should eq(true)
+        expect(visible).to eq(true)
       else
-        visible.should eq(false)
+        expect(visible).to eq(false)
       end
     end
   end
@@ -86,23 +86,23 @@ module WebStepsHelpers
 
       if options.has_key?(:selector)
         selector = options[:selector].strip
-        page.should have_css options[:selector]
+        expect(page).to have_css options[:selector]
 
         have_hidden_tag = have_css %(.hidden #{selector}, .invisible #{selector}, [style~="display: none"] #{selector})
 
         if options[:expectation] == :hidden
-          page.should have_hidden_tag
+          expect(page).to have_hidden_tag
         else
-          page.should_not have_hidden_tag
+          expect(page).not_to have_hidden_tag
         end
 
       else
-        page.should have_css('*', :text => options[:text])
+        expect(page).to have_css('*', :text => options[:text])
         have_hidden_text = have_css('.hidden, .invisible, [style~="display: none"]', :text => options[:text])
         if options[:expectation] == :hidden
-          page.should have_hidden_text
+          expect(page).to have_hidden_text
         else
-          page.should_not have_hidden_text
+          expect(page).not_to have_hidden_text
         end
       end
     ensure

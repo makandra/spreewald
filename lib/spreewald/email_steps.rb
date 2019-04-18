@@ -38,25 +38,25 @@ Then /^(an|no) e?mail should have been sent with:$/ do |mode, raw_data|
     end
     conditions[:body] = body if body
     @mail = MailFinder.find(conditions)
-    expectation = mode == 'no' ? 'should_not' : 'should'
-    @mail.send(expectation, be_present)
+    expectation = mode == 'no' ? 'not_to' : 'to'
+    expect(@mail).send(expectation, be_present)
   end
 end.overridable
 
 # nodoc
-Then /^(an|no) e?mail should have been sent((?: |and|with|from "[^"]+"|bcc "[^"]+"|to "[^"]+"|the subject "[^"]+"|the body "[^"]+"|the attachments "[^"]+")+)$/ do |mode, query|
+Then /^(an|no) e?mail should have been sent((?: |and|with|from "[^"]+"|bcc "[^"]+"|cc "[^"]+"|to "[^"]+"|the subject "[^"]+"|the body "[^"]+"|the attachments "[^"]+")+)$/ do |mode, query|
   patiently do
     conditions = {}
     conditions[:to] = $1 if query =~ /to "([^"]+)"/
-    conditions[:cc] = $1 if query =~ / cc "([^"]+)"/
+    conditions[:Cc] = $1 if query =~ /cc "([^"]+)"/
     conditions[:bcc] = $1 if query =~ /bcc "([^"]+)"/
     conditions[:from] = $1 if query =~ /from "([^"]+)"/
     conditions[:subject] = $1 if query =~ /the subject "([^"]+)"/
     conditions[:body] = $1 if query =~ /the body "([^"]+)"/
     conditions[:attachments] = $1 if query =~ /the attachments "([^"]+)"/
     @mail = MailFinder.find(conditions)
-    expectation = mode == 'no' ? 'should_not' : 'should'
-    @mail.send(expectation, be_present)
+    expectation = mode == 'no' ? 'not_to' : 'to'
+    expect(@mail).send(expectation, be_present)
   end
 end.overridable
 
@@ -71,12 +71,12 @@ When /^I follow the (first|second|third)? ?link in the e?mail$/ do |index_in_wor
 end.overridable
 
 Then /^no e?mail should have been sent$/ do
-  ActionMailer::Base.deliveries.should be_empty
+  expect(ActionMailer::Base.deliveries).to be_empty
 end.overridable
 
 # Checks that the last sent email includes some text
 Then /^I should see "([^\"]*)" in the e?mail$/ do |text|
-  MailFinder.email_text_body(ActionMailer::Base.deliveries.last).should include(text)
+  expect(MailFinder.email_text_body(ActionMailer::Base.deliveries.last)).to include(text)
 end.overridable
 
 # Print all sent emails to STDOUT.
@@ -103,16 +103,16 @@ end.overridable
 #       need to be present
 #       """
 Then /^that e?mail should( not)? have the following lines in the body:$/ do |negate, body|
-  expectation = negate ? 'should_not' : 'should'
+  expectation = negate ? 'not_to' : 'to'
   email_text_body = MailFinder.email_text_body(@mail)
 
   body.to_s.strip.split(/\n/).each do |line|
-    email_text_body.send(expectation, include(line.strip))
+    expect(email_text_body).send(expectation, include(line.strip))
   end
 end.overridable
 
 # Only works after you've retrieved the email using "Then an email should have been sent with:"
 # Checks that the text should be included in the retrieved email
 Then /^that e?mail should have the following body:$/ do |body|
-  MailFinder.email_text_body(@mail).should include(body.strip)
+  expect(MailFinder.email_text_body(@mail)).to include(body.strip)
 end.overridable
