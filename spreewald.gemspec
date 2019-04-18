@@ -19,6 +19,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency('cucumber')
   gem.add_dependency('cucumber_priority', '>=0.3.0')
+  gem.add_dependency('rspec')
 
   # Development
   gem.add_development_dependency 'bundler', '~> 1.11'
@@ -27,6 +28,5 @@ Gem::Specification.new do |gem|
 
   # Testing
   gem.add_development_dependency 'aruba', '~> 0.10.2'
-  gem.add_development_dependency 'rspec', '~> 3.4.0'
   gem.add_development_dependency 'geordi'
 end
