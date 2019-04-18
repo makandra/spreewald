@@ -4,7 +4,6 @@ class Mailer < ActionMailer::Base
   TO = "to@example.com"
   FROM = "from@example.com"
   SUBJECT = "SUBJECT"
-  BODY = "BODY"
 
   if Rails.version >= "3"
 
@@ -14,9 +13,7 @@ class Mailer < ActionMailer::Base
         :reply_to => REPLY_TO,
         :to => TO,
         :subject => SUBJECT
-      ) do |format|
-        format.text { render :text => BODY }
-      end
+      )
     end
 
   else

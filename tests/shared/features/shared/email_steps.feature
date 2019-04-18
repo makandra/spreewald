@@ -13,7 +13,7 @@ Feature: Test Spreewald's email steps
   Scenario: /^I should see "([^\"]*)" in the e?mail$/
     When I go to "/emails/send_email"
     Then the following step should succeed:
-      | I should see "BODY" in the email |
+      | I should see "Body" in the email |
     But the following step should fail:
       | I should see "XYZ" in the email |
 
@@ -43,7 +43,10 @@ Feature: Test Spreewald's email steps
         To: to@example.com
         Subject: SUBJECT
 
-        BODY
+        Body
+        with
+        line
+        breaks
         '''
       """
 
@@ -57,7 +60,10 @@ Feature: Test Spreewald's email steps
         To: to@example.com
         Subject: SUBJECT
 
-        BODY
+        Body
+        with
+        line
+        breaks
         '''
       """
 
@@ -71,7 +77,10 @@ Feature: Test Spreewald's email steps
         To: to@example.com
         Subject: SUBJECT
 
-        BODY
+        Body
+        with
+        line
+        breaks
         '''
       """
     # Test with incorrect To header
@@ -84,7 +93,10 @@ Feature: Test Spreewald's email steps
         To: other-to@example.com
         Subject: SUBJECT
 
-        BODY
+        Body
+        with
+        line
+        breaks
         '''
       """
 
@@ -98,7 +110,10 @@ Feature: Test Spreewald's email steps
         To: to@example.com
         Subject: OTHER-SUBJECT
 
-        BODY
+        Body
+        with
+        line
+        breaks
         '''
       """
 
@@ -112,7 +127,10 @@ Feature: Test Spreewald's email steps
         To: to@example.com
         Subject: SUBJECT
 
-        OTHER-BODY
+        Other body
+        with
+        line
+        breaks
         '''
       """
 
@@ -126,7 +144,10 @@ Feature: Test Spreewald's email steps
         To: to@example.com
         Subject: SUBJECT
 
-        BODY
+        Body
+        with
+        line
+        breaks
         
         MORE-BODY
         '''
