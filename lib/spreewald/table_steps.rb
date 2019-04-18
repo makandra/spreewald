@@ -129,9 +129,9 @@ Then /^I should( not)? see a table with (exactly )?the following rows( in any or
     options = { :exactly => exactly, :unordered => unordered }
 
     if negate
-      tables.should_not contain_table(parsed_table, options)
+      expect(tables).not_to contain_table(parsed_table, options)
     else
-      tables.should contain_table(parsed_table, options)
+      expect(tables).to contain_table(parsed_table, options)
     end
   end
 end.overridable

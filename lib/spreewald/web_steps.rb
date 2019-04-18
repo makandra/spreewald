@@ -46,7 +46,7 @@ When /^(.*) within (.*[^:])$/ do |nested_step, parent|
   selector = _selector_for(parent)
   if selector.is_a?(String) || selector.is_a?(Array) # could also be a Capybara::Node::Element
     patiently do
-      page.should have_selector(*selector)
+      expect(page).to have_selector(*selector)
     end
   end
   patiently do
@@ -81,7 +81,7 @@ Then /^(?:|I )should be on (.+)$/ do |page_name|
     current_path = expected_path if current_path.chomp("/") == expected_path.chomp("/")
     current_path = expected_path if current_path.gsub("/#", "#") == expected_path.gsub("/#", "#")
 
-    current_path.should == expected_path
+    expect(current_path).to eq(expected_path)
   end
 end.overridable
 
@@ -168,7 +168,7 @@ end.overridable
 # Note that this does not detect if the text might be hidden via CSS
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
   patiently do
-    page.should have_content(text)
+    expect(page).to have_content(text)
   end
 end.overridable
 
@@ -178,20 +178,20 @@ end.overridable
 Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
   patiently do
-    page.should have_xpath('//*', :text => regexp)
+    expect(page).to have_xpath('//*', :text => regexp)
   end
 end.overridable
 
 Then /^(?:|I )should not see "([^"]*)"$/ do |text|
   patiently do
-    page.should have_no_content(text)
+    expect(page).to have_no_content(text)
   end
 end.overridable
 
 Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
   patiently do
     regexp = Regexp.new(regexp)
-    page.should have_no_xpath('//*', :text => regexp)
+    expect(page).to have_no_xpath('//*', :text => regexp)
   end
 end.overridable
 
@@ -212,7 +212,7 @@ Then /^the "([^"]*)" field should (not )?contain "([^"]*)"$/ do |label, negate, 
     else
       field.value
     end
-    field_value.send(negate ? :should_not : :should, contain_with_wildcards(expected_string))
+    expect(field_value).send(negate ? :not_to : :to, contain_with_wildcards(expected_string))
   end
 end.overridable
 
@@ -220,7 +220,7 @@ end.overridable
 Then(/^the "(.*?)" field should (not )?contain:$/) do |label, negate, expected_string|
   patiently do
     field = find_field(label)
-    field.value.chomp.send(negate ? :should_not : :should, contain_with_wildcards(expected_string))
+    expect(field.value.chomp).send(negate ? :not_to : :to, contain_with_wildcards(expected_string))
   end
 end.overridable
 
@@ -248,7 +248,7 @@ Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_me
     using_formtastic = form_for_input[:class].include?('formtastic')
     error_class = using_formtastic ? 'error' : 'field_with_errors'
 
-    classes.should include(error_class)
+    expect(classes).to include(error_class)
 
     if using_formtastic
       error_paragraph = element.find(:xpath, '../*[@class="inline-errors"][1]')
@@ -261,10 +261,10 @@ end.overridable
 
 Then /^the "([^\"]*)" field should( not)? have an error$/ do |label, negate|
   patiently do
-    expectation = negate ? :should_not : :should
+    expectation = negate ? :not_to : :to
     field = find_field(label)
-    field[:id].should be_present # prevent bad CSS selector if field lacks id
-    page.send(expectation, have_css(".field_with_errors ##{field[:id]}"))
+    expect(field[:id]).to be_present # prevent bad CSS selector if field lacks id
+    expect(page).send(expectation, have_css(".field_with_errors ##{field[:id]}"))
   end
 end.overridable
 
@@ -272,13 +272,13 @@ Then /^the "([^"]*)" field should have no error$/ do |field|
   patiently do
     element = find_field(field)
     classes = element.find(:xpath, '..')[:class].split(' ')
-    classes.should_not include('field_with_errors')
-    classes.should_not include('error')
+    expect(classes).not_to include('field_with_errors')
+    expect(classes).not_to include('error')
   end
 end.overridable
 
 Then /^the "([^"]*)" checkbox should( not)? be checked( and disabled)?$/ do |label, negate, disabled|
-  expectation = negate ? :should_not : :should
+  expectation = negate ? :not_to : :to
 
   patiently do
     field = if Capybara::VERSION < "2.1"
@@ -286,13 +286,13 @@ Then /^the "([^"]*)" checkbox should( not)? be checked( and disabled)?$/ do |lab
     else
       find_field(label, :disabled => !!disabled)
     end
-    field.send expectation, be_checked
+    expect(field).send expectation, be_checked
   end
 end.overridable
 
 Then /^the radio button "([^"]*)" should( not)? be (?:checked|selected)$/ do |field, negate|
   patiently do
-    page.send((negate ? :has_no_checked_field? : :has_checked_field?), field).should == true
+    expect(page.send((negate ? :has_no_checked_field? : :has_checked_field?), field)).to eq(true)
   end
 end.overridable
 
@@ -310,7 +310,7 @@ Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
     expected_params = {}
     expected_pairs.rows_hash.each_pair{|k,v| expected_params[k] = v.split(',')}
 
-    actual_params.should == expected_params
+    expect(actual_params).to eq(expected_params)
   end
 end.overridable
 
@@ -322,7 +322,7 @@ end.overridable
 
 # Checks for the existance of an input field (given its id or label)
 Then /^I should( not)? see a field "([^"]*)"$/ do |negate, name|
-  expectation = negate ? :should_not : :should
+  expectation = negate ? :not_to : :to
   patiently do
     begin
       # In old Capybaras find_field returns nil, so we assign it to `field`
@@ -332,7 +332,7 @@ Then /^I should( not)? see a field "([^"]*)"$/ do |negate, name|
       # We must explicitely reset the field variable from a previous patiently iteration
       field = nil
     end
-    field.send(expectation, be_present)
+    expect(field).send(expectation, be_present)
   end
 end.overridable
 
@@ -346,22 +346,22 @@ Then /^I should( not)? see the (?:number|amount) ([\-\d,\.]+)(?: (.*?))?$/ do |n
   no_minus = amount.starts_with?('-') ? '' : '[^\\-]'
   nbsp = " "
   regexp = Regexp.new(no_minus + "\\b" + Regexp.quote(amount) + (unit ? "( |#{nbsp}|&nbsp;)(#{unit}|#{Regexp.quote(HTMLEntities.new.encode(unit, :named))})" :"\\b"))
-  expectation = negate ? :should_not : :should
+  expectation = negate ? :not_to : :to
   patiently do
-    page.body.send(expectation, match(regexp))
+    expect(page.body).send(expectation, match(regexp))
   end
 end.overridable
 
 # Checks `Content-Type` HTTP header
 Then /^I should get a response with content-type "([^\"]*)"$/ do |expected_content_type|
-  page.response_headers['Content-Type'].should =~ /\A#{Regexp.quote(expected_content_type)}($|;)/
+  expect(page.response_headers['Content-Type']).to =~ /\A#{Regexp.quote(expected_content_type)}($|;)/
 end.overridable
 
 # Checks `Content-Disposition` HTTP header
 #
 # Attention: Doesn't work with Selenium, see https://github.com/jnicklas/capybara#gotchas
 Then /^I should get a download with filename "([^\"]*)"$/ do |filename|
-  page.response_headers['Content-Disposition'].should =~ /filename="#{Regexp.escape(filename)}"$/
+  expect(page.response_headers['Content-Disposition']).to =~ /filename="#{Regexp.escape(filename)}"$/
 end.overridable
 
 # Checks that a certain option is selected for a text field
@@ -375,7 +375,7 @@ Then /^nothing should be selected for "([^"]*)"$/ do |field|
     begin
       selected_option = select.find(:xpath, ".//option[@selected = 'selected']") || select.all(:css, 'option').first
       value = selected_option ? selected_option.value : nil
-      value.should be_blank
+      expect(value).to be_blank
     rescue Capybara::ElementNotFound
     end
   end
@@ -391,11 +391,11 @@ Then /^"([^"]*)" should( not)? be an option for "([^"]*)"$/ do |value, negate, f
   patiently do
     if negate
       begin
-        find_field(field).should have_no_css(*finder_arguments)
+        expect(find_field(field)).to have_no_css(*finder_arguments)
       rescue Capybara::ElementNotFound
       end
     else
-      find_field(field).should have_css(*finder_arguments)
+      expect(find_field(field)).to have_css(*finder_arguments)
     end
   end
 end.overridable
@@ -404,31 +404,31 @@ end.overridable
 # the expected string contains quotes as well.
 Then /^(?:|I )should see '([^']*)'$/ do |text|
   patiently do
-    page.should have_content(text)
+    expect(page).to have_content(text)
   end
 end.overridable
 
 # Check that the raw HTML contains a string
 Then /^I should see "([^\"]*)" in the HTML$/ do |text|
   patiently do
-    page.body.should include(text)
+    expect(page.body).to include(text)
   end
 end.overridable
 
 Then /^I should not see "([^\"]*)" in the HTML$/ do |text|
   patiently do
-    page.body.should_not include(text)
+    expect(page.body).not_to include(text)
   end
 end.overridable
 
 # Checks that status code is 400..599
 Then /^I should see an error$/ do
-  (400 .. 599).should include(page.status_code)
+  expect((400 .. 599)).to include(page.status_code)
 end.overridable
 
 Then /^the window should be titled "([^"]*)"$/ do |title|
   patiently do
-    page.should have_css('title', :text => title)
+    expect(pag).to have_css('title', :text => title)
   end
 end.overridable
 
@@ -521,7 +521,7 @@ end.overridable(priority: -5) # priority lower than within
 Then /^"([^"]*)" should link to "([^"]*)"$/ do |link_label, target|
   patiently do
     link = find_link(link_label)
-    link[:href].should =~ /#{Regexp.escape target}(\?[^\/]*)?$/ # ignore trailing timestamps
+    expect(link[:href]).to match(/#{Regexp.escape target}(\?[^\/]*)?$/) # ignore trailing timestamps
   end
 end.overridable
 
@@ -534,9 +534,9 @@ end.overridable
 #     Then I should not see an element ".sidebar"
 #     Then I should not see the element ".sidebar"
 Then /^I should (not )?see (?:an|the) element "([^"]+)"$/ do |negate, selector|
-  expectation = negate ? :should_not : :should
+  expectation = negate ? :not_to : :to
   patiently do
-    page.send(expectation, have_css(selector))
+    expect(page).send(expectation, have_css(selector))
   end
 end.overridable
 
@@ -549,10 +549,10 @@ end.overridable
 #     Then I should not see an element for the sidebar
 #     Then I should not see the element for the sidebar
 Then /^I should (not )?see (?:an|the) element for (.*?)$/ do |negate, locator|
-  expectation = negate ? :should_not : :should
+  expectation = negate ? :not_to : :to
   selector = _selector_for(locator)
   patiently do
-    page.send(expectation, have_selector(*selector))
+    expect(page).send(expectation, have_selector(*selector))
   end
 end.overridable(:priority => -5) # priority must be lower than the "within" step
 
@@ -574,8 +574,8 @@ When /^I follow "([^"]*)" inside any "([^"]*)"$/ do |label, selector|
 end.overridable
 
 Then /^I should( not)? see "([^"]*)" inside any "([^"]*)"$/ do |negate, text, selector|
-  expectation = negate ? :should_not : :should
-  page.send(expectation, have_css(selector, :text => text))
+  expectation = negate ? :not_to : :to
+  expect(page).send(expectation, have_css(selector, :text => text))
 end.overridable
 
 When /^I fill in "([^"]*)" with "([^"]*)" inside any "([^"]*)"$/ do |field, value, selector|
@@ -638,7 +638,7 @@ Then /^I should see in this order:?$/ do |text|
   pattern = lines.collect(&Regexp.method(:quote)).join('.*?')
   pattern = Regexp.compile(pattern)
   patiently do
-    page.text.gsub(/\s+/, ' ').should =~ pattern
+    expect(page.text.gsub(/\s+/, ' ')).to match(pattern)
   end
 end.overridable
 
@@ -653,7 +653,7 @@ Then /^the "([^\"]*)" (field|button|checkbox) should( not)? be disabled$/ do |la
   else
     element = find_button(label)
   end
-  ["false", "", nil].send(negate ? :should : :should_not, include(element[:disabled]))
+  expect(["false", "", nil]).send(negate ? :not_to : :to, include(element[:disabled]))
 end.overridable
 
 # Tests that a field with the given label is visible.
@@ -728,5 +728,5 @@ Then /^the "(.*?)" select should( not)? be sorted$/ do |label, negate|
   options = select.all('option').reject { |o| o.value.blank? }
   option_texts = options.collect(&:text)
 
-  option_texts.send((negate ? :should_not : :should), be_sorted)
+  expect(option_texts).send((negate ? :not_to : :to), be_sorted)
 end.overridable

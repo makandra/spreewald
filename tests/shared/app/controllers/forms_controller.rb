@@ -12,4 +12,7 @@ class FormsController < ApplicationController
   def select_fields
   end
 
+  def invalid_form
+  end
+
 end

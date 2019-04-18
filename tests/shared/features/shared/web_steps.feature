@@ -3,6 +3,7 @@ Feature: Web steps
   Scenario: /^the "([^"]*)" field should (not )?contain "([^"]*)"$/
     When I go to "/forms/form1"
     Then the "Text control" field should contain "Text control value"
+    Then the "Text control" field should not contain "false text"
     Then the "Select control" field should contain "Label 2"
     Then the "Select control without selection" field should contain "Label 1"
     Then the "Textarea control" field should contain "Textarea control value"
@@ -20,9 +21,27 @@ Feature: Web steps
       Textarea control line 1
       Textarea control line 2
       """
+    Then the "Textarea control" field should not contain:
+      """
+      Textarea control wrong line 1
+      Textarea control wrong line 2
+      """
     Then the "Empty textarea control" field should contain:
       """
       """
+
+
+  Scenario: /^the "([^\"]*)" field should( not)? have an error$/
+    When I go to "/forms/invalid_form"
+    Then the "Text control" field should have an error
+    Then the "Textarea control" field should have an error
+    Then the "Textarea control" field should have an error
+    Then the "Empty textarea control" field should not have an error
+
+
+  Scenario: /^the "([^"]*)" field should have no error$/
+    When I go to "/forms/invalid_form"
+    Then the "Empty textarea control" field should have no error
 
 
   Scenario: /^I should see a form with the following values:$/
@@ -47,7 +66,18 @@ Feature: Web steps
     Then nothing should be selected for "Select control with blank option"
     Then nothing should be selected for "Select control with blank selection"
 
-  
+  Scenario: /^the radio button "([^"]*)" should( not)? be (?:checked|selected)$/
+    When I go to "/forms/form1"
+    Then the radio button "Radio 1" should not be selected
+    Then the radio button "Radio 2" should not be selected
+    When I choose "Radio 1"
+    Then the radio button "Radio 1" should be selected
+    Then the radio button "Radio 2" should not be selected
+    When I choose "Radio 2"
+    Then the radio button "Radio 1" should not be selected
+    Then the radio button "Radio 2" should be selected
+
+
   Scenario: /^I go back$/
     Given I go to "/static_pages/link_to_home"
       And I follow "Home"
@@ -103,7 +133,7 @@ Feature: Web steps
 
   Scenario: /^Then (the tag )?"..." should( not)? be visible$/
     When I go to "/static_pages/visibility"
-    Then "hidden ümläüt" should not be visible
+    Then "hidden ümläüt" should be hidden
       And "visible ümläüt" should be visible
       And a hidden string with quotes should not be visible
       And a visible string with quotes should be visible
@@ -113,7 +143,7 @@ Feature: Web steps
   @javascript
   Scenario: /^Then (the tag )?"..." should( not)? be visible$/ with javascript
     When I go to "/static_pages/visibility"
-    Then "hidden ümläüt" should not be visible
+    Then "hidden ümläüt" should be hidden
     And "visible ümläüt" should be visible
     And a hidden string with quotes should not be visible
     And a visible string with quotes should be visible
