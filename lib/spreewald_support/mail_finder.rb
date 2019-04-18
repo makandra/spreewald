@@ -44,7 +44,7 @@ class MailFinder
     end
 
     def email_text_body(mail)
-      if mail.parts.any?
+      body = if mail.parts.any?
         mail_bodies = mail.parts.map { |part|
           if part.header.to_s.include?('Quoted-printable')
             if Rails.version.starts_with?('2.3')
@@ -69,6 +69,7 @@ class MailFinder
       else
         mail.body
       end
+      body.gsub("\r\n", "\n") # The mail gem (>= 2.7.1) switched from \n to \r\n line breaks (LF to CRLF) in plain text mails.
     end
 
   end
