@@ -314,9 +314,15 @@ Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   end
 end.overridable
 
-# Open the current Capybara page using the `launchy` gem
+# Open the current Capybara page using the `launchy` or `capybara_screenshot` gem
 Then /^show me the page$/ do
-  save_and_open_page
+  if defined? Launchy
+    save_and_open_page
+  elsif defined? Capybara::Screenshot
+    screenshot_and_save_page
+  else
+    raise 'Neither launchy nor capybara_screenshot gem is installed. You have to add at least one of them to your Gemfile to use this step'
+  end
 end.overridable
 
 

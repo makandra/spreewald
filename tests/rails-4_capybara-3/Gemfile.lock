@@ -57,8 +57,12 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.2)
       xpath (~> 3.2)
+    capybara-screenshot (1.0.22)
+      capybara (>= 1.0, < 4)
+      launchy
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
+    coderay (1.1.2)
     concurrent-ruby (1.1.4)
     crass (1.0.4)
     cucumber (3.1.2)
@@ -109,11 +113,14 @@ GEM
       ruby_parser (~> 3.5)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
+    method_source (0.9.2)
     mime-types (3.2.2)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2018.0812)
@@ -124,6 +131,9 @@ GEM
     multi_test (0.1.2)
     nokogiri (1.10.1)
       mini_portile2 (~> 2.4.0)
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
     public_suffix (3.0.3)
     rack (1.6.11)
     rack-test (0.6.3)
@@ -205,11 +215,13 @@ PLATFORMS
 DEPENDENCIES
   byebug
   capybara (~> 3)
+  capybara-screenshot
   cucumber
   cucumber-rails
   database_cleaner
   gemika
   haml-rails
+  pry
   rails (< 5)
   rspec-rails
   selenium-webdriver

@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    aruba (0.14.8)
+    aruba (0.14.9)
       childprocess (>= 0.6.3, < 1.1.0)
       contracts (~> 0.9)
       cucumber (>= 1.3.19)
@@ -36,7 +36,7 @@ GEM
       rspec-mocks (~> 3.8.0)
     rspec-core (3.8.0)
       rspec-support (~> 3.8.0)
-    rspec-expectations (3.8.2)
+    rspec-expectations (3.8.3)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.8.0)
     rspec-mocks (3.8.0)

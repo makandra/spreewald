@@ -9,11 +9,13 @@ gem 'gemika'
 
 group :development, :test do
   gem 'byebug'
+  gem 'pry'
 end
 
 group :test do
   gem 'database_cleaner'
   gem 'capybara', "~>3" # todo
+  gem 'capybara-screenshot'
   gem 'cucumber-rails', require: false
   gem 'cucumber'
   gem 'selenium-webdriver'
