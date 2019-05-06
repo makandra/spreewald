@@ -441,7 +441,7 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 * **Then show me the page**
 
-  Open the current Capybara page using the `launchy` gem
+  Open the current Capybara page using the `launchy` or `capybara_screenshot` gem
 
 
 * **Then I should( not)? see a field "..."**

@@ -16,5 +16,5 @@ gem 'haml-rails'
 gem 'gemika'
 
 gem 'spreewald', :path => '../..'
-
+gem 'pry'
 

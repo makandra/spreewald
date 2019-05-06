@@ -1,3 +1,5 @@
+require 'cucumber/rspec/doubles'
+
 RSPEC_EXPECTATION_NOT_MET_ERROR = RSpec::Expectations::ExpectationNotMetError
 
 Then /^the following steps? should (fail|succeed):$/ do |expectation, steps_table|
@@ -40,4 +42,15 @@ end
 Then(/^a visible string with quotes should be visible$/) do
   visible_string = %Q{visible '" quotes}
   assert_visible(:text => visible_string)
+end
+
+Then(/^'show me the page' should open the page or take a screenshot$/) do
+  # Projects with Capybara 1 & 2 use the launchy gem
+  if Capybara::VERSION < "3.0"
+    expect(Launchy).to receive(:open)
+    step 'show me the page'
+  else
+    expect_any_instance_of(Capybara::Screenshot::Saver).to receive(:save)
+    step 'show me the page'
+  end
 end

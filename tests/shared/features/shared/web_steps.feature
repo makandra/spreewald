@@ -212,3 +212,9 @@ Feature: Web steps
   Scenario: /^I perform basic authentication as "([^\"]*)\/([^\"]*)" and go to (.*)$/ with Javascript
     When I perform basic authentication as "user/password" and go to "/authenticated/page"
     Then I should see "Action reached"
+
+
+  @javascript
+  Scenario: /^show me the page$/
+    When I am on "/static_pages/home"
+    Then 'show me the page' should open the page or take a screenshot

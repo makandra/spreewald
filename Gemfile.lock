@@ -10,7 +10,7 @@ GEM
       rspec-mocks (~> 3.8.0)
     rspec-core (3.8.0)
       rspec-support (~> 3.8.0)
-    rspec-expectations (3.8.2)
+    rspec-expectations (3.8.3)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.8.0)
     rspec-mocks (3.8.0)
@@ -24,7 +24,7 @@ PLATFORMS
 DEPENDENCIES
   gemika
   rake
-  rspec (>= 2.13.0)
+  rspec (>= 2.14.0)
 
 BUNDLED WITH
-   1.13.7
+   1.17.3
