@@ -128,14 +128,22 @@ Feature: Web steps
       But the "Hidden field" field should not be visible
 
 
-  Scenario: /^I should (not )?see (?:|a|an |the )(.*?) element$/
+  Scenario: /^I should (not )?see (?:an|the) element "([^"]+)"$/
     When I go to "/static_pages/see_element"
     Then I should see an element ".panel"
       And I should see the element ".panel"
-      And I should see an element for a panel
-      And I should see the element for a panel
+      And I should see the element ".panel--nested-contents" within ".panel"
+      And I should see the element ".panel--nested-contents" within a panel
       But I should not see an element ".timeline"
       But I should not see the element ".timeline"
+
+
+  Scenario: /^I should (not )?see (?:an|the) element for (.*?)$/
+    When I go to "/static_pages/see_element"
+    Then I should see an element for a panel
+      And I should see the element for a panel
+      And I should see the element for a panels nested contents within ".panel"
+      And I should see the element for a panels nested contents within a panel
       And I should not see an element for the timeline
       And I should not see the element for the timeline
 

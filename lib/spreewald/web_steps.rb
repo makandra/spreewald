@@ -554,7 +554,7 @@ Then /^I should (not )?see (?:an|the) element for (.*?)$/ do |negate, locator|
   patiently do
     page.send(expectation, have_selector(*selector))
   end
-end.overridable
+end.overridable(:priority => -5) # priority must be lower than the "within" step
 
 
 # Checks that the result has content type `text/plain`

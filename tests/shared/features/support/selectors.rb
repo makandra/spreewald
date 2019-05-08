@@ -11,6 +11,9 @@ module HtmlSelectorsHelpers
     when /^a panel?$/
       '.panel'
 
+    when /^a panels nested contents?$/
+      '.panel--nested-contents'
+
     when /^the timeline?$/
       '.timeline'
 
