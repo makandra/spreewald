@@ -148,10 +148,12 @@ Feature: Web steps
       And I should not see the element for the timeline
 
 
-  Scenario: /^(.*) within (.*[^:])$/
+  Scenario: /^((?:|I )should see "([^"]*)" within (.*[^:])$/
     When I go to "/static_pages/within"
-    Then I should see an element ".child1" within ".container1"
-      But I should not see an element ".child1" within ".container2"
+    Then I should see "Role" within ".table"
+      And I should see "Permissions" within a table
+    But I should not see "Nonsense" within ".table"
+      And I should not see "Nonsense" within a table
 
 
   Scenario: /^(.*) within (.*[^:])$/ with a Capybara::Node::Element
