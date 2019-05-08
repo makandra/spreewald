@@ -507,7 +507,7 @@ When /^I click on the element for (.+?)$/ do |locator|
     selector = _selector_for(locator)
     page.find(*selector).click
   end
-end.overridable
+end.overridable(priority: -5) # priority lower than within
 
 # Use this step to check external links.
 #

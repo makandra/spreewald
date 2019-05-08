@@ -86,8 +86,13 @@ Feature: Web steps
     When I go to "/static_pages/click_on"
     And I click on the element for a panel
     Then I should see "You clicked on .panel"
+
     When I click on the element for the timeline
     Then I should see "You clicked on .timeline"
+      But I should not see "You clicked on .panel"
+
+    When I click on the element for a panel within ".clickables"
+    Then I should see "You clicked on .panel"
 
 
   Scenario: /^the "(.*?)" select should( not)? be sorted$/
