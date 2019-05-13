@@ -19,6 +19,10 @@ Or install it yourself as:
     $ gem install spreewald
 
 
+## Supported RSpec versions
+
+Spreewald supports RSpec >= 2.13.0
+
 ## Usage
 
 Require all Spreewald steps by putting

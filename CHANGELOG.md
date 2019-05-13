@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.0.0
+Mail steps supports both LF and CRLF linebreaks. (see [issue #83](https://github.com/makandra/spreewald/issues/83))
+### Breaking Changes
+Requires RSpec >= 2.13.0 because we dropped RSpec's should syntax.
+
 ## 1.12.6
 The "within" step no longer clashes with the "I should see an element for" and "I click on the element for" steps ([Issue #87](https://github.com/makandra/spreewald/issues/87))
 
@@ -22,13 +27,9 @@ Always check the current driver by its class (see [issue](https://github.com/mak
 - Remove deprecation warnings because of `failure_message_for_should` and `failure_message_for_should_not`
 
 ## 1.12.0
-
-### Compatible changes
 - Make Spreewald work without jQuery
 
 ## 1.11.6 2018-08-28
-
-### Compatible changes
 - Added CHANGELOG
 - Replaced `field_labeled` with `find_field` (https://github.com/teamcapybara/capybara/blob/master/History.md#removed)
 
