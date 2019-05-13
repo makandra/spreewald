@@ -240,7 +240,7 @@ Feature: The `spreewald` binary
 
   Scenario: Print version
     When I run `spreewald --version`
-    Then the output should contain "Spreewald 1."
+    Then the output should contain "Spreewald 2."
 
     When I run `spreewald -v`
-    Then the output should contain "Spreewald 1."
+    Then the output should contain "Spreewald 2."
