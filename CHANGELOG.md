@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.1.0
+'Then show me the page' supports capybara-screenshot. (see [issue #81](https://github.com/makandra/spreewald/issues/81))
+
 ## 2.0.0
 Mail steps supports both LF and CRLF linebreaks. (see [issue #83](https://github.com/makandra/spreewald/issues/83))
 ### Breaking Changes
