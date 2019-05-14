@@ -360,14 +360,14 @@ end.overridable
 
 # Checks `Content-Type` HTTP header
 Then /^I should get a response with content-type "([^\"]*)"$/ do |expected_content_type|
-  expect(page.response_headers['Content-Type']).to =~ /\A#{Regexp.quote(expected_content_type)}($|;)/
+  expect(page.response_headers['Content-Type']).to match /\A#{Regexp.quote(expected_content_type)}($|;)/
 end.overridable
 
 # Checks `Content-Disposition` HTTP header
 #
 # Attention: Doesn't work with Selenium, see https://github.com/jnicklas/capybara#gotchas
 Then /^I should get a download with filename "([^\"]*)"$/ do |filename|
-  expect(page.response_headers['Content-Disposition']).to =~ /filename="#{Regexp.escape(filename)}"$/
+  expect(page.response_headers['Content-Disposition']).to match /filename="#{Regexp.escape(filename)}"$/
 end.overridable
 
 # Checks that a certain option is selected for a text field

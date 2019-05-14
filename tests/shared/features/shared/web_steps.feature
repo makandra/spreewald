@@ -218,3 +218,8 @@ Feature: Web steps
   Scenario: /^show me the page$/
     When I am on "/static_pages/home"
     Then 'show me the page' should open the page or take a screenshot
+
+
+  Scenario: /^I should get a download with filename "([^\"]*)"$/
+    When I go to "/downloads/spreadsheet"
+    Then I should get a download with filename "test.ods"
