@@ -2,19 +2,19 @@ source 'https://rubygems.org'
 
 gem 'rails', '~>3.2'
 gem 'sqlite3', :platform => :ruby
-gem 'ruby-debug', :platforms => :ruby_18
-gem 'database_cleaner'
-gem 'launchy'
-gem 'capybara'#, "~>2"
-gem 'cucumber-rails'
-gem 'cucumber', '1.3.8'
-gem 'selenium-webdriver'
-
-gem 'rspec-rails'
 gem 'haml-rails'
-
 gem 'gemika'
 
-gem 'spreewald', :path => '../..'
+gem 'ruby-debug', :platforms => :ruby_18
 gem 'pry'
 
+group :test do
+  gem 'database_cleaner'
+  gem 'launchy'
+  gem 'capybara'#, "~>2"
+  gem 'cucumber-rails'
+  gem 'cucumber', '1.3.8', require: false
+  gem 'selenium-webdriver'
+  gem 'rspec-rails'
+  gem 'spreewald', :path => '../..'
+end
