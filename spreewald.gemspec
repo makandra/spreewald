@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency('cucumber')
   gem.add_dependency('cucumber_priority', '>=0.3.0')
-  gem.add_dependency('rspec')
+  gem.add_dependency('rspec', '>= 2.13.0')
 
   # Development
   gem.add_development_dependency 'bundler', '~> 1.11'
