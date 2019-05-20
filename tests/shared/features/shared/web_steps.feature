@@ -195,7 +195,10 @@ Feature: Web steps
     When I go to "/static_pages/within"
     Then I should see /Shared Text/
       And I should see /Unique Text/
+      And I should see /http://example.com/
+      And I should see /\^Will this text with special Regex characters match\.\.\?\$/
     But I should not see /Nonsense/
+      And I should not see /http://other-domain.com/
 
 
   Scenario: /^(?:|I )should see \/([^\/]*)\/ within (.*[^:])$/
@@ -203,7 +206,10 @@ Feature: Web steps
     Then I should see /Shared Text/ within ".scoped-element"
       And I should see /Shared Text/ within ".unrelated-element"
       And I should see /Unique Text/ within ".scoped-element"
+      And I should see /http://example.com/ within ".hardly-matchable-texts"
+      And I should see /\^Will this text with special Regex characters match\.\.\?\$/ within ".hardly-matchable-texts"
     But I should not see /Unique Text/ within ".unrelated-element"
+      And I should not see /http://other-domain.com/ within ".unrelated-element"
 
 
   Scenario: /^(.*) within (.*[^:])$/ with a Capybara::Node::Element

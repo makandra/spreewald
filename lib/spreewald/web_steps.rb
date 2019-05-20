@@ -175,7 +175,7 @@ end.overridable
 # Checks that a regexp appears on the page
 #
 # Note that this does not detect if the text might be hidden via CSS
-Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
+Then /^(?:|I )should see \/(.*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
   patiently do
     expect(page).to have_xpath('.//descendant-or-self::*', :text => regexp)
@@ -188,7 +188,7 @@ Then /^(?:|I )should not see "([^"]*)"$/ do |text|
   end
 end.overridable
 
-Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
+Then /^(?:|I )should not see \/(.*)\/$/ do |regexp|
   patiently do
     regexp = Regexp.new(regexp)
     expect(page).to have_no_xpath('.//descendant-or-self::*', :text => regexp)
