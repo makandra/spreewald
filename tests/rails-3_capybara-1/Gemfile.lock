@@ -4,7 +4,7 @@ PATH
     spreewald (2.1.1)
       cucumber
       cucumber_priority (>= 0.3.0)
-      rspec
+      rspec (>= 2.13.0)
 
 GEM
   remote: https://rubygems.org/

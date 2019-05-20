@@ -191,6 +191,21 @@ Feature: Web steps
       And I should not see "Nonsense" within a table
 
 
+  Scenario: /^(?:|I )should see \/([^\/]*)\/$/
+    When I go to "/static_pages/within"
+    Then I should see /Shared Text/
+      And I should see /Unique Text/
+    But I should not see /Nonsense/
+
+
+  Scenario: /^(?:|I )should see \/([^\/]*)\/ within (.*[^:])$/
+    When I go to "/static_pages/within"
+    Then I should see /Shared Text/ within ".scoped-element"
+      And I should see /Shared Text/ within ".unrelated-element"
+      And I should see /Unique Text/ within ".scoped-element"
+    But I should not see /Unique Text/ within ".unrelated-element"
+
+
   Scenario: /^(.*) within (.*[^:])$/ with a Capybara::Node::Element
     When I go to "/static_pages/within"
     Then I should see "All" within the table row containing "Admin"

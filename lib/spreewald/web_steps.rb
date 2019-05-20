@@ -178,7 +178,7 @@ end.overridable
 Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
   patiently do
-    expect(page).to have_xpath('//*', :text => regexp)
+    expect(page).to have_xpath('.//descendant-or-self::*', :text => regexp)
   end
 end.overridable
 
@@ -191,7 +191,7 @@ end.overridable
 Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
   patiently do
     regexp = Regexp.new(regexp)
-    expect(page).to have_no_xpath('//*', :text => regexp)
+    expect(page).to have_no_xpath('.//descendant-or-self::*', :text => regexp)
   end
 end.overridable
 
