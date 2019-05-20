@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.1.2
+Allow `I should(not )? see /REGEXP/` to be composed with the `within` step.
+
 ## 2.1.1
 Fix `Then I should get a download with filename "..."' step
 
