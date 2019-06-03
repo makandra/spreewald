@@ -30,6 +30,7 @@ require 'spreewald_support/step_fallback'
 require 'spreewald_support/custom_matchers'
 require 'spreewald_support/web_steps_helpers'
 require 'spreewald_support/driver_info'
+require 'spreewald_support/comparison'
 require 'uri'
 require 'cgi'
 
@@ -408,7 +409,7 @@ Then /^the "([^"]*)" checkbox should( not)? be checked( and disabled)?$/ do |lab
   expectation = negate ? :not_to : :to
 
   patiently do
-    field = if Capybara::VERSION < "2.1"
+    field = if Spreewald::Comparison.compare_versions(Capybara::VERSION, :<, "2.1")
       find_field(label)
     else
       find_field(label, :disabled => !!disabled)
@@ -484,7 +485,7 @@ end.overridable
 
 # Checks for the presence of an option in a select
 Then /^"([^"]*)" should( not)? be an option for "([^"]*)"$/ do |value, negate, field|
-  finder_arguments = if Capybara::VERSION < "2.12"
+  finder_arguments = if Spreewald::Comparison.compare_versions(Capybara::VERSION, :<, "2.12")
     ['option', { :text => value }]
   else
     ['option', { :exact_text => value }]
@@ -664,7 +665,7 @@ end.overridable
 
 # Tests that an input, button or checkbox with the given label is disabled.
 Then /^the "([^\"]*)" (field|button|checkbox) should( not)? be disabled$/ do |label, kind, negate|
-  if Gem::Version.new(Capybara::VERSION) < Gem::Version.new("2.1")
+  if Spreewald::Comparison.compare_versions(Capybara::VERSION, :<, "2.1")
     if kind == 'field' || kind == 'checkbox'
       element = find_field(label)
     else
@@ -683,7 +684,7 @@ end.overridable
 
 # Tests that a field with the given label is visible.
 Then /^the "([^\"]*)" field should( not)? be visible$/ do |label, hidden|
-  if Capybara::VERSION < "2.1"
+  if Spreewald::Comparison.compare_versions(Capybara::VERSION, :<, "2.1")
     field = find_field(label)
   else
     # Capybara 2.1+ won't usually interact with hidden elements,
