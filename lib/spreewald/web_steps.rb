@@ -444,10 +444,10 @@ end.overridable
 
 # Open the current Capybara page using the `launchy` or `capybara_screenshot` gem
 Then /^show me the page$/ do
-  if defined? Launchy
-    save_and_open_page
-  elsif defined? Capybara::Screenshot
+  if defined? Capybara::Screenshot
     screenshot_and_save_page
+  elsif defined? Launchy
+    save_and_open_page
   else
     raise 'Neither launchy nor capybara_screenshot gem is installed. You have to add at least one of them to your Gemfile to use this step'
   end
