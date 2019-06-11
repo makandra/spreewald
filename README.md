@@ -390,6 +390,81 @@ deprecation notice. Decide for yourself whether you want to use them:
 * **Then I should not see /.../**
 
 
+* **Then I should( not)? see a field "..."**
+
+  Checks for the existance of an input field (given its id or label)
+
+
+* **Then I should( not)? see the (number|amount) ([\-\d,\.]+)( ...)?**
+
+  Use this step to test for a number or money amount instead of a simple `Then I should see`
+  
+  Checks for an unexpected minus sign, correct decimal places etc.
+  
+  See [here](https://makandracards.com/makandra/1225-test-that-a-number-or-money-amount-is-shown-with-cucumber) for details
+
+
+* **Then I should see '...'**
+
+  Like `Then I should see`, but with single instead of double quotes. In case
+  the expected string contains quotes as well.
+
+
+* **Then I should see "..." in the HTML**
+
+  Check that the raw HTML contains a string
+
+
+* **Then I should not see "..." in the HTML**
+
+
+* **Then I should see an error**
+
+  Checks that status code is 400..599
+
+
+* **Then I should (not )?see (an|the) element "..."**
+
+  Check that an element with the given selector is present on the page.
+  
+  Example:
+  
+      Then I should see an element ".panel"
+      Then I should see the element ".panel"
+      Then I should not see an element ".sidebar"
+      Then I should not see the element ".sidebar"
+
+
+* **Then I should (not )?see (an|the) element for ...**
+
+  Check that an element with the given [selector alias](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb) is present on the page.
+  
+  Example:
+  
+      Then I should see an element for the panel
+      Then I should see the element for the panel
+      Then I should not see an element for the sidebar
+      Then I should not see the element for the sidebar
+
+
+* **Then I should see in this order:?**
+
+  Checks that these strings are rendered in the given order in a single line or in multiple lines
+  
+  Example:
+  
+      Then I should see in this order:
+        | Alpha Group |
+        | Augsburg    |
+        | Berlin      |
+        | Beta Group  |
+
+
+* **Then I should( not)? see a link labeled "..."**
+
+  Checks that the page contains a link with a given text or title attribute.
+
+
 * **Then the "..." field should (not )?contain "..."**
 
   Checks that an input field contains some value (allowing * as wildcard character)
@@ -444,20 +519,6 @@ deprecation notice. Decide for yourself whether you want to use them:
   Open the current Capybara page using the `launchy` or `capybara_screenshot` gem
 
 
-* **Then I should( not)? see a field "..."**
-
-  Checks for the existance of an input field (given its id or label)
-
-
-* **Then I should( not)? see the (number|amount) ([\-\d,\.]+)( ...)?**
-
-  Use this step to test for a number or money amount instead of a simple `Then I should see`
-  
-  Checks for an unexpected minus sign, correct decimal places etc.
-  
-  See [here](https://makandracards.com/makandra/1225-test-that-a-number-or-money-amount-is-shown-with-cucumber) for details
-
-
 * **Then I should get a response with content-type "..."**
 
   Checks `Content-Type` HTTP header
@@ -481,25 +542,6 @@ deprecation notice. Decide for yourself whether you want to use them:
 * **Then "..." should( not)? be an option for "..."**
 
   Checks for the presence of an option in a select
-
-
-* **Then I should see '...'**
-
-  Like `Then I should see`, but with single instead of double quotes. In case
-  the expected string contains quotes as well.
-
-
-* **Then I should see "..." in the HTML**
-
-  Check that the raw HTML contains a string
-
-
-* **Then I should not see "..." in the HTML**
-
-
-* **Then I should see an error**
-
-  Checks that status code is 400..599
 
 
 * **Then the window should be titled "..."**
@@ -568,30 +610,6 @@ deprecation notice. Decide for yourself whether you want to use them:
          got: "http://makandra.com/" (using =~)
 
 
-* **Then I should (not )?see (an|the) element "..."**
-
-  Check that an element with the given selector is present on the page.
-  
-  Example:
-  
-      Then I should see an element ".panel"
-      Then I should see the element ".panel"
-      Then I should not see an element ".sidebar"
-      Then I should not see the element ".sidebar"
-
-
-* **Then I should (not )?see (an|the) element for ...**
-
-  Check that an element with the given [selector alias](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb) is present on the page.
-  
-  Example:
-  
-      Then I should see an element for the panel
-      Then I should see the element for the panel
-      Then I should not see an element for the sidebar
-      Then I should not see the element for the sidebar
-
-
 * **Then I should get a text response**
 
   Checks that the result has content type `text/plain`
@@ -623,19 +641,6 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 
 * **When I switch to the new tab**
-
-
-* **Then I should see in this order:?**
-
-  Checks that these strings are rendered in the given order in a single line or in multiple lines
-  
-  Example:
-  
-      Then I should see in this order:
-        | Alpha Group |
-        | Augsburg    |
-        | Berlin      |
-        | Beta Group  |
 
 
 * **Then the "..." (field|button|checkbox) should( not)? be disabled**

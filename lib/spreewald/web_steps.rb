@@ -195,6 +195,123 @@ Then /^(?:|I )should not see \/(.*)\/$/ do |regexp|
   end
 end.overridable
 
+# Checks for the existance of an input field (given its id or label)
+Then /^I should( not)? see a field "([^"]*)"$/ do |negate, name|
+  expectation = negate ? :not_to : :to
+  patiently do
+    begin
+      # In old Capybaras find_field returns nil, so we assign it to `field`
+      field = find_field(name)
+    rescue Capybara::ElementNotFound
+      # In Capybara 0.4+ #find_field raises an error instead of returning nil
+      # We must explicitely reset the field variable from a previous patiently iteration
+      field = nil
+    end
+    expect(field).send(expectation, be_present)
+  end
+end.overridable
+
+# Use this step to test for a number or money amount instead of a simple `Then I should see`
+#
+# Checks for an unexpected minus sign, correct decimal places etc.
+#
+# See [here](https://makandracards.com/makandra/1225-test-that-a-number-or-money-amount-is-shown-with-cucumber) for details
+Then /^I should( not)? see the (?:number|amount) ([\-\d,\.]+)(?: (.*?))?$/ do |negate, amount, unit|
+  no_minus = amount.starts_with?('-') ? '' : '[^\\-]'
+  nbsp = " "
+  regexp = Regexp.new(no_minus + "\\b" + Regexp.quote(amount) + (unit ? "( |#{nbsp}|&nbsp;)(#{unit}|#{Regexp.quote(HTMLEntities.new.encode(unit, :named))})" :"\\b"))
+  expectation = negate ? :not_to : :to
+  patiently do
+    expect(page.body).send(expectation, match(regexp))
+  end
+end.overridable
+
+# Like `Then I should see`, but with single instead of double quotes. In case
+# the expected string contains quotes as well.
+Then /^(?:|I )should see '([^']*)'$/ do |text|
+  patiently do
+    expect(page).to have_content(text)
+  end
+end.overridable
+
+# Check that the raw HTML contains a string
+Then /^I should see "([^\"]*)" in the HTML$/ do |text|
+  patiently do
+    expect(page.body).to include(text)
+  end
+end.overridable
+
+Then /^I should not see "([^\"]*)" in the HTML$/ do |text|
+  patiently do
+    expect(page.body).not_to include(text)
+  end
+end.overridable
+
+# Checks that status code is 400..599
+Then /^I should see an error$/ do
+  expect((400 .. 599)).to include(page.status_code)
+end.overridable
+
+# Check that an element with the given selector is present on the page.
+#
+# Example:
+#
+#     Then I should see an element ".panel"
+#     Then I should see the element ".panel"
+#     Then I should not see an element ".sidebar"
+#     Then I should not see the element ".sidebar"
+Then /^I should (not )?see (?:an|the) element "([^"]+)"$/ do |negate, selector|
+  expectation = negate ? :not_to : :to
+  patiently do
+    expect(page).send(expectation, have_css(selector))
+  end
+end.overridable
+
+# Check that an element with the given [selector alias](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb) is present on the page.
+#
+# Example:
+#
+#     Then I should see an element for the panel
+#     Then I should see the element for the panel
+#     Then I should not see an element for the sidebar
+#     Then I should not see the element for the sidebar
+Then /^I should (not )?see (?:an|the) element for (.*?)$/ do |negate, locator|
+  expectation = negate ? :not_to : :to
+  selector = _selector_for(locator)
+  patiently do
+    expect(page).send(expectation, have_selector(*selector))
+  end
+end.overridable(:priority => -5) # priority must be lower than the "within" step
+
+# Checks that these strings are rendered in the given order in a single line or in multiple lines
+#
+# Example:
+#
+#     Then I should see in this order:
+#       | Alpha Group |
+#       | Augsburg    |
+#       | Berlin      |
+#       | Beta Group  |
+Then /^I should see in this order:?$/ do |text|
+  if text.is_a?(String)
+    lines = text.split(/\n/)
+  else
+    lines = text.raw.flatten
+  end
+  lines = lines.collect { |line| line.gsub(/\s+/, ' ')}.collect(&:strip).reject(&:blank?)
+  pattern = lines.collect(&Regexp.method(:quote)).join('.*?')
+  pattern = Regexp.compile(pattern)
+  patiently do
+    expect(page.text.gsub(/\s+/, ' ')).to match(pattern)
+  end
+end.overridable
+
+# Checks that the page contains a link with a given text or title attribute.
+Then /^I should( not)? see a link labeled "([^"]*)"$/ do |negate, label|
+  expectation = negate ? :not_to : :to
+  link = page.first('a', :text => label, minimum: 0) || page.first(%(a[title="#{label}"]), minimum: 0)
+  expect(link).send(expectation, be_present)
+end
 
 # Checks that an input field contains some value (allowing * as wildcard character)
 Then /^the "([^"]*)" field should (not )?contain "([^"]*)"$/ do |label, negate, expected_string|
@@ -326,38 +443,6 @@ Then /^show me the page$/ do
 end.overridable
 
 
-# Checks for the existance of an input field (given its id or label)
-Then /^I should( not)? see a field "([^"]*)"$/ do |negate, name|
-  expectation = negate ? :not_to : :to
-  patiently do
-    begin
-      # In old Capybaras find_field returns nil, so we assign it to `field`
-      field = find_field(name)
-    rescue Capybara::ElementNotFound
-      # In Capybara 0.4+ #find_field raises an error instead of returning nil
-      # We must explicitely reset the field variable from a previous patiently iteration
-      field = nil
-    end
-    expect(field).send(expectation, be_present)
-  end
-end.overridable
-
-
-# Use this step to test for a number or money amount instead of a simple `Then I should see`
-#
-# Checks for an unexpected minus sign, correct decimal places etc.
-#
-# See [here](https://makandracards.com/makandra/1225-test-that-a-number-or-money-amount-is-shown-with-cucumber) for details
-Then /^I should( not)? see the (?:number|amount) ([\-\d,\.]+)(?: (.*?))?$/ do |negate, amount, unit|
-  no_minus = amount.starts_with?('-') ? '' : '[^\\-]'
-  nbsp = " "
-  regexp = Regexp.new(no_minus + "\\b" + Regexp.quote(amount) + (unit ? "( |#{nbsp}|&nbsp;)(#{unit}|#{Regexp.quote(HTMLEntities.new.encode(unit, :named))})" :"\\b"))
-  expectation = negate ? :not_to : :to
-  patiently do
-    expect(page.body).send(expectation, match(regexp))
-  end
-end.overridable
-
 # Checks `Content-Type` HTTP header
 Then /^I should get a response with content-type "([^\"]*)"$/ do |expected_content_type|
   expect(page.response_headers['Content-Type']).to match /\A#{Regexp.quote(expected_content_type)}($|;)/
@@ -404,32 +489,6 @@ Then /^"([^"]*)" should( not)? be an option for "([^"]*)"$/ do |value, negate, f
       expect(find_field(field)).to have_css(*finder_arguments)
     end
   end
-end.overridable
-
-# Like `Then I should see`, but with single instead of double quotes. In case
-# the expected string contains quotes as well.
-Then /^(?:|I )should see '([^']*)'$/ do |text|
-  patiently do
-    expect(page).to have_content(text)
-  end
-end.overridable
-
-# Check that the raw HTML contains a string
-Then /^I should see "([^\"]*)" in the HTML$/ do |text|
-  patiently do
-    expect(page.body).to include(text)
-  end
-end.overridable
-
-Then /^I should not see "([^\"]*)" in the HTML$/ do |text|
-  patiently do
-    expect(page.body).not_to include(text)
-  end
-end.overridable
-
-# Checks that status code is 400..599
-Then /^I should see an error$/ do
-  expect((400 .. 599)).to include(page.status_code)
 end.overridable
 
 Then /^the window should be titled "([^"]*)"$/ do |title|
@@ -531,38 +590,6 @@ Then /^"([^"]*)" should link to "([^"]*)"$/ do |link_label, target|
   end
 end.overridable
 
-# Check that an element with the given selector is present on the page.
-#
-# Example:
-#
-#     Then I should see an element ".panel"
-#     Then I should see the element ".panel"
-#     Then I should not see an element ".sidebar"
-#     Then I should not see the element ".sidebar"
-Then /^I should (not )?see (?:an|the) element "([^"]+)"$/ do |negate, selector|
-  expectation = negate ? :not_to : :to
-  patiently do
-    expect(page).send(expectation, have_css(selector))
-  end
-end.overridable
-
-# Check that an element with the given [selector alias](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb) is present on the page.
-#
-# Example:
-#
-#     Then I should see an element for the panel
-#     Then I should see the element for the panel
-#     Then I should not see an element for the sidebar
-#     Then I should not see the element for the sidebar
-Then /^I should (not )?see (?:an|the) element for (.*?)$/ do |negate, locator|
-  expectation = negate ? :not_to : :to
-  selector = _selector_for(locator)
-  patiently do
-    expect(page).send(expectation, have_selector(*selector))
-  end
-end.overridable(:priority => -5) # priority must be lower than the "within" step
-
-
 # Checks that the result has content type `text/plain`
 Then /^I should get a text response$/ do
   step 'I should get a response with content-type "text/plain"'
@@ -622,29 +649,6 @@ When /^I switch to the new tab$/ do
     page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
   else
     raise("This step works only with selenium")
-  end
-end.overridable
-
-# Checks that these strings are rendered in the given order in a single line or in multiple lines
-#
-# Example:
-#
-#     Then I should see in this order:
-#       | Alpha Group |
-#       | Augsburg    |
-#       | Berlin      |
-#       | Beta Group  |
-Then /^I should see in this order:?$/ do |text|
-  if text.is_a?(String)
-    lines = text.split(/\n/)
-  else
-    lines = text.raw.flatten
-  end
-  lines = lines.collect { |line| line.gsub(/\s+/, ' ')}.collect(&:strip).reject(&:blank?)
-  pattern = lines.collect(&Regexp.method(:quote)).join('.*?')
-  pattern = Regexp.compile(pattern)
-  patiently do
-    expect(page.text.gsub(/\s+/, ' ')).to match(pattern)
   end
 end.overridable
 

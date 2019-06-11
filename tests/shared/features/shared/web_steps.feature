@@ -244,3 +244,12 @@ Feature: Web steps
   Scenario: /^I should get a download with filename "([^\"]*)"$/
     When I go to "/downloads/spreadsheet"
     Then I should get a download with filename "test.ods"
+
+
+  Scenario: /^I should( not)? see a link labeled "([^"]*)"$/
+    When I am on "/static_pages/links"
+    Then I should see a link labeled "First visible link"
+      And I should see a link labeled "First visible link" within ".nested-link"
+      And I should see a link labeled "Also matches via the title attribute"
+    But I should not see a link labeled "Nonexistent Link"
+      And I should not see a link labeled "First visible link" within ".unrelated-element"
