@@ -83,6 +83,17 @@ More info [here](https://makandracards.com/makandra/12139-waiting-for-page-load-
 Thanks to [cucumber_priority](https://github.com/makandra/cucumber_priority) you can override any step definition from Spreewald with your own pattern. Cucumber will not raise `Cucumber::Ambiguous` if your custom steps collide with a Spreewald step.
 
 
+## A note on Capybara 3
+
+If you are upgrading from Capybara 2 to Capybara 3, you might [see failing tests](https://github.com/makandra/spreewald/issues/95) with Spreewald steps like `I should see`. This is caused by a breaking change in [Capybara's Finders](https://www.rubydoc.info/github/jnicklas/capybara/Capybara/Node/Finders) that accept a `:text` option. To activate Capybara 2 behavior globally in your project, enable this flag:
+
+```ruby
+Capybara.default_normalize_ws = true
+````
+
+This will affect all Spreewald steps that are using Capybara's `:text` option.
+
+
 ## Contributing
 
 ### Testing
