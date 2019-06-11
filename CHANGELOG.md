@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.2.0
+- Add a new step `I should( not)? see a link labeled "STRING"`.
+- Refer to Capybara 3's new flag `Capybara.default_normalize_ws = true` in the READNE,
+
 ## 2.1.3
 The `I should(not )? see /REGEXP/` step no longer refuses slashes as part of the regular expression. You can thus match full domains and more.
 
