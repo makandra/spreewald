@@ -253,3 +253,18 @@ Feature: Web steps
       And I should see a link labeled "Also matches via the title attribute"
     But I should not see a link labeled "Nonexistent Link"
       And I should not see a link labeled "First visible link" within ".unrelated-element"
+
+
+  Scenario: /^I should( not)? see the (?:number|amount) ([\-\d,\.]+)(?: (.*?))?$/
+    When I am on "/static_pages/numbers"
+    Then I should see the number 1
+      And I should see the number 2.3
+      And I should see the number 4,5
+      And I should see the amount -60,72 €
+      And I should see the amount 13 €
+      And I should see the amount -10,000.99 EUR within ".nested-number"
+    But I should not see the number 2,3
+      And I should not see the number 4.5
+      And I should not see the number 60,72
+      And I should not see the amount -60,7 €
+      And I should not see the amount -10,000.99 EUR within ".unrelated-element"
