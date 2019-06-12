@@ -217,14 +217,24 @@ end.overridable
 #
 # See [here](https://makandracards.com/makandra/1225-test-that-a-number-or-money-amount-is-shown-with-cucumber) for details
 Then /^I should( not)? see the (?:number|amount) ([\-\d,\.]+)(?: (.*?))?$/ do |negate, amount, unit|
-  no_minus = amount.starts_with?('-') ? '' : '[^\\-]'
-  nbsp = " "
-  regexp = Regexp.new(no_minus + "\\b" + Regexp.quote(amount) + (unit ? "( |#{nbsp}|&nbsp;)(#{unit}|#{Regexp.quote(HTMLEntities.new.encode(unit, :named))})" :"\\b"))
-  expectation = negate ? :not_to : :to
-  patiently do
-    expect(page.body).send(expectation, match(regexp))
+  expect_to_match = negate ? :not_to : :to
+  is_negative = amount.start_with?('-')
+  absolute_amount = amount.clone.tap {|a| a.gsub!(/^-/, '') }
+  expect_minus = is_negative ? '-' : '(?:[^\\-]|^)'
+  word_boundary = '\b'
+  unit_or_boundary = if unit
+    nbsp = " "
+    "( |#{nbsp})(#{unit})"
+  else
+    word_boundary
   end
-end.overridable
+
+  regexp = Regexp.new(expect_minus + word_boundary + Regexp.quote(absolute_amount) + unit_or_boundary)
+
+  patiently do
+    expect(page.text).send(expect_to_match, match(regexp))
+  end
+end.overridable(priority: -5) # priority lower than within
 
 # Like `Then I should see`, but with single instead of double quotes. In case
 # the expected string contains quotes as well.
