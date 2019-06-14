@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.2.1
+- Refactor the `I should see the (number|amount)` step. (see issues [#43](https://github.com/makandra/spreewald/issues/43) and [#44](https://github.com/makandra/spreewald/issues/44))
+    * It can now be composed with the 'within' step
+    * It can now truly match negative numbers
+    * It dropped the hidden dependency on the HTMLEntities gem
+* Fix URLs to the GitHub repository of Spreewald as part of the `_path_to` and `_selector_for` error handling. (see issue [#82](https://github.com/makandra/spreewald/issues/82)) 
+
 ## 2.2.0
 - Add a new step `I should( not)? see a link labeled "STRING"`.
 - Refer to Capybara 3's new flag `Capybara.default_normalize_ws = true` in the READNE,
