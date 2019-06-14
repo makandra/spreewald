@@ -219,7 +219,7 @@ end.overridable
 Then /^I should( not)? see the (?:number|amount) ([\-\d,\.]+)(?: (.*?))?$/ do |negate, amount, unit|
   expect_to_match = negate ? :not_to : :to
   is_negative = amount.start_with?('-')
-  absolute_amount = amount.clone.tap {|a| a.gsub!(/^-/, '') }
+  absolute_amount = amount.gsub(/^-/, '')
   expect_minus = is_negative ? '-' : '(?:[^\\-]|^)'
   word_boundary = '\b'
   unit_or_boundary = if unit
