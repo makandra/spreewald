@@ -1,0 +1,53 @@
+-# buttons
+%button(disabled='disabled')
+  Disabled button #1
+
+%button(disabled=true)
+  Disabled button #2
+
+%button(disabled='')
+  Disabled button #3
+
+%button(disabled='aaa')
+  Disabled button #4
+
+%button(disabled=false)
+  Enabled button #1
+
+%button
+  Enabled button #2
+
+-# checkboxes
+= form_tag do
+  - checked = false
+  = label_tag 'disabled_name_1', 'Disabled checkbox #1'
+  = check_box_tag 'disabled_name_1', 'value', checked, disabled: true
+
+  = label_tag 'disabled_name_2', 'Disabled checkbox #2'
+  = check_box_tag 'disabled_name_2', 'value', checked, disabled: ''
+
+  = label_tag 'disabled_name_3', 'Disabled checkbox #3'
+  = check_box_tag 'disabled_name_3', 'value', checked, disabled: 'aaa'
+
+  = label_tag 'enabled_name_1', 'Enabled checkbox #1'
+  = check_box_tag 'enabled_name_1', 'value', checked, disabled: false
+
+  = label_tag 'enabled_name_2', 'Enabled checkbox #2'
+  = check_box_tag 'enabled_name_2', 'value', checked
+
+-# fields
+= form_tag do
+  = label_tag 'disabled_field_1', 'Disabled field #1'
+  = text_field_tag 'disabled_field_1', 'value', disabled: true
+
+  = label_tag 'disabled_field_2', 'Disabled field #2'
+  = text_field_tag 'disabled_field_2', 'value', disabled: ''
+
+  = label_tag 'disabled_field_3', 'Disabled field #3'
+  = text_field_tag 'disabled_field_3', 'value', disabled: 'aaa'
+
+  = label_tag 'enabled_field_1', 'Enabled field #1'
+  = text_field_tag 'enabled_field_1', 'value', disabled: false
+
+  = label_tag 'enabled_field_2', 'Enabled field #2'
+  = text_field_tag 'enabled_field_2', 'value'

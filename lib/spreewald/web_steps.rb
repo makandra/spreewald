@@ -662,18 +662,23 @@ When /^I switch to the new tab$/ do
   end
 end.overridable
 
-# Tests that an input or button with the given label is disabled.
+# Tests that an input, button or checkbox with the given label is disabled.
 Then /^the "([^\"]*)" (field|button|checkbox) should( not)? be disabled$/ do |label, kind, negate|
-  if kind == 'field' || kind == 'checkbox'
-    if Capybara::VERSION < "2.1"
-      element = find_field(label, :disabled => !negate)
+  if Gem::Version.new(Capybara::VERSION) < Gem::Version.new("2.1")
+    if kind == 'field' || kind == 'checkbox'
+      element = find_field(label)
     else
-      element = find_field(label, :disabled => !negate)
+      element = find_button(label)
     end
+    expect(element[:disabled]).send(negate ? :to : :not_to, eq(nil))
   else
-    element = find_button(label)
+    if kind == 'field' || kind == 'checkbox'
+      element = find_field(label, disabled: !negate)
+    else
+      element = find_button(label, disabled: !negate)
+    end
+    expect(element).to be_present
   end
-  expect(["false", "", nil]).send(negate ? :not_to : :to, include(element[:disabled]))
 end.overridable
 
 # Tests that a field with the given label is visible.

@@ -268,3 +268,28 @@ Feature: Web steps
       And I should not see the number 60,72
       And I should not see the amount -60,7 €
       And I should not see the amount -10,000.99 EUR within ".unrelated-element"
+
+
+  Scenario: /^the "([^\"]*)" button should( not)? be disabled$/
+    When I go to "/forms/disabled_elements"
+    # buttons
+    Then the "Disabled button #1" button should be disabled
+      And the "Disabled button #2" button should be disabled
+      And the "Disabled button #3" button should be disabled
+      And the "Disabled button #4" button should be disabled
+    But the "Enabled button #1" button should not be disabled
+      And the "Enabled button #2" button should not be disabled
+
+      # checkboxes
+      And the "Disabled checkbox #1" checkbox should be disabled
+      And the "Disabled checkbox #2" checkbox should be disabled
+      And the "Disabled checkbox #3" checkbox should be disabled
+    But the "Enabled checkbox #1" checkbox should not be disabled
+      And the "Enabled checkbox #2" checkbox should not be disabled
+
+      # fields
+      And the "Disabled field #1" field should be disabled
+      And the "Disabled field #2" field should be disabled
+      And the "Disabled field #3" field should be disabled
+    But the "Enabled field #1" field should not be disabled
+      And the "Enabled field #2" field should not be disabled
