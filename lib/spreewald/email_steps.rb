@@ -93,8 +93,6 @@ Then /^show me the e?mails$/ do
   end
 end.overridable
 
-# Only works after you've retrieved the email using "Then an email should have been sent with:"
-#
 # Example:
 #
 #     And that mail should have the following lines in the body:
@@ -104,15 +102,16 @@ end.overridable
 #       """
 Then /^that e?mail should( not)? have the following lines in the body:$/ do |negate, body|
   expectation = negate ? 'not_to' : 'to'
-  email_text_body = MailFinder.email_text_body(@mail)
+  mail = @mail || ActionMailer::Base.deliveries.last
+  email_text_body = MailFinder.email_text_body(mail)
 
   body.to_s.strip.split(/\n/).each do |line|
     expect(email_text_body).send(expectation, include(line.strip))
   end
 end.overridable
 
-# Only works after you've retrieved the email using "Then an email should have been sent with:"
 # Checks that the text should be included in the retrieved email
 Then /^that e?mail should have the following body:$/ do |body|
-  expect(MailFinder.email_text_body(@mail)).to include(body.strip)
+  mail = @mail || ActionMailer::Base.deliveries.last
+  expect(MailFinder.email_text_body(mail)).to include(body.strip)
 end.overridable

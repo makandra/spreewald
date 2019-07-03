@@ -170,10 +170,6 @@ Feature: Test Spreewald's email steps
 
   Scenario: /^that e?mail should have the following lines in the body:$/
     When I go to "/emails/send_email"
-    Then an email should have been sent with:
-      """
-      From: from@example.com
-      """
 
     # Test with correct body lines
     Then the following multiline step should succeed:
@@ -198,10 +194,6 @@ Feature: Test Spreewald's email steps
 
   Scenario: /^that e?mail should have the following body:$/
     When I go to "/emails/send_email"
-    Then an email should have been sent with:
-      """
-      From: from@example.com
-      """
 
       # Test with correct body lines
     Then the following multiline step should succeed:

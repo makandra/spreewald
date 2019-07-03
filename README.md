@@ -195,8 +195,6 @@ the step definitions.
 
 * **Then that e?mail should( not)? have the following lines in the body:**
 
-  Only works after you've retrieved the email using "Then an email should have been sent with:"
-  
   Example:
   
       And that mail should have the following lines in the body:
@@ -208,7 +206,6 @@ the step definitions.
 
 * **Then that e?mail should have the following body:**
 
-  Only works after you've retrieved the email using "Then an email should have been sent with:"
   Checks that the text should be included in the retrieved email
 
 
