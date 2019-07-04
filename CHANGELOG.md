@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.2.2
+- Fix `Then the "something" button should be disabled` (see issue [#18](https://github.com/makandra/spreewald/issues/18))
+- Improve documentation of emails steps
+- Clarify step definition of `that e?mail should have the following (?:|content in the )body:`
+
 ## 2.2.1
 - Refactor the `I should see the (number|amount)` step. (see issues [#43](https://github.com/makandra/spreewald/issues/43) and [#44](https://github.com/makandra/spreewald/issues/44))
     * It can now be composed with the 'within' step
