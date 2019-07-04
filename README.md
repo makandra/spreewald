@@ -171,8 +171,9 @@ the step definitions.
         Message body goes here.
         """
   
-  You can skip lines, of course. Note that the mail body is only checked for
-  _inclusion_.
+  You can skip lines in the header, of course. Note that the mail body is only checked for
+  _inclusion_. That means you can only test a prefix of the body. The subject can also be
+  a prefix.
 
 
 * **When I follow the (first|second|third)? link in the e?mail**
@@ -202,9 +203,11 @@ the step definitions.
         All of these lines
         need to be present
         """
+  
+  You can skip lines, of course. Note that the lines are only checked for _inclusion_.
 
 
-* **Then that e?mail should have the following body:**
+* **Then that e?mail should have the following( content in the)? body:**
 
   Checks that the text should be included in the retrieved email
 

@@ -192,13 +192,13 @@ Feature: Test Spreewald's email steps
       """
 
 
-  Scenario: /^that e?mail should have the following body:$/
+  Scenario: /^that e?mail should have the following( content in the)? body$/
     When I go to "/emails/send_email"
 
       # Test with correct body lines
     Then the following multiline step should succeed:
       """
-      Then that email should have the following body:
+      Then that email should have the following content in the body:
         '''
         with
         line
