@@ -23,8 +23,8 @@ end.overridable
 #       Message body goes here.
 #       """
 #
-# You can skip lines in the header, of course. Note that the mail body is only checked for
-# _inclusion_. That means you can only test a prefix of the body. The subject can also be
+# You may skip lines in the header, of course. Note that the mail body is only checked for
+# _inclusion_. That means you can only test a prefix of the body. The subject may also be
 # a prefix.
 Then /^(an|no) e?mail should have been sent with:$/ do |mode, raw_data|
   patiently do
@@ -61,7 +61,6 @@ Then /^(an|no) e?mail should have been sent((?: |and|with|from "[^"]+"|bcc "[^"]
   end
 end.overridable
 
-# Only works after you have retrieved the mail using "Then an email should have been sent with:"
 When /^I follow the (first|second|third)? ?link in the e?mail$/ do |index_in_words|
   mail = @mail || ActionMailer::Base.deliveries.last
   index = { nil => 0, 'first' => 0, 'second' => 1, 'third' => 2 }[index_in_words]
@@ -102,7 +101,7 @@ end.overridable
 #       need to be present
 #       """
 #
-# You can skip lines, of course. Note that the lines are only checked for _inclusion_.
+# You may skip lines, of course. Note that you may also omit text at the end of each line.
 Then /^that e?mail should( not)? have the following lines in the body:$/ do |negate, body|
   expectation = negate ? 'not_to' : 'to'
   mail = @mail || ActionMailer::Base.deliveries.last
@@ -113,7 +112,7 @@ Then /^that e?mail should( not)? have the following lines in the body:$/ do |neg
   end
 end.overridable
 
-# Checks that the text should be included in the retrieved email
+# Checks that the text should be included anywhere in the retrieved email body
 Then /^that e?mail should have the following (?:|content in the )body:$/ do |body|
   mail = @mail || ActionMailer::Base.deliveries.last
   expect(MailFinder.email_text_body(mail)).to include(body.strip)

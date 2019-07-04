@@ -171,14 +171,12 @@ the step definitions.
         Message body goes here.
         """
   
-  You can skip lines in the header, of course. Note that the mail body is only checked for
-  _inclusion_. That means you can only test a prefix of the body. The subject can also be
+  You may skip lines in the header, of course. Note that the mail body is only checked for
+  _inclusion_. That means you can only test a prefix of the body. The subject may also be
   a prefix.
 
 
 * **When I follow the (first|second|third)? link in the e?mail**
-
-  Only works after you have retrieved the mail using "Then an email should have been sent with:"
 
 
 * **Then no e?mail should have been sent**
@@ -204,12 +202,12 @@ the step definitions.
         need to be present
         """
   
-  You can skip lines, of course. Note that the lines are only checked for _inclusion_.
+  You may skip lines, of course. Note that you may also omit text at the end of each line.
 
 
 * **Then that e?mail should have the following (|content in the )body:**
 
-  Checks that the text should be included in the retrieved email
+  Checks that the text should be included anywhere in the retrieved email body
 
 
 ### file_attachment_steps.rb 
