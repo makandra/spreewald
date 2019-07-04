@@ -207,7 +207,7 @@ the step definitions.
   You can skip lines, of course. Note that the lines are only checked for _inclusion_.
 
 
-* **Then that e?mail should have the following( content in the)? body:**
+* **Then that e?mail should have the following (|content in the )body:**
 
   Checks that the text should be included in the retrieved email
 

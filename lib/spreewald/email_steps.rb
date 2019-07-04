@@ -114,7 +114,7 @@ Then /^that e?mail should( not)? have the following lines in the body:$/ do |neg
 end.overridable
 
 # Checks that the text should be included in the retrieved email
-Then /^that e?mail should have the following( content in the)? body:$/ do |_mode, body|
+Then /^that e?mail should have the following (?:|content in the )body:$/ do |body|
   mail = @mail || ActionMailer::Base.deliveries.last
   expect(MailFinder.email_text_body(mail)).to include(body.strip)
 end.overridable
