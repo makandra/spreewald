@@ -656,7 +656,7 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 * **Then the "..." (field|button|checkbox) should( not)? be disabled**
 
-  Tests that an input or button with the given label is disabled.
+  Tests that an input, button or checkbox with the given label is disabled.
 
 
 * **Then the "..." field should( not)? be visible**
