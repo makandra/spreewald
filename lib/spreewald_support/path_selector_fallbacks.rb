@@ -8,7 +8,7 @@ module PathSelectorFallbacks
       $1
     else
       raise "Can't find mapping from \"#{locator}\" to a selector.\n" +
-        "Add and require a selectors.rb file (compare #{Spreewald.github_url}/blob/master/examples/selectors.rb)"
+        "Add a selectors.rb file (compare #{Spreewald.github_url}/blob/master/examples/selectors.rb)"
     end
   end
 
@@ -22,7 +22,7 @@ module PathSelectorFallbacks
         self.send(path_components.push('path').join('_').to_sym)
       rescue NoMethodError, ArgumentError
         raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
-          "Add and require a paths.rb file (compare #{Spreewald.github_url}/blob/master/examples/paths.rb)"
+          "Add a paths.rb file (compare #{Spreewald.github_url}/blob/master/examples/paths.rb)"
       end
     end
   end
