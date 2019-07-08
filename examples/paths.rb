@@ -1,4 +1,4 @@
-# Put this into features/support and require it in your env.rb
+# Put this into features/support
 #
 module NavigationHelpers
   # Maps a name to a path. Used by the

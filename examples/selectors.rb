@@ -1,4 +1,4 @@
-# Put this into features/support and require it in your env.rb
+# Put this into features/support
 module HtmlSelectorsHelpers
   # Maps a name to a selector. Used primarily by the
   #
