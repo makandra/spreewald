@@ -293,3 +293,8 @@ Feature: Web steps
       And the "Disabled field #3" field should be disabled
     But the "Enabled field #1" field should not be disabled
       And the "Enabled field #2" field should not be disabled
+
+
+  Scenario: /^the window should be titled "([^"]*)"$/
+    When I go to "/static_pages/home"
+    Then the window should be titled "spreewald test application"
