@@ -504,7 +504,7 @@ end.overridable
 
 Then /^the window should be titled "([^"]*)"$/ do |title|
   patiently do
-    expect(pag).to have_css('title', :text => title)
+    expect(page).to have_css('title', :text => title)
   end
 end.overridable
 
