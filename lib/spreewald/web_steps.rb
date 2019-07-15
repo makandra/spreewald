@@ -504,7 +504,11 @@ end.overridable
 
 Then /^the window should be titled "([^"]*)"$/ do |title|
   patiently do
-    expect(page).to have_css('title', :text => title)
+    if Spreewald::Comparison.compare_versions(Capybara::VERSION, :<, "2.1")
+      expect(page).to have_selector("title", :content => title)
+    else
+      expect(page).to have_title(title)
+    end
   end
 end.overridable
 
