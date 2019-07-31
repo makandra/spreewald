@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.2.4
+- Fix "..." field should have the error "..." test by removing old should syntax
+- Add single-line mail step to READNE
+
 ## 2.2.3
 - Fix 'the window should be titled' step - closes: [#102](https://github.com/makandra/spreewald/issues/102)
 - Support old capybara_screenshot versions which require launchy gem
