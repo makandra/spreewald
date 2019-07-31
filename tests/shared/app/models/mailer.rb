@@ -10,7 +10,7 @@ class Mailer < ActionMailer::Base
   if Rails.version >= "3"
 
     def email
-      attachments['attached_file.pdf'] = File.open("../../tmp/attachment.pdf", "w") {}
+      attachments['attached_file.pdf'] = File.open("#{Rails.root}/public/fixture_files/attachment.pdf", "w") {}
       mail(
         :from => FROM,
         :reply_to => REPLY_TO,
@@ -24,7 +24,7 @@ class Mailer < ActionMailer::Base
   else
 
     def email
-      attachments['attached_file.pdf'] = File.open("../../tmp/attachment.pdf", "w") {}
+      attachments['attached_file.pdf'] = File.open("#{Rails.root}/public/fixture_files/attachment.pdf", "w") {}
       recipients TO
       reply_to REPLY_TO
       from FROM
