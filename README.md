@@ -176,6 +176,15 @@ the step definitions.
   a prefix.
 
 
+* **Then (an|no) e?mail should have been sent(( |and|with|from "..."|bcc "..."|cc "..."|to "..."|the subject "..."|the body "..."|the attachments "...")+)**
+
+  Example:
+  
+      Then an email should have been sent from "max.mustermann@example.com" to "john.doe@example.com" with bcc "john.wane@example.com" and with cc "foo@bar.com" and the subject "The subject" and the body "The body" and the attachments "attachment.pdf"
+  
+  You may skip parts, of course.
+
+
 * **When I follow the (first|second|third)? link in the e?mail**
 
 

@@ -44,7 +44,11 @@ Then /^(an|no) e?mail should have been sent with:$/ do |mode, raw_data|
   end
 end.overridable
 
-# nodoc
+# Example:
+#
+#     Then an email should have been sent from "max.mustermann@example.com" to "john.doe@example.com" with bcc "john.wane@example.com" and with cc "foo@bar.com" and the subject "The subject" and the body "The body" and the attachments "attachment.pdf"
+#
+# You may skip parts, of course.
 Then /^(an|no) e?mail should have been sent((?: |and|with|from "[^"]+"|bcc "[^"]+"|cc "[^"]+"|to "[^"]+"|the subject "[^"]+"|the body "[^"]+"|the attachments "[^"]+")+)$/ do |mode, query|
   patiently do
     conditions = {}
