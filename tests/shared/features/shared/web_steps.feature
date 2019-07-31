@@ -33,15 +33,19 @@ Feature: Web steps
 
   Scenario: /^the "([^\"]*)" field should( not)? have an error$/
     When I go to "/forms/invalid_form"
-    Then the "Text control" field should have an error
-    Then the "Textarea control" field should have an error
-    Then the "Textarea control" field should have an error
-    Then the "Empty textarea control" field should not have an error
+    Then the "A" field should have an error
+    Then the "B" field should have an error
+    Then the "C" field should not have an error
+
+  Scenario: /^the "([^"]*)" field should have the error "([^"]*)"$/
+    When I go to "/forms/invalid_form"
+    Then the "A" field should have the error "is invalid"
+    Then the "B" field should have the error "is invalid"
 
 
   Scenario: /^the "([^"]*)" field should have no error$/
     When I go to "/forms/invalid_form"
-    Then the "Empty textarea control" field should have no error
+    Then the "C" field should have no error
 
 
   Scenario: /^I should see a form with the following values:$/

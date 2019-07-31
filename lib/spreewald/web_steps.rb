@@ -373,16 +373,16 @@ Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_me
     classes = element.find(:xpath, '..')[:class].split(' ')
 
     form_for_input = element.find(:xpath, 'ancestor::form[1]')
-    using_formtastic = form_for_input[:class].include?('formtastic')
+    using_formtastic = form_for_input && form_for_input.has_css?('.formtastic')
     error_class = using_formtastic ? 'error' : 'field_with_errors'
 
     expect(classes).to include(error_class)
 
     if using_formtastic
       error_paragraph = element.find(:xpath, '../*[@class="inline-errors"][1]')
-      error_paragraph.should have_content(error_message)
+      expect(error_paragraph).to have_content(error_message)
     else
-      page.should have_content("#{field.titlecase} #{error_message}")
+      expect(page).to have_content("#{field.titlecase} #{error_message}")
     end
   end
 end.overridable
