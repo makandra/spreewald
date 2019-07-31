@@ -147,11 +147,11 @@ Feature: Web steps
   @javascript
   Scenario: /^Then (the tag )?"..." should( not)? be visible$/ with javascript
     When I go to "/static_pages/visibility"
-    Then "hidden ümläüt" should be hidden
-    And "visible ümläüt" should be visible
-    And a hidden string with quotes should not be visible
-    And a visible string with quotes should be visible
-    And "hidden ümläüt" should be hidden
+    Then "hidden ümläüt" should not be visible
+      And "visible ümläüt" should be visible
+      And a hidden string with quotes should not be visible
+      And a visible string with quotes should be visible
+      And "hidden ümläüt" should not be visible
 
 
   Scenario: /^the "([^\"]*)" field should( not)? be visible$/
@@ -165,6 +165,32 @@ Feature: Web steps
     When I go to "/static_pages/visibility"
     Then the "Visible field" field should be visible
       But the "Hidden field" field should not be visible
+
+
+  Scenario: /^(the tag )?"([^\"]+)" should be hidden$/ with javascript
+    When I go to "/static_pages/visibility"
+    Then "div with class: hidden" should be hidden
+      And "div with style: display: none" should be hidden
+      And "div with class: invisible" should be hidden
+
+
+  @javascript
+  Scenario: /^(the tag )?"([^\"]+)" should be hidden$/
+    When I go to "/static_pages/visibility"
+      And "div with style: display: none" should be hidden
+
+
+  Scenario: /^(the tag )?"([^\"]+)" should be hidden$/ within container with javascript
+    When I go to "/static_pages/visibility"
+    Then "div with class: hidden" should be hidden within ".container"
+    And "div with style: display: none" should be hidden within ".container"
+    And "div with class: invisible" should be hidden within ".container"
+
+
+  @javascript
+  Scenario: /^(the tag )?"([^\"]+)" should be hidden$/ within container
+    When I go to "/static_pages/visibility"
+    And "div with style: display: none" should be hidden within ".container"
 
 
   Scenario: /^I should (not )?see (?:an|the) element "([^"]+)"$/

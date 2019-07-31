@@ -17,3 +17,19 @@
 %div{:style => 'display: block'}
   %label(for='visible-field') Visible field
   %input(type='text' id='visible-field')
+
+%div(style='display: none')
+  div with style: display: none
+.hidden
+  div with class: hidden
+.invisible
+  div with class: invisible
+
+
+.container
+  %div(style='display: none')
+    div with style: display: none
+  .hidden
+    div with class: hidden
+  .invisible
+    div with class: invisible
