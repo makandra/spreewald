@@ -1,26 +1,8 @@
-# Attach a file to the given model's last record.
-#
-# Example (Company has a `file` attribute):
-#
-#     Given the file "image.png" was attached to the company above
-#
-# You may specify the attribute under which the file is stored …
-#
-# Example (Company has a `logo` attribute):
-#
-#     Given the file "image.png" was attached as logo to the company above
-#
-# … or both a container class and its attribute name
-#
-# Example (Company has many `Image`s, `Image` has a `file` attribute)
-#
-#     Given the file "image.png" was attached as Image/file to the company above
-#
-# To simultaneously set the `updated_at` timestamp:
-#
-#     Given the file "some_file" was attached to the profile above at "2011-11-11 11:11"
+# This step is deprecated and will be removed from spreewald. If you still want to use it, copy the code to your project's own steps.
 Given /^the file "([^"]*)" was attached(?: as (?:([^"]*)\/)?([^"]*))? to the ([^"]*) above(?: at "([^"]*)")?$/ do
   |path_to_file, container_name, relation_name, model_name, time_string|
+
+  warn "The step 'the file ... was attached to the ... above' will soon be removed from Spreewald, because we want Spreewald to be a library of steps that interact with a user interface and instead of manipulating the database directly. If you wish to further use this step please copy it over to your project's own steps."
 
   object = model_name.camelize.constantize.last
   time = Time.parse(time_string) if time_string.present?

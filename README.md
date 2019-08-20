@@ -223,27 +223,7 @@ the step definitions.
 
 * **Given the file "..." was attached( as (.../)?...)? to the ... above( at "...")?**
 
-  Attach a file to the given model's last record.
-  
-  Example (Company has a `file` attribute):
-  
-      Given the file "image.png" was attached to the company above
-  
-  You may specify the attribute under which the file is stored …
-  
-  Example (Company has a `logo` attribute):
-  
-      Given the file "image.png" was attached as logo to the company above
-  
-  … or both a container class and its attribute name
-  
-  Example (Company has many `Image`s, `Image` has a `file` attribute)
-  
-      Given the file "image.png" was attached as Image/file to the company above
-  
-  To simultaneously set the `updated_at` timestamp:
-  
-      Given the file "some_file" was attached to the profile above at "2011-11-11 11:11"
+  This step is deprecated and will be removed from spreewald. If you still want to use it, copy the code to your project's own steps.
 
 
 ### table_steps.rb 
@@ -574,7 +554,7 @@ deprecation notice. Decide for yourself whether you want to use them:
   Within a selenium test, the browser is asked whether the element is really visible
   In a non-selenium test, we only check for `.hidden`, `.invisible` or `style: display:none`
   
-  The step 'Then (the tag )?"..." should **not** be visible' is ambiguous. Please use 'Then (the tag )?"..." should be hidden' or 'Then I should not see "..."' instead.
+  The step 'Then (the tag )?"..." should **not** be visible' is ambiguous. Please use 'Then (the tag )?"..." should be hidden' or 'Then I should not see "..."' instead. Note that the **not** option will be removed in future versions of Spreewald.
   
   More details [here](https://makandracards.com/makandra/1049-capybara-check-that-a-page-element-is-hidden-via-css)
 

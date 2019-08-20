@@ -7,6 +7,7 @@ end.overridable
 
 # nodoc
 Then 'debugger' do
+  warn 'The step "Then debugger" will be removed in future versions of Spreewald. Please use "Then console" instead.'
   step 'console' # Alias
 end.overridable
 
