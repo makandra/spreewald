@@ -5,8 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## 2.3.0
 - Deprecate two steps:
-  - (Given) the file ... was attached to the ... above\
-  - (Then) debugger\
+  - (Given) the file ... was attached to the ... above
+  - (Then) debugger
 
 ## 2.2.4
 - Fix "..." field should have the error "..." test by removing old should syntax
