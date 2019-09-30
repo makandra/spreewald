@@ -159,6 +159,10 @@ Feature: Web steps
     Then the "Visible field" field should be visible
       But the "Hidden field" field should not be visible
 
+  Scenario: /^the "([^\"]*)" field should( not)? be visible within (.*[^:])$/
+    When I go to "/static_pages/visibility"
+    Then "content" should not be visible within ".inside"
+      But "content" should be visible within ".outside"
 
   @javascript
   Scenario: /^the "([^\"]*)" field should( not)? be visible$/ with Javascript
@@ -178,6 +182,10 @@ Feature: Web steps
   Scenario: /^(the tag )?"([^\"]+)" should be hidden$/
     When I go to "/static_pages/visibility"
       And "div with style: display: none" should be hidden
+
+  Scenario: /^(the tag )?"([^\"]+)" should be hidden within (.*[^:])$/
+    When I go to "/static_pages/visibility"
+    Then "content" should be hidden within ".inside"
 
 
   Scenario: /^(the tag )?"([^\"]+)" should be hidden$/ within container with javascript
@@ -220,6 +228,10 @@ Feature: Web steps
     But I should not see "Nonsense" within ".table"
       And I should not see "Nonsense" within a table
 
+    # making sure it works with a within scope correctly when the same element is available outside
+    Then I should not see "Outside Table" within ".table"
+      And I should not see "Outside Table" within a table
+    But I should see "Outside Table"
 
   Scenario: /^(?:|I )should see \/([^\/]*)\/$/
     When I go to "/static_pages/within"
@@ -229,6 +241,11 @@ Feature: Web steps
       And I should see /\^Will this text with special Regex characters match\.\.\?\$/
     But I should not see /Nonsense/
       And I should not see /http://other-domain.com/
+
+    # making sure it works with a within scope correctly when the same element is available outside
+    Then I should not see /Outside Table/ within ".table"
+      And I should not see /Outside Table/ within a table
+    But I should see /Outside Table/
 
 
   Scenario: /^(?:|I )should see \/([^\/]*)\/ within (.*[^:])$/
