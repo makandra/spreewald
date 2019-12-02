@@ -16,15 +16,30 @@ gemfile:
   - Gemfile.ruby218
   - Gemfile.ruby245
 
+#matrix:
+#  exclude:
+#    - gemfile: tests/rails-3_capybara-1/Gemfile
+#      rvm: 2.4.5
+#    - gemfile: tests/rails-3_capybara-2/Gemfile
+#      rvm: 2.4.5
+#    - gemfile: tests/rails-4_capybara-3/Gemfile
+#      rvm: 2.1.8
+#    - gemfile: Gemfile.ruby218
+#      rvm: 2.4.5
+#    - gemfile: Gemfile.ruby245
+#      rvm: 2.1.8
+
+
+
 matrix:
-  exclude:
+  include:
     - gemfile: tests/rails-3_capybara-1/Gemfile
-      rvm: 2.4.5
+      rvm: 2.1.8
     - gemfile: tests/rails-3_capybara-2/Gemfile
-      rvm: 2.4.5
+      rvm: 2.1.8
     - gemfile: tests/rails-4_capybara-3/Gemfile
-      rvm: 2.1.8
-    - gemfile: Gemfile.ruby218
       rvm: 2.4.5
-    - gemfile: Gemfile.ruby245
+    - gemfile: Gemfile.ruby218
       rvm: 2.1.8
+    - gemfile: Gemfile.ruby245
+      rvm: 2.4.5
