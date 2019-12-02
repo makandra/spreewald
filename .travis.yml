@@ -8,11 +8,11 @@ rvm:
   - 2.4.5
 
 gemfile:
-  # Test projects
-  - tests/rails-3_capybara-1/Gemfile
-  - tests/rails-3_capybara-2/Gemfile
-  - tests/rails-4_capybara-3/Gemfile
-  # Used to run rspec and tests for spreewald binary:
+#  # Test projects
+#  - tests/rails-3_capybara-1/Gemfile
+#  - tests/rails-3_capybara-2/Gemfile
+#  - tests/rails-4_capybara-3/Gemfile
+#  # Used to run rspec and tests for spreewald binary:
   - Gemfile.ruby218
   - Gemfile.ruby245
 
