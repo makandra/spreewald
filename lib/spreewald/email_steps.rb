@@ -79,8 +79,21 @@ Then /^no e?mail should have been sent$/ do
 end.overridable
 
 # Checks that the last sent email includes some text
-Then /^I should see "([^\"]*)" in the e?mail$/ do |text|
-  expect(MailFinder.email_text_body(ActionMailer::Base.deliveries.last)).to include(text)
+Then /^I should see "([^\"]*)" in the (whitespace-stripped )?(tag-stripped )?e?mail$/ do |whitespace_stripping, tag_stripping, expected_text|
+  mail = @mail || ActionMailer::Base.deliveries.last
+  text_body = MailFinder.email_text_body(mail)
+
+  if whitespace_stripping
+    text_body.gsub!(/\s+/, ' ')
+    expected_text.gsub!(/\s+/, ' ')
+  end
+
+  if tag_stripping
+    text_body.gsub!(/<\/?[^>]*>/, "")
+    expected_text.gsub!(/<\/?[^>]*>/, "")
+  end
+
+  expect(text_body).to include(expected_text)
 end.overridable
 
 # Print all sent emails to STDOUT.
@@ -118,6 +131,7 @@ end.overridable
 
 # Checks that the text should be included anywhere in the retrieved email body
 Then /^that e?mail should have the following (?:|content in the )body:$/ do |body|
+  # TODO: Deprecate this in favor of I should see "([^\"]*)" in the e?mail
   mail = @mail || ActionMailer::Base.deliveries.last
   expect(MailFinder.email_text_body(mail)).to include(body.strip)
 end.overridable
