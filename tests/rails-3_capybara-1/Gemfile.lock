@@ -136,7 +136,7 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
-    rubyzip (0.9.9)
+    rubyzip (2.0.0)
     selenium-webdriver (2.34.0)
       childprocess (>= 0.2.5)
       multi_json (~> 1.0)
