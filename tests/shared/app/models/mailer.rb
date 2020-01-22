@@ -21,6 +21,14 @@ class Mailer < ActionMailer::Base
       )
     end
 
+    def html_email_with_links
+      email
+    end
+
+    def text_email_with_links
+      email
+    end
+
   else
 
     def email
@@ -32,6 +40,14 @@ class Mailer < ActionMailer::Base
       bcc BCC
       subject SUBJECT
       body BODY
+    end
+
+    def html_email_with_links
+      email
+    end
+
+    def text_email_with_links
+      email
     end
 
   end

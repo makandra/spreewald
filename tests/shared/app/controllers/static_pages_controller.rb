@@ -21,4 +21,12 @@ class StaticPagesController < ApplicationController
   def within
   end
 
+  def link_target
+    render :nothing => true
+  end
+
+  def second_link_target
+    render :nothing => true
+  end
+
 end

@@ -214,3 +214,21 @@ Feature: Test Spreewald's email steps
         line
         '''
       """
+
+
+  Scenario: /^I follow the (first|second|third)? ?link in the e?mail$/ (HTML e-mail body)
+    When I go to "/emails/send_html_email_with_links"
+      And I follow the first link in the email
+    Then I should be on "/static_pages/link_target"
+
+    When I follow the second link in the email
+    Then I should be on "/static_pages/second_link_target"
+
+
+  Scenario: /^I follow the (first|second|third)? ?link in the e?mail$/ (text e-mail body)
+    When I go to "/emails/send_text_email_with_links"
+      And I follow the first link in the email
+    Then I should be on "/static_pages/link_target"
+
+    When I follow the second link in the email
+    Then I should be on "/static_pages/second_link_target"

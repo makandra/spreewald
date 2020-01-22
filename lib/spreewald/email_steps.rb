@@ -68,10 +68,17 @@ end.overridable
 When /^I follow the (first|second|third)? ?link in the e?mail$/ do |index_in_words|
   mail = @mail || ActionMailer::Base.deliveries.last
   index = { nil => 0, 'first' => 0, 'second' => 1, 'third' => 2 }[index_in_words]
-  url_pattern = %r{(?:http|https)://[^/]+([^"'\s\\]*)}
-  mail_body = MailFinder.email_text_body(mail).to_s
-  only_path = mail_body.scan(url_pattern)[index][0]
-  visit only_path
+  url_pattern = %r((?:https?://[^/]+)([^"'\s]+))
+
+  paths = if mail.html_part
+    dom = Nokogiri::HTML(mail.html_part.body.to_s)
+    (dom / 'a[href]').map { |a| a['href'].match(url_pattern)[1] }
+  else
+    mail_body = MailFinder.email_text_body(mail).to_s
+    mail_body.scan(url_pattern).flatten(1)
+  end
+
+  visit paths[index]
 end.overridable
 
 Then /^no e?mail should have been sent$/ do
