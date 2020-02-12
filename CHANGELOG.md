@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.4.0
+
+- Fix "I follow the ... link in the email" step for HTML e-mails to only follow URLs from `<a href="...">` links.
+
 ## 2.3.0
 - Deprecate two steps:
   - (Given) the file ... was attached to the ... above
