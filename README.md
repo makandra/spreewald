@@ -93,6 +93,11 @@ Capybara.default_normalize_ws = true
 
 This will affect all Spreewald steps that are using Capybara's `:text` option.
 
+Furthermore, we recommend setting [Capybara's matching strategy](https://github.com/teamcapybara/capybara/blob/master/README.md#strategy) to `:prefer_exact`. This will positively affect Spreewald steps as it prevents the `Capybara::Ambiguous` error in the edge case when two fields are matching the given name, but one of the matches includes the name only as a substring,
+
+```ruby
+Capybara.match = :prefer_exact
+````
 
 ## Contributing
 
