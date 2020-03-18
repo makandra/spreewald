@@ -463,7 +463,7 @@ end.overridable
 #
 # Attention: Doesn't work with Selenium, see https://github.com/jnicklas/capybara#gotchas
 Then /^I should get a download with filename "([^\"]*)"$/ do |filename|
-  expect(page.response_headers['Content-Disposition']).to match /filename="#{Regexp.escape(filename)}"$/
+  expect(page.response_headers['Content-Disposition']).to match /filename="#{Regexp.escape(filename)}"(;|$)/
 end.overridable
 
 # Checks that a certain option is selected for a text field
