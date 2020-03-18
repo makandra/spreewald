@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.4.1
+
+- Adapt `I should get a download with filename "..."` step to also work if the `filename` is not the last attribute in `Content-Disposition` header.
+
 ## 2.4.0
 
 - Fix "I follow the ... link in the email" step for HTML e-mails to only follow URLs from `<a href="...">` links.
