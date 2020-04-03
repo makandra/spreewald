@@ -11,4 +11,4 @@ InstalledFiles
 tmp
 _yardoc
 *.log
-tests/shared/db/test.sqlite3
+tests/shared/db/*.sqlite3

@@ -6,6 +6,7 @@ language: ruby
 rvm:
   - 2.1.8
   - 2.4.5
+  - 2.6.6
 
 matrix:
   include:
@@ -16,8 +17,13 @@ matrix:
       rvm: 2.1.8
     - gemfile: tests/rails-4_capybara-3/Gemfile
       rvm: 2.4.5
+    - gemfile: tests/rails-6_capybara-3/Gemfile
+      rvm: 2.6.6
     # Used to run rspec and tests for spreewald binary:
     - gemfile: Gemfile.ruby218
       rvm: 2.1.8
     - gemfile: Gemfile.ruby245
       rvm: 2.4.5
+    - gemfile: Gemfile.ruby266
+      rvm: 2.6.6
+

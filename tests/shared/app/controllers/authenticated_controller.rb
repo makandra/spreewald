@@ -1,9 +1,17 @@
 class AuthenticatedController < ApplicationController
 
-  before_filter :authenticate
+  if Rails.version.to_i >= 5
+    before_action :authenticate
+  else
+    before_filter :authenticate
+  end
 
   def page
-    render :text => 'Action reached'
+    if Rails.version.to_i >= 5
+      render :plain => 'Action reached'
+    else
+      render :text => 'Action reached'
+    end
   end
 
   private

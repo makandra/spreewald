@@ -9,6 +9,12 @@ class StaticPagesController < ApplicationController
   def link_to_home
   end
 
+  def links
+  end
+
+  def numbers
+  end
+
   def overriden
   end
 
@@ -22,11 +28,11 @@ class StaticPagesController < ApplicationController
   end
 
   def link_target
-    render :nothing => true
+    render_nothing
   end
 
   def second_link_target
-    render :nothing => true
+    render_nothing
   end
 
 end

@@ -3,6 +3,9 @@ class FormsController < ApplicationController
   def checkbox_form
   end
 
+  def disabled_elements
+  end
+
   def form1
   end
 

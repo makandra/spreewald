@@ -1,5 +1,5 @@
 #!/usr/bin/env rake
-require "bundler/gem_tasks"
+require 'bundler/gem_tasks'
 
 begin
   require 'gemika/tasks'
@@ -17,7 +17,7 @@ namespace :matrix do
       directory = File.dirname(row.gemfile)
       if directory.start_with?('tests')
         # Run integration tests (uses embedded projects)
-        system("cd #{directory} && BUNDLE_GEMFILE=Gemfile geordi cucumber")
+        system(cucumber_command(directory, row.ruby))
       else
         # Run specs and tests for spreewald binary
         [
@@ -52,6 +52,16 @@ task :update_readme do
 
   system "git diff #{readme_path}"
   puts '', '> Done (diff applied).'
+end
+
+def cucumber_command(directory, ruby_version)
+  command = "cd #{directory} && BUNDLE_GEMFILE=Gemfile geordi cucumber"
+  if Gem::Version.new(ruby_version) > Gem::Version.new('2.5')
+    # Modern cucumber sees pending tests as failures.
+    # We don't want this.
+    command << ' --no-strict-pending'
+  end
+  command
 end
 
 def warn(text)
