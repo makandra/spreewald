@@ -322,7 +322,7 @@ Then /^I should( not)? see a link labeled "([^"]*)"$/ do |negate, label|
   expectation = negate ? :not_to : :to
   link = page.first('a', :text => label, minimum: 0) || page.first(%(a[title="#{label}"]), minimum: 0)
   expect(link).send(expectation, be_present)
-end
+end.overridable
 
 # Checks that an input field contains some value (allowing * as wildcard character)
 Then /^the "([^"]*)" field should (not )?contain "([^"]*)"$/ do |label, negate, expected_string|
