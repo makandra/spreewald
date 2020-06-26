@@ -146,14 +146,14 @@ the step definitions.
   for its job)
 
 
-* **AfterStep @slow**
+* **AfterStep @slow-motion**
 
   Waits 2 seconds after each step
 
 
-* **AfterStep @single**
+* **AfterStep @single-step**
 
-  Waits for keypress after each step
+  Waits for a keypress after each step
 
 
 ### email_steps.rb 

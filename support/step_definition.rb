@@ -37,7 +37,7 @@ class StepDefinition
 
   def pretty_step
     if kind == 'AfterStep'
-      step[/@\w+/]
+      step[/@[\w-]+/]
     elsif step =~ /^'(.*)'$/ # Surrounded by single quotes
       $1
     else

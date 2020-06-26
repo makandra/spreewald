@@ -57,7 +57,7 @@ AfterStep('@slow-motion') do
   sleep 2
 end
 
-# Waits for keypress after each step
+# Waits for a keypress after each step
 AfterStep('@single-step') do
   print "Single Stepping. Hit enter to continue"
   STDIN.getc

@@ -44,11 +44,16 @@ task :update_readme do
     require 'support/step_manager'
   end
 
-  readme = File.read('README.md')
-  start_of_steps_section = readme =~ /^## Steps/
-  length_of_steps_section = (readme[(start_of_steps_section+1)..-1] =~ /^##[^#]/) || readme.size - start_of_steps_section
-  readme[start_of_steps_section, length_of_steps_section] = "## Steps\n\n" + StepManager.new('lib/spreewald').to_markdown
-  File.open(readme_path, 'w') { |f| f.write(readme) }
+  readme = File.read(readme_path)
+  File.open(readme_path, 'w') do |file|
+    start_of_steps_section = readme =~ /^## Steps/
+    length_of_steps_section = readme[(start_of_steps_section+1)..-1] =~ /^##[^#]/
+    length_of_steps_section ||= readme.size - start_of_steps_section
+    step_documentation = StepManager.new('lib/spreewald').to_markdown
+    readme[start_of_steps_section, length_of_steps_section] = "## Steps\n\n#{step_documentation}"
+
+    file.write(readme)
+  end
 
   system "git diff #{readme_path}"
   puts '', '> Done (diff applied).'
