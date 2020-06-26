@@ -38,6 +38,7 @@ single files like this:
     require 'spreewald/email_steps'
     require 'spreewald/web_steps'
 
+Have a look at our [recommended Capybara defaults](#recommended-capybara-defaults) as they impact the behavior of many Spreewald steps.
 
 ## Spreewald binary
 
@@ -83,7 +84,7 @@ More info [here](https://makandracards.com/makandra/12139-waiting-for-page-load-
 Thanks to [cucumber_priority](https://github.com/makandra/cucumber_priority) you can override any step definition from Spreewald with your own pattern. Cucumber will not raise `Cucumber::Ambiguous` if your custom steps collide with a Spreewald step.
 
 
-## A note on Capybara 3
+## Recommended Capybara defaults
 
 If you are upgrading from Capybara 2 to Capybara 3, you might [see failing tests](https://github.com/makandra/spreewald/issues/95) with Spreewald steps like `I should see`. This is caused by a breaking change in [Capybara's Finders](https://www.rubydoc.info/github/jnicklas/capybara/Capybara/Node/Finders) that accept a `:text` option. To activate Capybara 2 behavior globally in your project, enable this flag:
 
@@ -98,6 +99,12 @@ Furthermore, we recommend setting [Capybara's matching strategy](https://github.
 ```ruby
 Capybara.match = :prefer_exact
 ````
+
+If you want Spreewald to match fields, links and buttons against the `aria-label` attribute, enable the following global configuration in Capybara 2.8+: 
+
+```ruby
+Capybara.enable_aria_label = true
+```
 
 ## Contributing
 
