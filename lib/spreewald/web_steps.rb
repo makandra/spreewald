@@ -641,29 +641,21 @@ end.overridable
 
 When /^I confirm the browser dialog$/ do
   patiently do
-    page.driver.browser.switch_to.alert.accept
+    browser.switch_to.alert.accept
   end
 end.overridable
 
 When /^I cancel the browser dialog$/ do
   patiently do
-    page.driver.browser.switch_to.alert.dismiss
+    browser.switch_to.alert.dismiss
   end
 end.overridable
 
 When /^I enter "([^"]*)" into the browser dialog$/ do |text|
   patiently do
-    alert = page.driver.browser.switch_to.alert
+    alert = browser.switch_to.alert
     alert.send_keys(text)
     alert.accept
-  end
-end.overridable
-
-When /^I switch to the new tab$/ do
-  if javascript_capable?
-    page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
-  else
-    raise("This step works only with selenium")
   end
 end.overridable
 
@@ -728,7 +720,7 @@ When /^I perform basic authentication as "([^\"]*)\/([^\"]*)" and go to (.*)$/ d
     visit("http://#{user}:#{password}@#{server.host}:#{server.port}#{path}")
   else
     authorizers = [
-      (page.driver.browser if page.driver.respond_to?(:browser)),
+      (browser),
       (self),
       (page.driver)
     ].compact

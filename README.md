@@ -139,6 +139,54 @@ the step definitions.
 
 ## Steps
 
+### browser_tab_steps.rb 
+
+* **When I open ... in a new browser tab**
+
+  Opens [the page](https://github.com/makandra/spreewald/blob/master/examples/paths.rb) in a new browser tab and switches to it.
+
+
+* **When I close the browser tab**
+
+  Closes the current browser tab and switches back to the first tab.
+
+
+* **When I switch to the new(ly opened)? browser tab**
+
+  Waits for the new browser tab to appear, then switches to it.
+
+
+* **When I switch( back)? to the previous browser tab**
+
+  Changes the browser context to the second-last browser tab.
+
+
+* **When I may open a new browser tab**
+
+  Required for the check whether a new browser tab was opened or not.
+
+
+* **Then I should( not)? have opened a new browser tab**
+
+  Example (positive expectation):
+  
+      When I may open a new browser tab
+        And I click on "Open link in new browser tab"
+      Then I should have opened a new browser tab
+  
+  Example (negative expectation):
+  
+      When I may open a new browser tab
+        And I click on "Open link in current browser tab"
+      Then I should not have opened a new browser tab
+
+
+* **Then there should be (\d+) browser tabs?**
+
+
+* **Then there should be at least (\d+) browser tabs?**
+
+
 ### development_steps.rb 
 
 * **Then it should work...?**
@@ -648,9 +696,6 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 
 * **When I enter "..." into the browser dialog**
-
-
-* **When I switch to the new tab**
 
 
 * **Then the "..." (field|button|checkbox) should( not)? be disabled**

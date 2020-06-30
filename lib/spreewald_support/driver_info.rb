@@ -17,6 +17,14 @@ module Spreewald
       Object.const_defined?('Capybara::Webkit') && Capybara.current_session.driver.is_a?(Capybara::Webkit::Driver)
     end
 
+    def browser
+      page.driver.browser if page.driver.respond_to?(:browser)
+    end
+
+    def require_selenium!
+      raise 'This step only works with Selenium' unless selenium_driver?
+    end
+
   end
 end
 

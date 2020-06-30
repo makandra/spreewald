@@ -21,6 +21,15 @@ class StaticPagesController < ApplicationController
   def see_element
   end
 
+  def tab_1
+  end
+
+  def tab_2
+  end
+
+  def tab_3
+  end
+
   def visibility
   end
 
