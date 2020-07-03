@@ -3,8 +3,19 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.5.0
+- Add a set of steps to control browser tabs (Selenium only):
+  * `I open ... in a new browser tab`
+  * `I close the browser tab`
+  * `I switch to the new browser tab`
+  * `I switch to the previous browser tab`
+  * `I may open a new browser tab` (required for the following step)
+  * `I should( not)? have opened a new browser tab`
+  * `there should be (\d+) browser tabs?`
+  * `there should be at least (\d+) browser tabs?`
+
 ## 2.4.2
-* Fix the step `I should( not)? see a link labeled "STRING"`, it is now overridable.
+- Fix the step `I should( not)? see a link labeled "STRING"`, it is now overridable.
 
 ## 2.4.1
 
