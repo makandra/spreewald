@@ -35,7 +35,7 @@ require 'uri'
 require 'cgi'
 
 
-# You can append `within [selector]` to any other web step.
+# You can append `within [selector]` to any other web step, even multiple times.
 # Be aware that within will only look at the first element that matches.
 # If this is a problem for you following links, you might want to have a look
 # at the 'When I follow "..." inside any "..."'-step.
