@@ -12,6 +12,27 @@ module HtmlSelectorsHelpers
     when "the page"
       "html > body"
 
+    # Auto-mapper for BEM classes and ARIA labels
+    #
+    # Usage examples:
+    #   the main menu -> '.main-menu, [aria-label="main menu"]'
+    #   the item box's header -> '.item-box--header, [aria-label="item box's header"]'
+    #   the slider's item that is current -> '.slider--item.is-current, [aria-label="slider's item that is current"]'
+    when /^the (.*)$/
+      match = Regexp.last_match(1)
+      match =~ /^(.+?)(?:'s (.+?))?(?: that (.+))?$/
+
+      bem_selector = '.'
+      bem_selector << selectorify(Regexp.last_match(1))
+      bem_selector << '--' << selectorify(Regexp.last_match(2)) if Regexp.last_match(2)
+      bem_selector << '.' << selectorify(Regexp.last_match(3)) if Regexp.last_match(3)
+
+      aria_selector = '[aria-label="'
+      aria_selector << match.gsub('"', '\\"')
+      aria_selector << '"]'
+
+      [bem_selector, aria_selector].join(', ')
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
@@ -35,6 +56,13 @@ module HtmlSelectorsHelpers
         "Now, go and add a mapping in #{__FILE__}"
     end
   end
+
+  private
+
+  def selectorify(string)
+    string.gsub(/ /, '-')
+  end
+
 end
 
 World(HtmlSelectorsHelpers)
