@@ -286,6 +286,18 @@ the step definitions.
   This step is deprecated and will be removed from spreewald. If you still want to use it, copy the code to your project's own steps.
 
 
+### session_steps.rb 
+
+* **When ... in the browser session "..."**
+
+  You can append `in the browser session "name"` to any other step to execute
+  the step in a different browser session.
+  
+  You may need to update other steps to allow multiple sessions (e.g. your
+  authentication steps have to support multiple logged in users).
+  More details [here](https://makandracards.com/makandra/474480-how-to-make-a-cucumber-test-work-with-multiple-browser-sessions).
+
+
 ### table_steps.rb 
 
 * **Then I should( not)? see a table with (exactly )?the following rows( in any order)?:?**

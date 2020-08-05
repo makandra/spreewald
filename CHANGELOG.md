@@ -3,10 +3,12 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+- Add a step modifier to control different Capybara sessions: `... in the browser session "..."`. (see issue [#66](https://github.com/makandra/spreewald/issues/66))
+
 ## 2.6.0
 - The time steps do now work with the time helpers in ActiveSupport 4.1+ if the timecop gem is not included in the bundle. Please note that the two approaches branch. While ActiveSupport will freeze the time, Timecop will keep it running.
 - The steps in the file `spreewald/timecop.rb` file were moved to `spreewald/time.rb` and importing `spreewald/timecop` directly is deprecated now.
-
 
 ## 2.5.0
 - Add a set of steps to control browser tabs (Selenium only):
