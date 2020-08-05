@@ -295,11 +295,14 @@ the step definitions.
   See [this article](https://makandracards.com/makandra/763-cucumber-step-to-match-table-rows-with-capybara) for details.
 
 
-### timecop_steps.rb 
+### time_steps.rb 
 
-Steps to travel through time using [Timecop](https://github.com/jtrupiano/timecop).
+Steps to travel through time
 
-See [this article](https://makandracards.com/makandra/1222-useful-cucumber-steps-to-travel-through-time-with-timecop) for details.
+This uses [Timecop](https://github.com/jtrupiano/timecop) or Active Support 4.1+ to stub Time.now / Time.current.
+The user is responsible for including one of the two gems.
+
+Please note that the two approaches branch. While ActiveSupport will freeze the time, Timecop will keep it running.
 
 
 * **When the (date|time) is "?(\d{4}-\d{2}-\d{2}( \d{1,2}:\d{2})?)"?**
@@ -317,12 +320,14 @@ See [this article](https://makandracards.com/makandra/1222-useful-cucumber-steps
       Given the time is 13:40
 
 
-* **When it is (\d+|a|some|a few) (seconds?|minutes?|hours?|days?|weeks?|months?|years?) (later|earlier)**
+* **When it is (\d+|an?|some|a few) (seconds?|minutes?|hours?|days?|weeks?|months?|years?) (later|earlier)**
 
   Example:
   
       When it is 10 minutes later
       When it is a few hours earlier
+
+
 
 
 ### web_steps.rb 

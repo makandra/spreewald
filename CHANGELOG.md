@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.6.0
+- The time steps do now work with the time helpers in ActiveSupport 4.1+ if the timecop gem is not included in the bundle. Please note that the two approaches branch. While ActiveSupport will freeze the time, Timecop will keep it running.
+- The steps in the file `spreewald/timecop.rb` file were moved to `spreewald/time.rb` and importing `spreewald/timecop` directly is deprecated now.
+
+
 ## 2.5.0
 - Add a set of steps to control browser tabs (Selenium only):
   * `I open ... in a new browser tab`
@@ -32,7 +37,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## 2.2.4
 - Fix "..." field should have the error "..." test by removing old should syntax
-- Add single-line mail step to READNE
+- Add single-line mail step to README
 
 ## 2.2.3
 - Fix 'the window should be titled' step - closes: [#102](https://github.com/makandra/spreewald/issues/102)
@@ -52,7 +57,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## 2.2.0
 - Add a new step `I should( not)? see a link labeled "STRING"`.
-- Refer to Capybara 3's new flag `Capybara.default_normalize_ws = true` in the READNE,
+- Refer to Capybara 3's new flag `Capybara.default_normalize_ws = true` in the README,
 
 ## 2.1.3
 The `I should(not )? see /REGEXP/` step no longer refuses slashes as part of the regular expression. You can thus match full domains and more.

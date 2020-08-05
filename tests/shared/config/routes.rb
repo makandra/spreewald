@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get '/static_pages/tab_1', to: 'static_pages#tab_1'
   get '/static_pages/tab_2', to: 'static_pages#tab_2'
   get '/static_pages/tab_3', to: 'static_pages#tab_3'
+  get '/static_pages/time', to: 'static_pages#time'
   get '/static_pages/visibility', to: 'static_pages#visibility'
   get '/static_pages/within', to: 'static_pages#within'
 

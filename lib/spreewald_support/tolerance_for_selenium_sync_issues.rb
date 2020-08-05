@@ -38,21 +38,27 @@ module ToleranceForSeleniumSyncIssues
     WAIT_PERIOD = 0.05
 
     def patiently(seconds, &block)
-      started = Time.now
+      started = monotonic_time
       tries = 0
       begin
         tries += 1
         block.call
       rescue Exception => e
         raise e unless retryable_error?(e)
-        raise e if (Time.now - started > seconds && tries >= 2)
+        raise e if (monotonic_time - started > seconds && tries >= 2)
         sleep(WAIT_PERIOD)
-        raise Capybara::FrozenInTime, "time appears to be frozen, Capybara does not work with libraries which freeze time, consider using time travelling instead" if Time.now == started
+        raise Capybara::FrozenInTime, "time appears to be frozen, Capybara does not work with libraries which freeze time, consider using time travelling instead" if monotonic_time == started
         retry
       end
     end
 
     private
+
+    def monotonic_time
+      # We use the system clock (i.e. seconds since boot) to calculate the time,
+      # because Time.now may be frozen
+      Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    end
 
     def retryable_error?(e)
       RETRY_ERRORS.include?(e.class.name)

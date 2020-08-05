@@ -16,6 +16,8 @@ class StepDefinitionFile
   end
 
   def to_markdown
+    return '' if @comment =~ /\bnodoc\b/
+
     spaced_comment = "\n\n" + @comment if @comment
 
     <<-TEXT
