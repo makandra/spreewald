@@ -247,6 +247,9 @@ the step definitions.
 
 * **When I follow the (first|second|third)? link in the e?mail**
 
+  Please note that this step will only follow HTTP and HTTPS links.
+  Other links (such as mailto: or ftp:// links) are ignored.
+
 
 * **Then no e?mail should have been sent**
 

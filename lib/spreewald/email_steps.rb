@@ -65,6 +65,8 @@ Then /^(an|no) e?mail should have been sent((?: |and|with|from "[^"]+"|bcc "[^"]
   end
 end.overridable
 
+# Please note that this step will only follow HTTP and HTTPS links.
+# Other links (such as mailto: or ftp:// links) are ignored.
 When /^I follow the (first|second|third)? ?link in the e?mail$/ do |index_in_words|
   mail = @mail || ActionMailer::Base.deliveries.last
   index = { nil => 0, 'first' => 0, 'second' => 1, 'third' => 2 }[index_in_words]
@@ -72,7 +74,7 @@ When /^I follow the (first|second|third)? ?link in the e?mail$/ do |index_in_wor
 
   paths = if mail.html_part
     dom = Nokogiri::HTML(mail.html_part.body.to_s)
-    (dom / 'a[href]').map { |a| a['href'].match(url_pattern)[1] }
+    (dom / 'a[href]').map { |a| a['href'].match(url_pattern) }.compact.map { |match| match[1] }
   else
     mail_body = MailFinder.email_text_body(mail).to_s
     mail_body.scan(url_pattern).flatten(1)
