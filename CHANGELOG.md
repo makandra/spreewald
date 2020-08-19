@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+- Add radio buttons to the `the "..." (field|button|checkbox|radio button) should( not)? be disabled` step.
+- All web steps interacting with forms will now find both enabled and disabled fields.
+- Using the `and disabled` modifier of the `the "..." checkbox should( not)? be checked` step is now deprecated.
+
 ## 2.7.0
 - Add a step modifier to control different Capybara sessions: `... in the browser session "..."`. (see issue [#66](https://github.com/makandra/spreewald/issues/66))
 

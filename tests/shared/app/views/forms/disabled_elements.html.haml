@@ -51,3 +51,21 @@
 
   = label_tag 'enabled_field_2', 'Enabled field #2'
   = text_field_tag 'enabled_field_2', 'value'
+
+-# radio buttons
+= form_tag do
+  - selected = false
+  = label_tag 'disabled_radio_1', 'Disabled radio button #1'
+  = radio_button_tag 'disabled_radio', '1', selected, disabled: true
+
+  = label_tag 'disabled_radio_2', 'Disabled radio button #2'
+  = radio_button_tag 'disabled_radio', '2', selected, disabled: ''
+
+  = label_tag 'disabled_radio_3', 'Disabled radio button #3'
+  = radio_button_tag 'disabled_radio', '3', selected, disabled: 'aaa'
+
+  = label_tag 'enabled_radio_1', 'Enabled radio button #1'
+  = radio_button_tag 'enabled_radio', '1', selected, disabled: false
+
+  = label_tag 'enabled_radio_2', 'Enabled radio button #2'
+  = radio_button_tag 'enabled_radio', '2', selected

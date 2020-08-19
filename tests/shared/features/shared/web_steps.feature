@@ -4,6 +4,7 @@ Feature: Web steps
     When I go to "/forms/form1"
     Then the "Text control" field should contain "Text control value"
     Then the "Text control" field should not contain "false text"
+    Then the "Disabled text control" field should contain "Disabled text control value"
     Then the "Select control" field should contain "Label 2"
     Then the "Select control without selection" field should contain "Label 1"
     Then the "Textarea control" field should contain "Textarea control value"
@@ -85,7 +86,7 @@ Feature: Web steps
   Scenario: /^I go back$/
     Given I go to "/static_pages/link_to_home"
       And I follow "Home"
-    
+
     When I go back
     Then I should be on "/static_pages/link_to_home"
 
@@ -341,6 +342,12 @@ Feature: Web steps
     But the "Enabled field #1" field should not be disabled
       And the "Enabled field #2" field should not be disabled
 
+      # radio buttons
+      And the "Disabled radio button #1" radio button should be disabled
+      And the "Disabled radio button #2" radio button should be disabled
+      And the "Disabled radio button #3" radio button should be disabled
+    But the "Enabled radio button #1" radio button should not be disabled
+      And the "Enabled radio button #2" radio button should not be disabled
 
   Scenario: /^the window should be titled "([^"]*)"$/
     When I go to "/static_pages/home"
