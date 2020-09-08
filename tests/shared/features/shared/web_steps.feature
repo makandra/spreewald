@@ -290,7 +290,7 @@ Feature: Web steps
 
   Scenario: /^I should get a download with filename "([^\"]*)"$/
     When I go to "/downloads/spreadsheet"
-    Then I should get a download with filename "test.ods"
+    Then I should get a download with filename "test - example (today).ods"
 
 
   Scenario: /^I should( not)? see a link labeled "([^"]*)"$/

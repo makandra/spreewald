@@ -463,7 +463,18 @@ end.overridable
 #
 # Attention: Doesn't work with Selenium, see https://github.com/jnicklas/capybara#gotchas
 Then /^I should get a download with filename "([^\"]*)"$/ do |filename|
-  expect(page.response_headers['Content-Disposition']).to match /filename="#{Regexp.escape(filename)}"(;|$)/
+  content_disposition = page.response_headers['Content-Disposition']
+  expect(content_disposition).to be_present
+
+  fields = content_disposition.split(/;\s*/)
+
+  # Rails 6+ encodes filenames as defined in https://tools.ietf.org/html/rfc5987.
+  # If available, we prefer the UTF-8 filename.
+  download_filename = [/^filename\*=UTF-8''(.+)/, /^filename="(.+?)"/].each do |regexp|
+    matched_filename = fields.map { |field| field.scan(regexp).flatten.first }.compact.first
+    break CGI.unescape(matched_filename) if matched_filename
+  end
+  expect(download_filename).to eq(filename)
 end.overridable
 
 # Checks that a certain option is selected for a text field
