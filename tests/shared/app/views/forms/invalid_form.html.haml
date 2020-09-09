@@ -5,6 +5,9 @@
   .form-group.field_with_errors
     = label_tag 'textarea_control_1', 'B is invalid'
     = text_area_tag 'textarea_control_1', "Textarea control line 1\nTextarea control line 2\n"
+  .form-group.field_with_errors
+    = label_tag 'disabled_control', 'Disabled is invalid'
+    = text_field_tag 'disabled_control', "Disabled control value", disabled: true
   .form-group
     = label_tag 'textarea_control_2', 'C'
     = text_area_tag 'textarea_control_2', "Textarea control line 1\nTextarea control line 2\n"

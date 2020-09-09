@@ -4,6 +4,7 @@ Feature: Web steps
     When I go to "/forms/form1"
     Then the "Text control" field should contain "Text control value"
     Then the "Text control" field should not contain "false text"
+    Then the "Disabled text control" field should contain "Disabled text control value"
     Then the "Select control" field should contain "Label 2"
     Then the "Select control without selection" field should contain "Label 1"
     Then the "Textarea control" field should contain "Textarea control value"
@@ -35,12 +36,14 @@ Feature: Web steps
     When I go to "/forms/invalid_form"
     Then the "A" field should have an error
     Then the "B" field should have an error
+    Then the "Disabled" field should have an error
     Then the "C" field should not have an error
 
   Scenario: /^the "([^"]*)" field should have the error "([^"]*)"$/
     When I go to "/forms/invalid_form"
     Then the "A" field should have the error "is invalid"
     Then the "B" field should have the error "is invalid"
+    Then the "Disabled" field should have the error "is invalid"
 
 
   Scenario: /^the "([^"]*)" field should have no error$/
@@ -93,6 +96,7 @@ Feature: Web steps
   Scenario: /^the "([^"]*)" checkbox should( not)? be checked$/
     When I go to "/forms/checkbox_form"
     Then the "Checked" checkbox should be checked
+      And the "Checked disabled" checkbox should be checked
       And the "Unchecked" checkbox should not be checked
 
 
@@ -300,6 +304,12 @@ Feature: Web steps
       And I should see a link labeled "Also matches via the title attribute"
     But I should not see a link labeled "Nonexistent Link"
       And I should not see a link labeled "First visible link" within ".unrelated-element"
+
+
+  Scenario: /^I should( not)? see a field "([^"]*)"$/
+    When I go to "/forms/disabled_elements"
+    Then I should see a field "Enabled field #1"
+      And I should see a field "Disabled field #1"
 
 
   Scenario: /^I should( not)? see the (?:number|amount) ([\-\d,\.]+)(?: (.*?))?$/

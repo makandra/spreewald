@@ -3,6 +3,21 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 3.0.0
+- All web steps interacting with forms will now find both enabled and disabled fields. This affects the following steps:
+  - `I should( not)? see a field "..."`
+  - `the "..." field should( not)? contain "..."`
+  - `I should see a form with the following values:`
+  - `the "..." field should have the error "..."`
+  - `the "..." field should( not)? have an error`
+  - `the "..." checkbox should( not)? be checked`
+  - `"..." should be selected for "..."`
+  - `nothing should be selected for "..."`
+  - `"..." should( not)? be an option for "..."`
+  - `the "..." field should( not)? be visible`
+  - `the "..." select should( not)? be sorted`
+- The `and disabled` modifier of the step `the "..." checkbox should( not)? be checked` has been removed. Use the step without the modifier together with the step `the "..." checkbox should be disabled` to achieve the old behavior.
+
 ## 2.8.0
 - Add radio buttons to the `the "..." (field|button|checkbox|radio button) should( not)? be disabled` step.
 
