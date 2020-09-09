@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
-## Unreleased
+## 2.7.2
 - Fix the step `I follow the ... link in the email` if the email contains non-HTTP(S) links
 
 ## 2.7.1
