@@ -683,7 +683,7 @@ deprecation notice. Decide for yourself whether you want to use them:
   
       Then "Sponsor" should link to "http://makandra.com/"
   
-  Don't forget the trailing slash. Otherwise you'll get the error 
+  Don't forget the trailing slash. Otherwise you'll get the error
     expected: /http:\/\/makandra.com(\?[^\/]*)?$/
          got: "http://makandra.com/" (using =~)
 
@@ -718,9 +718,9 @@ deprecation notice. Decide for yourself whether you want to use them:
 * **When I enter "..." into the browser dialog**
 
 
-* **Then the "..." (field|button|checkbox) should( not)? be disabled**
+* **Then the "..." (field|button|checkbox|radio button) should( not)? be disabled**
 
-  Tests that an input, button or checkbox with the given label is disabled.
+  Tests that an input, button, checkbox or radio button with the given label is disabled.
 
 
 * **Then the "..." field should( not)? be visible**

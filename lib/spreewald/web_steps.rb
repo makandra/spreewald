@@ -606,7 +606,7 @@ end.overridable(priority: -5) # priority lower than within
 #
 #     Then "Sponsor" should link to "http://makandra.com/"
 #
-# Don't forget the trailing slash. Otherwise you'll get the error 
+# Don't forget the trailing slash. Otherwise you'll get the error
 #   expected: /http:\/\/makandra.com(\?[^\/]*)?$/
 #        got: "http://makandra.com/" (using =~)
 Then /^"([^"]*)" should link to "([^"]*)"$/ do |link_label, target|
@@ -670,23 +670,20 @@ When /^I enter "([^"]*)" into the browser dialog$/ do |text|
   end
 end.overridable
 
-# Tests that an input, button or checkbox with the given label is disabled.
-Then /^the "([^\"]*)" (field|button|checkbox) should( not)? be disabled$/ do |label, kind, negate|
+# Tests that an input, button, checkbox or radio button with the given label is disabled.
+Then /^the "([^\"]*)" (field|button|checkbox|radio button) should( not)? be disabled$/ do |label, kind, negate|
+  element = if kind == 'button'
+    find_with_disabled(:button, label)
+  else
+    find_with_disabled(:field, label)
+  end
+
   if Spreewald::Comparison.compare_versions(Capybara::VERSION, :<, "2.1")
-    if kind == 'field' || kind == 'checkbox'
-      element = find_field(label)
-    else
-      element = find_button(label)
-    end
     expect(element[:disabled]).send(negate ? :to : :not_to, eq(nil))
   else
-    if kind == 'field' || kind == 'checkbox'
-      element = find_field(label, disabled: !negate)
-    else
-      element = find_button(label, disabled: !negate)
-    end
-    expect(element).to be_present
+    expect(!!element.disabled?).to be !negate
   end
+
 end.overridable
 
 # Tests that a field with the given label is visible.

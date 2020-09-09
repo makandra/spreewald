@@ -85,7 +85,7 @@ Feature: Web steps
   Scenario: /^I go back$/
     Given I go to "/static_pages/link_to_home"
       And I follow "Home"
-    
+
     When I go back
     Then I should be on "/static_pages/link_to_home"
 
@@ -341,6 +341,12 @@ Feature: Web steps
     But the "Enabled field #1" field should not be disabled
       And the "Enabled field #2" field should not be disabled
 
+      # radio buttons
+      And the "Disabled radio button #1" radio button should be disabled
+      And the "Disabled radio button #2" radio button should be disabled
+      And the "Disabled radio button #3" radio button should be disabled
+    But the "Enabled radio button #1" radio button should not be disabled
+      And the "Enabled radio button #2" radio button should not be disabled
 
   Scenario: /^the window should be titled "([^"]*)"$/
     When I go to "/static_pages/home"

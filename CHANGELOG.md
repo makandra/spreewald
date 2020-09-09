@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+- Add radio buttons to the `the "..." (field|button|checkbox|radio button) should( not)? be disabled` step.
 
 ## 2.7.2
 - Fix the step `I follow the ... link in the email` if the email contains non-HTTP(S) links

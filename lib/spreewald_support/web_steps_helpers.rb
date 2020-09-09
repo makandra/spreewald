@@ -1,3 +1,5 @@
+require 'spreewald_support/comparison'
+
 module WebStepsHelpers
 
   def assert_visible(options)
@@ -6,6 +8,21 @@ module WebStepsHelpers
 
   def assert_hidden(options)
     visibility_test(options.merge(:expectation => :hidden))
+  end
+
+  def find_with_disabled(*args, **options, &optional_filter_block)
+    if Spreewald::Comparison.compare_versions(Capybara::VERSION, :<, "2.0")
+      find(:xpath, XPath::HTML.send(args[0], args[1])) # Versions < 2.0 will find both enabled and disabled fields, nothing to do
+    elsif Spreewald::Comparison.compare_versions(Capybara::VERSION, :<, "2.6")
+      begin
+        find(*args, **options, disabled: false, &optional_filter_block)
+      rescue Capybara::ElementNotFound
+        find(*args, **options, disabled: true, &optional_filter_block)
+      end
+    else
+      options_with_disabled = { disabled: :all }.merge(options)
+      find(*args, **options_with_disabled, &optional_filter_block)
+    end
   end
 
   private
