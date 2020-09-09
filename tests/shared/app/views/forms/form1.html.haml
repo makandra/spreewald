@@ -3,6 +3,9 @@
   = label_tag 'text_control', 'Text control'
   = text_field_tag 'text_control', 'Text control value'
 
+  = label_tag 'disabled_text_control', 'Disabled text control'
+  = text_field_tag 'disabled_text_control', 'Disabled text control value', disabled: true
+
   = label_tag 'select_control', 'Select control'
   = select_tag 'select_control', options_for_select([['Label 1', 'value1'], ['Label 2', 'value2'], ['Label 3', 'value3']], 'value2')
 

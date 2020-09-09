@@ -201,10 +201,10 @@ Then /^I should( not)? see a field "([^"]*)"$/ do |negate, name|
   expectation = negate ? :not_to : :to
   patiently do
     begin
-      # In old Capybaras find_field returns nil, so we assign it to `field`
-      field = find_field(name)
+      # In old Capybaras find returns nil, so we assign it to `field`
+      field = find_with_disabled(:field, name)
     rescue Capybara::ElementNotFound
-      # In Capybara 0.4+ #find_field raises an error instead of returning nil
+      # In Capybara 0.4+ #find raises an error instead of returning nil
       # We must explicitely reset the field variable from a previous patiently iteration
       field = nil
     end
@@ -327,7 +327,7 @@ end.overridable
 # Checks that an input field contains some value (allowing * as wildcard character)
 Then /^the "([^"]*)" field should (not )?contain "([^"]*)"$/ do |label, negate, expected_string|
   patiently do
-    field = find_field(label)
+    field = find_with_disabled(:field, label)
     field_value = case field.tag_name
     when 'select'
       options = field.all('option')
@@ -347,7 +347,7 @@ end.overridable
 # Checks that a multiline textarea contains some value (allowing * as wildcard character)
 Then(/^the "(.*?)" field should (not )?contain:$/) do |label, negate, expected_string|
   patiently do
-    field = find_field(label)
+    field = find_with_disabled(:field, label)
     expect(field.value.chomp).send(negate ? :not_to : :to, contain_with_wildcards(expected_string))
   end
 end.overridable
@@ -369,7 +369,7 @@ end.overridable
 # Checks that an input field was wrapped with a validation error
 Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_message|
   patiently do
-    element = find_field(field)
+    element = find_with_disabled(:field, field)
     classes = element.find(:xpath, '..')[:class].split(' ')
 
     form_for_input = element.find(:xpath, 'ancestor::form[1]')
@@ -390,7 +390,7 @@ end.overridable
 Then /^the "([^\"]*)" field should( not)? have an error$/ do |label, negate|
   patiently do
     expectation = negate ? :not_to : :to
-    field = find_field(label)
+    field = find_with_disabled(:field, label)
     expect(field[:id]).to be_present # prevent bad CSS selector if field lacks id
     expect(page).send(expectation, have_css(".field_with_errors ##{field[:id]}"))
   end
@@ -399,26 +399,18 @@ end.overridable
 Then /^the "([^"]*)" field should have no error$/ do |field|
   warn 'The step /^the "([^"]*)" field should have no error$/ is deprecated and scheduled for removal. Use the step /^the "([^\"]*)" field should( not)? have an error$/ instead.'
   patiently do
-    element = find_field(field)
+    element = find_with_disabled(:field, field)
     classes = element.find(:xpath, '..')[:class].split(' ')
     expect(classes).not_to include('field_with_errors')
     expect(classes).not_to include('error')
   end
 end.overridable
 
-Then /^the "([^"]*)" checkbox should( not)? be checked( and disabled)?$/ do |label, negate, disabled|
+Then /^the "([^"]*)" checkbox should( not)? be checked?$/ do |label, negate|
   expectation = negate ? :not_to : :to
 
-  if disabled
-    warn 'The step /^the "([^"]*)" checkbox should( not)? be checked( and disabled)?$/ will lose the `and disabled` modifier in Spreewald 3. In that version, the step will find a checkbox regardless of whether it is disabled.'
-  end
-
   patiently do
-    field = if Spreewald::Comparison.compare_versions(Capybara::VERSION, :<, "2.1")
-      find_field(label)
-    else
-      find_field(label, :disabled => !!disabled)
-    end
+    field = find_with_disabled(:field, label)
     expect(field).send expectation, be_checked
   end
 end.overridable
@@ -489,7 +481,7 @@ end.overridable
 
 Then /^nothing should be selected for "([^"]*)"$/ do |field|
   patiently do
-    select = find_field(field)
+    select = find_with_disabled(:field, field)
     begin
       selected_option = select.find(:xpath, ".//option[@selected = 'selected']") || select.all(:css, 'option').first
       value = selected_option ? selected_option.value : nil
@@ -509,11 +501,11 @@ Then /^"([^"]*)" should( not)? be an option for "([^"]*)"$/ do |value, negate, f
   patiently do
     if negate
       begin
-        expect(find_field(field)).to have_no_css(*finder_arguments)
+        expect(find_with_disabled(:field, field)).to have_no_css(*finder_arguments)
       rescue Capybara::ElementNotFound
       end
     else
-      expect(find_field(field)).to have_css(*finder_arguments)
+      expect(find_with_disabled(:field, field)).to have_css(*finder_arguments)
     end
   end
 end.overridable
@@ -695,11 +687,11 @@ end.overridable
 # Tests that a field with the given label is visible.
 Then /^the "([^\"]*)" field should( not)? be visible$/ do |label, hidden|
   if Spreewald::Comparison.compare_versions(Capybara::VERSION, :<, "2.1")
-    field = find_field(label)
+    field = find_with_disabled(:field, label)
   else
     # Capybara 2.1+ won't usually interact with hidden elements,
     # but we can override this behavior by passing { visible: false }
-    field = find_field(label, :visible => false)
+    field = find_with_disabled(:field, label, :visible => false)
   end
 
   selector = "##{field['id']}"
@@ -761,7 +753,7 @@ end.overridable
 # Tests whether a select field is sorted. Uses Array#natural_sort, if defined;
 # Array#sort else.
 Then /^the "(.*?)" select should( not)? be sorted$/ do |label, negate|
-  select = find_field(label)
+  select = find_with_disabled(:field, label)
   options = select.all('option').reject { |o| o.value.blank? }
   option_texts = options.collect(&:text)
 

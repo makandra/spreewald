@@ -562,7 +562,7 @@ deprecation notice. Decide for yourself whether you want to use them:
 * **Then the "..." field should have no error**
 
 
-* **Then the "..." checkbox should( not)? be checked( and disabled)?**
+* **Then the "..." checkbox should( not)? be checked?**
 
 
 * **Then the radio button "..." should( not)? be (checked|selected)**
