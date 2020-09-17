@@ -17,49 +17,74 @@ end.overridable
 #       From: max.mustermann@example.com
 #       Reply-To: mmuster@gmail.com
 #       To: john.doe@example.com
+#       CC: jane.doe@example.com
+#       BCC: johnny.doe@example.com
 #       Subject: The subject may contain "quotes"
-#       Attachments: ...
+#       Attachments: image.jpg, attachment.pdf
 #
-#       Message body goes here.
+#       This is the message body. You can use * as a wildcard to omit the rest
+#       of a line *
+#       Or you can omit multiple lines if the asterisk is the only
+#       character in a single line, like this:
+#       *
+#
 #       """
 #
-# You may skip lines in the header, of course. Note that the mail body is only checked for
-# _inclusion_. That means you can only test a prefix of the body. The subject may also be
-# a prefix.
-Then /^(an|no) e?mail should have been sent with:$/ do |mode, raw_data|
+# Because of backwards-compatibility, the body currently only has to be a prefix
+# of the real body. However, this is deprecated and will be removed in a future
+# version. Use wildcards instead.
+# You may skip lines in the header, of course.
+Then /^(an?|no)( HTML| plain-text|) e?mail should have been sent with:$/ do |mode, type, raw_data|
   patiently do
-    raw_data.strip!
-    header, body = raw_data.split(/\n\n/, 2) # 2: maximum number of fields
-    conditions = {}
-    header.split("\n").each do |row|
-      if row.match(/^[a-z\-]+: /i)
-        key, value = row.split(": ", 2)
-        conditions[key.underscore.to_sym] = value
+    results = MailFinder.find(raw_data, type.strip)
+
+    if mode == 'no'
+      expect(results).to be_empty
+    else
+      if results.one?
+        @mail = results.mails[0]
+      elsif results.many?
+        warn <<-WARNING
+#{results.size} emails were found with the following conditions.
+You may want to make the description more precise or clear the emails in between.
+#{raw_data}
+WARNING
+      else
+        message = <<-ERROR
+No matching mail was found. There were #{ActionMailer::Base.deliveries.size} mails in total.
+#{results.matching_header.size} of those had matching headers.
+ERROR
+        if results.matching_header.empty?
+          message << "Expected\n" + '-' * 80 + "\n"
+          message << raw_data.split(/\n\n/, 2)[0] # Show the expected header
+          message << "\n" + '-' * 80 + "\n\n"
+          message << MailFinder.show_mails(ActionMailer::Base.deliveries, true)
+        else
+          message << "\nTried to match #{results.body_regex.inspect} in the following mails:\n"
+          message << results.matching_header.map { |mail| MailFinder.email_text_body(mail, type.strip).strip.inspect }.join("\n")
+          message << "\n"
+        end
+        raise RSpec::Expectations::ExpectationNotMetError.new(message)
       end
     end
-    conditions[:body] = body if body
-    @mail = MailFinder.find(conditions)
-    expectation = mode == 'no' ? 'not_to' : 'to'
-    expect(@mail).send(expectation, be_present)
   end
 end.overridable
 
-# Example:
-#
-#     Then an email should have been sent from "max.mustermann@example.com" to "john.doe@example.com" with bcc "john.wane@example.com" and with cc "foo@bar.com" and the subject "The subject" and the body "The body" and the attachments "attachment.pdf"
-#
-# You may skip parts, of course.
+# nodoc (deprecated)
 Then /^(an|no) e?mail should have been sent((?: |and|with|from "[^"]+"|bcc "[^"]+"|cc "[^"]+"|to "[^"]+"|the subject "[^"]+"|the body "[^"]+"|the attachments "[^"]+")+)$/ do |mode, query|
+  warn "The step `an email should have been sent (from ...) (to ...) (cc ...) ...` has been deprecated in favor of `(an?|no)( HTML| plain-text|) e?mail should have been sent with:`"
   patiently do
-    conditions = {}
-    conditions[:to] = $1 if query =~ /to "([^"]+)"/
-    conditions[:Cc] = $1 if query =~ /cc "([^"]+)"/
-    conditions[:bcc] = $1 if query =~ /bcc "([^"]+)"/
-    conditions[:from] = $1 if query =~ /from "([^"]+)"/
-    conditions[:subject] = $1 if query =~ /the subject "([^"]+)"/
-    conditions[:body] = $1 if query =~ /the body "([^"]+)"/
-    conditions[:attachments] = $1 if query =~ /the attachments "([^"]+)"/
-    @mail = MailFinder.find(conditions)
+    filename_method = Rails::VERSION::MAJOR < 3 ? 'original_filename' : 'filename'
+    @mail = ActionMailer::Base.deliveries.find do |mail|
+        [ query =~ /to "([^"]+)"/ && !mail.to.include?(MailFinder.resolve_email $1),
+          query =~ /cc "([^"]+)"/ && !mail.cc.include?(MailFinder.resolve_email $1),
+          query =~ /bcc "([^"]+)"/ && !mail.bcc.include?(MailFinder.resolve_email $1),
+          query =~ /from "([^"]+)"/ && !mail.from.include?(MailFinder.resolve_email $1),
+          query =~ /reply_to "([^"]+)"/ && !mail.reply_to.include?(MailFinder.resolve_email $1),
+          query =~ /subject "([^"]+)"/ && !mail.subject.include?($1),
+          query =~ /the attachments "([^"]+)"/ && $1.split(/\s*,\s*/).sort != Array(mail.attachments).collect(&:"#{filename_method}").sort
+        ].none?
+    end
     expectation = mode == 'no' ? 'not_to' : 'to'
     expect(@mail).send(expectation, be_present)
   end
@@ -88,34 +113,38 @@ Then /^no e?mail should have been sent$/ do
 end.overridable
 
 # Checks that the last sent email includes some text
-Then /^I should see "([^\"]*)" in the e?mail$/ do |text|
-  expect(MailFinder.email_text_body(ActionMailer::Base.deliveries.last)).to include(text)
+Then /^I should see "([^\"]*)" in the( HTML| plain-text|) e?mail$/ do |text, type|
+  expect(MailFinder.email_text_body(ActionMailer::Base.deliveries.last, type.strip)).to include(text)
 end.overridable
 
-# Print all sent emails to STDOUT.
-Then /^show me the e?mails$/ do
-  ActionMailer::Base.deliveries.each_with_index do |mail, i|
-    puts "E-Mail ##{i}"
-    print "-" * 80
-    puts [ "From:    #{mail.from}",
-           "To:      #{mail.to}",
-           "Subject: #{mail.subject}",
-           "\n" + MailFinder.email_text_body(mail)
-         ].join("\n")
-    print "-" * 80
+# Print all sent emails to STDOUT (optionally only the headers).
+Then /^show me the e?mail( header)?s$/ do |only_header|
+  if ActionMailer::Base.deliveries.empty?
+    puts MailFinder.show_mails(ActionMailer::Base.deliveries, only_header)
+  else
+    puts "No emails found" if ActionMailer::Base.deliveries.empty?
   end
+
 end.overridable
 
-# Example:
-#
-#     And that mail should have the following lines in the body:
-#       """
-#       All of these lines
-#       need to be present
-#       """
-#
-# You may skip lines, of course. Note that you may also omit text at the end of each line.
+# Print a subset of all sent emails to STDOUT
+# This uses the same syntax as `Then an email should have been sent with:`
+Then /^show me the e?mail( header)?s with:$/ do |only_header, raw_data|
+  results = MailFinder.find(raw_data)
+  if results.empty?
+    if results.matching_header.empty?
+      puts "There are no emails matching the given header."
+    else
+      puts "There are no emails matching the given header and body, but #{results.matching_header.size} matching only the header."
+    end
+  end
+
+  print MailFinder.show_mails(results.mails, only_header)
+end.overridable
+
+# nodoc (deprecated)
 Then /^that e?mail should( not)? have the following lines in the body:$/ do |negate, body|
+  warn "The step /^that e?mail should( not)? have the following lines in the body:$/ has been deprecated in favor of the updated step /^(an?|no)( HTML| plain-text|) e?mail should have been sent with:$/."
   expectation = negate ? 'not_to' : 'to'
   mail = @mail || ActionMailer::Base.deliveries.last
   email_text_body = MailFinder.email_text_body(mail)
@@ -125,8 +154,9 @@ Then /^that e?mail should( not)? have the following lines in the body:$/ do |neg
   end
 end.overridable
 
-# Checks that the text should be included anywhere in the retrieved email body
+# nodoc (deprecated)
 Then /^that e?mail should have the following (?:|content in the )body:$/ do |body|
+  warn "The step /^that e?mail should have the following( content in the)? body:$/ has been deprecated in favor of the updated step /^(an?|no)( HTML| plain-text|) e?mail should have been sent with:$/."
   mail = @mail || ActionMailer::Base.deliveries.last
   expect(MailFinder.email_text_body(mail)).to include(body.strip)
 end.overridable

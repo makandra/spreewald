@@ -216,7 +216,7 @@ the step definitions.
 * **When I clear my e?mails**
 
 
-* **Then (an|no) e?mail should have been sent with:**
+* **Then (an?|no)( HTML| plain-text|) e?mail should have been sent with:**
 
   Example:
   
@@ -225,24 +225,23 @@ the step definitions.
         From: max.mustermann@example.com
         Reply-To: mmuster@gmail.com
         To: john.doe@example.com
+        CC: jane.doe@example.com
+        BCC: johnny.doe@example.com
         Subject: The subject may contain "quotes"
-        Attachments: ...
+        Attachments: image.jpg, attachment.pdf
   
-        Message body goes here.
+        This is the message body. You can use * as a wildcard to omit the rest
+        of a line *
+        Or you can omit multiple lines if the asterisk is the only
+        character in a single line, like this:
+        *
+  
         """
   
-  You may skip lines in the header, of course. Note that the mail body is only checked for
-  _inclusion_. That means you can only test a prefix of the body. The subject may also be
-  a prefix.
-
-
-* **Then (an|no) e?mail should have been sent(( |and|with|from "..."|bcc "..."|cc "..."|to "..."|the subject "..."|the body "..."|the attachments "...")+)**
-
-  Example:
-  
-      Then an email should have been sent from "max.mustermann@example.com" to "john.doe@example.com" with bcc "john.wane@example.com" and with cc "foo@bar.com" and the subject "The subject" and the body "The body" and the attachments "attachment.pdf"
-  
-  You may skip parts, of course.
+  Because of backwards-compatibility, the body currently only has to be a prefix
+  of the real body. However, this is deprecated and will be removed in a future
+  version. Use wildcards instead.
+  You may skip lines in the header, of course.
 
 
 * **When I follow the (first|second|third)? link in the e?mail**
@@ -254,32 +253,20 @@ the step definitions.
 * **Then no e?mail should have been sent**
 
 
-* **Then I should see "..." in the e?mail**
+* **Then I should see "..." in the( HTML| plain-text|) e?mail**
 
   Checks that the last sent email includes some text
 
 
-* **Then show me the e?mails**
+* **Then show me the e?mail( header)?s**
 
-  Print all sent emails to STDOUT.
-
-
-* **Then that e?mail should( not)? have the following lines in the body:**
-
-  Example:
-  
-      And that mail should have the following lines in the body:
-        """
-        All of these lines
-        need to be present
-        """
-  
-  You may skip lines, of course. Note that you may also omit text at the end of each line.
+  Print all sent emails to STDOUT (optionally only the headers).
 
 
-* **Then that e?mail should have the following (|content in the )body:**
+* **Then show me the e?mail( header)?s with:**
 
-  Checks that the text should be included anywhere in the retrieved email body
+  Print a subset of all sent emails to STDOUT
+  This uses the same syntax as `Then an email should have been sent with:`
 
 
 ### file_attachment_steps.rb 

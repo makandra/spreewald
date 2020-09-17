@@ -1,10 +1,10 @@
 Feature: Test Spreewald's email steps
-  
+
   Scenario: /^no e?mail should have been sent$/
     When I go to "/emails/do_nothing"
     Then the following step should succeed:
       | no email should have been sent |
-  
+
     When I go to "/emails/send_email"
     Then the following step should fail:
       | no email should have been sent |
@@ -47,6 +47,53 @@ Feature: Test Spreewald's email steps
         with
         line
         breaks
+        '''
+      """
+
+    # Test with end-of-line wildcards
+    Then the following multiline step should succeed:
+      """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: reply-to@example.com
+        To: to@example.com
+        Subject: SUBJECT
+
+        Bo*
+        wi*
+        li*
+        br*
+        '''
+      """
+
+    # Test with multiple-line wildcards
+    Then the following multiline step should succeed:
+      """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: reply-to@example.com
+        To: to@example.com
+        Subject: SUBJECT
+
+        Body
+        *
+        breaks
+        '''
+      """
+
+    # Test with the whole body being a multiple-line wildcard
+    Then the following multiline step should succeed:
+      """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: reply-to@example.com
+        To: to@example.com
+        Subject: SUBJECT
+
+        *
         '''
       """
 
@@ -148,12 +195,29 @@ Feature: Test Spreewald's email steps
         with
         line
         breaks
-        
+
         MORE-BODY
         '''
       """
 
-  Scenario: /^(an|no) e?mail should have been sent((?: |and|with|from "[^"]+"|bcc "[^"]+"|cc "[^"]+"|to "[^"]+"|the subject "[^"]+"|the body "[^"]+"|the attachments "[^"]+")+)$/
+    # Test body with wildcard not at the end of a line
+    Then the following multiline step should fail:
+      """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: reply-to@example.com
+        To: to@example.com
+        Subject: SUBJECT
+
+        Body
+        *th
+        line
+        break
+        '''
+      """
+
+  Scenario: Scenario: /^(an|no) e?mail should have been sent((?: |and|with|from "[^"]+"|bcc "[^"]+"|cc "[^"]+"|to "[^"]+"|the subject "[^"]+"|the body "[^"]+"|the attachments "[^"]+")+)$/
     When I go to "/emails/send_email"
 
     # Test with correct conditions
@@ -181,7 +245,7 @@ Feature: Test Spreewald's email steps
         '''
       """
 
-     # Test with wrong body lines
+    # Test with wrong body lines
     Then the following multiline step should fail:
       """
       Then that email should have the following lines in the body:

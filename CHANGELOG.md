@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+- The step `an email should have been sent with:` does now support wildcards (`*` at the end of a line to ignore the rest of the line, `*` as single character in a line to ignore multiple lines). The step also has better error messages if an email could not be found.
+- The step `show me the emails` got an option to display only the email headers. Additionally, a new step `show me the email( header)?s with:` has been created to only show a subset of all sent emails, with a syntax similar to `an email should have been sent with:`.
+- The email steps `an email should have been sent (from ...) (to ...) (cc ...) ...`, `that email should( not)? have the following lines in the body` and `that email should have the following content in the body:` have been deprecated in favor of `an email should have been sent with:`.
+
 ## 2.8.0
 - Add radio buttons to the `the "..." (field|button|checkbox|radio button) should( not)? be disabled` step.
 
