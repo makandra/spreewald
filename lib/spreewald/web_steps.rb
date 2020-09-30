@@ -397,6 +397,7 @@ Then /^the "([^\"]*)" field should( not)? have an error$/ do |label, negate|
 end.overridable
 
 Then /^the "([^"]*)" field should have no error$/ do |field|
+  warn 'The step /^the "([^"]*)" field should have no error$/ is deprecated and scheduled for removal. Use the step /^the "([^\"]*)" field should( not)? have an error$/ instead.'
   patiently do
     element = find_field(field)
     classes = element.find(:xpath, '..')[:class].split(' ')
@@ -407,6 +408,10 @@ end.overridable
 
 Then /^the "([^"]*)" checkbox should( not)? be checked( and disabled)?$/ do |label, negate, disabled|
   expectation = negate ? :not_to : :to
+
+  if disabled
+    warn 'The step /^the "([^"]*)" checkbox should( not)? be checked( and disabled)?$/ will lose the `and disabled` modifier in Spreewald 3. In that version, the step will find a checkbox regardless of whether it is disabled.'
+  end
 
   patiently do
     field = if Spreewald::Comparison.compare_versions(Capybara::VERSION, :<, "2.1")
@@ -618,6 +623,7 @@ end.overridable
 
 # Checks that the result has content type `text/plain`
 Then /^I should get a text response$/ do
+  warn 'The step /^I should get a text response$/ is deprecated and scheduled for removal. Use `I should get a response with content-type "text/plain"` instead.'
   step 'I should get a response with content-type "text/plain"'
 end.overridable
 
@@ -709,6 +715,7 @@ end.overridable
 #
 # More details [here](https://makandracards.com/makandra/12139-waiting-for-page-loads-and-ajax-requests-to-finish-with-capybara).
 When /^I wait for the page to load$/ do
+  warn 'The step /^I wait for the page to load$/ is deprecated and scheduled for removal. Please see https://github.com/makandra/spreewald/issues/136'
   if javascript_capable?
     patiently do
       # when no jQuery is loaded, we assume there are no pending AJAX requests

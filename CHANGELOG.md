@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.99.0
+- The following steps were deprecated and will be removed in the upcoming major version:
+  - `/^the "([^"]*)" field should have no error$/` (see [#134](https://github.com/makandra/spreewald/issues/134))
+  - `/^I should get a text response$/` (see [#135](https://github.com/makandra/spreewald/issues/135))
+  - `/^I wait for the page to load$/` (see [#136](https://github.com/makandra/spreewald/issues/136))
+- The step `and disabled` modifier of the step `/^the "([^"]*)" checkbox should( not)? be checked( and disabled)?$/` has been deprecated.
+
 ## 2.9.0
 - The step `an email should have been sent with:` does now support wildcards (`*` at the end of a line to ignore the rest of the line, `*` as single character in a line to ignore multiple lines). The step also has better error messages if an email could not be found.
 - The step `show me the emails` got an option to display only the email headers. Additionally, a new step `show me the email( header)?s with:` has been created to only show a subset of all sent emails, with a syntax similar to `an email should have been sent with:`.
@@ -69,7 +76,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
     * It can now be composed with the 'within' step
     * It can now truly match negative numbers
     * It dropped the hidden dependency on the HTMLEntities gem
-* Fix URLs to the GitHub repository of Spreewald as part of the `_path_to` and `_selector_for` error handling. (see issue [#82](https://github.com/makandra/spreewald/issues/82)) 
+* Fix URLs to the GitHub repository of Spreewald as part of the `_path_to` and `_selector_for` error handling. (see issue [#82](https://github.com/makandra/spreewald/issues/82))
 
 ## 2.2.0
 - Add a new step `I should( not)? see a link labeled "STRING"`.
@@ -102,7 +109,7 @@ The "it should work" step now takes an optional reason.
 The word "within" can now be used in arguments for other steps without causing errors ([Issue #53](https://github.com/makandra/spreewald/issues/80))
 
 ## 1.12.3
-Prevent wall of warnings when `Then console` is used multiple times in on test run ([issue](https://github.com/makandra/spreewald/issues/80)) 
+Prevent wall of warnings when `Then console` is used multiple times in on test run ([issue](https://github.com/makandra/spreewald/issues/80))
 
 ## 1.12.2
 Always check the current driver by its class (see [issue](https://github.com/makandra/spreewald/issues/74))
@@ -116,4 +123,3 @@ Always check the current driver by its class (see [issue](https://github.com/mak
 ## 1.11.6 2018-08-28
 - Added CHANGELOG
 - Replaced `field_labeled` with `find_field` (https://github.com/teamcapybara/capybara/blob/master/History.md#removed)
-
