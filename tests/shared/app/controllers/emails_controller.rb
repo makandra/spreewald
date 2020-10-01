@@ -9,6 +9,16 @@ class EmailsController < ApplicationController
     render_nothing
   end
 
+  def send_crlf_email
+    deliver :email_crlf
+    render_nothing
+  end
+
+  def send_email_with_umlauts
+    deliver :email_with_umlauts
+    render_nothing
+  end
+
   def send_html_email_with_links
     deliver :html_email_with_links
     render_nothing

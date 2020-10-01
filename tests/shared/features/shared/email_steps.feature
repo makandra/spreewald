@@ -233,6 +233,41 @@ Feature: Test Spreewald's email steps
         '''
       """
 
+    When I clear my emails
+      And I go to "/emails/send_crlf_email"
+
+    Then the following multiline step should succeed:
+      """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: reply-to@example.com
+        To: to@example.com
+        Subject: SUBJECT
+
+        Body
+        with
+        CRLF
+        line
+        breaks
+        '''
+      """
+
+    When I clear my emails
+      And I go to "/emails/send_email_with_umlauts"
+
+    Then the following multiline step should succeed:
+     """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: reply-to@example.com
+        To: to@example.com
+        Subject: SUBJECT
+
+        Viele Grüße
+        '''
+      """
 
   Scenario: /^I follow the (first|second|third)? ?link in the e?mail$/ (HTML e-mail body)
     When I go to "/emails/send_html_email_with_links"

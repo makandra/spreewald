@@ -35,6 +35,9 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
   - `"..." should( not)? be an option for "..."`
   - `the "..." field should( not)? be visible`
   - `the "..." select should( not)? be sorted`
+  
+### Compatible changes
+- Reintroduced support for emails with CRLF line ending
 
 ## 2.99.0
 - The following steps were deprecated and will be removed in the upcoming major version:

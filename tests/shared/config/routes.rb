@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   get '/emails/do_nothing', to: 'emails#do_nothing'
   get '/emails/send_email', to: 'emails#send_email'
+  get '/emails/send_crlf_email', to: 'emails#send_crlf_email'
+  get '/emails/send_email_with_umlauts', to: 'emails#send_email_with_umlauts'
   get '/emails/send_html_email_with_links', to: 'emails#send_html_email_with_links'
   get '/emails/send_text_email_with_links', to: 'emails#send_text_email_with_links'
 

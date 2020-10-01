@@ -17,7 +17,15 @@ class SpreewaldMailer < ApplicationMailer
       :subject => SUBJECT
     )
   end
-  
+
+  def email_crlf
+    email
+  end
+
+  def email_with_umlauts
+    email
+  end
+
   def html_email_with_links
     email
   end

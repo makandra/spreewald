@@ -21,6 +21,14 @@ class Mailer < ActionMailer::Base
       )
     end
 
+    def email_crlf
+      email
+    end
+
+    def email_with_umlauts
+      email
+    end
+
     def html_email_with_links
       email
     end
@@ -40,6 +48,10 @@ class Mailer < ActionMailer::Base
       bcc BCC
       subject SUBJECT
       body BODY
+    end
+
+    def email_crlf
+      email
     end
 
     def html_email_with_links
