@@ -396,16 +396,6 @@ Then /^the "([^\"]*)" field should( not)? have an error$/ do |label, negate|
   end
 end.overridable
 
-Then /^the "([^"]*)" field should have no error$/ do |field|
-  warn 'The step /^the "([^"]*)" field should have no error$/ is deprecated and scheduled for removal. Use the step /^the "([^\"]*)" field should( not)? have an error$/ instead.'
-  patiently do
-    element = find_with_disabled(:field, field)
-    classes = element.find(:xpath, '..')[:class].split(' ')
-    expect(classes).not_to include('field_with_errors')
-    expect(classes).not_to include('error')
-  end
-end.overridable
-
 Then /^the "([^"]*)" checkbox should( not)? be checked?$/ do |label, negate|
   expectation = negate ? :not_to : :to
 
@@ -534,18 +524,12 @@ end.overridable
 # Within a selenium test, the browser is asked whether the element is really visible
 # In a non-selenium test, we only check for `.hidden`, `.invisible` or `style: display:none`
 #
-# The step 'Then (the tag )?"..." should **not** be visible' is ambiguous. Please use 'Then (the tag )?"..." should be hidden' or 'Then I should not see "..."' instead. Note that the **not** option will be removed in future versions of Spreewald.
-#
 # More details [here](https://makandracards.com/makandra/1049-capybara-check-that-a-page-element-is-hidden-via-css)
-Then /^(the tag )?"([^\"]+)" should( not)? be visible$/ do |tag, selector_or_text, hidden|
-  if hidden
-    warn "The step 'Then ... should not be visible' is prone to misunderstandings. Please use 'Then ... should be hidden' or 'Then I should not see ...' instead."
-  end
-
+Then /^(the tag )?"([^\"]+)" should be visible$/ do |tag, selector_or_text|
   options = {}
   tag ? options.store(:selector, selector_or_text) : options.store(:text, selector_or_text)
 
-  hidden ? assert_hidden(options) : assert_visible(options)
+   assert_visible(options)
 end.overridable
 
 # Checks that an element is actually present and hidden, also considering styles.
@@ -611,12 +595,6 @@ Then /^"([^"]*)" should link to "([^"]*)"$/ do |link_label, target|
     link = find_link(link_label)
     expect(link[:href]).to match(/#{Regexp.escape target}(\?[^\/]*)?$/) # ignore trailing timestamps
   end
-end.overridable
-
-# Checks that the result has content type `text/plain`
-Then /^I should get a text response$/ do
-  warn 'The step /^I should get a text response$/ is deprecated and scheduled for removal. Use `I should get a response with content-type "text/plain"` instead.'
-  step 'I should get a response with content-type "text/plain"'
 end.overridable
 
 # Click a link within an element matching the given selector. Will try to be clever
@@ -701,20 +679,6 @@ Then /^the "([^\"]*)" field should( not)? be visible$/ do |label, hidden|
   else
     assert_visible(selector: selector)
   end
-end.overridable
-
-# Waits for the page to finish loading and AJAX requests to finish.
-#
-# More details [here](https://makandracards.com/makandra/12139-waiting-for-page-loads-and-ajax-requests-to-finish-with-capybara).
-When /^I wait for the page to load$/ do
-  warn 'The step /^I wait for the page to load$/ is deprecated and scheduled for removal. Please see https://github.com/makandra/spreewald/issues/136'
-  if javascript_capable?
-    patiently do
-      # when no jQuery is loaded, we assume there are no pending AJAX requests
-      page.execute_script("return typeof jQuery === 'undefined' || $.active == 0;").should == true
-    end
-  end
-  page.has_content? ''
 end.overridable
 
 # Performs HTTP basic authentication with the given credentials and visits the given path.

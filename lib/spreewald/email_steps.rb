@@ -67,26 +67,6 @@ ERROR
   end
 end.overridable
 
-# nodoc (deprecated)
-Then /^(an|no) e?mail should have been sent((?: |and|with|from "[^"]+"|bcc "[^"]+"|cc "[^"]+"|to "[^"]+"|the subject "[^"]+"|the body "[^"]+"|the attachments "[^"]+")+)$/ do |mode, query|
-  warn "The step `an email should have been sent (from ...) (to ...) (cc ...) ...` has been deprecated in favor of `(an?|no)( HTML| plain-text|) e?mail should have been sent with:`"
-  patiently do
-    filename_method = Rails::VERSION::MAJOR < 3 ? 'original_filename' : 'filename'
-    @mail = ActionMailer::Base.deliveries.find do |mail|
-        [ query =~ /to "([^"]+)"/ && !mail.to.include?(MailFinder.resolve_email $1),
-          query =~ /cc "([^"]+)"/ && !mail.cc.include?(MailFinder.resolve_email $1),
-          query =~ /bcc "([^"]+)"/ && !mail.bcc.include?(MailFinder.resolve_email $1),
-          query =~ /from "([^"]+)"/ && !mail.from.include?(MailFinder.resolve_email $1),
-          query =~ /reply_to "([^"]+)"/ && !mail.reply_to.include?(MailFinder.resolve_email $1),
-          query =~ /subject "([^"]+)"/ && !mail.subject.include?($1),
-          query =~ /the attachments "([^"]+)"/ && $1.split(/\s*,\s*/).sort != Array(mail.attachments).collect(&:"#{filename_method}").sort
-        ].none?
-    end
-    expectation = mode == 'no' ? 'not_to' : 'to'
-    expect(@mail).send(expectation, be_present)
-  end
-end.overridable
-
 # Please note that this step will only follow HTTP and HTTPS links.
 # Other links (such as mailto: or ftp:// links) are ignored.
 When /^I follow the (first|second|third)? ?link in the e?mail$/ do |index_in_words|
@@ -137,23 +117,4 @@ Then /^show me the e?mail( header)?s with:$/ do |only_header, raw_data|
   end
 
   print MailFinder.show_mails(results.mails, only_header)
-end.overridable
-
-# nodoc (deprecated)
-Then /^that e?mail should( not)? have the following lines in the body:$/ do |negate, body|
-  warn "The step /^that e?mail should( not)? have the following lines in the body:$/ has been deprecated in favor of the updated step /^(an?|no)( HTML| plain-text|) e?mail should have been sent with:$/."
-  expectation = negate ? 'not_to' : 'to'
-  mail = @mail || ActionMailer::Base.deliveries.last
-  email_text_body = MailFinder.email_text_body(mail)
-
-  body.to_s.strip.split(/\n/).each do |line|
-    expect(email_text_body).send(expectation, include(line.strip))
-  end
-end.overridable
-
-# nodoc (deprecated)
-Then /^that e?mail should have the following (?:|content in the )body:$/ do |body|
-  warn "The step /^that e?mail should have the following( content in the)? body:$/ has been deprecated in favor of the updated step /^(an?|no)( HTML| plain-text|) e?mail should have been sent with:$/."
-  mail = @mail || ActionMailer::Base.deliveries.last
-  expect(MailFinder.email_text_body(mail)).to include(body.strip)
 end.overridable

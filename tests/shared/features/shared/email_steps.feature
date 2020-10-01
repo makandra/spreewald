@@ -200,6 +200,22 @@ Feature: Test Spreewald's email steps
         '''
       """
 
+    # Test body with to few paragraphs
+    Then the following multiline step should fail:
+      """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: reply-to@example.com
+        To: to@example.com
+        Subject: SUBJECT
+
+        Body
+        with
+        line
+        '''
+      """
+
     # Test body with wildcard not at the end of a line
     Then the following multiline step should fail:
       """
@@ -214,68 +230,6 @@ Feature: Test Spreewald's email steps
         *th
         line
         break
-        '''
-      """
-
-  Scenario: Scenario: /^(an|no) e?mail should have been sent((?: |and|with|from "[^"]+"|bcc "[^"]+"|cc "[^"]+"|to "[^"]+"|the subject "[^"]+"|the body "[^"]+"|the attachments "[^"]+")+)$/
-    When I go to "/emails/send_email"
-
-    # Test with correct conditions
-    Then the following multiline step should succeed:
-      """
-      Then an email should have been sent from "from@example.com" to "to@example.com" cc "cc@example.com" bcc "bcc@example.com" and the subject "SUBJECT" and the attachments "attached_file.pdf"
-      """
-
-     # Test with wrong conditions
-    Then the following multiline step should fail:
-      """
-      Then an email should have been sent from "from@example.com" to "to@example.com" cc "cc@example.com" bcc "wrong_bcc@example.com" and the subject "SUBJECT" and the attachments "attached_file.pdf"
-      """
-
-  Scenario: /^that e?mail should have the following lines in the body:$/
-    When I go to "/emails/send_email"
-
-    # Test with correct body lines
-    Then the following multiline step should succeed:
-      """
-      Then that email should have the following lines in the body:
-        '''
-        with
-        line
-        '''
-      """
-
-    # Test with wrong body lines
-    Then the following multiline step should fail:
-      """
-      Then that email should have the following lines in the body:
-        '''
-        wrong
-        line
-        '''
-      """
-
-
-  Scenario: /^that e?mail should have the following( content in the)? body$/
-    When I go to "/emails/send_email"
-
-      # Test with correct body lines
-    Then the following multiline step should succeed:
-      """
-      Then that email should have the following content in the body:
-        '''
-        with
-        line
-        '''
-      """
-
-       # Test with wrong body lines
-    Then the following multiline step should fail:
-      """
-      Then that email should have the following body:
-        '''
-        wrong
-        line
         '''
       """
 

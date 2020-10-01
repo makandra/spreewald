@@ -5,15 +5,8 @@ Then /^it should work(.+?)?$/ do |message|
   pending(message)
 end.overridable
 
-# nodoc
-Then 'debugger' do
-  warn 'The step "Then debugger" will be removed in future versions of Spreewald. Please use "Then console" instead.'
-  step 'console' # Alias
-end.overridable
-
 # Pauses test execution and opens an IRB shell with current context. Does not halt the application-
-# under-test. (Replaces the "Then debugger" step that has never been adequate
-# for its job)
+# under-test.
 Then 'console' do
   require 'irb'
   ARGV.clear # IRB takes ARGV as its own arguments

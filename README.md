@@ -197,8 +197,7 @@ the step definitions.
 * **Then console**
 
   Pauses test execution and opens an IRB shell with current context. Does not halt the application-
-  under-test. (Replaces the "Then debugger" step that has never been adequate
-  for its job)
+  under-test.
 
 
 * **AfterStep @slow-motion**
@@ -266,13 +265,6 @@ the step definitions.
   This uses the same syntax as `Then an email should have been sent with:`
 
 
-### file_attachment_steps.rb 
-
-* **Given the file "..." was attached( as (.../)?...)? to the ... above( at "...")?**
-
-  This step is deprecated and will be removed from spreewald. If you still want to use it, copy the code to your project's own steps.
-
-
 ### session_steps.rb 
 
 * **When ... in the browser session "..."**
@@ -325,8 +317,6 @@ Please note that the two approaches branch. While ActiveSupport will freeze the 
   
       When it is 10 minutes later
       When it is a few hours earlier
-
-
 
 
 ### web_steps.rb 
@@ -556,9 +546,6 @@ deprecation notice. Decide for yourself whether you want to use them:
 * **Then the "..." field should( not)? have an error**
 
 
-* **Then the "..." field should have no error**
-
-
 * **Then the "..." checkbox should( not)? be checked?**
 
 
@@ -612,13 +599,11 @@ deprecation notice. Decide for yourself whether you want to use them:
 * **When I reload the page**
 
 
-* **Then (the tag )?"..." should( not)? be visible**
+* **Then (the tag )?"..." should be visible**
 
   Checks that an element is actually present and visible, also considering styles.
   Within a selenium test, the browser is asked whether the element is really visible
   In a non-selenium test, we only check for `.hidden`, `.invisible` or `style: display:none`
-  
-  The step 'Then (the tag )?"..." should **not** be visible' is ambiguous. Please use 'Then (the tag )?"..." should be hidden' or 'Then I should not see "..."' instead. Note that the **not** option will be removed in future versions of Spreewald.
   
   More details [here](https://makandracards.com/makandra/1049-capybara-check-that-a-page-element-is-hidden-via-css)
 
@@ -672,11 +657,6 @@ deprecation notice. Decide for yourself whether you want to use them:
          got: "http://makandra.com/" (using =~)
 
 
-* **Then I should get a text response**
-
-  Checks that the result has content type `text/plain`
-
-
 * **When I follow "..." inside any "..."**
 
   Click a link within an element matching the given selector. Will try to be clever
@@ -710,13 +690,6 @@ deprecation notice. Decide for yourself whether you want to use them:
 * **Then the "..." field should( not)? be visible**
 
   Tests that a field with the given label is visible.
-
-
-* **When I wait for the page to load**
-
-  Waits for the page to finish loading and AJAX requests to finish.
-  
-  More details [here](https://makandracards.com/makandra/12139-waiting-for-page-loads-and-ajax-requests-to-finish-with-capybara).
 
 
 * **When I perform basic authentication as ".../..." and go to ...**

@@ -46,11 +46,6 @@ Feature: Web steps
     Then the "Disabled" field should have the error "is invalid"
 
 
-  Scenario: /^the "([^"]*)" field should have no error$/
-    When I go to "/forms/invalid_form"
-    Then the "C" field should have no error
-
-
   Scenario: /^I should see a form with the following values:$/
     When I go to "/forms/form1"
     Then I should see a form with the following values:
@@ -139,7 +134,7 @@ Feature: Web steps
       But the "unsorted" select should not be sorted
 
 
-  Scenario: /^Then (the tag )?"..." should( not)? be visible$/
+  Scenario: /^Then (the tag )?"..." should be visible$/
     When I go to "/static_pages/visibility"
     Then "hidden ümläüt" should be hidden
       And "visible ümläüt" should be visible
@@ -149,13 +144,13 @@ Feature: Web steps
 
 
   @javascript
-  Scenario: /^Then (the tag )?"..." should( not)? be visible$/ with javascript
+  Scenario: /^Then (the tag )?"..." should be visible$/ with javascript
     When I go to "/static_pages/visibility"
-    Then "hidden ümläüt" should not be visible
+    Then "hidden ümläüt" should be hidden
       And "visible ümläüt" should be visible
       And a hidden string with quotes should not be visible
       And a visible string with quotes should be visible
-      And "hidden ümläüt" should not be visible
+      And "hidden ümläüt" should be hidden
 
 
   Scenario: /^the "([^\"]*)" field should( not)? be visible$/
@@ -165,7 +160,7 @@ Feature: Web steps
 
   Scenario: /^the "([^\"]*)" field should( not)? be visible within (.*[^:])$/
     When I go to "/static_pages/visibility"
-    Then "content" should not be visible within ".inside"
+    Then "content" should be hidden within ".inside"
       But "content" should be visible within ".outside"
 
   @javascript
