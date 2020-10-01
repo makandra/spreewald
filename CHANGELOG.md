@@ -3,6 +3,42 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 3.0.0
+
+### Breaking changes
+
+- The following steps have been removed:
+  - `/^the file "([^"]*)" was attached(?: as (?:([^"]*)\/)?([^"]*))? to the ([^"]*) above(?: at "([^"]*)")?$/` (see [#106](https://github.com/makandra/spreewald/issues/106), this functionality was moved to [CucumberFactory](https://github.com/makandra/cucumber_factory))
+  - `/^the "([^"]*)" field should have no error$/` (see [#134](https://github.com/makandra/spreewald/issues/134))
+  - `/^I should get a text response$/` (see [#135](https://github.com/makandra/spreewald/issues/135))
+  - `/^I wait for the page to load$/` (see [#136](https://github.com/makandra/spreewald/issues/136))
+  - `debugger` (was an alias for `console`)
+- These email steps have been removed in favor of `(an?|no)( HTML| plain-text|) e?mail should have been sent with:` (see [#132](https://github.com/makandra/spreewald/issues/132#issuecomment-631457290)):
+  - `/^(an|no) e?mail should have been sent((?: |and|with|from "[^"]+"|bcc "[^"]+"|cc "[^"]+"|to "[^"]+"|the subject "[^"]+"|the body "[^"]+"|the attachments "[^"]+")+)$/`
+  - `/^that e?mail should( not)? have the following lines in the body$/`
+  - `/^that e?mail should have the following (?:|content in the )body:$/`
+- The `and disabled` modifier of the step `the "..." checkbox should( not)? be checked` has been removed. Use the step without the modifier together with the step `the "..." checkbox should be disabled` to achieve the old behavior.
+- The step `/^(the tag )?"([^\"]+)" should( not)? be visible$/` lost its `not` modifier (Use `Then (the tag )?"..." should be hidden` or `Then I should not see "..."`)
+- The file `lib/spreewald/timecop_steps.rb` was removed (was an alias for `lib/spreewald/time_steps.rb`).
+- The step `(an?|no)( HTML| plain-text|) e?mail should have been sent with:` does now require that the whole body is matched.
+- All web steps interacting with forms will now find both enabled and disabled fields. We encourage you to assert the "disabled" state in a separate step when needed, Spreewald offers these steps as well.
+
+  The following steps have been adjusted:
+  - `I should( not)? see a field "..."`
+  - `the "..." field should( not)? contain "..."`
+  - `I should see a form with the following values:`
+  - `the "..." field should have the error "..."`
+  - `the "..." field should( not)? have an error`
+  - `the "..." checkbox should( not)? be checked`
+  - `"..." should be selected for "..."`
+  - `nothing should be selected for "..."`
+  - `"..." should( not)? be an option for "..."`
+  - `the "..." field should( not)? be visible`
+  - `the "..." select should( not)? be sorted`
+  
+### Compatible changes
+- Reintroduced support for emails with CRLF line ending
+
 ## 2.99.0
 - The following steps were deprecated and will be removed in the upcoming major version:
   - `/^the "([^"]*)" field should have no error$/` (see [#134](https://github.com/makandra/spreewald/issues/134))

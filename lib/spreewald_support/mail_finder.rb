@@ -58,7 +58,7 @@ class MailFinder
     end
 
     def email_text_body(mail, type = '')
-      if mail.html_part && type != 'plain-text'
+      body = if mail.html_part && type != 'plain-text'
         dom = Nokogiri::HTML(mail.html_part.body.to_s)
         dom.at_css('body').text.gsub(/\n\n/, "\n")
       elsif mail.text_part && type != 'HTML'
@@ -66,6 +66,7 @@ class MailFinder
       else
         mail.body.to_s
       end
+      body.gsub("\r\n", "\n") # The mail gem (>= 2.7.1) switched from \n to \r\n line breaks (LF to CRLF) in plain text mails.
     end
 
     def show_mails(mails, only_header = false)
