@@ -30,9 +30,6 @@ end.overridable
 #
 #       """
 #
-# Because of backwards-compatibility, the body currently only has to be a prefix
-# of the real body. However, this is deprecated and will be removed in a future
-# version. Use wildcards instead.
 # You may skip lines in the header, of course.
 Then /^(an?|no)( HTML| plain-text|) e?mail should have been sent with:$/ do |mode, type, raw_data|
   patiently do

@@ -81,14 +81,12 @@ class MailFinder
     end
 
     def expected_body_regex(expected_body)
-      # To stay backwards-compatible, this will only check whether an email
-      # starts with the expected body.
       expected = '\A\n' + Regexp.quote(expected_body.strip) + '\n\Z'
       expected.gsub! '\n\*\n', '\n[\s\S]*\n'
       expected.gsub! '\*\n', '.*\n'
 
       expected.gsub! '\A\n', '\A'
-      expected.gsub! '\n\Z', '' # Change '' to '\Z' to force that the whole body matches
+      expected.gsub! '\n\Z', '\Z'
 
       Regexp.new(expected)
     end

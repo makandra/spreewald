@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ### Breaking changes
 
+- The step `(an?|no)( HTML| plain-text|) e?mail should have been sent with:` does now require that the whole body is matched.
 - All web steps interacting with forms will now find both enabled and disabled fields. This affects the following steps:
   - `I should( not)? see a field "..."`
   - `the "..." field should( not)? contain "..."`
