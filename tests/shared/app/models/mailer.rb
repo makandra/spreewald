@@ -37,6 +37,10 @@ class Mailer < ActionMailer::Base
       email
     end
 
+    def html_email_with_linebreaks
+      email
+    end
+
   else
 
     def email

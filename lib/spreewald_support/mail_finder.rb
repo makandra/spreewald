@@ -60,7 +60,7 @@ class MailFinder
     def email_text_body(mail, type = '')
       body = if mail.html_part && type != 'plain-text'
         dom = Nokogiri::HTML(mail.html_part.body.to_s)
-        dom.at_css('body').text.gsub(/\n\n/, "\n")
+        dom.at_css('body').text.gsub(/[\r\n]+/, "\n")
       elsif mail.text_part && type != 'HTML'
         mail.text_part.body.to_s
       else
