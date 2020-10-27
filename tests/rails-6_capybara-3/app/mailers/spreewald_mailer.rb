@@ -34,5 +34,9 @@ class SpreewaldMailer < ApplicationMailer
     email
   end
 
+  def html_email_with_linebreaks
+    email
+  end
+
 end
 

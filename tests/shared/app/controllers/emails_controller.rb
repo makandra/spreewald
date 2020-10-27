@@ -29,6 +29,11 @@ class EmailsController < ApplicationController
     render_nothing
   end
 
+  def send_html_email_with_linebreaks
+    deliver :html_email_with_linebreaks
+    render_nothing
+  end
+
   private
 
   def deliver(method_name)
