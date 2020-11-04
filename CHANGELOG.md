@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.99.2
+
+- Fix deduplication of linebreaks for html mails in mail finder. (see issue [#153](https://github.com/makandra/spreewald/issues/153))
+
 ## 2.99.1
 
 - Reintroduced support for emails with CRLF line ending
