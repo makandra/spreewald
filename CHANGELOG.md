@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 3.0.2
+
+- Introduce wildcard for the beginning of a line. (see issue [#155](https://github.com/makandra/spreewald/issues/155))
+  - This will allow you to check for a specific sentence inside the body
+
 ## 3.0.1
 
 - Fix deduplication of linebreaks for html mails in mail finder. (see issue [#153](https://github.com/makandra/spreewald/issues/153))
