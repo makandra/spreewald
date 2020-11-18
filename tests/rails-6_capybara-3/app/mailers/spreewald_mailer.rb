@@ -38,5 +38,13 @@ class SpreewaldMailer < ApplicationMailer
     email
   end
 
+  def html_email_with_specific_line
+    email
+  end
+
+  def text_email_with_specific_line
+    email
+  end
+
 end
 
