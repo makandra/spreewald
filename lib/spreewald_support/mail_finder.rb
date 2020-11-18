@@ -87,6 +87,7 @@ class MailFinder
       expected = '\A\n' + Regexp.quote(expected_body.strip) + '\n\Z'
       expected.gsub! '\n\*\n', '\n[\s\S]*\n'
       expected.gsub! '\*\n', '.*\n'
+      expected.gsub! '\n\*', '\n.*'
 
       expected.gsub! '\A\n', '\A'
       expected.gsub! '\n\Z', '' # Change '' to '\Z' to force that the whole body matches

@@ -41,6 +41,14 @@ class Mailer < ActionMailer::Base
       email
     end
 
+    def html_email_with_specific_line
+      email
+    end
+
+    def text_email_with_specific_line
+      email
+    end
+
   else
 
     def email
@@ -63,6 +71,14 @@ class Mailer < ActionMailer::Base
     end
 
     def text_email_with_links
+      email
+    end
+
+    def html_email_with_specific_line
+      email
+    end
+
+    def text_email_with_specific_line
       email
     end
 

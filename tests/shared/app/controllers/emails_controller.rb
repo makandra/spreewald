@@ -34,6 +34,16 @@ class EmailsController < ApplicationController
     render_nothing
   end
 
+  def send_html_email_with_specific_line
+    deliver :html_email_with_specific_line
+    render_nothing
+  end
+
+  def send_text_email_with_specific_line
+    deliver :text_email_with_specific_line
+    render_nothing
+  end
+
   private
 
   def deliver(method_name)

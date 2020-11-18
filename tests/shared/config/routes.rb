@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get '/emails/send_html_email_with_links', to: 'emails#send_html_email_with_links'
   get '/emails/send_text_email_with_links', to: 'emails#send_text_email_with_links'
   get '/emails/send_html_email_with_linebreaks', to: 'emails#send_html_email_with_linebreaks'
+  get '/emails/send_html_email_with_specific_line', to: 'emails#send_html_email_with_specific_line'
+  get '/emails/send_text_email_with_specific_line', to: 'emails#send_text_email_with_specific_line'
 
   get '/forms/checkbox_form', to: 'forms#checkbox_form'
   get '/forms/disabled_elements', to: 'forms#disabled_elements'

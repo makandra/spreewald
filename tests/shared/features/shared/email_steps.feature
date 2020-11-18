@@ -332,6 +332,44 @@ Feature: Test Spreewald's email steps
         '''
       """
 
+    When I clear my emails
+      And I go to "/emails/send_html_email_with_specific_line"
+
+    Then the following multiline step should succeed:
+     """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: reply-to@example.com
+        To: to@example.com
+        Subject: SUBJECT
+
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr*
+        *VERY IMPORTANT SENTENCE*
+        Ut wisi enim ad minim veniam*
+        '''
+      """
+
+    When I clear my emails
+      And I go to "/emails/send_text_email_with_specific_line"
+
+    Then the following multiline step should succeed:
+     """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: reply-to@example.com
+        To: to@example.com
+        Subject: SUBJECT
+
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr*
+
+        *VERY IMPORTANT SENTENCE*
+
+        Ut wisi enim ad minim veniam*
+        '''
+      """
+
   Scenario: /^I follow the (first|second|third)? ?link in the e?mail$/ (HTML e-mail body)
     When I go to "/emails/send_html_email_with_links"
       And I follow the first link in the email
