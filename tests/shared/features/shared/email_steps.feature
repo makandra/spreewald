@@ -130,6 +130,7 @@ Feature: Test Spreewald's email steps
         breaks
         '''
       """
+
     # Test with incorrect To header
     Then the following multiline step should fail:
       """
@@ -211,9 +212,101 @@ Feature: Test Spreewald's email steps
         Subject: SUBJECT
 
         Body
-        *th
+        t*e
         line
         break
+        '''
+      """
+
+    When I clear my emails
+      And I go to "/emails/send_crlf_email"
+
+    Then the following multiline step should succeed:
+      """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: reply-to@example.com
+        To: to@example.com
+        Subject: SUBJECT
+
+        Body
+        with
+        CRLF
+        line
+        breaks
+        '''
+      """
+
+    When I clear my emails
+      And I go to "/emails/send_email_with_umlauts"
+
+    Then the following multiline step should succeed:
+     """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: reply-to@example.com
+        To: to@example.com
+        Subject: SUBJECT
+
+        Viele Grüße
+        '''
+      """
+
+    When I clear my emails
+      And I go to "/emails/send_html_email_with_linebreaks"
+
+    Then the following multiline step should succeed:
+     """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: reply-to@example.com
+        To: to@example.com
+        Subject: SUBJECT
+
+        Hello!
+        Bye!
+        '''
+      """
+
+    # Test body with wildcard at the begin of a line
+    When I clear my emails
+      And I go to "/emails/send_html_email_with_specific_line"
+
+    Then the following multiline step should succeed:
+     """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: reply-to@example.com
+        To: to@example.com
+        Subject: SUBJECT
+
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr*
+        *VERY IMPORTANT SENTENCE*
+        Ut wisi enim ad minim veniam*
+        '''
+      """
+
+    When I clear my emails
+      And I go to "/emails/send_text_email_with_specific_line"
+
+    Then the following multiline step should succeed:
+     """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: reply-to@example.com
+        To: to@example.com
+        Subject: SUBJECT
+
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr*
+
+        *VERY IMPORTANT SENTENCE*
+
+        Ut wisi enim ad minim veniam*
         '''
       """
 
@@ -276,97 +369,6 @@ Feature: Test Spreewald's email steps
         '''
         wrong
         line
-        '''
-      """
-
-    When I clear my emails
-      And I go to "/emails/send_crlf_email"
-
-    Then the following multiline step should succeed:
-      """
-      Then an email should have been sent with:
-        '''
-        From: from@example.com
-        Reply-To: reply-to@example.com
-        To: to@example.com
-        Subject: SUBJECT
-
-        Body
-        with
-        CRLF
-        line
-        breaks
-        '''
-      """
-
-    When I clear my emails
-      And I go to "/emails/send_email_with_umlauts"
-
-    Then the following multiline step should succeed:
-     """
-      Then an email should have been sent with:
-        '''
-        From: from@example.com
-        Reply-To: reply-to@example.com
-        To: to@example.com
-        Subject: SUBJECT
-
-        Viele Grüße
-        '''
-      """
-
-    When I clear my emails
-      And I go to "/emails/send_html_email_with_linebreaks"
-
-    Then the following multiline step should succeed:
-     """
-      Then an email should have been sent with:
-        '''
-        From: from@example.com
-        Reply-To: reply-to@example.com
-        To: to@example.com
-        Subject: SUBJECT
-
-        Hello!
-        Bye!
-        '''
-      """
-
-    When I clear my emails
-      And I go to "/emails/send_html_email_with_specific_line"
-
-    Then the following multiline step should succeed:
-     """
-      Then an email should have been sent with:
-        '''
-        From: from@example.com
-        Reply-To: reply-to@example.com
-        To: to@example.com
-        Subject: SUBJECT
-
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr*
-        *VERY IMPORTANT SENTENCE*
-        Ut wisi enim ad minim veniam*
-        '''
-      """
-
-    When I clear my emails
-      And I go to "/emails/send_text_email_with_specific_line"
-
-    Then the following multiline step should succeed:
-     """
-      Then an email should have been sent with:
-        '''
-        From: from@example.com
-        Reply-To: reply-to@example.com
-        To: to@example.com
-        Subject: SUBJECT
-
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr*
-
-        *VERY IMPORTANT SENTENCE*
-
-        Ut wisi enim ad minim veniam*
         '''
       """
 
