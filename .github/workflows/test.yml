@@ -1,0 +1,44 @@
+---
+name: build
+'on':
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - ruby: 2.1.8
+          gemfile: tests/rails-3_capybara-1/Gemfile
+        - ruby: 2.1.8
+          gemfile: tests/rails-3_capybara-2/Gemfile
+        - ruby: 2.4.5
+          gemfile: tests/rails-4_capybara-3/Gemfile
+        - ruby: 2.6.6
+          gemfile: tests/rails-6_capybara-3/Gemfile
+        - ruby: 2.1.8
+          gemfile: Gemfile.ruby218
+        - ruby: 2.4.5
+          gemfile: Gemfile.ruby245
+        - ruby: 2.6.6
+          gemfile: Gemfile.ruby266
+    env:
+      BUNDLE_GEMFILE: "${{ matrix.gemfile }}"
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: "${{ matrix.ruby }}"
+    - name: Bundle
+      run: |
+        gem install bundler:2.1.4
+        bundle install --no-deployment
+    - name: Run tests
+      run: bundle exec rake spec
