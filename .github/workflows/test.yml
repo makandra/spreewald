@@ -37,8 +37,6 @@ jobs:
       with:
         ruby-version: "${{ matrix.ruby }}"
     - name: Bundle
-      run: |
-        gem install rake
-        bundle install --no-deployment
+      run: bundle install --no-deployment
     - name: Run tests
-      run: bundle exec rake spec
+      run: bundle exec rspec spec
