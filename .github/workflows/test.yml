@@ -14,15 +14,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - ruby: 2.1.8
+        - ruby: 2.1.9
           gemfile: tests/rails-3_capybara-1/Gemfile
-        - ruby: 2.1.8
+        - ruby: 2.1.9
           gemfile: tests/rails-3_capybara-2/Gemfile
         - ruby: 2.4.5
           gemfile: tests/rails-4_capybara-3/Gemfile
         - ruby: 2.6.6
           gemfile: tests/rails-6_capybara-3/Gemfile
-        - ruby: 2.1.8
+        - ruby: 2.1.9
           gemfile: Gemfile.ruby218
         - ruby: 2.4.5
           gemfile: Gemfile.ruby245
@@ -38,7 +38,7 @@ jobs:
         ruby-version: "${{ matrix.ruby }}"
     - name: Bundle
       run: |
-        gem install bundler:2.1.4
+        gem install rake
         bundle install --no-deployment
     - name: Run tests
       run: bundle exec rake spec
