@@ -15,12 +15,16 @@ jobs:
       matrix:
         include:
         - ruby: 2.4.5
+          features: tests/rails-4_capybara-3/features
           gemfile: tests/rails-4_capybara-3/Gemfile
         - ruby: 2.6.6
+          features: tests/rails-6_capybara-3/features
           gemfile: tests/rails-6_capybara-3/Gemfile
         - ruby: 2.4.5
+          features: features
           gemfile: Gemfile.ruby245
         - ruby: 2.6.6
+          features: features
           gemfile: Gemfile.ruby266
     env:
       BUNDLE_GEMFILE: "${{ matrix.gemfile }}"
@@ -32,7 +36,7 @@ jobs:
         ruby-version: "${{ matrix.ruby }}"
     - name: Bundle
       run: bundle install --no-deployment
-    - name: Run tests
-      run: |
-        bundle exec rspec
-        bundle exec cucumber
+    - name: Run rspec
+      run: bundle exec rspec
+    - name: Run cucumber
+      run: "bundle exec cucumber ${{ matrix.features }}"
