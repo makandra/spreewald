@@ -33,4 +33,6 @@ jobs:
     - name: Bundle
       run: bundle install --no-deployment
     - name: Run tests
-      run: bundle exec rspec spec
+      run: |
+        bundle exec rspec
+        bundle exec cucumber
