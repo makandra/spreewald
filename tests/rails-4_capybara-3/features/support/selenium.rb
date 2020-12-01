@@ -4,7 +4,7 @@ def shared_options
   options.add_argument('--disable-infobars')
   options.add_preference('credentials_enable_service', false)
   options.add_preference('profile.password_manager_enabled', false)
-  if CI.ci_run?
+  if ENV['CI']
     options.add_argument('--no-sandbox')
     options.add_argument('--headless')
     options.add_argument('--disable-gpu')
@@ -53,7 +53,7 @@ Before('@mobile') do
 end
 
 
-if CI.ci_run?
+if ENV['CI']
   my_ip = `hostname -i`.strip
 
   Capybara.server_host = my_ip
