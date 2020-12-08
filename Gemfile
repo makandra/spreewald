@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'gemika'
+gem 'gemika', '~>0.5'

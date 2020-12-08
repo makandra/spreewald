@@ -18,7 +18,7 @@ namespace :matrix do
 
   desc "Run all tests which are available for current Ruby (#{RUBY_VERSION})"
   task :tests do
-    Gemika::Matrix.from_travis_yml.each do |row|
+    Gemika::Matrix.from_github_actions_yml.each do |row|
       directory = File.dirname(row.gemfile)
       if directory.start_with?('tests')
         # Run integration tests (uses embedded projects)
@@ -31,10 +31,6 @@ namespace :matrix do
         ].all?
       end
     end
-
-    travis_yml = YAML.load_file('.travis.yml')
-    rubies = travis_yml.fetch('rvm') - [RUBY_VERSION]
-    puts "Please remember to run tests for the other ruby versions as well: #{rubies.join(", ")}"
   end
 
 end

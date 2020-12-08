@@ -6,7 +6,7 @@ ruby '2.6.6'
 gem 'rails', '~>6.0'
 gem 'sqlite3'
 gem 'haml-rails'
-gem 'gemika'
+gem 'gemika', '~>0.5'
 
 group :development, :test do
   gem 'byebug'

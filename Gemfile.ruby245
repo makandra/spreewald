@@ -4,4 +4,4 @@ gem 'rspec'
 gem 'cucumber'
 gem 'aruba'
 
-gem 'gemika'
+gem 'gemika', '~>0.5'
