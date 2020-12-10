@@ -32,7 +32,7 @@ jobs:
         ruby-version: "${{ matrix.ruby }}"
     - name: Bundle
       run: |
-        gem install geordi
+        gem install rake
         bundle install --no-deployment
     - if: startsWith(matrix.gemfile, 'tests')
       name: Run cucumber tests

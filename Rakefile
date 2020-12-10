@@ -19,7 +19,7 @@ namespace :matrix do
   desc "Run all cucumber tests which are available for current Ruby (#{RUBY_VERSION})"
   task :cucumber_tests do
     # Run integration tests (uses embedded projects)
-    command = "geordi cucumber"
+    command = "bundle exec cucumber"
     if Gem::Version.new(RUBY_VERSION) > Gem::Version.new('2.5')
       # Modern cucumber sees pending tests as failures.
       # We don't want this.
