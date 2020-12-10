@@ -6,6 +6,7 @@ gem 'sqlite3'
 gem 'haml-rails'
 gem 'gemika', '~>0.5'
 gem 'rake'
+gem 'aruba'
 
 
 group :development, :test do
