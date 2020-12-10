@@ -16,12 +16,16 @@ jobs:
         include:
         - ruby: 2.4.5
           gemfile: tests/rails-4_capybara-3/Gemfile
+          folder: tests/rails-4_capybara-3
         - ruby: 2.6.6
           gemfile: tests/rails-6_capybara-3/Gemfile
+          folder: tests/rails-6_capybara-3
         - ruby: 2.4.5
           gemfile: Gemfile.ruby245
+          folder: ~
         - ruby: 2.6.6
           gemfile: Gemfile.ruby266
+          folder: ~
     env:
       BUNDLE_GEMFILE: "${{ matrix.gemfile }}"
     steps:
@@ -32,11 +36,11 @@ jobs:
         ruby-version: "${{ matrix.ruby }}"
     - name: Bundle
       run: |
-        gem install rake aruba:0.10.2
+        gem install rake
         bundle install --no-deployment
     - if: startsWith(matrix.gemfile, 'tests')
       name: Run cucumber tests
-      run: bundle exec rake matrix:cucumber_tests
+      run: cd "${{ matrix.folder }}" && bundle exec rake matrix:cucumber_tests
     - if: startsWith(matrix.gemfile, 'Gemfile')
       name: Run all tests
       run: bundle exec rake matrix:all_tests
