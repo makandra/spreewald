@@ -35,12 +35,10 @@ jobs:
       with:
         ruby-version: "${{ matrix.ruby }}"
     - name: Bundle
-      run: |
-        gem install rake
-        bundle install --no-deployment
+      run: bundle install --no-deployment
     - if: startsWith(matrix.gemfile, 'tests')
       name: Run cucumber tests
-      run: cd "${{ matrix.folder }}" && bundle exec rake matrix:cucumber_tests
+      run: bundle exec rake matrix:cucumber_tests
     - if: startsWith(matrix.gemfile, 'Gemfile')
       name: Run all tests
       run: bundle exec rake matrix:all_tests
