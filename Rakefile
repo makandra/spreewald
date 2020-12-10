@@ -7,7 +7,7 @@ rescue LoadError
   puts 'Run `gem install gemika` for additional tasks'
 end
 
-task :default => 'matrix:tests'
+task :default => 'matrix:all_tests'
 
 task :spec do
   success = system("bundle exec rspec spec")
@@ -16,25 +16,28 @@ end
 
 namespace :matrix do
 
-  desc "Run all tests which are available for current Ruby (#{RUBY_VERSION})"
-  task :tests do
-    Gemika::Matrix.from_github_actions_yml.each do |row|
-      directory = File.dirname(row.gemfile)
-      if directory.start_with?('tests')
-        # Run integration tests (uses embedded projects)
-        system(cucumber_command(directory, row.ruby))
-      else
-        # Run specs and tests for spreewald binary
-        [
-          system("BUNDLE_GEMFILE=#{row.gemfile} bundle exec rspec"),
-          system("BUNDLE_GEMFILE=#{row.gemfile} bundle exec cucumber"),
-        ].all?
-      end
+  desc "Run all cucumber tests which are available for current Ruby (#{RUBY_VERSION})"
+  task :cucumber_tests do
+    # Run integration tests (uses embedded projects)
+    command = "geordi cucumber"
+    if Gem::Version.new(RUBY_VERSION) > Gem::Version.new('2.5')
+      # Modern cucumber sees pending tests as failures.
+      # We don't want this.
+      command << ' --no-strict-pending'
     end
+    command
+
+    system(command)
+  end
+
+  desc "Run all tests which are available for current Ruby (#{RUBY_VERSION})"
+  task :all_tests do
+    # Run specs and tests for spreewald binary
+    system("bundle exec rspec")
+    system("bundle exec cucumber")
   end
 
 end
-
 
 desc 'Update the "Steps" section of the README'
 task :update_readme do
