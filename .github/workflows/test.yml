@@ -32,7 +32,7 @@ jobs:
         ruby-version: "${{ matrix.ruby }}"
     - name: Bundle
       run: |
-        gem install rake
+        gem install rake aruba:0.10.2
         bundle install --no-deployment
     - if: startsWith(matrix.gemfile, 'tests')
       name: Run cucumber tests
