@@ -1,6 +1,6 @@
 ---
 name: build
-'on':
+on:
   push:
     branches:
     - master
@@ -15,16 +15,12 @@ jobs:
       matrix:
         include:
         - ruby: 2.4.5
-          folder: tests/rails-4_capybara-3
           gemfile: tests/rails-4_capybara-3/Gemfile
         - ruby: 2.6.6
-          folder: tests/rails-6_capybara-3
           gemfile: tests/rails-6_capybara-3/Gemfile
         - ruby: 2.4.5
-          folder:
           gemfile: Gemfile.ruby245
         - ruby: 2.6.6
-          folder:
           gemfile: Gemfile.ruby266
     env:
       BUNDLE_GEMFILE: "${{ matrix.gemfile }}"
@@ -38,9 +34,9 @@ jobs:
       run: |
         gem install geordi
         bundle install --no-deployment
-    - name: Run cucumber tests
-      if: "${{ matrix.gemfile }}".start_with?("tests")
+    - if: startsWith(matrix.gemfile, 'tests')
+      name: Run cucumber tests
       run: bundle exec rake matrix:cucumber_tests
-    - name: Run all tests
-      if: "${{ matrix.gemfile }}".start_with?("Gemfile")
+    - if: startsWith(matrix.gemfile, 'Gemfile')
+      name: Run all tests
       run: bundle exec rake matrix:all_tests
