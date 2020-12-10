@@ -16,16 +16,12 @@ jobs:
         include:
         - ruby: 2.4.5
           gemfile: tests/rails-4_capybara-3/Gemfile
-          folder: tests/rails-4_capybara-3
         - ruby: 2.6.6
           gemfile: tests/rails-6_capybara-3/Gemfile
-          folder: tests/rails-6_capybara-3
         - ruby: 2.4.5
           gemfile: Gemfile.ruby245
-          folder: ~
         - ruby: 2.6.6
           gemfile: Gemfile.ruby266
-          folder: ~
     env:
       BUNDLE_GEMFILE: "${{ matrix.gemfile }}"
     steps:

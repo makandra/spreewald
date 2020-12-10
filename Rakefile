@@ -9,11 +9,6 @@ end
 
 task :default => 'matrix:all_tests'
 
-task :spec do
-  success = system("bundle exec rspec spec")
-  fail "Tests failed" unless success
-end
-
 namespace :matrix do
 
   desc "Run all cucumber tests which are available for current Ruby (#{RUBY_VERSION})"
