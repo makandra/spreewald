@@ -324,6 +324,127 @@ Feature: Test Spreewald's email steps
         '''
       """
 
+    # Tests without header
+    When I clear my emails
+      And I go to "/emails/send_text_email_for_successful_test_without_header"
+    Then the following multiline step should succeed:
+      """
+      Then an email should have been sent with:
+        '''
+        Hello
+
+        Bye
+        '''
+      """
+      And the following multiline step should succeed:
+        """
+        Then an email should have been sent with:
+          '''
+          To: to@example.com
+
+          Hello
+
+          Bye
+          '''
+        """
+    But the following multiline step should fail:
+      """
+      Then an email should have been sent with:
+        '''
+        To: wrong-guy@example.com
+
+        Hello
+
+        Bye
+        '''
+      """
+
+    When I clear my emails
+      And I go to "/emails/send_text_email_for_failed_test_without_header"
+    Then the following multiline step should fail:
+      """
+      Then an email should have been sent with:
+        '''
+        Hello
+
+        Bye
+        '''
+      """
+    But the following multiline step should succeed:
+      """
+      Then an email should have been sent with:
+        '''
+        Bye
+        '''
+      """
+      And the following multiline step should succeed:
+        """
+        Then an email should have been sent with:
+          '''
+          To: to@example.com
+
+          Bye
+          '''
+        """
+
+    When I clear my emails
+      And I go to "/emails/send_html_email_for_successful_test_without_header"
+    Then the following multiline step should succeed:
+      """
+      Then an email should have been sent with:
+        '''
+        Hello
+        Bye
+        '''
+      """
+      And the following multiline step should succeed:
+        """
+        Then an email should have been sent with:
+          '''
+          To: to@example.com
+
+          Hello
+          Bye
+          '''
+        """
+    But the following multiline step should fail:
+      """
+      Then an email should have been sent with:
+        '''
+        To: wrong-guy@example.com
+
+        Hello
+        Bye
+        '''
+      """
+
+    When I clear my emails
+      And I go to "/emails/send_html_email_for_failed_test_without_header"
+    Then the following multiline step should fail:
+      """
+      Then an email should have been sent with:
+        '''
+        Hello
+        Bye
+        '''
+      """
+    But the following multiline step should succeed:
+      """
+      Then an email should have been sent with:
+        '''
+        Bye
+        '''
+      """
+      And the following multiline step should succeed:
+        """
+        Then an email should have been sent with:
+          '''
+          To: to@example.com
+
+          Bye
+          '''
+        """
+
   Scenario: /^I follow the (first|second|third)? ?link in the e?mail$/ (HTML e-mail body)
     When I go to "/emails/send_html_email_with_links"
       And I follow the first link in the email

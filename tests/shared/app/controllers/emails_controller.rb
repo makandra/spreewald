@@ -44,6 +44,26 @@ class EmailsController < ApplicationController
     render_nothing
   end
 
+  def send_html_email_for_successful_test_without_header
+    deliver :html_email_for_successful_test_without_header
+    render_nothing
+  end
+
+  def send_text_email_for_successful_test_without_header
+    deliver :text_email_for_successful_test_without_header
+    render_nothing
+  end
+
+  def send_html_email_for_failed_test_without_header
+    deliver :html_email_for_failed_test_without_header
+    render_nothing
+  end
+
+  def send_text_email_for_failed_test_without_header
+    deliver :text_email_for_failed_test_without_header
+    render_nothing
+  end
+
   private
 
   def deliver(method_name)

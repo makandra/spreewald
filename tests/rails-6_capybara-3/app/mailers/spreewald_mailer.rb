@@ -46,5 +46,21 @@ class SpreewaldMailer < ApplicationMailer
     email
   end
 
+  def html_email_for_successful_test_without_header
+    email
+  end
+
+  def text_email_for_successful_test_without_header
+    email
+  end
+
+  def html_email_for_failed_test_without_header
+    email
+  end
+
+  def text_email_for_failed_test_without_header
+    email
+  end
+
 end
 

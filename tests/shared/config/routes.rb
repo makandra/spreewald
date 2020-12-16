@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   get '/emails/send_html_email_with_linebreaks', to: 'emails#send_html_email_with_linebreaks'
   get '/emails/send_html_email_with_specific_line', to: 'emails#send_html_email_with_specific_line'
   get '/emails/send_text_email_with_specific_line', to: 'emails#send_text_email_with_specific_line'
+  get '/emails/send_html_email_for_successful_test_without_header', to: 'emails#send_html_email_for_successful_test_without_header'
+  get '/emails/send_text_email_for_successful_test_without_header', to: 'emails#send_text_email_for_successful_test_without_header'
+  get '/emails/send_html_email_for_failed_test_without_header', to: 'emails#send_html_email_for_failed_test_without_header'
+  get '/emails/send_text_email_for_failed_test_without_header', to: 'emails#send_text_email_for_failed_test_without_header'
 
   get '/forms/checkbox_form', to: 'forms#checkbox_form'
   get '/forms/disabled_elements', to: 'forms#disabled_elements'

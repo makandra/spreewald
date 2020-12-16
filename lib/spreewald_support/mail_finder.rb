@@ -15,6 +15,11 @@ class MailFinder
         end
       end
 
+      # Interpret all lines as body if there are no header-link lines
+      if conditions.blank?
+        body = [header, body].join("\n\n")
+      end
+
       filename_method = Rails::VERSION::MAJOR < 3 ? 'original_filename' : 'filename'
       matching_header = ActionMailer::Base.deliveries.select do |mail|
         [ conditions[:to].nil? || mail.to.include?(resolve_email conditions[:to]),
