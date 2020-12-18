@@ -14,7 +14,7 @@ end
 
 group :test do
   gem 'database_cleaner'
-  gem 'capybara', "~>3"
+  gem 'capybara', '<3'
   gem 'capybara-screenshot'
   gem 'cucumber-rails', require: false
   gem 'cucumber'

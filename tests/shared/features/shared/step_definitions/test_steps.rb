@@ -45,12 +45,6 @@ Then(/^a visible string with quotes should be visible$/) do
 end
 
 Then(/^'show me the page' should open the page or take a screenshot$/) do
-  # Projects with Capybara 1 & 2 use the launchy gem
-  if Spreewald::Comparison.compare_versions(Capybara::VERSION, :<, "3.0")
-    expect(Launchy).to receive(:open)
-    step 'show me the page'
-  else
     expect_any_instance_of(Capybara::Screenshot::Saver).to receive(:save)
     step 'show me the page'
-  end
 end

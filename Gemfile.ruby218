@@ -1,7 +1,0 @@
-source 'https://rubygems.org'
-
-gem 'rspec'
-gem 'cucumber', '<3'
-gem 'aruba'
-
-gem 'gemika'
