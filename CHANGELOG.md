@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 3.0.3
+
+- The `an email should have been sent with` step now interprets all lines as body when not specifying headers (see issue [#157](https://github.com/makandra/spreewald/issues/157))
+
 ## 3.0.2
 
 - Introduce wildcard for the beginning of a line. (see issue [#155](https://github.com/makandra/spreewald/issues/155))
