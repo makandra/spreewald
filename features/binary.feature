@@ -240,7 +240,7 @@ Feature: The `spreewald` binary
 
   Scenario: Print version
     When I run `spreewald --version`
-    Then the output should contain "Spreewald 3."
+    Then the output should contain /Spreewald \d./
 
     When I run `spreewald -v`
-    Then the output should contain "Spreewald 3."
+    Then the output should contain /Spreewald \d./
