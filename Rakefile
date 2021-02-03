@@ -60,7 +60,7 @@ task :update_readme do
 end
 
 def cucumber_command(directory, ruby_version)
-  command = "cd #{directory} && BUNDLE_GEMFILE=Gemfile geordi cucumber"
+  command = "cd #{directory} && BUNDLE_GEMFILE=Gemfile bundle exec cucumber"
   if Gem::Version.new(ruby_version) > Gem::Version.new('2.5')
     # Modern cucumber sees pending tests as failures.
     # We don't want this.
