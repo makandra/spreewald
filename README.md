@@ -237,7 +237,9 @@ the step definitions.
   
         """
   
-  You may skip lines in the header, of course.
+  You may skip lines in the header.
+  Please note: In older versions of Spreewald, unmentioned body lines were skipped.
+  Now you have to use the asterisk explicity to omit lines in the body.
 
 
 * **When I follow the (first|second|third)? link in the e?mail**

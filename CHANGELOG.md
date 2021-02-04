@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 4.0.0
+
+- Dropped support for capybara 1, Ruby 2.1 and Rails 3.2. 
+
 ## 3.0.3
 
 - The `an email should have been sent with` step now interprets all lines as body when not specifying headers (see issue [#157](https://github.com/makandra/spreewald/issues/157))
