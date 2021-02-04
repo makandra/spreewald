@@ -34,6 +34,7 @@ GEM
     gherkin (5.1.0)
     multi_json (1.14.1)
     multi_test (0.1.2)
+    rake (13.0.3)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
@@ -56,6 +57,7 @@ DEPENDENCIES
   aruba
   cucumber
   gemika
+  rake
   rspec
 
 RUBY VERSION

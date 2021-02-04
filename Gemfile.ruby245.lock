@@ -58,6 +58,7 @@ DEPENDENCIES
   aruba
   cucumber
   gemika
+  rake
   rspec
 
 BUNDLED WITH
