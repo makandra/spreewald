@@ -10,28 +10,25 @@ end
 task :default => 'matrix:tests'
 
 namespace :matrix do
+  desc 'Run tests for a single row of the matrix'
+  task :single_test, [:gemfile, :ruby] do |_t, args|
+    gemfile = args[:gemfile]
+    ruby = args[:ruby]
 
-  desc "Run all tests which are available for current Ruby (#{RUBY_VERSION})"
-  task :tests do
-    Gemika::Matrix.from_travis_yml.each do |row|
-      directory = File.dirname(row.gemfile)
-      if directory.start_with?('tests')
-        # Run integration tests (uses embedded projects)
-        system(cucumber_command(directory, row.ruby))
-      else
-        # Run specs and tests for spreewald binary
-        [
-          system("BUNDLE_GEMFILE=#{row.gemfile} bundle exec rspec"),
-          system("BUNDLE_GEMFILE=#{row.gemfile} bundle exec cucumber"),
-        ].all?
-      end
+    if gemfile.nil? || ruby.nil?
+      warn 'Please state the Gemfile and Ruby version to be used for the Testrun!'
+    else
+      run_tests(gemfile, ruby)
     end
-
-    travis_yml = YAML.load_file('.travis.yml')
-    rubies = travis_yml.fetch('rvm') - [RUBY_VERSION]
-    puts "Please remember to run tests for the other ruby versions as well: #{rubies.join(", ")}"
   end
 
+
+  desc "Run all tests which are available for current Ruby (#{RUBY_VERSION})"
+  task :tests, [:gemfile, :ruby] do |_t, args|
+    Gemika::Matrix.from_ci_config.each do |row|
+      run_tests(row.gemfile, row.ruby)
+    end
+  end
 end
 
 
@@ -57,6 +54,20 @@ task :update_readme do
 
   system "git diff #{readme_path}"
   puts '', '> Done (diff applied).'
+end
+
+def run_tests(gemfile, ruby)
+  directory = File.dirname(gemfile)
+  if directory.start_with?('tests')
+    # Run integration tests (uses embedded projects)
+    system(cucumber_command(directory, ruby))
+  else
+    # Run specs and integration tests for Spreewald binary
+    [
+      system("BUNDLE_GEMFILE=#{gemfile} bundle exec rspec"),
+      system("BUNDLE_GEMFILE=#{gemfile} bundle exec cucumber"),
+    ].all?
+  end
 end
 
 def cucumber_command(directory, ruby_version)
