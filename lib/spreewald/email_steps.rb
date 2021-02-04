@@ -32,7 +32,7 @@ end.overridable
 #
 # You may skip lines in the header.
 # Please note: In older versions of Spreewald, unmentioned body lines were skipped.
-# Now you have to use the asterisk explicity to omit lines in the body.
+# Now you have to use the asterisk explicitly to omit lines in the body.
 Then /^(an?|no)( HTML| plain-text|) e?mail should have been sent with:$/ do |mode, type, raw_data|
   patiently do
     results = MailFinder.find(raw_data, type.strip)
