@@ -8,3 +8,5 @@ gem 'cucumber'
 gem 'aruba'
 
 gem 'gemika'
+gem 'mail'
+gem 'nokogiri'
