@@ -6,6 +6,10 @@ class StaticPagesController < ApplicationController
   def home
   end
 
+  def link_target
+    render_nothing
+  end
+
   def link_to_home
   end
 
@@ -16,6 +20,10 @@ class StaticPagesController < ApplicationController
   end
 
   def overriden
+  end
+
+  def second_link_target
+    render_nothing
   end
 
   def see_element
@@ -34,14 +42,6 @@ class StaticPagesController < ApplicationController
   end
 
   def within
-  end
-
-  def link_target
-    render_nothing
-  end
-
-  def second_link_target
-    render_nothing
   end
 
 end
