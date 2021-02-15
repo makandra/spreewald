@@ -64,7 +64,7 @@ class MailFinder
     end
 
     def email_text_body(mail, type = '')
-      MailToPlaintextConverter.new(mail, type).run
+      Spreewald::MailToPlaintextConverter.new(mail, type).run
     end
 
     def show_mails(mails, only_header = false)
