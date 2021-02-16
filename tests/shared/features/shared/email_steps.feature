@@ -33,6 +33,23 @@ Feature: Test Spreewald's email steps
         '''
       """
 
+    # Test with indented header lines
+    Then the following multiline step should succeed:
+      """
+      Then an email should have been sent with:
+        '''
+          From: from@example.com
+          Reply-To: reply-to@example.com
+          To: to@example.com
+          Subject: SUBJECT
+
+        Body
+        with
+        line
+        breaks
+        '''
+      """
+
     # Test with body
     Then the following multiline step should succeed:
       """
