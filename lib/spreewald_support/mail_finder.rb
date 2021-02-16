@@ -1,4 +1,5 @@
 # coding: UTF-8
+require "spreewald_support/mail_to_plaintext_converter"
 
 class MailFinder
   class << self
@@ -63,15 +64,7 @@ class MailFinder
     end
 
     def email_text_body(mail, type = '')
-      body = if mail.html_part && type != 'plain-text'
-        dom = Nokogiri::HTML(mail.html_part.body.to_s)
-        dom.at_css('body').text.gsub(/[\r\n]+/, "\n")
-      elsif mail.text_part && type != 'HTML'
-        mail.text_part.body.to_s
-      else
-        mail.body.to_s
-      end
-      body.gsub("\r\n", "\n") # The mail gem (>= 2.7.1) switched from \n to \r\n line breaks (LF to CRLF) in plain text mails.
+      Spreewald::MailToPlaintextConverter.new(mail, type).run
     end
 
     def show_mails(mails, only_header = false)
