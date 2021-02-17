@@ -7,10 +7,10 @@ class MailFinder
     attr_accessor :user_identity
 
     def find(raw_data, type = '')
-      header, body = raw_data.split(/\n\n/, 2) # 2: maximum number of fields
+      header, body = raw_data.split(/\n\n/, 2).map(&:strip_heredoc) # 2: maximum number of fields
       conditions = {}
       header.split("\n").each do |row|
-        if row.strip.match(/^[A-Za-z\-]+: /i)
+        if row.match(/^[A-Za-z\-]+: /i)
           key, value = row.split(": ", 2)
           conditions[key.strip.underscore.to_sym] = value.strip
         end
