@@ -33,6 +33,19 @@ Feature: Test Spreewald's email steps
         '''
       """
 
+    # Test with invalid header
+    Then the step with an unsupported email header should raise:
+      """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Reply-To: reply-to@example.com
+        Invalid-Header: reply-to@example.com
+        To: to@example.com
+        Subject: SUBJECT
+        '''
+      """
+
     # Test with indented header lines
     Then the following multiline step should succeed:
       """
