@@ -24,6 +24,11 @@ When /^I run the following steps?:$/ do |steps_table|
   end
 end
 
+Then /^the step with an unsupported email header should raise:$/ do |step_string|
+  multiline_step = step_string.gsub(%{'''}, %{"""})
+  expect { steps(multiline_step) }.to raise_error(Spreewald::UnsupportedEmailHeader)
+end
+
 Then /^the following multiline step should (fail|succeed):$/ do |expectation, multiline_step|
   multiline_step = multiline_step.gsub(%{'''}, %{"""})
   if expectation == 'fail'

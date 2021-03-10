@@ -1,7 +1,9 @@
 # coding: UTF-8
 require "spreewald_support/mail_to_plaintext_converter"
+require "forwardable"
 
 class MailFinder
+
   class << self
 
     attr_accessor :user_identity
@@ -12,6 +14,7 @@ class MailFinder
       header.split("\n").each do |row|
         if row.match(/^[A-Za-z\-]+: /i)
           key, value = row.split(": ", 2)
+          raise Spreewald::UnsupportedEmailHeader.new(key, value) unless Spreewald::SUPPORTED_EMAIL_HEADERS.include? key.strip
           conditions[key.strip.underscore.to_sym] = value.strip
         end
       end
