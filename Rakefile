@@ -76,6 +76,10 @@ def cucumber_command(directory, ruby_version)
     # Modern cucumber sees pending tests as failures.
     # We don't want this.
     command << ' --no-strict-pending'
+  else
+    # Ruby < 2.5 means the capybara 2 Test project.
+    # Omit scenarios that only work with modern Capybara.
+    command << ' --tags "not @not-capybara-2"'
   end
   command
 end

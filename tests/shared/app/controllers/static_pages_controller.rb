@@ -6,6 +6,10 @@ class StaticPagesController < ApplicationController
   def home
   end
 
+  def iframe
+    render 'static_pages/iframe', layout: false
+  end
+
   def link_target
     render_nothing
   end

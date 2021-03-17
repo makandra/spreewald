@@ -239,7 +239,7 @@ the step definitions.
   
   You may skip lines in the header.
   Please note: In older versions of Spreewald, unmentioned body lines were skipped.
-  Now you have to use the asterisk explicity to omit lines in the body.
+  Now you have to use the asterisk explicitly to omit lines in the body.
 
 
 * **When I follow the (first|second|third)? link in the e?mail**
@@ -265,6 +265,42 @@ the step definitions.
 
   Print a subset of all sent emails to STDOUT
   This uses the same syntax as `Then an email should have been sent with:`
+
+
+### frame_steps.rb 
+
+* **When ... inside the ... iframe**
+
+  You can append `inside the [name or number] iframe` to any other step.
+  Then the step will operate inside the given iframe.
+  Examples:
+  
+      Then I should see "Kiwi" inside the 1st iframe
+      Then I should see "Cherry" inside the fruits iframe
+      When I press "Save" inside the 2nd iframe
+
+
+
+* **When I switch to the ... iframe**
+
+  This step will switch to the iframe identified by its name or number.
+  All further steps will operate inside the iframe.
+  To switch to operating on the main page again, use the step
+  "I switch back to the whole page".
+  Examples:
+  
+      When I switch to the 1st iframe
+      When I switch to the fruits iframe
+  
+  Please note: This step is only available for Capybara >= 3.
+
+
+* **When I switch back to the whole page**
+
+  This step can be used to switch back to the whole page if you switched
+  to operating inside an iframe before (step `I switch to the ... iframe`)
+  
+  Please note: This step is only available for Capybara >= 3.
 
 
 ### session_steps.rb 

@@ -25,8 +25,12 @@ Rails.application.routes.draw do
   get '/forms/select_fields', to: 'forms#select_fields'
   get '/forms/invalid_form', to: 'forms#invalid_form'
 
+  get '/iframes/iframe_1_content', to: 'iframes#iframe_1_content'
+  get '/iframes/iframe_2_content', to: 'iframes#iframe_2_content'
+
   get '/static_pages/click_on', to: 'static_pages#click_on'
   get '/static_pages/home', to: 'static_pages#home'
+  get '/static_pages/iframe', to: 'static_pages#iframe'
   get '/static_pages/link_target', to: 'static_pages#link_target'
   get '/static_pages/link_to_home', to: 'static_pages#link_to_home'
   get '/static_pages/links', to: 'static_pages#links'
