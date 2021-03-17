@@ -32,8 +32,14 @@ GEM
     ffi (1.12.2)
     gemika (0.5.0)
     gherkin (5.1.0)
+    mail (2.7.1)
+      mini_mime (>= 0.1.1)
+    mini_mime (1.0.2)
     multi_json (1.14.1)
     multi_test (0.1.2)
+    nokogiri (1.11.1-x86_64-linux)
+      racc (~> 1.4)
+    racc (1.5.2)
     rake (13.0.3)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
@@ -57,6 +63,8 @@ DEPENDENCIES
   aruba
   cucumber
   gemika
+  mail
+  nokogiri
   rake
   rspec
 
@@ -64,4 +72,4 @@ RUBY VERSION
    ruby 2.6.6p146
 
 BUNDLED WITH
-   2.1.4
+   2.2.14
