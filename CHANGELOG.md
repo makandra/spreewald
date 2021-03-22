@@ -3,6 +3,21 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 4.1.0
+
+- New steps:
+  - When ... inside the ... iframe
+
+- New steps only available for Capybara 3+:
+  - When I switch to the ... iframe
+  - When I switch back to the whole page
+  - The I switch back to the whole page step does not work reliably with Capybara 2 and lead to StaleReferenceErrors, therefore we decided to not make these steps available for Capybara 2.
+
+- Small improvements:
+  - Trying to match against unsupported email headers will raise an error. Supported headers are "To", "CC", "BCC", "From", "Reply-To", "Subject", "Attachments"
+  - It's now possible to have indented header lines in email steps.
+  - If there's not an explicit text part in a mail, Spreewald determines if the email body is HTML or plaintext and converts it to plaintext accordingly.
+
 ## 4.0.0
 
 - Dropped support for capybara 1, Ruby 2.1 and Rails 3.2. 
