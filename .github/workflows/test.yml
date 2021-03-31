@@ -17,13 +17,15 @@ jobs:
         # Test projects
         - ruby: 2.4.5
           gemfile: tests/rails-4_capybara-2/Gemfile
-        - ruby: 2.6.6
+        - ruby: 3.0.0
           gemfile: tests/rails-6_capybara-3/Gemfile
         # Used to run rspec and integration tests for spreewald binary:
         - ruby: 2.4.5
           gemfile: Gemfile.ruby245
         - ruby: 2.6.6
           gemfile: Gemfile.ruby266
+        - ruby: 3.0.0
+          gemfile: Gemfile.ruby300
     env:
       BUNDLE_GEMFILE: "${{ matrix.gemfile }}"
     steps:
