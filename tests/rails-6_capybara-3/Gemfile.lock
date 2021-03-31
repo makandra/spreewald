@@ -217,6 +217,7 @@ GEM
       thor (~> 1.0)
     rake (13.0.3)
     regexp_parser (2.1.1)
+    rexml (3.2.4)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
@@ -261,6 +262,7 @@ GEM
     tilt (2.0.10)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
+    webrick (1.7.0)
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -282,10 +284,12 @@ DEPENDENCIES
   haml-rails
   pry
   rails (~> 6.1)
+  rexml
   rspec-rails
   selenium-webdriver
   spreewald!
   sqlite3
+  webrick
 
 RUBY VERSION
    ruby 3.0.0p0
