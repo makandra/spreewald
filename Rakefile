@@ -65,13 +65,13 @@ def run_tests(gemfile, ruby)
     # Run specs and integration tests for Spreewald binary
     [
       system("BUNDLE_GEMFILE=#{gemfile} bundle exec rspec"),
-      system("BUNDLE_GEMFILE=#{gemfile} bundle exec cucumber"),
+      system("BUNDLE_GEMFILE=#{gemfile} bundle exec cucumber --publish-quiet"),
     ].all?
   end
 end
 
 def cucumber_command(directory, ruby_version)
-  command = "cd #{directory} && BUNDLE_GEMFILE=Gemfile bundle exec cucumber"
+  command = "cd #{directory} && BUNDLE_GEMFILE=Gemfile bundle exec cucumber --publish-quiet"
   if Gem::Version.new(ruby_version) > Gem::Version.new('2.5')
     # Modern cucumber sees pending tests as failures.
     # We don't want this.
