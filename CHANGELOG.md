@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 4.1.1
+- The step `I open .. in a new browser tab` is now using the `noopener` option (see issue [#174])
+
 ## 4.1.0
 
 - New steps:
