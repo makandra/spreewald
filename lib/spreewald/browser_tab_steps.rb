@@ -19,7 +19,7 @@ When /^I open (.+?) in a new browser tab$/ do |page_name|
   previous_handles_count = browser.window_handles.size
   relative_target_path = path_to(page_name)
 
-  page.execute_script "window.open('#{relative_target_path}', '_blank')"
+  page.execute_script "window.open('#{relative_target_path}', '_blank', 'noopener')"
   step "there should be #{previous_handles_count + 1} browser tabs"
   step "I switch to the new browser tab"
 end.overridable
