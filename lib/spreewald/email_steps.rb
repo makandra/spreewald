@@ -1,6 +1,8 @@
 # coding: UTF-8
 
 require 'spreewald_support/mail_finder'
+require 'steps/show_me_the_mails'
+require 'steps/follow_the_link'
 
 Before do
   ActionMailer::Base.deliveries.clear
@@ -73,18 +75,7 @@ end.overridable
 # Other links (such as mailto: or ftp:// links) are ignored.
 When /^I follow the (first|second|third)? ?link in the e?mail$/ do |index_in_words|
   mail = @mail || ActionMailer::Base.deliveries.last
-  index = { nil => 0, 'first' => 0, 'second' => 1, 'third' => 2 }[index_in_words]
-  url_pattern = %r((?:https?://[^/]+)([^"'\s]+))
-
-  paths = if mail.html_part
-    dom = Nokogiri::HTML(mail.html_part.body.to_s)
-    (dom / 'a[href]').map { |a| a['href'].match(url_pattern) }.compact.map { |match| match[1] }
-  else
-    mail_body = MailFinder.email_text_body(mail).to_s
-    mail_body.scan(url_pattern).flatten(1)
-  end
-
-  visit paths[index]
+  Spreewald::Steps::FollowTheLink.new(mail, index_in_words).run
 end.overridable
 
 Then /^no e?mail should have been sent$/ do
@@ -98,12 +89,7 @@ end.overridable
 
 # Print all sent emails to STDOUT (optionally only the headers).
 Then /^show me the e?mail( header)?s$/ do |only_header|
-  if ActionMailer::Base.deliveries.empty?
-    puts MailFinder.show_mails(ActionMailer::Base.deliveries, only_header)
-  else
-    puts "No emails found" if ActionMailer::Base.deliveries.empty?
-  end
-
+  Spreewald::Steps::ShowMeTheMails.new(ActionMailer::Base.deliveries, only_header).run
 end.overridable
 
 # Print a subset of all sent emails to STDOUT

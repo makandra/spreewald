@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 4.2.2
+- Fixes the "Show me the email" step (#171)
+- Fixes the "I follow the link in the email" step. (#172, #173)
+  - It works for emails with and without explicit html parts
+  - There's a better error message if no links are found
+
 ## 4.1.2
 - Multiple invocations of console don't raise anymore
 
