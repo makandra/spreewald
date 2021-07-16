@@ -11,11 +11,6 @@ Then 'console' do
   require 'irb'
   ARGV.clear # IRB takes ARGV as its own arguments
 
-  # `source` is defined by Capybara as a shortcut to `page.source`. IRB tries to
-  # create an alias with the same name and fails with a warning. To avoid this,
-  # we remove the alias here.
-  undef :source
-
   # We adapted the steps of IRB.run
   # https://github.com/ruby/ruby/blob/c08f7b80889b531865e74bc5f573df8fa27f2088/lib/irb.rb#L418
   # with injected workspace. See https://github.com/makandra/spreewald/issues/77 for reasons.
@@ -24,6 +19,11 @@ Then 'console' do
   # "already initialized constant" warnings
   unless IRB.conf[:LOAD_MODULES]
     IRB.setup(nil)
+
+    # `source` is defined by Capybara as a shortcut to `page.source`. IRB tries to
+    # create an alias with the same name and fails with a warning. To avoid this,
+    # we remove the alias here.
+    undef :source
   end
 
   workspace = IRB::WorkSpace.new(binding)
