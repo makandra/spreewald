@@ -1,1 +1,0 @@
-../../../shared/features/support/selenium.rb
