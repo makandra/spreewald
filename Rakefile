@@ -72,15 +72,7 @@ end
 
 def cucumber_command(directory, ruby_version)
   command = "cd #{directory} && BUNDLE_GEMFILE=Gemfile bundle exec cucumber --publish-quiet"
-  if Gem::Version.new(ruby_version) > Gem::Version.new('2.5')
-    # Modern cucumber sees pending tests as failures.
-    # We don't want this.
-    command << ' --no-strict-pending'
-  else
-    # Ruby < 2.5 means the capybara 2 Test project.
-    # Omit scenarios that only work with modern Capybara.
-    command << ' --tags "not @not-capybara-2"'
-  end
+  command << ' --no-strict-pending'
   command
 end
 

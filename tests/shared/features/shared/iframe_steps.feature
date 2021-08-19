@@ -1,7 +1,6 @@
 @javascript
 Feature: iframe Steps
 
-  @not-capybara-2
   Scenario: Switch between iframes
     Given I go to "/static_pages/iframe"
     Then I should not see "Kiwi"

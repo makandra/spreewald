@@ -1,1 +1,0 @@
-../../shared/features/shared/table_steps.feature

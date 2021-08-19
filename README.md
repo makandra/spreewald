@@ -21,7 +21,7 @@ Or install it yourself as:
 
 ## Supported versions
 
-Spreewald is currently tested against Ruby 2.4.5 with Rails 4 and Capybara 2 and Ruby 2.6.6 with Rails 6 and Capybara 3.
+Spreewald is currently tested against and Ruby 2.6.6 with Rails 6 and Capybara 3.
 
 ## Usage
 
