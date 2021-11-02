@@ -51,6 +51,13 @@ module NavigationHelpers
 
   private
 
+  def path_to_show_or_edit(action_prose, model_prose, identifier)
+    model = model_prose_to_class(model_prose)
+    route = "#{action_prose == 'form' ? 'edit_' : ''}#{model_prose_to_route_segment(model_prose)}_path"
+    # For find_by_anything see https://makandracards.com/makandra/6361-find-an-activerecord-by-any-column-useful-for-cucumber-steps
+    send(route, model.find_by_anything!(identifier))
+  end
+
   def model_prose_to_class(model_prose)
     model_prose.gsub(' ', '_').classify.constantize
   end
