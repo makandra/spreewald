@@ -31,6 +31,7 @@ require 'spreewald_support/custom_matchers'
 require 'spreewald_support/web_steps_helpers'
 require 'spreewald_support/driver_info'
 require 'spreewald_support/comparison'
+require 'spreewald_support/field_errors'
 require 'uri'
 require 'cgi'
 
@@ -359,17 +360,28 @@ end.overridable
 Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_message|
   patiently do
     element = find_with_disabled(:field, field)
-    classes = element.find(:xpath, '..')[:class].split(' ')
+    field_error_finder = Spreewald::FieldErrorFinder.new(page, element)
+    expect(field_error_finder.error_present?).to eq true
 
-    form_for_input = element.find(:xpath, 'ancestor::form[1]')
-    using_formtastic = form_for_input && form_for_input.has_css?('.formtastic')
-    error_class = using_formtastic ? 'error' : 'field_with_errors'
+    if Spreewald.field_error_class
+      unless Spreewald.error_message_xpath_selector
+        raise ArgumentError, 'No XPath was specified for the custom error message element.'
+      end
+    end
 
-    expect(classes).to include(error_class)
+    error_message_element = case
+      when Spreewald.error_message_xpath_selector
+        element.find(:xpath, Spreewald.error_message_xpath_selector)
+      when field_error_finder.bootstrap3_error?
+        element.find(:xpath, 'parent::*/child::*[@class="help-block"]')
+      when field_error_finder.bootstrap45_error?
+        element.find(:xpath, 'parent::*/child::*[@class="invalid-feedback"]')
+      else
+        nil
+    end
 
-    if using_formtastic
-      error_paragraph = element.find(:xpath, '../*[@class="inline-errors"][1]')
-      expect(error_paragraph).to have_content(error_message)
+    if error_message_element
+      expect(error_message_element).to have_content(error_message)
     else
       expect(page).to have_content("#{field.titlecase} #{error_message}")
     end
@@ -379,9 +391,10 @@ end.overridable
 Then /^the "([^\"]*)" field should( not)? have an error$/ do |label, negate|
   patiently do
     expectation = negate ? :not_to : :to
-    field = find_with_disabled(:field, label)
-    expect(field[:id]).to be_present # prevent bad CSS selector if field lacks id
-    expect(page).send(expectation, have_css(".field_with_errors ##{field[:id]}"))
+    element = find_with_disabled(:field, label)
+    field_error_finder = Spreewald::FieldErrorFinder.new(page, element)
+
+    expect(field_error_finder.error_present?).public_send(expectation, (eq true))
   end
 end.overridable
 
