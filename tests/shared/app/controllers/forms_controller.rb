@@ -15,7 +15,13 @@ class FormsController < ApplicationController
   def select_fields
   end
 
-  def invalid_form
+  def invalid_rails_form
+  end
+
+  def invalid_bootstrap3_form
+  end
+
+  def invalid_bootstrap4_form
   end
 
 end

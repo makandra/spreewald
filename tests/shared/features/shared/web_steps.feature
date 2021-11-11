@@ -31,17 +31,28 @@ Feature: Web steps
       """
       """
 
-
+  @javascript
   Scenario: /^the "([^\"]*)" field should( not)? have an error$/
-    When I go to "/forms/invalid_form"
+    When I go to "/forms/invalid_rails_form"
     Then the "A" field should have an error
     Then the "B" field should have an error
     Then the "Disabled" field should have an error
     Then the "C" field should not have an error
 
 
+  @javascript
   Scenario: /^the "([^"]*)" field should have the error "([^"]*)"$/
-    When I go to "/forms/invalid_form"
+    When I go to "/forms/invalid_rails_form"
+    Then the "A" field should have the error "is invalid"
+    Then the "B" field should have the error "is invalid"
+    Then the "Disabled" field should have the error "is invalid"
+
+    When I go to "/forms/invalid_bootstrap3_form"
+    Then the "A" field should have the error "is invalid"
+    Then the "B" field should have the error "is invalid"
+    Then the "Disabled" field should have the error "is invalid"
+
+    When I go to "/forms/invalid_bootstrap4_form"
     Then the "A" field should have the error "is invalid"
     Then the "B" field should have the error "is invalid"
     Then the "Disabled" field should have the error "is invalid"

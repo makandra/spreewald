@@ -359,17 +359,44 @@ end.overridable
 Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_message|
   patiently do
     element = find_with_disabled(:field, field)
-    classes = element.find(:xpath, '..')[:class].split(' ')
+    element_classes = element[:class] &.split(' ') || []
+    parent_element_classes = element.find(:xpath, '..')[:class] &.split(' ') || []
+    invalid_elements = all(':invalid') # Collect all invalid elements as Bootstrap 4 and 5 support client validation
 
-    form_for_input = element.find(:xpath, 'ancestor::form[1]')
-    using_formtastic = form_for_input && form_for_input.has_css?('.formtastic')
-    error_class = using_formtastic ? 'error' : 'field_with_errors'
+    has_custom_error = Spreewald.field_error_class && begin
+      !!element.find(:xpath, "ancestor-or-self::*[class='#{Spreewald.field_error_class}']")
+    rescue Capybara::ElementNotFound
+      false
+    end
 
-    expect(classes).to include(error_class)
+    has_bootstrap3_error = begin
+      !!element.find(:xpath, 'ancestor::div[@class="form-group has-error"]')
+    rescue Capybara::ElementNotFound
+      false
+    end
 
-    if using_formtastic
-      error_paragraph = element.find(:xpath, '../*[@class="inline-errors"][1]')
-      expect(error_paragraph).to have_content(error_message)
+    has_bootstrap45_error = element_classes.include?('is-invalid') || invalid_elements.include?(element)
+    has_rails_error = parent_element_classes.include?('field_with_errors')
+
+    has_error = has_custom_error || has_bootstrap3_error || has_bootstrap45_error || has_rails_error
+    expect(has_error).to eq true
+
+    error_message_element = if Spreewald.field_error_class
+      unless Spreewald.error_message_xpath_selector
+        raise ArgumentError, 'No XPath was specified for the custom error message element.'
+      end
+
+      element.find(:xpath, Spreewald.error_message_xpath_selector)
+    elsif Spreewald.error_message_xpath_selector
+      element.find(:xpath, Spreewald.error_message_xpath_selector)
+    elsif has_bootstrap3_error
+      element.find(:xpath, 'parent::*/child::*[@class="help-block"]')
+    elsif has_bootstrap45_error
+      element.find(:xpath, 'parent::*/child::*[@class="invalid-feedback"]')
+    end
+
+    if error_message_element
+      expect(error_message_element).to have_content(error_message)
     else
       expect(page).to have_content("#{field.titlecase} #{error_message}")
     end
@@ -379,9 +406,28 @@ end.overridable
 Then /^the "([^\"]*)" field should( not)? have an error$/ do |label, negate|
   patiently do
     expectation = negate ? :not_to : :to
-    field = find_with_disabled(:field, label)
-    expect(field[:id]).to be_present # prevent bad CSS selector if field lacks id
-    expect(page).send(expectation, have_css(".field_with_errors ##{field[:id]}"))
+    element = find_with_disabled(:field, label)
+    element_classes = element[:class] &.split(' ') || []
+    parent_element_classes = element.find(:xpath, '..')[:class] &.split(' ') || []
+    invalid_elements = all(':invalid') # Collect all invalid elements as Bootstrap 4 and 5 support client validation
+
+    has_custom_error = Spreewald.field_error_class && begin
+      !!element.find(:xpath, "ancestor-or-self::*[class='#{Spreewald.field_error_class}']")
+    rescue Capybara::ElementNotFound
+      false
+    end
+
+    has_bootstrap3_error = begin
+      !!element.find(:xpath, 'ancestor::div[@class="form-group has-error"]')
+    rescue Capybara::ElementNotFound
+      false
+    end
+
+    has_bootstrap45_error = element_classes.include?('is-invalid') || invalid_elements.include?(element)
+    has_rails_error = parent_element_classes.include?('field_with_errors')
+
+    has_error = has_custom_error || has_bootstrap3_error || has_bootstrap45_error || has_rails_error
+    expect(has_error).public_send(expectation, (eq true))
   end
 end.overridable
 
