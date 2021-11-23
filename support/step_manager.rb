@@ -17,7 +17,7 @@ class StepManager
   def steps(search = nil)
     step_files.collect(&:real_steps).flatten.
       sort_by { |step| [STEP_KINDS.index(step.kind), step.to_s.downcase] }.
-      select { |definition| search.nil? or definition.step =~ Regexp.new(search) }
+      select { |definition| search.nil? || definition.matches_search?(search) }
   end
 
 private

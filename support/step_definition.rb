@@ -33,6 +33,11 @@ class StepDefinition
     "#{kind} #{pretty_step}"
   end
 
+  def matches_search?(search)
+    regexp = Regexp.new(search)
+    step =~ regexp || matches_without_optional_negation?(regexp)
+  end
+
   private
 
   def pretty_step
@@ -43,6 +48,12 @@ class StepDefinition
     else
       Parser.human_regex(step)
     end
+  end
+
+  def matches_without_optional_negation?(regexp)
+    without_negation = step.gsub('( not)?', '').gsub('(not )?', '')
+    with_negation = step.gsub('( not)?', ' not').gsub('(not )?', 'not ')
+    with_negation =~ regexp || without_negation =~ regexp
   end
 
 end

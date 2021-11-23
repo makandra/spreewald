@@ -11,12 +11,15 @@ Feature: The `spreewald` binary
     Then the output should contain:
     """
     # All Spreewald steps containing 'should not see'
-    Then I should not see "..."
-    Then I should not see "..." in the HTML
-    Then I should not see '...'
-    Then I should not see /.../
+    Then I should( not)? see "..."
+    Then I should( not)? see "..." in the HTML
+    Then I should( not)? see "..." inside any "..."
+    Then I should( not)? see '...'
+    Then I should( not)? see (an|the) element "..."
+    Then I should( not)? see (an|the) element for ...
+    Then I should( not)? see /.../
     """
-    But the output should not contain "Then I should see"
+    But the output should not contain "Then show me the page"
       And the output should not contain "mail"
 
 
