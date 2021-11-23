@@ -460,24 +460,18 @@ deprecation notice. Decide for yourself whether you want to use them:
   Attach a file to a file upload form field
 
 
-* **Then I should see "..."**
+* **Then I should( not)? see "..."**
 
   Checks that some text appears on the page
   
   Note that this does not detect if the text might be hidden via CSS
 
 
-* **Then I should see /.../**
+* **Then I should( not)? see /.../**
 
   Checks that a regexp appears on the page
   
   Note that this does not detect if the text might be hidden via CSS
-
-
-* **Then I should not see "..."**
-
-
-* **Then I should not see /.../**
 
 
 * **Then I should( not)? see a field "..."**
@@ -494,21 +488,15 @@ deprecation notice. Decide for yourself whether you want to use them:
   See [here](https://makandracards.com/makandra/1225-test-that-a-number-or-money-amount-is-shown-with-cucumber) for details
 
 
-* **Then I should see '...'**
+* **Then I should( not)? see '...'**
 
   Like `Then I should see`, but with single instead of double quotes. In case
   the expected string contains quotes as well.
 
 
-* **Then I should not see '...'**
-
-
-* **Then I should see "..." in the HTML**
+* **Then I should( not)? see "..." in the HTML**
 
   Check that the raw HTML contains a string
-
-
-* **Then I should not see "..." in the HTML**
 
 
 * **Then I should see an error**

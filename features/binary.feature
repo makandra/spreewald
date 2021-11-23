@@ -44,15 +44,15 @@ Feature: The `spreewald` binary
     """
     Then(/it strips parentheses/) do
     Then /^(?:|I )should see \/([^\/]*)\/$/ do
-    Then(/^the "(.*?)" field should (not )?contain:$/) do
+    Then(/^the "(.*?)" field should( not)? contain:$/) do
     """
 
     When I run `spreewald`
     Then the output should contain "Then it strips parentheses"
-      And the output should contain "Then I should see /.../"
+      And the output should contain "Then I should( not)? see /.../"
       And the output should contain:
       """
-      Then the "..." field should (not )?contain:
+      Then the "..." field should( not)? contain:
       """
 
 

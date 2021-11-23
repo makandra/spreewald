@@ -167,32 +167,23 @@ end.overridable
 # Checks that some text appears on the page
 #
 # Note that this does not detect if the text might be hidden via CSS
-Then /^(?:|I )should see "([^"]*)"$/ do |text|
+Then /^(?:|I )should( not)? see "([^"]*)"$/ do |negate, text|
+  expectation = negate ? :not_to : :to
+
   patiently do
-    expect(page).to have_content(text)
+    expect(page).send(expectation, have_content(text))
   end
 end.overridable
 
 # Checks that a regexp appears on the page
 #
 # Note that this does not detect if the text might be hidden via CSS
-Then /^(?:|I )should see \/(.*)\/$/ do |regexp|
+Then /^(?:|I )should( not)? see \/(.*)\/$/ do |negate, regexp|
+  expectation = negate ? :not_to : :to
   regexp = Regexp.new(regexp)
-  patiently do
-    expect(page).to have_xpath('.//descendant-or-self::*', :text => regexp)
-  end
-end.overridable
 
-Then /^(?:|I )should not see "([^"]*)"$/ do |text|
   patiently do
-    expect(page).to have_no_content(text)
-  end
-end.overridable
-
-Then /^(?:|I )should not see \/(.*)\/$/ do |regexp|
-  patiently do
-    regexp = Regexp.new(regexp)
-    expect(page).to have_no_xpath('.//descendant-or-self::*', :text => regexp)
+    expect(page).send(expectation, have_xpath('.//descendant-or-self::*', text: regexp))
   end
 end.overridable
 
@@ -239,28 +230,20 @@ end.overridable(priority: -5) # priority lower than within
 
 # Like `Then I should see`, but with single instead of double quotes. In case
 # the expected string contains quotes as well.
-Then /^(?:|I )should see '([^']*)'$/ do |text|
-  patiently do
-    expect(page).to have_content(text)
-  end
-end.overridable
+Then /^(?:|I )should( not)? see '([^']*)'$/ do |negate, text|
+  expectation = negate ? :not_to : :to
 
-Then /^(?:|I )should not see '([^']*)'$/ do |text|
   patiently do
-    expect(page).not_to have_content(text)
+    expect(page).send(expectation, have_content(text))
   end
 end.overridable
 
 # Check that the raw HTML contains a string
-Then /^I should see "([^\"]*)" in the HTML$/ do |text|
-  patiently do
-    expect(page.body).to include(text)
-  end
-end.overridable
+Then /^I should( not)? see "([^\"]*)" in the HTML$/ do |negate, text|
+  expectation = negate ? :not_to : :to
 
-Then /^I should not see "([^\"]*)" in the HTML$/ do |text|
   patiently do
-    expect(page.body).not_to include(text)
+    expect(page.body).send(expectation, include(text))
   end
 end.overridable
 
