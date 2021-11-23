@@ -1,6 +1,6 @@
 Feature: Web steps
 
-  Scenario: /^the "([^"]*)" field should (not )?contain "([^"]*)"$/
+  Scenario: /^the "([^"]*)" field should( not)? contain "([^"]*)"$/
     When I go to "/forms/form1"
     Then the "Text control" field should contain "Text control value"
     Then the "Text control" field should not contain "false text"
@@ -11,7 +11,7 @@ Feature: Web steps
     Then the "Empty control" field should contain ""
 
 
-  Scenario: /^the "([^"]*)" field should (not )?contain:/
+  Scenario: /^the "([^"]*)" field should( not)? contain:/
     When I go to "/forms/form2"
     Then the "Text control" field should contain:
       """
@@ -200,7 +200,7 @@ Feature: Web steps
     And "div with style: display: none" should be hidden within ".container"
 
 
-  Scenario: /^I should (not )?see (?:an|the) element "([^"]+)"$/
+  Scenario: /^I should( not)? see (?:an|the) element "([^"]+)"$/
     When I go to "/static_pages/see_element"
     Then I should see an element ".panel"
       And I should see the element ".panel"
@@ -210,7 +210,7 @@ Feature: Web steps
       But I should not see the element ".timeline"
 
 
-  Scenario: /^I should (not )?see (?:an|the) element for (.*?)$/
+  Scenario: /^I should( not)? see (?:an|the) element for (.*?)$/
     When I go to "/static_pages/see_element"
     Then I should see an element for a panel
       And I should see the element for a panel

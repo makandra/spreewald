@@ -260,7 +260,7 @@ end.overridable
 #     Then I should see the element ".panel"
 #     Then I should not see an element ".sidebar"
 #     Then I should not see the element ".sidebar"
-Then /^I should (not )?see (?:an|the) element "([^"]+)"$/ do |negate, selector|
+Then /^I should( not)? see (?:an|the) element "([^"]+)"$/ do |negate, selector|
   expectation = negate ? :not_to : :to
   patiently do
     expect(page).send(expectation, have_css(selector))
@@ -275,7 +275,7 @@ end.overridable
 #     Then I should see the element for the panel
 #     Then I should not see an element for the sidebar
 #     Then I should not see the element for the sidebar
-Then /^I should (not )?see (?:an|the) element for (.*?)$/ do |negate, locator|
+Then /^I should( not)? see (?:an|the) element for (.*?)$/ do |negate, locator|
   expectation = negate ? :not_to : :to
   selector = _selector_for(locator)
   patiently do
@@ -314,7 +314,7 @@ Then /^I should( not)? see a link labeled "([^"]*)"$/ do |negate, label|
 end.overridable
 
 # Checks that an input field contains some value (allowing * as wildcard character)
-Then /^the "([^"]*)" field should (not )?contain "([^"]*)"$/ do |label, negate, expected_string|
+Then /^the "([^"]*)" field should( not)? contain "([^"]*)"$/ do |label, negate, expected_string|
   patiently do
     field = find_with_disabled(:field, label)
     field_value = case field.tag_name
@@ -334,7 +334,7 @@ Then /^the "([^"]*)" field should (not )?contain "([^"]*)"$/ do |label, negate, 
 end.overridable
 
 # Checks that a multiline textarea contains some value (allowing * as wildcard character)
-Then(/^the "(.*?)" field should (not )?contain:$/) do |label, negate, expected_string|
+Then(/^the "(.*?)" field should( not)? contain:$/) do |label, negate, expected_string|
   patiently do
     field = find_with_disabled(:field, label)
     expect(field.value.chomp).send(negate ? :not_to : :to, contain_with_wildcards(expected_string))

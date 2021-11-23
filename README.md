@@ -504,7 +504,7 @@ deprecation notice. Decide for yourself whether you want to use them:
   Checks that status code is 400..599
 
 
-* **Then I should (not )?see (an|the) element "..."**
+* **Then I should( not)? see (an|the) element "..."**
 
   Check that an element with the given selector is present on the page.
   
@@ -516,7 +516,7 @@ deprecation notice. Decide for yourself whether you want to use them:
       Then I should not see the element ".sidebar"
 
 
-* **Then I should (not )?see (an|the) element for ...**
+* **Then I should( not)? see (an|the) element for ...**
 
   Check that an element with the given [selector alias](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb) is present on the page.
   
@@ -546,12 +546,12 @@ deprecation notice. Decide for yourself whether you want to use them:
   Checks that the page contains a link with a given text or title attribute.
 
 
-* **Then the "..." field should (not )?contain "..."**
+* **Then the "..." field should( not)? contain "..."**
 
   Checks that an input field contains some value (allowing * as wildcard character)
 
 
-* **Then the "..." field should (not )?contain:**
+* **Then the "..." field should( not)? contain:**
 
   Checks that a multiline textarea contains some value (allowing * as wildcard character)
 
