@@ -245,6 +245,12 @@ Then /^(?:|I )should see '([^']*)'$/ do |text|
   end
 end.overridable
 
+Then /^(?:|I )should not see '([^']*)'$/ do |text|
+  patiently do
+    expect(page).not_to have_content(text)
+  end
+end.overridable
+
 # Check that the raw HTML contains a string
 Then /^I should see "([^\"]*)" in the HTML$/ do |text|
   patiently do

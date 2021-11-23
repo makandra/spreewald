@@ -13,6 +13,7 @@ Feature: The `spreewald` binary
     # All Spreewald steps containing 'should not see'
     Then I should not see "..."
     Then I should not see "..." in the HTML
+    Then I should not see '...'
     Then I should not see /.../
     """
     But the output should not contain "Then I should see"

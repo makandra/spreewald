@@ -298,7 +298,7 @@ the step definitions.
 * **When I switch back to the whole page**
 
   This step can be used to switch back to the whole page if you switched
-  to operating inside an iframe before (step `I switch to the ... iframe`)
+  to operating inside an iframe before (step `I switch to the ... iframe`).
   
   Please note: This step is only available for Capybara >= 3.
 
@@ -498,6 +498,9 @@ deprecation notice. Decide for yourself whether you want to use them:
 
   Like `Then I should see`, but with single instead of double quotes. In case
   the expected string contains quotes as well.
+
+
+* **Then I should not see '...'**
 
 
 * **Then I should see "..." in the HTML**
