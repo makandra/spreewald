@@ -648,18 +648,19 @@ end.overridable
 
 # Tests that an input, button, checkbox or radio button with the given label is disabled.
 Then /^the "([^\"]*)" (field|button|checkbox|radio button) should( not)? be disabled$/ do |label, kind, negate|
-  element = if kind == 'button'
-    find_with_disabled(:button, label)
-  else
-    find_with_disabled(:field, label)
-  end
+  patiently do
+    element = if kind == 'button'
+      find_with_disabled(:button, label)
+    else
+      find_with_disabled(:field, label)
+    end
 
-  if Spreewald::Comparison.compare_versions(Capybara::VERSION, :<, "2.1")
-    expect(element[:disabled]).send(negate ? :to : :not_to, eq(nil))
-  else
-    expect(!!element.disabled?).to be !negate
+    if Spreewald::Comparison.compare_versions(Capybara::VERSION, :<, "2.1")
+      expect(element[:disabled]).send(negate ? :to : :not_to, eq(nil))
+    else
+      expect(!!element.disabled?).to be !negate
+    end
   end
-
 end.overridable
 
 # Tests that a field with the given label is visible.
