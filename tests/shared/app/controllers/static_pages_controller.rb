@@ -33,6 +33,9 @@ class StaticPagesController < ApplicationController
   def see_element
   end
 
+  def should_see
+  end
+
   def tab_1
   end
 

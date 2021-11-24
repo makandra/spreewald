@@ -39,6 +39,7 @@ Feature: Web steps
     Then the "Disabled" field should have an error
     Then the "C" field should not have an error
 
+
   Scenario: /^the "([^"]*)" field should have the error "([^"]*)"$/
     When I go to "/forms/invalid_form"
     Then the "A" field should have the error "is invalid"
@@ -220,7 +221,26 @@ Feature: Web steps
       And I should not see the element for the timeline
 
 
-  Scenario: /^((?:|I )should see "([^"]*)" within (.*[^:])$/
+  Scenario: /^((?:|I )should( not)? see "([^"]*)"$/
+    When I go to "/static_pages/should_see"
+    Then I should see "Normal text"
+    But I should not see "Some special text"
+
+
+  Scenario: /^((?:|I )should( not)? see '([^']*)'$/
+    When I go to "/static_pages/should_see"
+    Then I should see 'Some text with "quotes"'
+    But I should not see 'Some special text with "quotes"'
+
+
+  Scenario: /^I should( not)? see "([^\"]*)" in the HTML$/
+    When I go to "/static_pages/should_see"
+    Then I should see "Some text in the <b>HTML</b>" in the HTML
+      And I should see "Some text in the HTML"
+    But I should not see "Some text in the <strong>HTML</strong>" in the HTML
+
+
+  Scenario: /^((?:|I )should( not)? see "([^"]*)" within (.*[^:])$/
     When I go to "/static_pages/within"
     Then I should see "Role" within ".table"
       And I should see "Permissions" within a table
@@ -232,7 +252,8 @@ Feature: Web steps
       And I should not see "Outside Table" within a table
     But I should see "Outside Table"
 
-  Scenario: /^(?:|I )should see \/([^\/]*)\/$/
+
+  Scenario: /^(?:|I )should( not)? see \/([^\/]*)\/$/
     When I go to "/static_pages/within"
     Then I should see /Shared Text/
       And I should see /Unique Text/
@@ -241,13 +262,8 @@ Feature: Web steps
     But I should not see /Nonsense/
       And I should not see /http://other-domain.com/
 
-    # making sure it works with a within scope correctly when the same element is available outside
-    Then I should not see /Outside Table/ within ".table"
-      And I should not see /Outside Table/ within a table
-    But I should see /Outside Table/
 
-
-  Scenario: /^(?:|I )should see \/([^\/]*)\/ within (.*[^:])$/
+  Scenario: /^(?:|I )should( not)? see \/([^\/]*)\/ within (.*[^:])$/
     When I go to "/static_pages/within"
     Then I should see /Shared Text/ within ".scoped-element"
       And I should see /Shared Text/ within ".unrelated-element"
@@ -256,6 +272,11 @@ Feature: Web steps
       And I should see /\^Will this text with special Regex characters match\.\.\?\$/ within ".hardly-matchable-texts"
     But I should not see /Unique Text/ within ".unrelated-element"
       And I should not see /http://other-domain.com/ within ".unrelated-element"
+
+    # making sure it works with a within scope correctly when the same element is available outside
+    Then I should not see /Outside Table/ within ".table"
+      And I should not see /Outside Table/ within a table
+    But I should see /Outside Table/
 
 
   Scenario: /^(.*) within (.*[^:])$/ with a Capybara::Node::Element

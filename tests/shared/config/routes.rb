@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   get '/static_pages/session_1', to: 'static_pages#session_1'
   get '/static_pages/session_2', to: 'static_pages#session_2'
   get '/static_pages/session_3', to: 'static_pages#session_3'
+  get '/static_pages/should_see', to: 'static_pages#should_see'
   get '/static_pages/tab_1', to: 'static_pages#tab_1'
   get '/static_pages/tab_2', to: 'static_pages#tab_2'
   get '/static_pages/tab_3', to: 'static_pages#tab_3'
