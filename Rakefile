@@ -26,7 +26,7 @@ namespace :matrix do
 
 
   desc "Run all tests which are available for current Ruby (#{RUBY_VERSION})"
-  task :tests, [:gemfile, :ruby] do |_t, args|
+  task :tests do
     Gemika::Matrix.from_ci_config.each do |row|
       run_tests(row.gemfile, row.ruby)
     end
