@@ -17,8 +17,10 @@ namespace :matrix do
 
     if gemfile.nil? || ruby.nil?
       warn 'Please state the Gemfile and Ruby version to be used for the Testrun!'
+      exit 1
     else
-      run_tests(gemfile, ruby)
+      success = run_tests(gemfile, ruby)
+      exit success ? 0 : 1
     end
   end
 
