@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 4.3.2
+- Added built-in support for Rails and Bootstrap (3-5) error classes to the steps
+  - `The ... field should have the error ...`
+  - `The ... field should have an error`
+- Added the possibility to specify custom error classes and message selectors for these steps
+  using `Spreewald.field_error_class` and `Spreewald.error_message_xpath_selector` in your configuration. 
+
 ## 4.2.2
 - Fixes the "Show me the email" step (#171)
 - Fixes the "I follow the link in the email" step. (#172, #173)
