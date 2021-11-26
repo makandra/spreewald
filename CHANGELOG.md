@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 4.3.3
+- Fixes that the `Spreewald.field_error_class` configuration
+did not find the correct elements
+
 ## 4.3.2
 - Added built-in support for Rails and Bootstrap (3-5) error classes to the steps
   - `The ... field should have the error ...`

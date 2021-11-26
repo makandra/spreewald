@@ -32,7 +32,7 @@ module Spreewald
     end
 
     def custom_error?
-      Spreewald.field_error_class && @element.has_xpath?("ancestor-or-self::*[class='#{Spreewald.field_error_class}']")
+      Spreewald.field_error_class && @element.has_xpath?("ancestor-or-self::div[contains(@class, \"#{Spreewald.field_error_class}\")]")
     end
 
     def bootstrap3_error?

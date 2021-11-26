@@ -24,4 +24,7 @@ class FormsController < ApplicationController
   def invalid_bootstrap4_form
   end
 
+  def invalid_custom_form
+  end
+
 end

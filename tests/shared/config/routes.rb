@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get '/forms/invalid_rails_form', to: 'forms#invalid_rails_form'
   get '/forms/invalid_bootstrap3_form', to: 'forms#invalid_bootstrap3_form'
   get '/forms/invalid_bootstrap4_form', to: 'forms#invalid_bootstrap4_form'
+  get '/forms/invalid_custom_form', to: 'forms#invalid_custom_form'
 
   get '/iframes/iframe_1_content', to: 'iframes#iframe_1_content'
   get '/iframes/iframe_2_content', to: 'iframes#iframe_2_content'
