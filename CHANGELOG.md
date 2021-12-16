@@ -12,7 +12,14 @@ did not find the correct elements
   - `The ... field should have the error ...`
   - `The ... field should have an error`
 - Added the possibility to specify custom error classes and message selectors for these steps
-  using `Spreewald.field_error_class` and `Spreewald.error_message_xpath_selector` in your configuration. 
+  using `Spreewald.field_error_class` and `Spreewald.error_message_xpath_selector` in your configuration.
+
+- We had separate steps for e.g. `I should see ...` and `I should not see ...`. These were merged now:
+  - `I should see "..."` + `I should not see "..."` => `I should( not)? see "..."`
+  - `I should see /.../` + `I should not see /.../` => `I should( not)? see /.../`
+  - `I should see '...'` + `I should not see '...'` => `I should( not)? see '...'`
+- Optional negation was made more consistent. The steps use `"( not)? "` now.
+- The search via `spreewald some query here` includes steps with optional negation now.
 
 ## 4.2.2
 - Fixes the "Show me the email" step (#171)
