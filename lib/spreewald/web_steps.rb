@@ -486,18 +486,18 @@ end.overridable
 # Checks for the presence of an option in a select
 Then /^"([^"]*)" should( not)? be an option for "([^"]*)"$/ do |value, negate, field|
   finder_arguments = if Spreewald::Comparison.compare_versions(Capybara::VERSION, :<, "2.12")
-    ['option', { :text => value }]
+    { text: value }
   else
-    ['option', { :exact_text => value }]
+    { exact_text: value }
   end
   patiently do
     if negate
       begin
-        expect(find_with_disabled(:field, field)).to have_no_css(*finder_arguments)
+        expect(find_with_disabled(:field, field)).to have_no_css('option', **finder_arguments)
       rescue Capybara::ElementNotFound
       end
     else
-      expect(find_with_disabled(:field, field)).to have_css(*finder_arguments)
+      expect(find_with_disabled(:field, field)).to have_css('option', **finder_arguments)
     end
   end
 end.overridable
