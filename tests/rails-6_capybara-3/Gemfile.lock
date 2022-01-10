@@ -1,7 +1,7 @@
 PATH
   remote: ../..
   specs:
-    spreewald (4.3.4)
+    spreewald (4.3.5)
       cucumber
       cucumber_priority (>= 0.3.0)
       rspec (>= 2.13.0)

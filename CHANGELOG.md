@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 4.3.5
+- Fix deprecation warning for using keyword arguments as last argument when running with ruby 2.7
+
 ## 4.3.4
 - Fix "undefined method `build_rb_world_factory` for nil:NilClass" error when running tests on a real project'
   - The field error class couldn't be required in certain circumstances and so the specs failed
