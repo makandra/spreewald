@@ -4,6 +4,10 @@ Spreewald is a collection of useful steps for cucumber. Feel free to fork.
 
 You can find a list of all contained steps at the end of this README.
 
+## Supported versions
+
+Spreewald is currently tested against and Ruby 2.6.6 and 3.0.0 with Rails 6 and Capybara 3.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -12,18 +16,7 @@ Add this line to your application's Gemfile:
 
 And then execute:
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install spreewald
-
-
-## Supported versions
-
-Spreewald is currently tested against and Ruby 2.6.6 with Rails 6 and Capybara 3.
-
-## Usage
+    $ bundle install
 
 Require all Spreewald steps by putting
 
@@ -32,19 +25,28 @@ Require all Spreewald steps by putting
 into either your `support/env.rb` or `step_definitions/spreewald_steps.rb`.
 
 Steps are grouped into a number of categories. If you only want to use a subset
-of Spreewald's steps, you can pick and choose single categories by requiring
-single files like this:
+of Spreewald's steps, insead of `require 'spreewald/all_steps'`, you can pick 
+and choose single categories by requiring [single files](https://github.com/makandra/spreewald/tree/master/lib/spreewald) like this:
 
     require 'spreewald/email_steps'
     require 'spreewald/web_steps'
 
-Have a look at our [recommended Capybara defaults](#recommended-capybara-defaults) as they impact the behavior of many Spreewald steps.
+After that you are good to go and use the steps [described below](#steps).
+
+### Recommended additional setup
+
+We recommend using a `features/support/paths.rb` file in your project to define mappings between verbal phrases and your project's routes. You can then use these phrases in steps like `Then I should be on ...` or `When I go to ...`.
+You can find [an example in this repository](https://github.com/makandra/spreewald/blob/master/examples/paths.rb). Please note that you may have to adapt it depending on the namespaces and other setup of your application's routes.
+
+Similarly, you may define a `features/support/paths.rb` file in your project to define mappings of verbal phrases to CSS selectors. You can also find [an example for that in this repository](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb). These mappings can be used with steps like `Then I should( not)? see (an|the) element for ...` or `When I click on the element for ...`.
+
+We also suggest to look at our [recommended Capybara defaults](#recommended-capybara-defaults) as they impact the behavior of many Spreewald steps.
 
 ## Spreewald binary
 
 Spreewald comes with a binary that prints a list of all Cucumber steps from
 Spreewald _and your project_. It will filter the list by any string you
-pass it. Example usage:
+pass it. Example usage (e.g. on a linux shell in the root folder of the project which uses Spreewald):
 
 ```bash
 spreewald # lists all steps
@@ -94,7 +96,7 @@ Capybara.default_normalize_ws = true
 
 This will affect all Spreewald steps that are using Capybara's `:text` option.
 
-Furthermore, we recommend setting [Capybara's matching strategy](https://github.com/teamcapybara/capybara/blob/master/README.md#strategy) to `:prefer_exact`. This will positively affect Spreewald steps as it prevents the `Capybara::Ambiguous` error in the edge case when two fields are matching the given name, but one of the matches includes the name only as a substring,
+Furthermore, we recommend setting [Capybara's matching strategy](https://github.com/teamcapybara/capybara/blob/master/README.md#strategy) to `:prefer_exact`. This will positively affect Spreewald steps as it prevents the `Capybara::Ambiguous` error in the edge case when two fields are matching the given name, but one of the matches includes the name only as a substring.
 
 ```ruby
 Capybara.match = :prefer_exact
@@ -119,14 +121,11 @@ Spreewald has different kind of tests:
 
 Run all tests for your current ruby version with `rake` or `rake matrix:tests`. To bundle use `rake matrix:install` first.
 
-Please note that you need [geordi](https://github.com/makandra/geordi) to run the integration tests.
-
-
 ### If you would like to contribute:
 
 - Fork the repository
 - Push your changes with specs
-- Make sure `rake` passes
+- Make sure `rake matrix:tests` passes
 - Regenerate the "Steps" section of this Readme with `rake update_readme`, if needed
 - Make a pull request
 
