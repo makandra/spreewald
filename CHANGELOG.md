@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 4.3.6
+- Use capybara's `make_visible` [option](https://github.com/teamcapybara/capybara/blob/0468de5a810aae75ab9de20447e246c5c35473f0/lib/capybara/node/actions.rb#L279) in step `I attach the file "..." to "..."`
+  - This will make CSS-Hacks like setting the opacity in tests obsolete
+
 ## 4.3.5
 - Fix deprecation warning for using keyword arguments as last argument when running with ruby 2.7
 
