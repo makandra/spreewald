@@ -160,8 +160,11 @@ end.overridable
 
 # Attach a file to a file upload form field
 When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
+  options = {}
+  options[:make_visible] = true if javascript_capable?
+
   patiently do
-    attach_file(field, File.expand_path(path))
+    attach_file(field, File.expand_path(path), options)
   end
 end.overridable
 
