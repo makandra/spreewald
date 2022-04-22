@@ -15,7 +15,7 @@ jobs:
       matrix:
         include:
         - ruby: 3.0.0
-          gemfile: tests/rails-6_capybara-3/Gemfile
+          gemfile: tests/rails-7_capybara-3/Gemfile
         # Used to run rspec and integration tests for spreewald binary:
         - ruby: 2.6.6
           gemfile: Gemfile.ruby266
