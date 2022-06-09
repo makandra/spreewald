@@ -31,7 +31,25 @@ World(PathSelectorFallbacks)
 
 module WithinHelpers
   def with_scope(locator)
-    locator ? within(*_selector_for(locator)) { yield } : yield
+    if locator
+      selector = _selector_for(locator)
+      args, kwargs = deconstruct_selector(selector)
+      within(*args, **kwargs) { yield }
+    else
+      yield
+    end
+  end
+
+  def deconstruct_selector(selector)
+    if selector.is_a?(Array)
+      if selector[-1].is_a?(Hash) # selector with keyword arguments, e.g. ['.foo', { text: 'bar', visible: :all }]
+        [selector[0...-1], **selector[-1]]
+      else # xpath selector, e.g. [:xpath, '//header']
+        [selector, {}]
+      end
+    else # String or Capybara::Node::Element
+      [selector, {}]
+    end
   end
 end
 World(WithinHelpers)

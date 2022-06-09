@@ -48,7 +48,8 @@ When /^(.*) within (.*[^:])$/ do |nested_step, parent|
   selector = _selector_for(parent)
   if selector.is_a?(String) || selector.is_a?(Array) # could also be a Capybara::Node::Element
     patiently do
-      expect(page).to have_selector(*selector)
+      args, kwargs = deconstruct_selector(selector)
+      expect(page).to have_selector(*args, **kwargs)
     end
   end
   patiently do
