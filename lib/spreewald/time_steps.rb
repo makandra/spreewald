@@ -22,7 +22,7 @@ if defined?(Timecop) || is_at_least_rails_4_1
 
     def use_timezones?
       active_record_loaded = defined?(ActiveRecord::Base)
-      (!active_record_loaded || ActiveRecord::Base.default_timezone != :local) && Time.zone
+      (!active_record_loaded || default_timezone != :local) && Time.zone
     end
 
     def parse_time(str)
@@ -38,6 +38,14 @@ if defined?(Timecop) || is_at_least_rails_4_1
         Time.current
       else
         Time.now
+      end
+    end
+
+    def default_timezone
+      if ActiveRecord.respond_to?(:default_timezone)
+        ActiveRecord.default_timezone
+      else
+        ActiveRecord::Base.default_timezone
       end
     end
 
