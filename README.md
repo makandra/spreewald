@@ -6,7 +6,7 @@ You can find a list of all contained steps at the end of this README.
 
 ## Supported versions
 
-Spreewald is currently tested against and Ruby 2.6.6 and 3.0.0 with Rails 6 and Capybara 3.
+Spreewald is currently tested against and Ruby 2.6.6 and 3.0.0 with Rails 7 and Capybara 3.
 
 ## Installation
 
