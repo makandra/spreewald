@@ -4,8 +4,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## 4.4.1
-- Fix deprecation warning for `ActiveRecord::Base.default_timezone` when running with Rails 7.0 ([#191])
-- Fix deprecation warning for using keyword arguments as last argument when running with ruby 2.7 ([#192])
+- Fix deprecation warning for `ActiveRecord::Base.default_timezone` when running with Rails 7.0 ([#191](https://github.com/makandra/spreewald/issues/191))
+- Fix deprecation warning for using keyword arguments as last argument when running with ruby 2.7 ([#192](https://github.com/makandra/spreewald/issues/192))
 
 ## 4.4.0
 - Add support for Rails 7.0
@@ -40,8 +40,8 @@ did not find the correct elements
 - The search via `spreewald some query here` includes steps with optional negation now.
 
 ## 4.2.2
-- Fixes the "Show me the email" step (#171)
-- Fixes the "I follow the link in the email" step. (#172, #173)
+- Fixes the "Show me the email" step ([#171](https://github.com/makandra/spreewald/issues/171))
+- Fixes the "I follow the link in the email" step. ([#172](https://github.com/makandra/spreewald/issues/172), [#173](https://github.com/makandra/spreewald/issues/173))
   - It works for emails with and without explicit html parts
   - There's a better error message if no links are found
 
@@ -49,7 +49,7 @@ did not find the correct elements
 - Multiple invocations of console don't raise anymore
 
 ## 4.1.1
-- The step `I open .. in a new browser tab` is now using the `noopener` option (see issue [#174])
+- The step `I open .. in a new browser tab` is now using the `noopener` option (see issue [#174](https://github.com/makandra/spreewald/issues/174))
 
 ## 4.1.0
 
@@ -225,7 +225,7 @@ The "it should work" step now takes an optional reason.
 The word "within" can now be used in arguments for other steps without causing errors ([Issue #53](https://github.com/makandra/spreewald/issues/80))
 
 ## 1.12.3
-Prevent wall of warnings when `Then console` is used multiple times in on test run ([issue](https://github.com/makandra/spreewald/issues/80))
+Prevent wall of warnings when `Then console` is used multiple times in on test run ([issue #80](https://github.com/makandra/spreewald/issues/80))
 
 ## 1.12.2
 Always check the current driver by its class (see [issue](https://github.com/makandra/spreewald/issues/74))
