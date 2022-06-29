@@ -38,7 +38,7 @@ After that you are good to go and use the steps [described below](#steps).
 We recommend using a `features/support/paths.rb` file in your project to define mappings between verbal phrases and your project's routes. You can then use these phrases in steps like `Then I should be on ...` or `When I go to ...`.
 You can find [an example in this repository](https://github.com/makandra/spreewald/blob/master/examples/paths.rb). Please note that you may have to adapt it depending on the namespaces and other setup of your application's routes.
 
-Similarly, you may define a `features/support/paths.rb` file in your project to define mappings of verbal phrases to CSS selectors. You can also find [an example for that in this repository](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb). These mappings can be used with steps like `Then I should( not)? see (an|the) element for ...` or `When I click on the element for ...`.
+Similarly, you may define a `features/support/selectors.rb` file in your project to define mappings of verbal phrases to CSS selectors. You can also find [an example for that in this repository](https://github.com/makandra/spreewald/blob/master/examples/selectors.rb). These mappings can be used with steps like `Then I should( not)? see (an|the) element for ...` or `When I click on the element for ...`.
 
 We also suggest to look at our [recommended Capybara defaults](#recommended-capybara-defaults) as they impact the behavior of many Spreewald steps.
 
