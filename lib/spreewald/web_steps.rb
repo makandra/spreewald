@@ -74,17 +74,18 @@ end.overridable
 
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   patiently do
-    fragment = URI.parse(current_url).fragment
-    fragment.sub!(/[#?].*/, '') if fragment # most js frameworks will usually use ? and # for params, we dont care about those
-    current_path = URI.parse(current_url).path
-    current_path << "##{fragment}" if fragment.present?
-    expected_path = _path_to(page_name)
+    requested_path = _path_to(page_name)
+    uri = URI.parse(requested_path)
+    expected_path = uri.path
+    expected_fragment = uri.fragment
 
-    # Consider two pages equal if they only differ by a trailing slash.
-    current_path = expected_path if current_path.chomp("/") == expected_path.chomp("/")
-    current_path = expected_path if current_path.gsub("/#", "#") == expected_path.gsub("/#", "#")
+    expect(page).to have_current_path(expected_path)
 
-    expect(current_path).to eq(expected_path)
+    if expected_fragment.present?
+      fragment = URI.parse(current_url).fragment
+      fragment&.sub!(/[#?].*/, '') # most js frameworks will usually use ? and # for params, we dont care about those
+      expect(fragment).to eq(expected_fragment)
+    end
   end
 end.overridable
 
