@@ -1,5 +1,6 @@
 module ToleranceForSeleniumSyncIssues
   RETRY_ERRORS = %w[
+    ActionController::UrlGenerationError
     Capybara::ElementNotFound
     Spec::Expectations::ExpectationNotMetError
     RSpec::Expectations::ExpectationNotMetError
