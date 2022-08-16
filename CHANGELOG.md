@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 4.4.2
+- Add `ActionController::UrlGenerationError` to `patiently`'s retry errors.
+  - This will solve timing issues when e.g. using step `I should be on ...` after creating a record via AJAX
+
 ## 4.4.1
 - Fix deprecation warning for `ActiveRecord::Base.default_timezone` when running with Rails 7.0 ([#191](https://github.com/makandra/spreewald/issues/191))
 - Fix deprecation warning for using keyword arguments as last argument when running with ruby 2.7 ([#192](https://github.com/makandra/spreewald/issues/192))
