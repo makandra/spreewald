@@ -194,17 +194,12 @@ end.overridable
 
 # Checks for the existance of an input field (given its id or label)
 Then /^I should( not)? see a field "([^"]*)"$/ do |negate, name|
-  expectation = negate ? :not_to : :to
-  patiently do
-    begin
-      # In old Capybaras find returns nil, so we assign it to `field`
-      field = find_with_disabled(:field, name)
-    rescue Capybara::ElementNotFound
-      # In Capybara 0.4+ #find raises an error instead of returning nil
-      # We must explicitely reset the field variable from a previous patiently iteration
-      field = nil
+  if negate
+    expect(page).to have_no_field(name)
+  else
+    patiently do
+      expect(page).to have_field(name, disabled: :all)
     end
-    expect(field).send(expectation, be_present)
   end
 end.overridable
 

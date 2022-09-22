@@ -362,6 +362,7 @@ Feature: Web steps
     When I go to "/forms/disabled_elements"
     Then I should see a field "Enabled field #1"
       And I should see a field "Disabled field #1"
+    But I should not see a field "Non-existing field"
 
 
   Scenario: /^I should( not)? see the (?:number|amount) ([\-\d,\.]+)(?: (.*?))?$/
