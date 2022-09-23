@@ -25,7 +25,7 @@ Require all Spreewald steps by putting
 into either your `support/env.rb` or `step_definitions/spreewald_steps.rb`.
 
 Steps are grouped into a number of categories. If you only want to use a subset
-of Spreewald's steps, insead of `require 'spreewald/all_steps'`, you can pick 
+of Spreewald's steps, instead of `require 'spreewald/all_steps'`, you can pick 
 and choose single categories by requiring [single files](https://github.com/makandra/spreewald/tree/master/lib/spreewald) like this:
 
     require 'spreewald/email_steps'
