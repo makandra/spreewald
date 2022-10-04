@@ -36,7 +36,11 @@ module Spreewald
     end
   
     def text_from_html(html)
-      Nokogiri::HTML(html).at_css('body').text.gsub(/[\r\n]+/, "\n")
+      Nokogiri::HTML(html)
+        .at_css('body')
+        .text
+        .gsub(/[\r\n]+/, "\n")
+        .gsub(/\n\s+/, "\n")
     end
   end
 end
