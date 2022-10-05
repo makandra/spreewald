@@ -3,6 +3,32 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 4.4.3
+- Improve performance of the `I should (not) see a field ...` step to not retry the query when the element is **not** expected to be there.
+- Improve the `an email should have been sent with` step to ignore successive whitespaces after newlines in HTML mail bodies, effectively improving text matching in formatted HTML-tags.
+
+  For example, when searching for `Test` inside of the following HTML, you **no longer** need to use asterisks, because the leading whitespaces/tabs in front of `Test` are ignored:
+    ```html
+    <dt>
+      Test
+    </dt>
+    ```
+  
+    ```Gherkin
+    Then a mail should have been sent with
+    """
+    Test
+    """
+    ```
+    
+    Up to this version, the plain text was resolved to `\n  Test\n` (not `\nTest\n`) so it was necessary to declare a placeholder (`*`) for whitespaces:
+    ```Gherkin
+    Then a mail should have been sent with
+    """
+    *Test
+    """
+    ```
+
 ## 4.4.2
 - Add `ActionController::UrlGenerationError` to `patiently`'s retry errors.
   - This will solve timing issues when e.g. using step `I should be on ...` after creating a record via AJAX
