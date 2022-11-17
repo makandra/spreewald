@@ -9,7 +9,12 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{Collection of useful cucumber steps.}
   gem.homepage      = "https://github.com/makandra/spreewald"
   gem.license       = 'MIT'
-  gem.metadata = { 'rubygems_mfa_required' => 'true' }
+  gem.metadata = {
+    'source_code_uri' => gem.homepage,
+    'bug_tracker_uri' => gem.homepage + '/issues',
+    'changelog_uri' => gem.homepage + '/blob/master/CHANGELOG.md',
+    'rubygems_mfa_required' => 'true',
+  }
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
