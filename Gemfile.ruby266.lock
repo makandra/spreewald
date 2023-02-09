@@ -44,7 +44,7 @@ GEM
       cucumber-messages (~> 17.1, >= 17.1.1)
     diff-lcs (1.4.4)
     ffi (1.15.4)
-    gemika (0.6.1)
+    gemika (0.8.1)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     mime-types (3.4.1)
