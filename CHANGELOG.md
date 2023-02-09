@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 4.4.4
+- Make `When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/` compatible for Ruby 3.0.
+
 ## 4.4.3
 - Improve performance of the `I should (not) see a field ...` step to not retry the query when the element is **not** expected to be there.
 - Improve the `an email should have been sent with` step to ignore successive whitespaces after newlines in HTML mail bodies, effectively improving text matching in formatted HTML-tags.
