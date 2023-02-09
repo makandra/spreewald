@@ -14,13 +14,13 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - ruby: 3.0.0
+        - ruby: 3.2.0
           gemfile: tests/rails-7_capybara-3/Gemfile
         # Used to run rspec and integration tests for spreewald binary:
         - ruby: 2.6.6
           gemfile: Gemfile.ruby266
-        - ruby: 3.0.0
-          gemfile: Gemfile.ruby300
+        - ruby: 3.2.0
+          gemfile: Gemfile.ruby320
     env:
       BUNDLE_GEMFILE: "${{ matrix.gemfile }}"
     steps:

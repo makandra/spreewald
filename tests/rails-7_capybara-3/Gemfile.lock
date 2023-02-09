@@ -145,7 +145,7 @@ GEM
     erubi (1.10.0)
     erubis (2.7.0)
     ffi (1.15.5)
-    gemika (0.5.0)
+    gemika (0.8.1)
     globalid (1.0.0)
       activesupport (>= 5.0)
     haml (5.2.1)
@@ -197,7 +197,7 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
-    nokogiri (1.13.3-x86_64-linux)
+    nokogiri (1.14.1-x86_64-linux)
       racc (~> 1.4)
     pry (0.14.0)
       coderay (~> 1.1)
@@ -304,7 +304,7 @@ DEPENDENCIES
   webrick
 
 RUBY VERSION
-   ruby 3.0.0p0
+   ruby 3.2.0p0
 
 BUNDLED WITH
    2.2.24
