@@ -165,7 +165,7 @@ When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
   options[:make_visible] = true if javascript_capable?
 
   patiently do
-    attach_file(field, File.expand_path(path), options)
+    attach_file(field, File.expand_path(path), **options)
   end
 end.overridable
 
