@@ -105,6 +105,18 @@ describe ToleranceForSeleniumSyncIssues do
       expect(count).to be > 1
     end
 
+    it 'retries the block if the given time has been used within the last retry (see issue #202)' do
+      count = 0
+      expect {
+        subject.patiently do
+          count += 1
+          sleep wait_time if count == 2
+          raise Capybara::ElementNotFound
+        end
+      }.to raise_error(Capybara::ElementNotFound)
+      expect(count).to be > 2
+    end
+
     it 'will retry an outer patiently block if an inner patiently block took up all the time' do
       try = 0
       expect {
