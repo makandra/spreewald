@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 4.5.0
+- `patiently` retries one more time in certain edge cases where the alloted time was used up within the last retry of the `patiently` block (usually by Capybara).
+
 ## 4.4.4
 - Make `When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/` compatible for Ruby 3.0.
 
