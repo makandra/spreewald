@@ -1,5 +1,5 @@
 module Spreewald
-  SUPPORTED_EMAIL_HEADERS = ["To", "CC", "BCC", "From", "Reply-To", "Subject", "Attachments"]
+  SUPPORTED_EMAIL_HEADERS = ["To", "CC", "BCC", "From", "Reply-To", "Return-Path", "Subject", "Attachments"]
 
   class UnsupportedEmailHeader < StandardError
     attr_reader :header, :value

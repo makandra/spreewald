@@ -31,6 +31,7 @@ class MailFinder
           conditions[:bcc].nil? || mail.bcc && mail.bcc.include?(resolve_email conditions[:bcc]),
           conditions[:from].nil? || mail.from.include?(resolve_email conditions[:from]),
           conditions[:reply_to].nil? || mail.reply_to.include?(resolve_email conditions[:reply_to]),
+          conditions[:return_path].nil? || mail.return_path.include?(resolve_email conditions[:return_path]),
           conditions[:subject].nil? || mail.subject.include?(conditions[:subject]),
           conditions[:attachments].nil? || conditions[:attachments].split(/\s*,\s*/).sort == Array(mail.attachments).collect(&:"#{filename_method}").sort
         ].all?
@@ -60,6 +61,7 @@ class MailFinder
       header = ""
       header << "From: #{mail.from}\n"
       header << "Reply-To: #{mail.reply_to.join(', ')}\n" if mail.reply_to
+      header << "Return-Path: #{mail.return_path}\n" if mail.return_path
       header << "To: #{mail.to.join(', ')}\n" if mail.to
       header << "CC: #{mail.cc.join(', ')}\n" if mail.cc
       header << "BCC: #{mail.bcc.join(', ')}\n" if mail.bcc
