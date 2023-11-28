@@ -279,7 +279,8 @@ Then /^I should( not)? see (?:an|the) element for (.*?)$/ do |negate, locator|
   expectation = negate ? :not_to : :to
   selector = _selector_for(locator)
   patiently do
-    expect(page).send(expectation, have_selector(*selector))
+    args, kwargs = deconstruct_selector(selector)
+    expect(page).send(expectation, have_selector(*args, **kwargs))
   end
 end.overridable(:priority => -5) # priority must be lower than the "within" step
 
@@ -578,7 +579,8 @@ end.overridable
 When /^I click on the element for (.+?)$/ do |locator|
   patiently do
     selector = _selector_for(locator)
-    page.find(*selector).click
+    args, kwargs = deconstruct_selector(selector)
+    page.find(*args, **kwargs).click
   end
 end.overridable(priority: -5) # priority lower than within
 

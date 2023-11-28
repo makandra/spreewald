@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 4.5.1
+- Make `I should see an element for` and `I click on the element for` compatible for Ruby 3.0.  ([#204](https://github.com/makandra/spreewald/issues/204))
+
 ## 4.5.0
 - `patiently` retries one more time in certain edge cases where the alloted time was used up within the last retry of the `patiently` block (usually by Capybara).
 
