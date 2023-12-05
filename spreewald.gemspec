@@ -26,13 +26,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency('cucumber')
   gem.add_dependency('cucumber_priority', '>=0.3.0')
   gem.add_dependency('rspec', '>= 2.13.0')
-
-  # Development
-  gem.add_development_dependency 'bundler', '~> 1.11'
-  gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'pry'
-
-  # Testing
-  gem.add_development_dependency 'aruba', '~> 0.10.2'
-  gem.add_development_dependency 'geordi'
+  gem.add_dependency('capybara')
+  gem.add_dependency('xpath')
 end
