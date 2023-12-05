@@ -1,3 +1,5 @@
+require 'spreewald_support/capybara_wrapper'
+
 module ToleranceForSeleniumSyncIssues
   RETRY_ERRORS = %w[
     ActionController::UrlGenerationError
@@ -16,24 +18,6 @@ module ToleranceForSeleniumSyncIssues
     Selenium::WebDriver::Error::UnknownError
     Selenium::WebDriver::Error::NoSuchAlertError
   ]
-
-  class CapybaraWrapper
-    def self.default_max_wait_time
-      if Capybara.respond_to?(:default_max_wait_time)
-        Capybara.default_max_wait_time
-      else
-        Capybara.default_wait_time
-      end
-    end
-
-    def self.default_max_wait_time=(value)
-      if Capybara.respond_to?(:default_max_wait_time=)
-        Capybara.default_max_wait_time = value
-      else
-        Capybara.default_wait_time = value
-      end
-    end
-  end
 
   class Patiently
     WAIT_PERIOD = 0.05
@@ -68,7 +52,7 @@ module ToleranceForSeleniumSyncIssues
   end
 
 
-  def patiently(seconds = CapybaraWrapper.default_max_wait_time, &block)
+  def patiently(seconds = Spreewald::CapybaraWrapper.default_max_wait_time, &block)
     if page.driver.wait?
       Patiently.new.patiently(seconds, &block)
     else
