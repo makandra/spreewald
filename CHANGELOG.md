@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 4.6.0
+- Spreewald now explicitly depends on Capybara. We don't expect anyone used it without Capybara in the first place.
+- Changes to "the ... field should (not) have (an error|the error ...)" step:
+  - fixed an edgecases where errors were nested deeper inside a .field_with_errors element
+  - significant speed-up in most situations
+
 ## 4.5.1
 - Make `I should see an element for` and `I click on the element for` compatible for Ruby 3.0.  ([#204](https://github.com/makandra/spreewald/issues/204))
 
