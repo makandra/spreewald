@@ -3,6 +3,8 @@ Bundler.setup
 
 require 'pathname'
 
+require 'capybara'
+
 Dir[Pathname.new(__FILE__).join('..', 'support', '**', '*.rb')].each { |f| require f }
 
 

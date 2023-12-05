@@ -35,53 +35,55 @@ Feature: Web steps
   Scenario: /^the "([^\"]*)" field should( not)? have an error$/
     When I go to "/forms/invalid_rails_form"
     Then the "A" field should have an error
-    Then the "B" field should have an error
-    Then the "Disabled" field should have an error
-    Then the "C" field should not have an error
+      And the "B" field should have an error
+      And the "Disabled" field should have an error
+      And the "C" field should not have an error
+      And the "Nested field" field should have an error
 
     When I go to "/forms/invalid_bootstrap3_form"
     Then the "A" field should have an error
-    Then the "B" field should have an error
-    Then the "Disabled" field should have an error
-    Then the "C" field should not have an error
+      And the "B" field should have an error
+      And the "Disabled" field should have an error
+      And the "C" field should not have an error
 
     When I go to "/forms/invalid_bootstrap4_form"
     Then the "A" field should have an error
-    Then the "B" field should have an error
-    Then the "Disabled" field should have an error
-    Then the "C" field should not have an error
+      And the "B" field should have an error
+      And the "Disabled" field should have an error
+      And the "C" field should not have an error
 
     When I set the custom field error class to "my-error"
       And I go to "/forms/invalid_custom_form"
     Then the "A" field should have an error
-    Then the "B" field should have an error
-    Then the "Disabled" field should have an error
-    Then the "C" field should not have an error
+      And the "B" field should have an error
+      And the "Disabled" field should have an error
+      And the "C" field should not have an error
 
 
   @javascript @field_errors
   Scenario: /^the "([^"]*)" field should have the error "([^"]*)"$/
     When I go to "/forms/invalid_rails_form"
     Then the "A" field should have the error "is invalid"
-    Then the "B" field should have the error "is invalid"
-    Then the "Disabled" field should have the error "is invalid"
+      And the "B" field should have the error "is invalid"
+      And the "Disabled" field should have the error "is invalid"
+      And the "Nested field" field should have an error
 
     When I go to "/forms/invalid_bootstrap3_form"
     Then the "A" field should have the error "is invalid"
-    Then the "B" field should have the error "is invalid"
-    Then the "Disabled" field should have the error "is invalid"
+      And the "B" field should have the error "is invalid"
+      And the "Disabled" field should have the error "is invalid"
 
     When I go to "/forms/invalid_bootstrap4_form"
     Then the "A" field should have the error "is invalid"
-    Then the "B" field should have the error "is invalid"
-    Then the "Disabled" field should have the error "is invalid"
+      And the "B" field should have the error "is invalid"
+      And the "Disabled" field should have the error "is invalid"
 
     When I set the custom field error class to "my-error"
       And I set the custom error message xpath to "parent::*/child::*[contains(@class, "my-error-description")]"
       And I go to "/forms/invalid_custom_form"
-    Then the "A" field should have the error "is invalid"
-    Then the "B" field should have the error "is invalid"
-    Then the "Disabled" field should have the error "is invalid"
+      And the "A" field should have the error "is invalid"
+      And the "B" field should have the error "is invalid"
+      And the "Disabled" field should have the error "is invalid"
 
   Scenario: /^I should see a form with the following values:$/
     When I go to "/forms/form1"

@@ -1,13 +1,5 @@
 require 'spreewald_support/tolerance_for_selenium_sync_issues'
 
-module Capybara
-  class ElementNotFound < StandardError; end
-
-  class << self
-    attr_accessor :default_max_wait_time
-  end
-end
-
 describe ToleranceForSeleniumSyncIssues do
   subject { World.new }
   let(:wait_time) { 0.2 }
