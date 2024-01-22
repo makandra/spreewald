@@ -41,7 +41,7 @@ Then 'console' do
       irb.eval_input
     end
   ensure
-    IRB.irb_at_exit
+    IRB.conf[:AT_EXIT].each{ |hook| hook.call }
   end
 end.overridable
 
