@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 4.6.1
+- Fix undefined method `irb_at_exit` in new IRB versions ([#208](https://github.com/makandra/spreewald/pull/208))
+
 ## 4.6.0
 - Spreewald now explicitly depends on Capybara. We don't expect anyone used it without Capybara in the first place.
 - Changes to "the ... field should (not) have (an error|the error ...)" step:
