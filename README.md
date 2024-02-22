@@ -211,6 +211,10 @@ the step definitions.
 
 ### email_steps.rb 
 
+  When specifying the `to`, `cc`, `bcc`, `from` or `reply_to` targets within email steps, you can either specify email addresses or any arbitrary identifier. When an identifier (other than an email address) is given, Spreewald can try to use this information to determine the associated user and gather its email address automatically over the application's `User` model. For this, you may set `Spreewald::MailFinder.user_identity` to an attribute name and Spreewald will call `User.find_by_<user_identity>(identifier)` and then use the `email` of the found user.<br/>
+
+  For example, if you set `reply_to` to the name `John Doe` within a scenario step and specify `Spreewald::MailFinder.user_identity = 'name'`, Spreewald will call `User.find_by_name('John Doe')`, find the according user with this name and expect its email address as `reply_to`.
+
 * **When I clear my e?mails**
 
 
@@ -568,7 +572,11 @@ deprecation notice. Decide for yourself whether you want to use them:
 
 * **Then the "..." field should have the error "..."**
 
-  Checks that an input field was wrapped with a validation error
+  Checks that an input field was wrapped with a validation error. This is done by checking for different error HTML structures that display errors.<br/><br/>
+
+  Spreewald first checks for custom error wrappers (if specified), then Boostrap 3 error wrappers (`.form-group.has-error`), then Bootstrap 4/5 error wrappers (`:invalid` or `is-invalid`) and lastly, Rails error wrappers (`field_with_errors`). You are able to specify a custom error wrapper by setting `Spreewald.field_error_class = 'my-custom-error-class'` which is then used to look for the error class on the current or any ancestor `div`.<br /><br />
+
+  The same principle applies for matching the error message. First, it will look for the message text (starting from the input element) with a custom XPath (if specified), then one targeting a sibling element with a `help-block` class for Bootstrap 3 and then one targeting a sibling element with an `invalid-feedback` class for Bootstrap 4/5. Rails errors are checked specifically over the field title as this one contains the error message. You may specify the custom XPath by setting (e.g.) `Spreewald.error_message_xpath_selector = 'parent::*/child::*[@class="my-error-message"]'`.
 
 
 * **Then the "..." field should( not)? have an error**
