@@ -620,7 +620,9 @@ When /^I fill in "([^"]*)" with "([^"]*)" inside any "([^"]*)"$/ do |field, valu
   containers = all(:css, selector)
   input = nil
   containers.detect do |container|
-    input = container.first(:xpath, XPath::HTML.fillable_field(field))
+    input = container.first(:fillable_field, field)
+  rescue Capybara::ElementNotFound
+    # Capybara changed the behavior of #first and raises an error when the first container finds no matching field
   end
   if input
     input.set(value)

@@ -12,6 +12,9 @@ class FormsController < ApplicationController
   def form2
   end
 
+  def form_with_two_inputs_in_separate_css_blocks_with_the_same_selector
+  end
+
   def select_fields
   end
 

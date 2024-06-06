@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get '/forms/disabled_elements', to: 'forms#disabled_elements'
   get '/forms/form1', to: 'forms#form1'
   get '/forms/form2', to: 'forms#form2'
+  get '/forms/form_with_two_inputs_in_separate_css_blocks_with_the_same_selector', to: 'forms#form_with_two_inputs_in_separate_css_blocks_with_the_same_selector'
   get '/forms/select_fields', to: 'forms#select_fields'
   get '/forms/invalid_rails_form', to: 'forms#invalid_rails_form'
   get '/forms/invalid_bootstrap3_form', to: 'forms#invalid_bootstrap3_form'
