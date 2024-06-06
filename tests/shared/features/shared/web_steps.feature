@@ -416,3 +416,13 @@ Feature: Web steps
   Scenario: /^the window should be titled "([^"]*)"$/
     When I go to "/static_pages/home"
     Then the window should be titled "spreewald test application"
+
+
+  Scenario: I fill in "..." with "..." inside any "..."
+    When I go to "/forms/form_with_two_inputs_in_separate_css_blocks_with_the_same_selector"
+    Then the "First Text field" field should contain "First value"
+      And the "Second Text field" field should contain "Second value"
+
+    When I fill in "Second Text field" with "My new value" inside any ".my-container"
+    Then the "First Text field" field should contain "First value"
+      And the "Second Text field" field should contain "My new value"
