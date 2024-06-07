@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 4.6.2
+- Fix uninitialized constant `XPath::HTML` when using `When I fill in "..." with "..." inside any "..."` ([#210](https://github.com/makandra/spreewald/issues/210))
+
 ## 4.6.1
 - Fix undefined method `irb_at_exit` in new IRB versions ([#208](https://github.com/makandra/spreewald/pull/208))
 
