@@ -93,4 +93,26 @@ describe Spreewald::Steps::ShowMeTheMails do
       expect { step.run }.to output(expected_output).to_stdout
     end
   end
+
+  context "with attachments" do
+    it 'includes the filenames of the attachments' do
+      mail = Mail.new do
+        attachments['attached_file.pdf'] = File.open("tests/shared/public/fixture_files/attachment.pdf") {}
+        attachments['other_attached_file.pdf'] = File.open("tests/shared/public/fixture_files/attachment.pdf") {}
+      end
+
+      expected_output = <<~TXT
+        E-Mail #0
+        --------------------------------------------------------------------------------
+        From: 
+        Subject: 
+        Attachments: attached_file.pdf, other_attached_file.pdf
+        --------------------------------------------------------------------------------
+
+      TXT
+      step = Spreewald::Steps::ShowMeTheMails.new([mail], true)
+      expect { step.run }.to output(expected_output).to_stdout
+    end
+  end
+
 end

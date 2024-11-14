@@ -297,6 +297,24 @@ Feature: Test Spreewald's email steps
         '''
       """
 
+    Then the following multiline step should succeed:
+      """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Attachments: attached_file.pdf
+        '''
+      """
+
+    Then the following multiline step should fail:
+      """
+      Then an email should have been sent with:
+        '''
+        From: from@example.com
+        Attachments: not_attached_file.pdf
+        '''
+      """
+
     When I clear my emails
       And I go to "/emails/send_crlf_email"
 

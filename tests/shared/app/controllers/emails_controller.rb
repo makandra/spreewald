@@ -67,14 +67,7 @@ class EmailsController < ApplicationController
   private
 
   def deliver(method_name)
-    case
-    when Rails.version.to_i >= 5
-      SpreewaldMailer.send(method_name).deliver
-    when Rails.version.to_i >= 3
-      Mailer.public_send(method_name).deliver
-    else
-      Mailer.public_send("deliver_#{method_name}")
-    end
+    SpreewaldMailer.send(method_name).deliver
   end
 
 end

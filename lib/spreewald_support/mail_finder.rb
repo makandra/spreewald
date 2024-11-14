@@ -24,7 +24,6 @@ class MailFinder
         body = [header, body].join("\n\n")
       end
 
-      filename_method = Rails::VERSION::MAJOR < 3 ? 'original_filename' : 'filename'
       matching_header = ActionMailer::Base.deliveries.select do |mail|
         [ conditions[:to].nil? || mail.to.include?(resolve_email conditions[:to]),
           conditions[:cc].nil? || mail.cc && mail.cc.include?(resolve_email conditions[:cc]),
@@ -32,7 +31,7 @@ class MailFinder
           conditions[:from].nil? || mail.from.include?(resolve_email conditions[:from]),
           conditions[:reply_to].nil? || mail.reply_to.include?(resolve_email conditions[:reply_to]),
           conditions[:subject].nil? || mail.subject.include?(conditions[:subject]),
-          conditions[:attachments].nil? || conditions[:attachments].split(/\s*,\s*/).sort == Array(mail.attachments).collect(&:"#{filename_method}").sort
+          conditions[:attachments].nil? || conditions[:attachments].split(/\s*,\s*/).sort == attachment_filenames(mail)
         ].all?
       end
 
@@ -64,6 +63,9 @@ class MailFinder
       header << "CC: #{mail.cc.join(', ')}\n" if mail.cc
       header << "BCC: #{mail.bcc.join(', ')}\n" if mail.bcc
       header << "Subject: #{mail.subject}\n"
+      header << "Attachments: #{attachment_filenames(mail).join(', ')}\n" if mail.attachments.any?
+
+      header
     end
 
     def email_text_body(mail, type = '')
@@ -92,6 +94,12 @@ class MailFinder
       expected.gsub! '\n\Z', '\Z'
 
       Regexp.new(expected)
+    end
+
+    private
+
+    def attachment_filenames(mail)
+      Array(mail.attachments).collect(&:filename).sort
     end
 
   end
