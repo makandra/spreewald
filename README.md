@@ -14,6 +14,9 @@
   </picture>
 </p>
 
+[![Tests](https://github.com/makandra/spreewald/workflows/Tests/badge.svg)](https://github.com/makandra/spreewald/actions)
+
+
 Spreewald is a collection of useful steps for cucumber. Feel free to fork.
 
 You can find a list of all contained steps at the end of this README.
