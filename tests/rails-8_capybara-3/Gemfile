@@ -1,0 +1,27 @@
+source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+ruby '3.2.0'
+
+gem 'rails', '~>7'
+gem 'sqlite3'
+gem 'haml-rails'
+gem 'gemika'
+gem 'rexml'
+gem 'webrick'
+
+group :development, :test do
+  gem 'byebug'
+  gem 'pry'
+end
+
+group :test do
+  gem 'database_cleaner'
+  gem 'capybara', "~>3"
+  gem 'capybara-screenshot'
+  gem 'cucumber-rails', require: false
+  gem 'cucumber'
+  gem 'selenium-webdriver'
+  gem 'rspec-rails'
+  gem 'spreewald', :path => '../..'
+end

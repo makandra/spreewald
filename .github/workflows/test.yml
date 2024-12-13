@@ -16,6 +16,8 @@ jobs:
         include:
         - ruby: 3.2.0
           gemfile: tests/rails-7_capybara-3/Gemfile
+        - ruby: 3.2.0
+          gemfile: tests/rails-8_capybara-3/Gemfile
         # Used to run rspec and integration tests for spreewald binary:
         - ruby: 2.6.6
           gemfile: Gemfile.ruby266
