@@ -480,6 +480,15 @@ deprecation notice. Decide for yourself whether you want to use them:
   Attach a file to a file upload form field
 
 
+* **When I attach the files \[...\] to "..."**
+
+  Attach multiple files to a file upload form field
+  
+  Example:
+  
+      And attach the files ["file_1.jpg", "file_2.png" and "file_3.webp"] to "My Files"
+
+
 * **Then I should( not)? see "..."**
 
   Checks that some text appears on the page
