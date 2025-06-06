@@ -169,6 +169,22 @@ When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
   end
 end.overridable
 
+# Attach multiple files to a file upload form field
+#
+# Example:
+#
+#     And attach the files ["file_1.jpg", "file_2.png" and "file_3.webp"] to "My Files"
+When(/^(?:|I )attach the files \[(.+)\] to "(.+)"$/) do |path_list, field|
+  paths = path_list.scan(/"([^"]+)"/).flatten
+
+  options = { multiple: true }
+  options[:make_visible] = true if javascript_capable?
+
+  patiently do
+    attach_file(field, paths.map { |path| File.expand_path(path) }, **options)
+  end
+end.overridable
+
 # Checks that some text appears on the page
 #
 # Note that this does not detect if the text might be hidden via CSS
