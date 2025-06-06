@@ -1,7 +1,7 @@
 PATH
   remote: ../..
   specs:
-    spreewald (4.6.3)
+    spreewald (4.6.4)
       capybara
       cucumber
       cucumber_priority (>= 0.3.0)
@@ -134,7 +134,7 @@ GEM
     cucumber-wire (6.2.1)
       cucumber-core (~> 10.1, >= 10.1.0)
       cucumber-cucumber-expressions (~> 14.0, >= 14.0.0)
-    cucumber_priority (0.3.3)
+    cucumber_priority (1.0.0)
       cucumber
     database_cleaner (2.0.1)
       database_cleaner-active_record (~> 2.0.0)

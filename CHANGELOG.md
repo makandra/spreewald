@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 4.6.4
+- New step `I attach the files ["file1", "file2" and "file3"] to "My Uploads"`
+
 ## 4.6.3
 - Fix email steps not showing the attachments 
 
