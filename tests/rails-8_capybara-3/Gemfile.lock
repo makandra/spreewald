@@ -1,7 +1,7 @@
 PATH
   remote: ../..
   specs:
-    spreewald (4.6.3)
+    spreewald (4.6.4)
       capybara
       cucumber
       cucumber_priority (>= 0.3.0)
@@ -136,7 +136,7 @@ GEM
       cucumber (>= 5, < 10)
       railties (>= 5.2, < 9)
     cucumber-tag-expressions (6.1.1)
-    cucumber_priority (0.3.3)
+    cucumber_priority (1.0.0)
       cucumber
     database_cleaner (2.1.0)
       database_cleaner-active_record (>= 2, < 3)
@@ -248,7 +248,7 @@ GEM
     reline (0.5.12)
       io-console (~> 0.5)
     rexml (3.3.9)
-    rspec (3.13.0)
+    rspec (3.13.1)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
       rspec-mocks (~> 3.13.0)
