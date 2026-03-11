@@ -141,14 +141,14 @@ end.overridable
 # Check a checkbox
 When /^(?:|I )check "([^"]*)"$/ do |field|
   patiently do
-    check(field)
+    check(field, allow_label_click: true)
   end
 end.overridable
 
 # Uncheck a checkbox
 When /^(?:|I )uncheck "([^"]*)"$/ do |field|
   patiently do
-    uncheck(field)
+    uncheck(field, allow_label_click: true)
   end
 end.overridable
 
