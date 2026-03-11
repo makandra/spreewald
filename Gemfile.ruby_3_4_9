@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.6.6'
+ruby '3.4.9'
 
 gemspec
 
@@ -10,5 +10,5 @@ gem 'cucumber'
 gem 'aruba'
 
 gem 'gemika'
-gem 'mail'
+gem 'mail', '~> 2.8.0'
 gem 'nokogiri'
