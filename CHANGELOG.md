@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 4.6.6
+- Add support for Ruby 4.0
+
+## 4.6.5
+- Drop support for Ruby < 3.2
+- Allow Capybara to click on labels instead of inputs for checkboxes
+
 ## 4.6.4
 - New step `I attach the files ["file1", "file2" and "file3"] to "My Uploads"`
 
