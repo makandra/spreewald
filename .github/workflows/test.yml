@@ -20,13 +20,19 @@ jobs:
           gemfile: tests/rails-7_capybara-3/Gemfile
         - ruby: 3.3.10
           gemfile: tests/rails-8_capybara-3/Gemfile
+        - ruby: 3.4.9
+          gemfile: tests/rails-8_capybara-3/Gemfile
+        - ruby: 4.0.3
+          gemfile: tests/rails-8_capybara-3/Gemfile
         # Used to run rspec and integration tests for spreewald binary:
         - ruby: 3.2.0
-          gemfile: Gemfile.ruby_3_2_0
+          gemfile: Gemfile.ruby_3_2
         - ruby: 3.3.10
-          gemfile: Gemfile.ruby_3_3_10
+          gemfile: Gemfile.ruby_3_3
         - ruby: 3.4.9
-          gemfile: Gemfile.ruby_3_4_9
+          gemfile: Gemfile.ruby_3_4
+        - ruby: 4.0.3
+          gemfile: Gemfile.ruby_4_0
     env:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
 

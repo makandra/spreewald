@@ -1,0 +1,14 @@
+source 'https://rubygems.org'
+
+ruby '~> 3.2'
+
+gemspec
+
+gem 'rake'
+gem 'rspec'
+gem 'cucumber'
+gem 'aruba'
+
+gem 'gemika'
+gem 'mail', '~> 2.8.0'
+gem 'nokogiri'

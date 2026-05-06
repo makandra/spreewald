@@ -12,8 +12,8 @@ describe Spreewald::Steps::FollowTheLink do
       end
     end
 
-    step = ->() { Spreewald::Steps::FollowTheLink.new(mail_without_links, "first").run }
-    expect(step).to raise_error Spreewald::Steps::FollowTheLink::NoVisitableLinkFound
+    step = Spreewald::Steps::FollowTheLink.new(mail_without_links, "first")
+    expect { step.run }.to raise_error Spreewald::Steps::FollowTheLink::NoVisitableLinkFound
   end
 
   it "finds links in multipart html email" do
