@@ -56,7 +56,7 @@ class MailFinder
     end
 
     def header_representation(mail)
-      header = ""
+      header = +""
       header << "From: #{mail.from}\n"
       header << "Reply-To: #{mail.reply_to.join(', ')}\n" if mail.reply_to
       header << "To: #{mail.to.join(', ')}\n" if mail.to
@@ -73,7 +73,7 @@ class MailFinder
     end
 
     def show_mails(mails, only_header = false)
-      message = ""
+      message = +""
       mails.each_with_index do |mail, i|
         message << "E-Mail ##{i}\n"
         message <<  "-" * 80 + "\n"
