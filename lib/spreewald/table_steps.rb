@@ -120,7 +120,7 @@ World(TableStepsHelper)
 # Check the content of tables in your HTML.
 #
 # See [this article](https://makandracards.com/makandra/763-cucumber-step-to-match-table-rows-with-capybara) for details.
-Then /^I should( not)? see a table with (exactly )?the following rows( in any order)?:?$/ do |negate, exactly, unordered, expected_table|
+Then(/^I should( not)? see a table with (exactly )?the following rows( in any order)?:?$/) do |negate, exactly, unordered, expected_table|
   patiently do
     document = Nokogiri::HTML(page.body)
     tables = document.xpath('//table').collect { |table| table.xpath('.//tr').collect { |row| row.xpath('.//th|td') } }

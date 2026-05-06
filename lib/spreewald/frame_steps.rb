@@ -6,7 +6,7 @@
 #     Then I should see "Cherry" inside the fruits iframe
 #     When I press "Save" inside the 2nd iframe
 #
-When /^(.*?) inside the (.*?) iframe$/ do |nested_step, frame_identifier|
+When(/^(.*?) inside the (.*?) iframe$/) do |nested_step, frame_identifier|
   patiently do
     frame = find_frame(frame_identifier)
     page.within_frame(frame) do
@@ -16,7 +16,7 @@ When /^(.*?) inside the (.*?) iframe$/ do |nested_step, frame_identifier|
 end.overridable
 
 # nodoc
-When /^(.*?) inside the (.*?) iframe:$/ do |nested_step, frame_identifier, table_or_string|
+When(/^(.*?) inside the (.*?) iframe:$/) do |nested_step, frame_identifier, table_or_string|
   patiently do
     frame = find_frame(frame_identifier)
     page.within_frame(frame) do

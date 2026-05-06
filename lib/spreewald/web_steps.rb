@@ -44,7 +44,7 @@ require 'cgi'
 # Example:
 #
 #     Then I should see "some text" within ".page_body"
-When /^(.*) within (.*[^:])$/ do |nested_step, parent|
+When(/^(.*) within (.*[^:])$/) do |nested_step, parent|
   selector = _selector_for(parent)
   if selector.is_a?(String) || selector.is_a?(Array) # could also be a Capybara::Node::Element
     patiently do
@@ -58,21 +58,21 @@ When /^(.*) within (.*[^:])$/ do |nested_step, parent|
 end.overridable(:priority => -1)
 
 # nodoc
-When /^(.*) within (.*[^:]):$/ do |nested_step, parent, table_or_string|
+When(/^(.*) within (.*[^:]):$/) do |nested_step, parent, table_or_string|
   patiently do
     with_scope(parent) { step("#{nested_step}:", table_or_string) }
   end
 end.overridable(:priority => -1)
 
-Given /^(?:|I )am on (.+)$/ do |page_name|
+Given(/^(?:|I )am on (.+)$/) do |page_name|
   visit _path_to(page_name)
 end.overridable
 
-When /^(?:|I )go to (.+)$/ do |page_name|
+When(/^(?:|I )go to (.+)$/) do |page_name|
   visit _path_to(page_name)
 end.overridable
 
-Then /^(?:|I )should be on (.+)$/ do |page_name|
+Then(/^(?:|I )should be on (.+)$/) do |page_name|
   patiently do
     fragment = URI.parse(current_url).fragment
     fragment.sub!(/[#?].*/, '') if fragment # most js frameworks will usually use ? and # for params, we dont care about those
@@ -88,20 +88,20 @@ Then /^(?:|I )should be on (.+)$/ do |page_name|
   end
 end.overridable
 
-When /^(?:|I )press "([^"]*)"$/ do |button|
+When(/^(?:|I )press "([^"]*)"$/) do |button|
   patiently do
     click_button(button)
   end
 end.overridable
 
-When /^(?:|I )follow "([^"]*)"$/ do |link|
+When(/^(?:|I )follow "([^"]*)"$/) do |link|
   patiently do
     click_link(link)
   end
 end.overridable
 
 # Fill in text field
-When /^(?:|I )fill in "([^"]*)" (?:with|for) "([^"]*)"$/ do |field, value|
+When(/^(?:|I )fill in "([^"]*)" (?:with|for) "([^"]*)"$/) do |field, value|
   patiently do
     fill_in(field, :with => value)
   end
@@ -118,49 +118,49 @@ end.overridable
 #     Banana
 #     Pear
 #     """
-When /^(?:|I )fill in "([^"]*)" (?:with|for):$/ do |field, value|
+When(/^(?:|I )fill in "([^"]*)" (?:with|for):$/) do |field, value|
   patiently do
     fill_in(field, :with => value)
   end
 end.overridable
 
 # Fill in text field
-When /^(?:|I )fill in "([^"]*)" (?:with|for) '(.*)'$/ do |field, value|
+When(/^(?:|I )fill in "([^"]*)" (?:with|for) '(.*)'$/) do |field, value|
   patiently do
     fill_in(field, :with => value)
   end
 end.overridable
 
 # Select from select box
-When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
+When(/^(?:|I )select "([^"]*)" from "([^"]*)"$/) do |value, field|
   patiently do
     select(value, :from => field)
   end
 end.overridable
 
 # Check a checkbox
-When /^(?:|I )check "([^"]*)"$/ do |field|
+When(/^(?:|I )check "([^"]*)"$/) do |field|
   patiently do
     check(field, allow_label_click: true)
   end
 end.overridable
 
 # Uncheck a checkbox
-When /^(?:|I )uncheck "([^"]*)"$/ do |field|
+When(/^(?:|I )uncheck "([^"]*)"$/) do |field|
   patiently do
     uncheck(field, allow_label_click: true)
   end
 end.overridable
 
 # Select a radio button
-When /^(?:|I )choose "([^"]*)"$/ do |field|
+When(/^(?:|I )choose "([^"]*)"$/) do |field|
   patiently do
     choose(field)
   end
 end.overridable
 
 # Attach a file to a file upload form field
-When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
+When(/^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/) do |path, field|
   options = {}
   options[:make_visible] = true if javascript_capable?
 
@@ -188,7 +188,7 @@ end.overridable
 # Checks that some text appears on the page
 #
 # Note that this does not detect if the text might be hidden via CSS
-Then /^(?:|I )should( not)? see "([^"]*)"$/ do |negate, text|
+Then(/^(?:|I )should( not)? see "([^"]*)"$/) do |negate, text|
   expectation = negate ? :not_to : :to
 
   patiently do
@@ -199,7 +199,7 @@ end.overridable
 # Checks that a regexp appears on the page
 #
 # Note that this does not detect if the text might be hidden via CSS
-Then /^(?:|I )should( not)? see \/(.*)\/$/ do |negate, regexp|
+Then(/^(?:|I )should( not)? see \/(.*)\/$/) do |negate, regexp|
   expectation = negate ? :not_to : :to
   regexp = Regexp.new(regexp)
 
@@ -209,7 +209,7 @@ Then /^(?:|I )should( not)? see \/(.*)\/$/ do |negate, regexp|
 end.overridable
 
 # Checks for the existance of an input field (given its id or label)
-Then /^I should( not)? see a field "([^"]*)"$/ do |negate, name|
+Then(/^I should( not)? see a field "([^"]*)"$/) do |negate, name|
   if negate
     expect(page).to have_no_field(name)
   else
@@ -224,7 +224,7 @@ end.overridable
 # Checks for an unexpected minus sign, correct decimal places etc.
 #
 # See [here](https://makandracards.com/makandra/1225-test-that-a-number-or-money-amount-is-shown-with-cucumber) for details
-Then /^I should( not)? see the (?:number|amount) ([\-\d,\.]+)(?: (.*?))?$/ do |negate, amount, unit|
+Then(/^I should( not)? see the (?:number|amount) ([\-\d,\.]+)(?: (.*?))?$/) do |negate, amount, unit|
   expect_to_match = negate ? :not_to : :to
   is_negative = amount.start_with?('-')
   absolute_amount = amount.gsub(/^-/, '')
@@ -246,7 +246,7 @@ end.overridable(priority: -5) # priority lower than within
 
 # Like `Then I should see`, but with single instead of double quotes. In case
 # the expected string contains quotes as well.
-Then /^(?:|I )should( not)? see '([^']*)'$/ do |negate, text|
+Then(/^(?:|I )should( not)? see '([^']*)'$/) do |negate, text|
   expectation = negate ? :not_to : :to
 
   patiently do
@@ -255,7 +255,7 @@ Then /^(?:|I )should( not)? see '([^']*)'$/ do |negate, text|
 end.overridable
 
 # Check that the raw HTML contains a string
-Then /^I should( not)? see "([^\"]*)" in the HTML$/ do |negate, text|
+Then(/^I should( not)? see "([^\"]*)" in the HTML$/) do |negate, text|
   expectation = negate ? :not_to : :to
 
   patiently do
@@ -264,7 +264,7 @@ Then /^I should( not)? see "([^\"]*)" in the HTML$/ do |negate, text|
 end.overridable
 
 # Checks that status code is 400..599
-Then /^I should see an error$/ do
+Then(/^I should see an error$/) do
   expect((400 .. 599)).to include(page.status_code)
 end.overridable
 
@@ -276,7 +276,7 @@ end.overridable
 #     Then I should see the element ".panel"
 #     Then I should not see an element ".sidebar"
 #     Then I should not see the element ".sidebar"
-Then /^I should( not)? see (?:an|the) element "([^"]+)"$/ do |negate, selector|
+Then(/^I should( not)? see (?:an|the) element "([^"]+)"$/) do |negate, selector|
   expectation = negate ? :not_to : :to
   patiently do
     expect(page).send(expectation, have_css(selector))
@@ -291,7 +291,7 @@ end.overridable
 #     Then I should see the element for the panel
 #     Then I should not see an element for the sidebar
 #     Then I should not see the element for the sidebar
-Then /^I should( not)? see (?:an|the) element for (.*?)$/ do |negate, locator|
+Then(/^I should( not)? see (?:an|the) element for (.*?)$/) do |negate, locator|
   expectation = negate ? :not_to : :to
   selector = _selector_for(locator)
   patiently do
@@ -309,7 +309,7 @@ end.overridable(:priority => -5) # priority must be lower than the "within" step
 #       | Augsburg    |
 #       | Berlin      |
 #       | Beta Group  |
-Then /^I should see in this order:?$/ do |text|
+Then(/^I should see in this order:?$/) do |text|
   if text.is_a?(String)
     lines = text.split(/\n/)
   else
@@ -324,14 +324,14 @@ Then /^I should see in this order:?$/ do |text|
 end.overridable
 
 # Checks that the page contains a link with a given text or title attribute.
-Then /^I should( not)? see a link labeled "([^"]*)"$/ do |negate, label|
+Then(/^I should( not)? see a link labeled "([^"]*)"$/) do |negate, label|
   expectation = negate ? :not_to : :to
   link = page.first('a', :text => label, minimum: 0) || page.first(%(a[title="#{label}"]), minimum: 0)
   expect(link).send(expectation, be_present)
 end.overridable
 
 # Checks that an input field contains some value (allowing * as wildcard character)
-Then /^the "([^"]*)" field should( not)? contain "([^"]*)"$/ do |label, negate, expected_string|
+Then(/^the "([^"]*)" field should( not)? contain "([^"]*)"$/) do |label, negate, expected_string|
   patiently do
     field = find_with_disabled(:field, label)
     field_value = case field.tag_name
@@ -365,7 +365,7 @@ end.overridable
 #     Then I should see a form with the following values:
 #       | E-mail | foo@bar.com   |
 #       | Role   | Administrator |
-Then /^I should see a form with the following values:$/ do |table|
+Then(/^I should see a form with the following values:$/) do |table|
   expectations = table.raw
   expectations.each do |label, expected_value|
     step %(the "#{label}" field should contain "#{expected_value}")
@@ -373,7 +373,7 @@ Then /^I should see a form with the following values:$/ do |table|
 end.overridable
 
 # Checks that an input field was wrapped with a validation error
-Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_message|
+Then(/^the "([^"]*)" field should have the error "([^"]*)"$/) do |field, error_message|
   patiently do
     element = find_with_disabled(:field, field)
     field_error_finder = Spreewald::FieldErrorFinder.new(page, element)
@@ -404,7 +404,7 @@ Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_me
   end
 end.overridable
 
-Then /^the "([^\"]*)" field should( not)? have an error$/ do |label, negate|
+Then(/^the "([^\"]*)" field should( not)? have an error$/) do |label, negate|
   patiently do
     expectation = negate ? :not_to : :to
     element = find_with_disabled(:field, label)
@@ -414,7 +414,7 @@ Then /^the "([^\"]*)" field should( not)? have an error$/ do |label, negate|
   end
 end.overridable
 
-Then /^the "([^"]*)" checkbox should( not)? be checked?$/ do |label, negate|
+Then(/^the "([^"]*)" checkbox should( not)? be checked?$/) do |label, negate|
   expectation = negate ? :not_to : :to
 
   patiently do
@@ -423,7 +423,7 @@ Then /^the "([^"]*)" checkbox should( not)? be checked?$/ do |label, negate|
   end
 end.overridable
 
-Then /^the radio button "([^"]*)" should( not)? be (?:checked|selected)$/ do |field, negate|
+Then(/^the radio button "([^"]*)" should( not)? be (?:checked|selected)$/) do |field, negate|
   patiently do
     expect(page.send((negate ? :has_no_checked_field? : :has_checked_field?), field)).to eq(true)
   end
@@ -436,7 +436,7 @@ end.overridable
 #       | currency_code | EUR |
 #
 # Succeeds when the URL contains the given `locale` and `currency_code` params
-Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
+Then(/^(?:|I )should have the following query string:$/) do |expected_pairs|
   patiently do
     query = URI.parse(current_url).query
     actual_params = query ? CGI.parse(query) : {}
@@ -448,7 +448,7 @@ Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
 end.overridable
 
 # Open the current Capybara page using the `launchy` or `capybara_screenshot` gem
-Then /^show me the page$/ do
+Then(/^show me the page$/) do
   if defined? Capybara::Screenshot
     screenshot_and_save_page
   elsif defined? Launchy
@@ -460,14 +460,14 @@ end.overridable
 
 
 # Checks `Content-Type` HTTP header
-Then /^I should get a response with content-type "([^\"]*)"$/ do |expected_content_type|
+Then(/^I should get a response with content-type "([^\"]*)"$/) do |expected_content_type|
   expect(page.response_headers['Content-Type']).to match /\A#{Regexp.quote(expected_content_type)}($|;)/
 end.overridable
 
 # Checks `Content-Disposition` HTTP header
 #
 # Attention: Doesn't work with Selenium, see https://github.com/jnicklas/capybara#gotchas
-Then /^I should get a download with filename "([^\"]*)"$/ do |filename|
+Then(/^I should get a download with filename "([^\"]*)"$/) do |filename|
   content_disposition = page.response_headers['Content-Disposition']
   expect(content_disposition).to be_present
 
@@ -483,11 +483,11 @@ Then /^I should get a download with filename "([^\"]*)"$/ do |filename|
 end.overridable
 
 # Checks that a certain option is selected for a text field
-Then /^"([^"]*)" should( not)? be selected for "([^"]*)"$/ do |value, invert, field|
+Then(/^"([^"]*)" should( not)? be selected for "([^"]*)"$/) do |value, invert, field|
   step %(the "#{field}" field should#{invert} contain "#{value}")
 end.overridable
 
-Then /^nothing should be selected for "([^"]*)"$/ do |field|
+Then(/^nothing should be selected for "([^"]*)"$/) do |field|
   patiently do
     select = find_with_disabled(:field, field)
     begin
@@ -500,7 +500,7 @@ Then /^nothing should be selected for "([^"]*)"$/ do |field|
 end.overridable
 
 # Checks for the presence of an option in a select
-Then /^"([^"]*)" should( not)? be an option for "([^"]*)"$/ do |value, negate, field|
+Then(/^"([^"]*)" should( not)? be an option for "([^"]*)"$/) do |value, negate, field|
   finder_arguments = if Spreewald::Comparison.compare_versions(Capybara::VERSION, :<, "2.12")
     { text: value }
   else
@@ -518,7 +518,7 @@ Then /^"([^"]*)" should( not)? be an option for "([^"]*)"$/ do |value, negate, f
   end
 end.overridable
 
-Then /^the window should be titled "([^"]*)"$/ do |title|
+Then(/^the window should be titled "([^"]*)"$/) do |title|
   patiently do
     if Spreewald::Comparison.compare_versions(Capybara::VERSION, :<, "2.1")
       expect(page).to have_selector("title", :content => title)
@@ -528,7 +528,7 @@ Then /^the window should be titled "([^"]*)"$/ do |title|
   end
 end.overridable
 
-When /^I reload the page$/ do
+When(/^I reload the page$/) do
   if javascript_capable?
     page.execute_script(<<-JAVASCRIPT)
         window.location.reload(true);
@@ -543,7 +543,7 @@ end.overridable
 # In a non-selenium test, we only check for `.hidden`, `.invisible` or `style: display:none`
 #
 # More details [here](https://makandracards.com/makandra/1049-capybara-check-that-a-page-element-is-hidden-via-css)
-Then /^(the tag )?"([^\"]+)" should be visible$/ do |tag, selector_or_text|
+Then(/^(the tag )?"([^\"]+)" should be visible$/) do |tag, selector_or_text|
   options = {}
   tag ? options.store(:selector, selector_or_text) : options.store(:text, selector_or_text)
 
@@ -553,7 +553,7 @@ end.overridable
 # Checks that an element is actually present and hidden, also considering styles.
 # Within a selenium test, the browser is asked whether the element is really hidden.
 # In a non-selenium test, we only check for `.hidden`, `.invisible` or `style: display:none`
-Then /^(the tag )?"([^\"]+)" should be hidden$/ do |tag, selector_or_text|
+Then(/^(the tag )?"([^\"]+)" should be hidden$/) do |tag, selector_or_text|
   options = {}
   tag ? options.store(:selector, selector_or_text) : options.store(:text, selector_or_text)
 
@@ -566,7 +566,7 @@ end.overridable
 #
 #     When I click on "Collapse"
 #
-When /^I click on "([^\"]+)"$/ do |text|
+When(/^I click on "([^\"]+)"$/) do |text|
   patiently do
     contains_text = %{contains(., \"#{text}\")}
     # find the innermost selector that matches
@@ -581,7 +581,7 @@ end.overridable
 #
 #     When I click on the element ".sidebar"
 #
-When /^I click on the element "([^"]+)"$/ do |selector|
+When(/^I click on the element "([^"]+)"$/) do |selector|
   patiently do
     page.find(selector).click
   end
@@ -592,7 +592,7 @@ end.overridable
 # Example:
 #
 #     When I click on the element for the sidebar
-When /^I click on the element for (.+?)$/ do |locator|
+When(/^I click on the element for (.+?)$/) do |locator|
   patiently do
     selector = _selector_for(locator)
     args, kwargs = deconstruct_selector(selector)
@@ -609,7 +609,7 @@ end.overridable(priority: -5) # priority lower than within
 # Don't forget the trailing slash. Otherwise you'll get the error
 #   expected: /http:\/\/makandra.com(\?[^\/]*)?$/
 #        got: "http://makandra.com/" (using =~)
-Then /^"([^"]*)" should link to "([^"]*)"$/ do |link_label, target|
+Then(/^"([^"]*)" should link to "([^"]*)"$/) do |link_label, target|
   patiently do
     link = find_link(link_label)
     expect(link[:href]).to match(/#{Regexp.escape target}(\?[^\/]*)?$/) # ignore trailing timestamps
@@ -622,17 +622,17 @@ end.overridable
 # Example:
 #
 #     When I follow "Read more" inside any ".text_snippet"
-When /^I follow "([^"]*)" inside any "([^"]*)"$/ do |label, selector|
+When(/^I follow "([^"]*)" inside any "([^"]*)"$/) do |label, selector|
   node = find("#{selector} a", :text => label)
   node.click
 end.overridable
 
-Then /^I should( not)? see "([^"]*)" inside any "([^"]*)"$/ do |negate, text, selector|
+Then(/^I should( not)? see "([^"]*)" inside any "([^"]*)"$/) do |negate, text, selector|
   expectation = negate ? :not_to : :to
   expect(page).send(expectation, have_css(selector, :text => text))
 end.overridable
 
-When /^I fill in "([^"]*)" with "([^"]*)" inside any "([^"]*)"$/ do |field, value, selector|
+When(/^I fill in "([^"]*)" with "([^"]*)" inside any "([^"]*)"$/) do |field, value, selector|
   containers = all(:css, selector)
   input = nil
   containers.detect do |container|
@@ -647,19 +647,19 @@ When /^I fill in "([^"]*)" with "([^"]*)" inside any "([^"]*)"$/ do |field, valu
   end
 end.overridable
 
-When /^I confirm the browser dialog$/ do
+When(/^I confirm the browser dialog$/) do
   patiently do
     browser.switch_to.alert.accept
   end
 end.overridable
 
-When /^I cancel the browser dialog$/ do
+When(/^I cancel the browser dialog$/) do
   patiently do
     browser.switch_to.alert.dismiss
   end
 end.overridable
 
-When /^I enter "([^"]*)" into the browser dialog$/ do |text|
+When(/^I enter "([^"]*)" into the browser dialog$/) do |text|
   patiently do
     alert = browser.switch_to.alert
     alert.send_keys(text)
@@ -668,7 +668,7 @@ When /^I enter "([^"]*)" into the browser dialog$/ do |text|
 end.overridable
 
 # Tests that an input, button, checkbox or radio button with the given label is disabled.
-Then /^the "([^\"]*)" (field|button|checkbox|radio button) should( not)? be disabled$/ do |label, kind, negate|
+Then(/^the "([^\"]*)" (field|button|checkbox|radio button) should( not)? be disabled$/) do |label, kind, negate|
   patiently do
     element = if kind == 'button'
       find_with_disabled(:button, label)
@@ -685,7 +685,7 @@ Then /^the "([^\"]*)" (field|button|checkbox|radio button) should( not)? be disa
 end.overridable
 
 # Tests that a field with the given label is visible.
-Then /^the "([^\"]*)" field should( not)? be visible$/ do |label, hidden|
+Then(/^the "([^\"]*)" field should( not)? be visible$/) do |label, hidden|
   if Spreewald::Comparison.compare_versions(Capybara::VERSION, :<, "2.1")
     field = find_with_disabled(:field, label)
   else
@@ -706,7 +706,7 @@ end.overridable
 # Performs HTTP basic authentication with the given credentials and visits the given path.
 #
 # More details [here](https://makandracards.com/makandra/971-perform-http-basic-authentication-in-cucumber).
-When /^I perform basic authentication as "([^\"]*)\/([^\"]*)" and go to (.*)$/ do |user, password, page_name|
+When(/^I perform basic authentication as "([^\"]*)\/([^\"]*)" and go to (.*)$/) do |user, password, page_name|
   path = _path_to(page_name)
   if javascript_capable?
     server = Capybara.current_session.server rescue Capybara.current_session.driver.rack_server
@@ -724,7 +724,7 @@ When /^I perform basic authentication as "([^\"]*)\/([^\"]*)" and go to (.*)$/ d
 end.overridable
 
 # Goes to the previously viewed page.
-When /^I go back$/ do
+When(/^I go back$/) do
   if javascript_capable?
     page.execute_script('window.history.back()')
   else
@@ -738,7 +738,7 @@ end.overridable
 
 # Tests whether a select field is sorted. Uses Array#natural_sort, if defined;
 # Array#sort else.
-Then /^the "(.*?)" select should( not)? be sorted$/ do |label, negate|
+Then(/^the "(.*?)" select should( not)? be sorted$/) do |label, negate|
   select = find_with_disabled(:field, label)
   options = select.all('option').reject { |o| o.value.blank? }
   option_texts = options.collect(&:text)

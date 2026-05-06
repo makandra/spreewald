@@ -8,7 +8,7 @@ Before do
   ActionMailer::Base.deliveries.clear
 end
 
-When /^I clear my e?mails$/ do
+When(/^I clear my e?mails$/) do
   ActionMailer::Base.deliveries.clear
 end.overridable
 
@@ -35,7 +35,7 @@ end.overridable
 # You may skip lines in the header.
 # Please note: In older versions of Spreewald, unmentioned body lines were skipped.
 # Now you have to use the asterisk explicitly to omit lines in the body.
-Then /^(an?|no)( HTML| plain-text|) e?mail should have been sent with:$/ do |mode, type, raw_data|
+Then(/^(an?|no)( HTML| plain-text|) e?mail should have been sent with:$/) do |mode, type, raw_data|
   patiently do
     results = MailFinder.find(raw_data, type.strip)
 
@@ -73,28 +73,28 @@ end.overridable
 
 # Please note that this step will only follow HTTP and HTTPS links.
 # Other links (such as mailto: or ftp:// links) are ignored.
-When /^I follow the (first|second|third)? ?link in the e?mail$/ do |index_in_words|
+When(/^I follow the (first|second|third)? ?link in the e?mail$/) do |index_in_words|
   mail = @mail || ActionMailer::Base.deliveries.last
   Spreewald::Steps::FollowTheLink.new(mail, index_in_words).run
 end.overridable
 
-Then /^no e?mail should have been sent$/ do
+Then(/^no e?mail should have been sent$/) do
   expect(ActionMailer::Base.deliveries).to be_empty
 end.overridable
 
 # Checks that the last sent email includes some text
-Then /^I should see "([^\"]*)" in the( HTML| plain-text|) e?mail$/ do |text, type|
+Then(/^I should see "([^\"]*)" in the( HTML| plain-text|) e?mail$/) do |text, type|
   expect(MailFinder.email_text_body(ActionMailer::Base.deliveries.last, type.strip)).to include(text)
 end.overridable
 
 # Print all sent emails to STDOUT (optionally only the headers).
-Then /^show me the e?mail( header)?s$/ do |only_header|
+Then(/^show me the e?mail( header)?s$/) do |only_header|
   Spreewald::Steps::ShowMeTheMails.new(ActionMailer::Base.deliveries, only_header).run
 end.overridable
 
 # Print a subset of all sent emails to STDOUT
 # This uses the same syntax as `Then an email should have been sent with:`
-Then /^show me the e?mail( header)?s with:$/ do |only_header, raw_data|
+Then(/^show me the e?mail( header)?s with:$/) do |only_header, raw_data|
   results = MailFinder.find(raw_data)
   if results.empty?
     if results.matching_header.empty?

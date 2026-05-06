@@ -1,7 +1,7 @@
 # coding: UTF-8
 
 # Marks scenario as pending, optionally explained with a reason.
-Then /^it should work(.+?)?$/ do |message|
+Then(/^it should work(.+?)?$/) do |message|
   pending(message)
 end.overridable
 
