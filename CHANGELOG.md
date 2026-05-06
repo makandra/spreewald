@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 4.6.7
+- Handle literal string will be frozen in the future warnings
+
 ## 4.6.6
 - Add support for Ruby 4.0
 

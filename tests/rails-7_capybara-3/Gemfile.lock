@@ -1,7 +1,7 @@
 PATH
   remote: ../..
   specs:
-    spreewald (4.6.6)
+    spreewald (4.6.7)
       capybara
       cucumber
       cucumber_priority (>= 0.3.0)
