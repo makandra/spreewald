@@ -1,3 +1,6 @@
+> [!important]
+> This gem is no longer maintained. Use [Mandoline](https://github.com/makandra/mandoline) to migrate your E2E tests from Cucumber to RSpec.
+
 <p>
   <a href="https://makandra.de/">
     <picture>
